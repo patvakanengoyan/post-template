@@ -1,0 +1,433 @@
+::ng-deep.virtual-scroll {
+  display: block;
+  width: 100%
+}
+
+::ng-deep.cuppa-dropdown {
+  position: relative
+}
+
+::ng-deep.c-btn {
+  display: inline-block;
+  border-width: 1px;
+  line-height: 1.25;
+  border-radius: 3px;
+  font-size: .85rem;
+  padding: 5px 10px;
+  cursor: pointer;
+  align-items: center;
+  min-height: 38px
+}
+
+::ng-deep.c-btn.disabled {
+  background: #ccc
+}
+
+::ng-deep.selected-list .c-list {
+  float: left;
+  padding: 0;
+  margin: 0;
+  width: calc(100% - 20px)
+}
+
+::ng-deep.selected-list .c-list .c-token {
+  list-style: none;
+  border-radius: 2px;
+  margin-right: 4px;
+  margin-top: 2px;
+  float: left;
+  position: relative;
+  padding: 4px 22px 4px 8px
+}
+
+::ng-deep.selected-list .c-list .c-token .c-label {
+  display: block;
+  float: left
+}
+
+::ng-deep.selected-list .c-list .c-token .c-remove {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 8px
+}
+
+::ng-deep.selected-list .c-list .c-token .c-remove svg {
+  fill: #fff
+}
+
+::ng-deep.selected-list .fa-angle-down, .selected-list .fa-angle-up {
+  font-size: 15pt;
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%)
+}
+
+::ng-deep.selected-list .c-angle-down, .selected-list .c-angle-up {
+  width: 12px;
+  height: 12px;
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none
+}
+
+::ng-deep.selected-list .c-angle-down svg, .selected-list .c-angle-up svg {
+  fill: #333
+}
+
+::ng-deep.selected-list .countplaceholder {
+  position: absolute;
+  right: 45px;
+  top: 50%;
+  transform: translateY(-50%)
+}
+
+::ng-deep.selected-list .c-btn {
+  width: 100%;
+  padding: 5px 10px;
+  cursor: pointer;
+  display: flex;
+  position: relative
+}
+
+::ng-deep.selected-list .c-btn .c-icon {
+  position: absolute;
+  right: 5px;
+  top: 50%;
+  transform: translateY(-50%)
+}
+
+::ng-deep.dropdown-list.tagToBody {
+  position: fixed
+}
+
+::ng-deep.dropdown-list {
+  position: absolute;
+  padding-top: 14px;
+  width: 100%;
+  z-index: 99999
+}
+
+::ng-deep.dropdown-list ul {
+  padding: 0;
+  list-style: none;
+  overflow: auto;
+  margin: 0
+}
+
+::ng-deep.dropdown-list ul li {
+  padding: 10px;
+  cursor: pointer;
+  text-align: left
+}
+
+::ng-deep.dropdown-list ul li:first-child {
+  padding-top: 10px
+}
+
+::ng-deep.dropdown-list ul li:last-child {
+  padding-bottom: 10px
+}
+
+::ng-deep.dropdown-list ::-webkit-scrollbar {
+  width: 8px
+}
+
+::ng-deep.dropdown-list ::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 5px
+}
+
+::ng-deep.dropdown-list ::-webkit-scrollbar-track {
+  background: #f2f2f2
+}
+
+::ng-deep.arrow-down, .arrow-up {
+  width: 0;
+  height: 0;
+  border-left: 13px solid transparent;
+  border-right: 13px solid transparent;
+  border-bottom: 15px solid #fff;
+  margin-left: 15px;
+  position: absolute;
+  top: 0
+}
+
+::ng-deep.arrow-down {
+  bottom: -14px;
+  top: unset;
+  transform: rotate(180deg)
+}
+
+::ng-deep.arrow-2 {
+  border-bottom: 15px solid #ccc;
+  top: -1px
+}
+
+::ng-deep.arrow-down.arrow-2 {
+  top: unset;
+  bottom: -16px
+}
+
+::ng-deep.list-area {
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  background: #fff;
+  margin: 0
+}
+
+::ng-deep.select-all {
+  padding: 10px;
+  text-align: left
+}
+
+::ng-deep.list-filter, .select-all {
+  border-bottom: 1px solid #ccc
+}
+
+::ng-deep.list-filter {
+  position: relative;
+  padding-left: 35px;
+  height: 35px
+}
+
+::ng-deep.list-filter input {
+  border: 0;
+  width: 100%;
+  height: 100%;
+  padding: 0
+}
+
+::ng-deep.list-filter input:focus {
+  outline: none
+}
+
+::ng-deep.list-filter .c-search {
+  position: absolute;
+  top: 4px;
+  left: 10px;
+  width: 15px;
+  height: 15px
+}
+
+::ng-deep.list-filter .c-search svg {
+  fill: #888
+}
+
+::ng-deep.list-filter .c-clear {
+  position: absolute;
+  top: 4px;
+  right: 10px;
+  width: 15px;
+  height: 15px
+}
+
+::ng-deep.list-filter .c-clear svg {
+  fill: #888
+}
+
+::ng-deep.pure-checkbox input[type=checkbox] {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px
+}
+
+::ng-deep.pure-checkbox input[type=checkbox]:focus + label:before, .pure-checkbox input[type=checkbox]:hover + label:before {
+  background-color: none
+}
+
+::ng-deep.pure-checkbox input[type=checkbox]:active + label:before {
+  transition-duration: 0s
+}
+
+::ng-deep.pure-checkbox input[type=checkbox]:disabled + label {
+  color: #ccc
+}
+
+::ng-deep.pure-checkbox input[type=checkbox] + label {
+  position: relative;
+  padding-left: 2em;
+  vertical-align: middle;
+  -webkit-user-select: none;
+  user-select: none;
+  cursor: pointer;
+  margin: 0;
+  font-weight: 300
+}
+
+::ng-deep.pure-checkbox input[type=checkbox] + label:before {
+  box-sizing: initial;
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 15px;
+  height: 15px;
+  margin-top: -9px;
+  text-align: center;
+  transition: all .4s ease;
+  border-radius: 3px
+}
+
+::ng-deep.pure-checkbox input[type=checkbox] + label:after {
+  box-sizing: initial;
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 15px;
+  height: 15px;
+  margin-top: -9px;
+  transform: scale(0);
+  transform-origin: 50%;
+  transition: transform .2s ease-out
+}
+
+::ng-deep.pure-checkbox input[type=checkbox]:disabled + label:before {
+  border-color: #ccc
+}
+
+::ng-deep.pure-checkbox input[type=checkbox]:disabled:focus + label:before .pure-checkbox input[type=checkbox]:disabled:hover + label:before {
+  background-color: inherit
+}
+
+::ng-deep.pure-checkbox input[type=checkbox]:disabled:checked + label:before {
+  background-color: #ccc
+}
+
+::ng-deep.pure-checkbox input[type=checkbox] + label:after {
+  background-color: initial;
+  top: 50%;
+  left: 3px;
+  width: 9px;
+  height: 4px;
+  margin-top: -5px;
+  border-style: solid;
+  border-width: 0 0 2px 2px;
+  border-image: none;
+  transform: rotate(-45deg) scale(0)
+}
+
+::ng-deep.pure-checkbox input[type=checkbox]:checked + label:after {
+  content: "";
+  transition: transform .2s ease-out
+}
+
+::ng-deep.pure-checkbox input[type=radio]:checked + label:before {
+  background-color: #fff
+}
+
+::ng-deep.pure-checkbox input[type=radio]:checked + label:after {
+  transform: scale(1)
+}
+
+::ng-deep.pure-checkbox input[type=radio] + label:before {
+  border-radius: 50%
+}
+
+::ng-deep.pure-checkbox input[type=checkbox]:checked + label:after {
+  transform: rotate(-45deg) scale(1)
+}
+
+::ng-deep.list-message {
+  text-align: center;
+  margin: 0;
+  padding: 15px 0;
+  font-size: medium
+}
+
+::ng-deep.list-grp {
+  padding: 0 15px !important
+}
+
+::ng-deep.list-grp h4 {
+  text-transform: capitalize;
+  margin: 15px 0 0;
+  font-size: 14px;
+  font-weight: 700
+}
+
+::ng-deep.list-grp > li {
+  padding-left: 15px !important
+}
+
+::ng-deep.grp-item {
+  padding-left: 30px !important
+}
+
+::ng-deep.grp-title {
+  padding-bottom: 0 !important
+}
+
+::ng-deep.grp-title label {
+  margin-bottom: 0 !important;
+  font-weight: 800;
+  text-transform: capitalize
+}
+
+::ng-deep.grp-title:hover {
+  background: none !important
+}
+
+::ng-deep.loading-icon {
+  width: 20px;
+  position: absolute;
+  right: 10px;
+  top: 23px;
+  z-index: 1
+}
+
+::ng-deep.nodata-label {
+  width: 100%;
+  text-align: center;
+  padding: 10px 0 0
+}
+
+::ng-deep.btn-container {
+  text-align: center;
+  padding: 5px
+}
+
+::ng-deep.clear-all {
+  width: 8px;
+  position: absolute;
+  top: 50%;
+  right: 30px;
+  transform: translateY(-50%)
+}
+::ng-deep.dropdown-list.tagToBody {
+  position: absolute!important;
+  top: 35px!important;
+  left: 0!important;
+}
+::ng-deep .c-btn {
+  border: 1px solid #ccc;
+  color: #333;
+}
+::ng-deep.selected-list .c-list .c-token {
+  background: #0079fe;
+}
+::ng-deep .selected-list .c-list .c-token .c-label {
+  color: #fff;
+}
+::ng-deep .pure-checkbox input[type=checkbox]+label:before {
+  color: #0079fe;
+  border: 1px solid #0079fe;
+}
+::ng-deep .pure-checkbox input[type=checkbox]:checked+label:before {
+  background: #0079fe;
+}
+::ng-deep .dropdown-list ul li:hover {
+  background: #f5f5f5;
+}
+::ng-deep .selected-item {
+  background: #e9f4ff;
+}
