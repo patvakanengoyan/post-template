@@ -11,8 +11,8 @@ import {SinglePostComponent} from "./web-pages/single-post/single-post.component
 import {ContactComponent} from "./web-pages/contact/contact.component";
 import {AboutComponent} from "./web-pages/about/about.component";
 import {NotfoundComponent} from "./web-pages/notfound/notfound.component";
-import {CanActivateService} from "./shared/guards/canActivate.service";
-import {CanActivateChildService} from "./shared/guards/canActivateChild.service";
+import {CanActivateService} from "./shared/service/canActivate.service";
+import {CanActivateChildService} from "./shared/service/canActivateChild.service";
 
 const routes: Routes = [
     {
