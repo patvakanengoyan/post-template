@@ -1,7 +1,9 @@
 import { Injectable} from '@angular/core';
 import { CanActivateChild, Router} from '@angular/router';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class CanActivateChildService implements CanActivateChild {
 
     constructor(private router: Router) {
