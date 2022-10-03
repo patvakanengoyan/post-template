@@ -11,11 +11,21 @@ import {SinglePostComponent} from "./web-pages/single-post/single-post.component
 import {ContactComponent} from "./web-pages/contact/contact.component";
 import {AboutComponent} from "./web-pages/about/about.component";
 import {NotfoundComponent} from "./web-pages/notfound/notfound.component";
+import {CanActivateService} from "./shared/guards/canActivate.service";
+import {CanActivateChildService} from "./shared/guards/canActivateChild.service";
 
 const routes: Routes = [
     {
         path: '',
         component: HomeComponent
+    },
+    {
+      path: 'login',
+      component: LoginComponent,
+      canActivate: [CanActivateService],
+      data: {
+        title: 'Login Page'
+      }
     },
     {
         path: 'post/:id',
@@ -29,7 +39,6 @@ const routes: Routes = [
         path: 'contact',
         component: ContactComponent
     },
-    {path: '**', component: NotfoundComponent},
   {
     path: '',
     redirectTo: 'dashboard',
@@ -38,6 +47,7 @@ const routes: Routes = [
   {
     path: '',
     component: DefaultLayoutComponent,
+    canActivateChild: [CanActivateChildService],
     data: {
       title: 'Home'
     },
@@ -109,20 +119,13 @@ const routes: Routes = [
     }
   },
   {
-    path: 'login',
-    component: LoginComponent,
-    data: {
-      title: 'Login Page'
-    }
-  },
-  {
     path: 'register',
     component: RegisterComponent,
     data: {
       title: 'Register Page'
     }
   },
-  {path: '**', redirectTo: 'dashboard'}
+  {path: '**', component: NotfoundComponent},
 ];
 
 @NgModule({

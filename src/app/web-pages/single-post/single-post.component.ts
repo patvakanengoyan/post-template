@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {RequestService} from "../service/request.service";
+import {RequestService} from "../../shared/service/request.service";
 import {ActivatedRoute} from "@angular/router";
 import {environment} from "../../../environments/environment.prod";
 
