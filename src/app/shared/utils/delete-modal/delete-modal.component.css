@@ -1,0 +1,32 @@
+.btn-no {
+  padding: .460rem 1.75rem;
+  text-align: center;
+  letter-spacing: 0.78px;
+  font-size: 13px;
+  margin-right: 4px;
+  border-radius: 16px;
+  border: transparent;
+  transition: background-color 0.3s;
+}
+.btn-yes {
+  padding: .460rem 1.75rem;
+  text-align: center;
+  letter-spacing: 0.78px;
+  color: #FEFBFC;
+  font-size: 13px;
+  margin-right: 4px;
+  background-color: #bb2d3b;
+  border-radius: 16px;
+  border: transparent;
+  transition: background-color 0.3s;
+}
+/*.btn-yes:hover {*/
+/*  background: #DC5D78 0% 0% no-repeat padding-box;*/
+/*}*/
+/*.btn-no:hover {*/
+/*  background: #F8DEE4 0% 0% no-repeat padding-box;*/
+/*}*/
+p {
+  letter-spacing: 0.36px;
+  color: #230D2C;
+}

@@ -1,11 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {CKEditorModule} from "@ckeditor/ckeditor5-angular";
-import {CardModule, FormModule, GridModule, TableModule} from "@coreui/angular";
+import {ReactiveFormsModule} from "@angular/forms";
+import {CardModule, FormModule, GridModule, TableModule, TooltipModule} from "@coreui/angular";
 import {SliderComponent} from "./slider.component";
 import {SliderRoutingModule} from "./slider-routing.module";
 import {PaginationModule} from "ngx-bootstrap/pagination";
+import {ModalModule} from "ngx-bootstrap/modal";
+import {SharedModule} from "../../../shared/shared.module";
 
 @NgModule({
   declarations: [SliderComponent],
@@ -13,12 +14,14 @@ import {PaginationModule} from "ngx-bootstrap/pagination";
     CommonModule,
     SliderRoutingModule,
     ReactiveFormsModule,
-    CKEditorModule,
     TableModule,
     CardModule,
     GridModule,
     FormModule,
-    PaginationModule.forRoot()
+    PaginationModule.forRoot(),
+    ModalModule.forRoot(),
+    TooltipModule,
+    SharedModule
   ]
 })
 export class SliderModule {

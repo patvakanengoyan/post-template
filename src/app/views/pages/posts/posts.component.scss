@@ -1,0 +1,15 @@
+@import "../../../../assets/css/multiselect-dropdown.css";
+::ng-deep .ck-rounded-corners .ck.ck-editor__main>.ck-editor__editable, .ck.ck-editor__main>.ck-editor__editable.ck-rounded-corners {
+  height: 200px;
+}
+::ng-deep .arrow-down, ::ng-deep.arrow-up {
+  display: none;
+  width: 0;
+  height: 0;
+  border-left: 13px solid transparent;
+  border-right: 13px solid transparent;
+  border-bottom: 15px solid #fff;
+  margin-left: 15px;
+  position: absolute;
+  top: 0
+}

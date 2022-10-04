@@ -1,18 +1,9 @@
-<!--<form [formGroup]="form" (ngSubmit)="onSubmit(form.value)">-->
-<!--  <div class="container-md" data-aos="fade-in">-->
-<!--    <div class="row">-->
-<!--      <ckeditor id="description" [editor]="Editor"  [config]='config'-->
-<!--                [formControlName]="'description'"></ckeditor>-->
-<!--&lt;!&ndash;      <input type="text" formControlName="description">&ndash;&gt;-->
-<!--    </div>-->
-<!--  </div>-->
-<!--</form>-->
-
 <c-row ngPreserveWhitespaces>
   <c-col xs="12">
     <c-card class="mb-4">
       <c-card-header>
         <strong>Posts</strong>
+        <button class="btn btn-primary float-end" (click)="showModal(null, 'add')">Add</button>
       </c-card-header>
       <c-card-body>
         <table cTable>
@@ -30,7 +21,9 @@
           </thead>
           <tbody>
           <tr>
-            <td>Mark</td>
+            <td>
+              <span cTooltip="Tooltip text" class="cursor-pointer" (click)="showModal(1, 'view')">Mark</span>
+            </td>
             <td>Otto</td>
             <td>@mdo</td>
             <td>Mark</td>
@@ -38,17 +31,17 @@
             <td>@mdo</td>
             <td>
               <c-form-check [switch]="true">
-                <input cFormCheckInput checked type="checkbox" />
+                <input cFormCheckInput checked type="checkbox"/>
               </c-form-check>
             </td>
-            <td>
-              <a>
+            <td class="actions">
+              <a (click)="showModal(1, 'view')" title="View">
                 <i class="fa fa-eye cursor-pointer"></i>
               </a>
-              <a>
+              <a (click)="showModal(1, 'edit')" title="Edit">
                 <i class="fa fa-pencil cursor-pointer"></i>
               </a>
-              <a>
+              <a (click)="popup.deleteModal(1)" title="Delete">
                 <i class="fa fa-close cursor-pointer"></i>
               </a>
             </td>
@@ -66,3 +59,91 @@
     </c-card>
   </c-col>
 </c-row>
+<div *ngIf="isModalShown" [config]="{ show: true }" (onHidden)="onHidden()" bsModal #autoShownModal="bs-modal"
+     class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-auto-name">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 *ngIf="requestType == 'view'" class="modal-title pull-left">View</h4>
+        <h4 *ngIf="requestType == 'edit'" class="modal-title pull-left">Edit</h4>
+        <h4 *ngIf="requestType == 'add'" class="modal-title pull-left">Add</h4>
+        <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="hideModal()">
+          <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+      </div>
+      <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)">
+
+      <div class="modal-body">
+        <div *ngIf="requestType == 'view'">
+          <p>I am a modal that is shown right after initialization!</p>
+          <p>I wasn't present in DOM until you clicked the button</p>
+          <p>When you close me, I'll be removed from the DOM</p>
+        </div>
+        <div *ngIf="requestType == 'edit' || requestType == 'add'">
+            <div class="container-md" data-aos="fade-in">
+              <div class="row">
+                <div class="mb-3">
+                  <label for="title">Title</label>
+                  <input type="text" class="form-control" formControlName="title" id="title">
+                </div>
+                <div class="mb-3">
+                  <label for="description">Description</label>
+                  <ckeditor id="description" [editor]="Editor" [config]='config'
+                            [formControlName]="'description'"></ckeditor>
+                </div>
+                <div class="mb-3">
+                  <label for="description">Select Country</label>
+                  <angular2-multiselect [data]="itemListCountry"
+                                        [settings]="settingsCountry"
+                                        formControlName="country"
+                                        id="country"
+                  >
+                  </angular2-multiselect>
+                </div>
+                <div class="mb-3">
+                  <label for="description">Select City</label>
+
+                  <angular2-multiselect [data]="itemListCity"
+                                        [settings]="settingsCountry"
+                                        formControlName="city"
+                  >
+                  </angular2-multiselect>
+                </div>
+
+                <div class="mb-3">
+                  <label for="description">Select Category</label>
+
+                  <angular2-multiselect [data]="itemListCategory"
+                                        [settings]="settingsCategory"
+                                        formControlName="category"
+                  >
+                  </angular2-multiselect>
+                </div>
+                <div class="mb-3">
+                  <label for="description">Select Tag</label>
+
+                  <angular2-multiselect [data]="itemListTag"
+                                        [settings]="settingsCategory"
+                                        formControlName="tag"
+                  >
+                  </angular2-multiselect>
+                </div>
+                <div class="mb-3">
+                  <label for="status">Status</label>
+                  <c-form-check [switch]="true" class="form-control border-0">
+                    <input cFormCheckInput type="checkbox" id="status" formControlName="status" />
+                  </c-form-check>
+                </div>
+              </div>
+            </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="hideModal()">Close</button>
+        <button *ngIf="requestType == 'edit' || requestType == 'add'" type="submit" class="btn btn-primary">Save changes</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+<app-delete-modal #popup (confirmDelete)="deleteItem($event)"></app-delete-modal>
