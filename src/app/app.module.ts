@@ -45,7 +45,7 @@ import {
 } from '@coreui/angular';
 
 import { IconModule, IconSetService } from '@coreui/icons-angular';
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {AngularMultiSelectModule} from "angular2-multiselect-dropdown";
 import {HomeComponent} from "./web-pages/home/home.component";
 import {NotfoundComponent} from "./web-pages/notfound/notfound.component";
@@ -54,6 +54,7 @@ import {AboutComponent} from "./web-pages/about/about.component";
 import {ContactComponent} from "./web-pages/contact/contact.component";
 import {HeaderComponent} from "./web-pages/components/header/header.component";
 import {FooterComponent} from "./web-pages/components/footer/footer.component";
+import {RefreshTokenService} from "./shared/service/refresh-token.service";
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
@@ -114,6 +115,7 @@ const APP_CONTAINERS = [
       provide: PERFECT_SCROLLBAR_CONFIG,
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG,
     },
+    { provide: HTTP_INTERCEPTORS, useClass: RefreshTokenService, multi: true },
     IconSetService,
     Title
   ],
