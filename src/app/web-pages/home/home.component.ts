@@ -9,7 +9,7 @@ import {environment} from "../../../environments/environment.prod";
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  url = environment.g.get;
+  url = environment.posts.get;
   data: any[] = [];
   form: any;
   // form = this.fb.group({

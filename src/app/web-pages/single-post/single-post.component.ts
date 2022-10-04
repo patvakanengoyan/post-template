@@ -9,7 +9,7 @@ import {environment} from "../../../environments/environment.prod";
   styleUrls: ['./single-post.component.css']
 })
 export class SinglePostComponent implements OnInit {
-  url = environment.g.get;
+  url = environment.posts.get;
   data: any = {};
   constructor(private requestService: RequestService,
               public activatedRoute: ActivatedRoute
