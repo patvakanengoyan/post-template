@@ -41,7 +41,7 @@ const routes: Routes = [
     },
   {
     path: '',
-    redirectTo: 'dashboard',
+    redirectTo: 'admin/dashboard',
     pathMatch: 'full'
   },
   {
@@ -53,9 +53,19 @@ const routes: Routes = [
     },
     children: [
       {
-        path: 'dashboard',
+        path: 'admin/dashboard',
         loadChildren: () =>
           import('./views/dashboard/dashboard.module').then((m) => m.DashboardModule)
+      },
+      {
+        path: 'admin/posts',
+        loadChildren: () =>
+          import('./views/pages/posts/posts.module').then((m) => m.PostsModule)
+      },
+      {
+        path: 'admin/slider',
+        loadChildren: () =>
+          import('./views/pages/slider/slider.module').then((m) => m.SliderModule)
       },
       {
         path: 'theme',
@@ -92,11 +102,11 @@ const routes: Routes = [
         loadChildren: () =>
           import('./views/notifications/notifications.module').then((m) => m.NotificationsModule)
       },
-      {
-        path: 'widgets',
-        loadChildren: () =>
-          import('./views/widgets/widgets.module').then((m) => m.WidgetsModule)
-      },
+      // {
+      //   path: 'widgets',
+      //   loadChildren: () =>
+      //     import('./views/widgets/widgets.module').then((m) => m.WidgetsModule)
+      // },
       {
         path: 'pages',
         loadChildren: () =>
@@ -105,14 +115,14 @@ const routes: Routes = [
     ]
   },
   {
-    path: '404',
+    path: 'admin/404',
     component: Page404Component,
     data: {
       title: 'Page 404'
     }
   },
   {
-    path: '500',
+    path: 'admin/500',
     component: Page500Component,
     data: {
       title: 'Page 500'
@@ -132,8 +142,8 @@ const routes: Routes = [
   imports: [
     RouterModule.forRoot(routes, {
       scrollPositionRestoration: 'top',
-      anchorScrolling: 'enabled',
-      initialNavigation: 'enabledBlocking'
+      // anchorScrolling: 'enabled',
+      // initialNavigation: 'enabledBlocking'
       // relativeLinkResolution: 'legacy'
     })
   ],

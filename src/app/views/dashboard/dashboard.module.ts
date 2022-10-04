@@ -40,7 +40,7 @@ import { WidgetsModule } from '../widgets/widgets.module';
     ChartjsModule,
     AvatarModule,
     TableModule,
-    WidgetsModule
+    // WidgetsModule
   ],
   declarations: [DashboardComponent]
 })

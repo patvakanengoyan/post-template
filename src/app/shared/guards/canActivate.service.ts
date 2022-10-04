@@ -12,7 +12,7 @@ export class CanActivateService implements CanActivate {
 
     canActivate(): boolean {
             if (localStorage.getItem('access_token')) {
-                this.router.navigateByUrl(`dashboard`);
+                this.router.navigateByUrl(`admin/dashboard`);
                 return false;
             }
         return true;

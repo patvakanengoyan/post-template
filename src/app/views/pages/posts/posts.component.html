@@ -1,0 +1,68 @@
+<!--<form [formGroup]="form" (ngSubmit)="onSubmit(form.value)">-->
+<!--  <div class="container-md" data-aos="fade-in">-->
+<!--    <div class="row">-->
+<!--      <ckeditor id="description" [editor]="Editor"  [config]='config'-->
+<!--                [formControlName]="'description'"></ckeditor>-->
+<!--&lt;!&ndash;      <input type="text" formControlName="description">&ndash;&gt;-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</form>-->
+
+<c-row ngPreserveWhitespaces>
+  <c-col xs="12">
+    <c-card class="mb-4">
+      <c-card-header>
+        <strong>Posts</strong>
+      </c-card-header>
+      <c-card-body>
+        <table cTable>
+          <thead>
+          <tr>
+            <th scope="col">Title</th>
+            <th scope="col">Description</th>
+            <th scope="col">Country</th>
+            <th scope="col">City</th>
+            <th scope="col">Category</th>
+            <th scope="col">Tag</th>
+            <th scope="col">Status</th>
+            <th scope="col">Actions</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td>Mark</td>
+            <td>Otto</td>
+            <td>@mdo</td>
+            <td>Mark</td>
+            <td>Otto</td>
+            <td>@mdo</td>
+            <td>
+              <c-form-check [switch]="true">
+                <input cFormCheckInput checked type="checkbox" />
+              </c-form-check>
+            </td>
+            <td>
+              <a>
+                <i class="fa fa-eye cursor-pointer"></i>
+              </a>
+              <a>
+                <i class="fa fa-pencil cursor-pointer"></i>
+              </a>
+              <a>
+                <i class="fa fa-close cursor-pointer"></i>
+              </a>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+        <div class="d-flex justify-content-center">
+          <pagination [boundaryLinks]="true"
+                      [totalItems]="77"
+                      [maxSize]="10"
+                      previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
+          </pagination>
+        </div>
+      </c-card-body>
+    </c-card>
+  </c-col>
+</c-row>

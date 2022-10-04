@@ -1,0 +1,54 @@
+<c-row ngPreserveWhitespaces>
+  <c-col xs="12">
+    <c-card class="mb-4">
+      <c-card-header>
+        <strong>Slider</strong>
+      </c-card-header>
+      <c-card-body>
+        <table cTable>
+          <thead>
+          <tr>
+            <th scope="col">Image</th>
+            <th scope="col">Title</th>
+            <th scope="col">Description</th>
+            <th scope="col">Status</th>
+            <th scope="col">Actions</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td>
+              <img src="assets/img/post-slide-2.jpg" alt="" style="width: 100px">
+            </td>
+            <td>Otto</td>
+            <td>@mdo</td>
+            <td>
+              <c-form-check [switch]="true">
+                <input cFormCheckInput checked type="checkbox" />
+              </c-form-check>
+            </td>
+            <td>
+              <a>
+                <i class="fa fa-eye cursor-pointer"></i>
+              </a>
+              <a>
+                <i class="fa fa-pencil cursor-pointer"></i>
+              </a>
+              <a>
+                <i class="fa fa-close cursor-pointer"></i>
+              </a>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+        <div class="d-flex justify-content-center">
+          <pagination [boundaryLinks]="true"
+                      [totalItems]="77"
+                      [maxSize]="10"
+                      previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
+          </pagination>
+        </div>
+      </c-card-body>
+    </c-card>
+  </c-col>
+</c-row>
