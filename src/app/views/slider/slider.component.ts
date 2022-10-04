@@ -1,9 +1,9 @@
 import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, Validators} from "@angular/forms";
-import {RequestService} from "../../../shared/service/request.service";
+import {RequestService} from "../../shared/service/request.service";
 import {ModalDirective} from "ngx-bootstrap/modal";
-import {DeleteModalComponent} from "../../../shared/utils/delete-modal/delete-modal.component";
-import {environment} from "../../../../environments/environment.prod";
+import {DeleteModalComponent} from "../../shared/utils/delete-modal/delete-modal.component";
+import {environment} from "../../../environments/environment.prod";
 
 @Component({
   selector: 'app-slider',

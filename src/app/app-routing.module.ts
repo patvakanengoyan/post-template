@@ -60,12 +60,12 @@ const routes: Routes = [
       {
         path: 'admin/posts',
         loadChildren: () =>
-          import('./views/pages/posts/posts.module').then((m) => m.PostsModule)
+          import('./views/posts/posts.module').then((m) => m.PostsModule)
       },
       {
         path: 'admin/slider',
         loadChildren: () =>
-          import('./views/pages/slider/slider.module').then((m) => m.SliderModule)
+          import('./views/slider/slider.module').then((m) => m.SliderModule)
       },
       {
         path: 'theme',

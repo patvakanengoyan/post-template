@@ -1,10 +1,10 @@
 import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, Validators} from "@angular/forms";
-import * as customBuild from '../../../shared/ckCustomBuild/build/ckeditor.js';
+import * as customBuild from '../../shared/ckCustomBuild/build/ckeditor.js';
 import {ModalDirective} from "ngx-bootstrap/modal";
-import {DeleteModalComponent} from "../../../shared/utils/delete-modal/delete-modal.component";
-import {RequestService} from "../../../shared/service/request.service";
-import {environment} from "../../../../environments/environment.prod";
+import {DeleteModalComponent} from "../../shared/utils/delete-modal/delete-modal.component";
+import {RequestService} from "../../shared/service/request.service";
+import {environment} from "../../../environments/environment.prod";
 
 @Component({
   selector: 'app-posts',

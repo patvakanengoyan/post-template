@@ -6,7 +6,7 @@ import {SliderComponent} from "./slider.component";
 import {SliderRoutingModule} from "./slider-routing.module";
 import {PaginationModule} from "ngx-bootstrap/pagination";
 import {ModalModule} from "ngx-bootstrap/modal";
-import {SharedModule} from "../../../shared/shared.module";
+import {SharedModule} from "../../shared/shared.module";
 
 @NgModule({
   declarations: [SliderComponent],
