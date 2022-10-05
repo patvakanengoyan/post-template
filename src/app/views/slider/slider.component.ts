@@ -1,5 +1,5 @@
 import {Component, Input, OnInit, ViewChild} from '@angular/core';
-import {FormBuilder, Validators} from "@angular/forms";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {RequestService} from "../../shared/service/request.service";
 import {ModalDirective} from "ngx-bootstrap/modal";
 import {DeleteModalComponent} from "../../shared/utils/delete-modal/delete-modal.component";
@@ -14,13 +14,7 @@ export class SliderComponent implements OnInit {
   url: any = `${environment.admin.slider}`;
   data: any;
   viewData: any;
-  form = this.fb.group({
-    title: ['', Validators.required],
-    description: ['', Validators.required],
-    uri: ['', Validators.required],
-    image: ['', Validators.required],
-    status: ['', Validators.required],
-  })
+  form: any = FormGroup;
   @ViewChild('autoShownModal', { static: false }) autoShownModal?: ModalDirective;
   @ViewChild(DeleteModalComponent) private modal!: DeleteModalComponent;
   isModalShown = false;
@@ -31,6 +25,13 @@ export class SliderComponent implements OnInit {
 
   ngOnInit(): void {
     this.getData();
+    this.form = this.fb.group({
+      title: ['', Validators.required],
+      description: ['', Validators.required],
+      uri: ['', Validators.required],
+      image: ['', Validators.required],
+      status: ['', Validators.required],
+    })
   }
 
   getData() {
@@ -52,7 +53,7 @@ export class SliderComponent implements OnInit {
       this.getById(id)
     } else if (type === 'edit') {
       this.getById(id)
-    } else if (type === 'ad') {
+    } else if (type === 'add') {
 
     }
   }
@@ -63,6 +64,7 @@ export class SliderComponent implements OnInit {
 
   onHidden(): void {
     this.isModalShown = false;
+    this.form.reset();
   }
 
   onSubmit(form: any){

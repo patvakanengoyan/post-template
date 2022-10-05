@@ -131,7 +131,7 @@ export class PostsComponent implements OnInit {
         this.getById(id)
     } else if (type === 'edit') {
         this.getById(id)
-    } else if (type === 'ad') {
+    } else if (type === 'add') {
 
     }
   }

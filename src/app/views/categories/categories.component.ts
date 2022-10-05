@@ -1,6 +1,6 @@
 import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import {environment} from "../../../environments/environment.prod";
-import {FormBuilder, FormControl, Validators} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {editorConfig} from "../../shared/ckEditorConfig/ck-editor-config";
 import {ModalDirective} from "ngx-bootstrap/modal";
 import {DeleteModalComponent} from "../../shared/utils/delete-modal/delete-modal.component";
@@ -16,10 +16,7 @@ export class CategoriesComponent implements OnInit {
   url: any = `${environment.admin.category}`;
   data: any;
   viewData: any;
-  form = this.fb.group({
-    title: ['', Validators.required],
-    status: ['', Validators.required],
-  })
+  form: any = FormGroup;
   @Input() config = editorConfig;
   @ViewChild('autoShownModal', { static: false }) autoShownModal?: ModalDirective;
   @ViewChild(DeleteModalComponent) private modal!: DeleteModalComponent;
@@ -36,6 +33,10 @@ export class CategoriesComponent implements OnInit {
 
   ngOnInit(): void {
     // this.getData();
+    this.form = this.fb.group({
+      title: ['', Validators.required],
+      status: ['', Validators.required],
+    })
   }
 
   getData(url) {
@@ -57,7 +58,7 @@ export class CategoriesComponent implements OnInit {
       this.getById(id)
     } else if (type === 'edit') {
       this.getById(id)
-    } else if (type === 'ad') {
+    } else if (type === 'add') {
 
     }
   }
@@ -68,6 +69,7 @@ export class CategoriesComponent implements OnInit {
 
   onHidden(): void {
     this.isModalShown = false;
+    this.form.reset();
   }
 
   onSubmit(form: any){
