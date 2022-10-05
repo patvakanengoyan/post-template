@@ -19,7 +19,6 @@ export class RequestService {
     this.isloading.next({type: 'get', isLoading: true, reqCount: ++this.reqCount});
     this.httpHeaders = new HttpHeaders({
       Authorization: (localStorage.getItem('token_type') ? localStorage.getItem('token_type')  + ' ': '') + localStorage.getItem('access_token'),
-      _: `${localStorage.getItem('_')}`,
       'Accept-Language': 'en'
     });
     this.httpHeaders = this.httpHeaders.set(
@@ -37,7 +36,6 @@ export class RequestService {
     this.isloading.next({type: 'create', isLoading: true, reqCount: ++this.reqCount});
     this.httpHeaders = new HttpHeaders({
       Authorization: (localStorage.getItem('token_type') ? localStorage.getItem('token_type')  + ' ': '') + localStorage.getItem('access_token'),
-      _: `${localStorage.getItem('_')}`,
       'Accept-Language': 'en'
     });
     this.httpHeaders = this.httpHeaders.set(

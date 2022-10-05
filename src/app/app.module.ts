@@ -54,6 +54,7 @@ import {ContactComponent} from "./web-pages/contact/contact.component";
 import {HeaderComponent} from "./web-pages/components/header/header.component";
 import {FooterComponent} from "./web-pages/components/footer/footer.component";
 import {RefreshTokenService} from "./shared/service/refresh-token.service";
+import {AppInterceptor} from "./shared/service/app-interceptor";
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
@@ -110,6 +111,8 @@ const APP_CONTAINERS = [
     //   provide: LocationStrategy,
     //   useClass: HashLocationStrategy,
     // },
+    // {provide: HTTP_INTERCEPTORS, useClass: AppInterceptor, multi: true},
+
     {
       provide: PERFECT_SCROLLBAR_CONFIG,
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG,

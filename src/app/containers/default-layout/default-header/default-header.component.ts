@@ -26,7 +26,7 @@ export class DefaultHeaderComponent extends HeaderComponent {
   }
 
   logout () {
-    this.requestService.createData(`${environment.baseUrl}/${environment.admin.logout}`, '').subscribe(() => {
+    this.requestService.createData(`${environment.admin.logout}`, '').subscribe(() => {
       localStorage.clear();
       this.router.navigateByUrl('login');
     })
