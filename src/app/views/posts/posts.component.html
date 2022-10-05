@@ -125,7 +125,7 @@
                   <mat-form-field class="example-chip-list">
                     <mat-chip-list #chipList formControlName="tag" aria-label="Fruit selection">
                       <mat-chip
-                        *ngFor="let fruit of fruits"
+                        *ngFor="let fruit of form.get('tag').value"
                         [selectable]="selectable"
                         [removable]="removable"
                         (removed)="remove(fruit)">
@@ -144,7 +144,7 @@
                     </mat-chip-list>
                     <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
                       <ng-container *ngFor="let fruit of filteredFruits | async">
-                        <mat-option *ngIf="!fruits.includes(fruit)" [value]="fruit">
+                        <mat-option *ngIf="!form.get('tag').value.includes(fruit)" [value]="fruit">
                           <mat-checkbox color="primary"></mat-checkbox>
                           {{fruit}}
                         </mat-option>

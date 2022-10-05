@@ -1,5 +1,5 @@
 import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
-import {FormBuilder, Validators} from "@angular/forms";
+import {FormArray, FormBuilder, FormGroup, Validators} from "@angular/forms";
 import * as customBuild from '../../shared/ckCustomBuild/build/ckeditor.js';
 import {ModalDirective} from "ngx-bootstrap/modal";
 import {DeleteModalComponent} from "../../shared/utils/delete-modal/delete-modal.component";
@@ -22,16 +22,7 @@ export class PostsComponent implements OnInit {
   url: any = `${environment.admin.posts}`;
   data: any;
   viewData: any;
-  form = this.fb.group({
-    title: ['', Validators.required],
-    description: ['', Validators.required],
-    country: ['', Validators.required],
-    city: ['', Validators.required],
-    tag: [''],
-    category: ['', Validators.required],
-    image: ['', Validators.required],
-    status: ['', Validators.required],
-  })
+  form: any = FormGroup;
   public Editor = customBuild;
   @Input() config = editorConfig;
   @ViewChild('autoShownModal', { static: false }) autoShownModal?: ModalDirective;
@@ -53,7 +44,7 @@ export class PostsComponent implements OnInit {
   separatorKeysCodes: number[] = [ENTER, COMMA];
   fruitCtrl = new FormControl();
   filteredFruits: Observable<string[]>;
-  fruits: string[] = [];
+  // fruits: string[] = ['Lemon'];
   allFruits: string[] = ['Apple', 'Lemon', 'Lime', 'Orange', 'Strawberry'];
 
   @ViewChild('fruitInput', {static: false}) fruitInput!: ElementRef<HTMLInputElement>;
@@ -66,6 +57,16 @@ export class PostsComponent implements OnInit {
       startWith(null),
       map((fruit: string | null) => (fruit ? this._filter(fruit) : this.allFruits.slice())),
     );
+    this.form = this.fb.group({
+      title: ['', Validators.required],
+      description: ['', Validators.required],
+      country: ['', Validators.required],
+      city: ['', Validators.required],
+      tag: [[], Validators.required],
+      category: ['', Validators.required],
+      image: ['', Validators.required],
+      status: ['', Validators.required],
+    })
   }
 
   ngOnInit(): void {
@@ -141,6 +142,12 @@ export class PostsComponent implements OnInit {
 
   onHidden(): void {
     this.isModalShown = false;
+    this.form.reset();
+    this.tagFiled.value = [];
+  }
+
+  get tagFiled() {
+    return this.form.get('tag');
   }
 
   add(event: MatChipInputEvent): void {
@@ -152,7 +159,9 @@ export class PostsComponent implements OnInit {
 
       // Add our fruit
       if ((value || '').trim()) {
-        this.fruits.push(value.trim());
+        this.tagFiled.value.push(value.trim());
+        this.tagFiled.updateValueAndValidity();
+
       }
 
       // Reset the input value
@@ -165,15 +174,19 @@ export class PostsComponent implements OnInit {
   }
 
   remove(fruit: string): void {
-    const index = this.fruits.indexOf(fruit);
+    const index = this.tagFiled.value.indexOf(fruit);
 
     if (index >= 0) {
-      this.fruits.splice(index, 1);
+      this.tagFiled.value.splice(index, 1);
+      this.tagFiled.updateValueAndValidity();
+
     }
   }
 
   selected(event: MatAutocompleteSelectedEvent): void {
-    this.fruits.push(event.option.viewValue);
+    // this.fruits.push(event.option.viewValue);
+    this.tagFiled.value.push(event.option.viewValue);
+    this.tagFiled.updateValueAndValidity();
     this.fruitInput.nativeElement.value = '';
     this.fruitCtrl.setValue(null);
   }
@@ -184,15 +197,11 @@ export class PostsComponent implements OnInit {
     return this.allFruits.filter(fruit => fruit.toLowerCase().indexOf(filterValue) === 0);
   }
 
-  onFilteringProjId(e) {
-    console.log(e);
-  }
-
   onSubmit(form: any){
     if (this.requestType == 'edit') {
 
     } else if (this.requestType == 'add') {
-      console.log(this.fruits);
+      // console.log(this.fruits);
       console.log(form);
       let data = new FormData()
       // for (let key in form) {
