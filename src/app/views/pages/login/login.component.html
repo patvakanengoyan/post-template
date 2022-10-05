@@ -1,43 +1,45 @@
-<div class="bg-light min-vh-100 d-flex flex-row align-items-center">
-  <c-container>
-    <c-row class="justify-content-center">
-      <c-col md="8">
-        <c-card-group>
-          <c-card class="p-4">
-            <c-card-body>
-              <form cForm [formGroup]="form" (ngSubmit)="login(form.value)">
-                <h1>Login</h1>
-                <p class="text-medium-emphasis">Sign In to your account</p>
-                <c-input-group class="mb-3">
+<div class="bg-image">
+  <div class="min-vh-100 d-flex flex-row align-items-center bg-color">
+    <c-container>
+      <c-row class="justify-content-center">
+        <c-col md="5">
+          <c-card-group>
+            <c-card class="p-4">
+              <c-card-body>
+                <form cForm [formGroup]="form" (ngSubmit)="login(form.value)">
+                  <h1>Login</h1>
+                  <p class="text-medium-emphasis">Sign In to your account</p>
+                  <c-input-group class="mb-3">
                   <span cInputGroupText>
                     <svg cIcon name="cilUser"></svg>
                   </span>
-                  <input autoComplete="username" formControlName="email"  cFormControl placeholder="Username" />
-                </c-input-group>
-                <c-input-group class="mb-4">
+                    <input autoComplete="username" formControlName="email"  cFormControl placeholder="Username" />
+                  </c-input-group>
+                  <c-input-group class="mb-4">
                   <span cInputGroupText>
                     <svg cIcon name="cilLockLocked"></svg>
                   </span>
-                  <input
-                    autoComplete="current-password"
-                    cFormControl
-                    formControlName="password"
-                    placeholder="password"
-                    type="password"
-                  />
-                </c-input-group>
-                <c-row>
-                  <c-col xs="6">
-                    <button cButton class="px-4" [disabled]="form.invalid" type="submit" color="primary">
-                      Login
-                    </button>
-                  </c-col>
-                </c-row>
-              </form>
-            </c-card-body>
-          </c-card>
-        </c-card-group>
-      </c-col>
-    </c-row>
-  </c-container>
+                    <input
+                      autoComplete="current-password"
+                      cFormControl
+                      formControlName="password"
+                      placeholder="password"
+                      type="password"
+                    />
+                  </c-input-group>
+                  <c-row>
+                    <c-col xs="6">
+                      <button cButton class="px-4" [disabled]="form.invalid" type="submit" color="primary">
+                        Login
+                      </button>
+                    </c-col>
+                  </c-row>
+                </form>
+              </c-card-body>
+            </c-card>
+          </c-card-group>
+        </c-col>
+      </c-row>
+    </c-container>
+  </div>
 </div>

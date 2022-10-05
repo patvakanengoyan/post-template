@@ -68,6 +68,11 @@ const routes: Routes = [
           import('./views/slider/slider.module').then((m) => m.SliderModule)
       },
       {
+        path: 'admin/category',
+        loadChildren: () =>
+          import('./views/categories/categories.module').then((m) => m.CategoriesModule)
+      },
+      {
         path: 'theme',
         loadChildren: () =>
           import('./views/theme/theme.module').then((m) => m.ThemeModule)

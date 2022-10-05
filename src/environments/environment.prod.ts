@@ -12,5 +12,6 @@ export const environment = {
       logout: apiUrl + prefix +  '',
       posts: apiUrl + '/admin/posts',
       slider: apiUrl + '/admin/slider',
+      category: apiUrl + prefix + ''
     }
 };

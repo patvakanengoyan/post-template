@@ -2,7 +2,7 @@
   <c-col xs="12">
     <c-card class="mb-4">
       <c-card-header>
-        <strong>Posts</strong>
+        <strong>Categories</strong>
         <button class="btn btn-primary float-end" (click)="showModal(null, 'add')">Add</button>
       </c-card-header>
       <c-card-body>
@@ -10,11 +10,6 @@
           <thead>
           <tr>
             <th scope="col">Title</th>
-            <th scope="col">Description</th>
-            <th scope="col">Country</th>
-            <th scope="col">City</th>
-            <th scope="col">Category</th>
-            <th scope="col">Tag</th>
             <th scope="col">Status</th>
             <th scope="col">Actions</th>
           </tr>
@@ -24,11 +19,6 @@
             <td>
               <span cTooltip="Tooltip text" class="cursor-pointer" (click)="showModal(1, 'view')">Mark</span>
             </td>
-            <td>Otto</td>
-            <td>@mdo</td>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
             <td>
               <c-form-check [switch]="true">
                 <input cFormCheckInput checked type="checkbox"/>
@@ -86,73 +76,6 @@
                   <label for="title">Title</label>
                   <input type="text" class="form-control" formControlName="title" id="title">
                 </div>
-                <div class="mb-3">
-                  <label for="description">Description</label>
-                  <ckeditor id="description" [editor]="Editor" [config]='config'
-                            [formControlName]="'description'"></ckeditor>
-                </div>
-                <div class="mb-3">
-                  <label for="description">Select Country</label>
-                  <angular2-multiselect [data]="itemListCountry"
-                                        [settings]="settingsCountry"
-                                        formControlName="country"
-                                        id="country"
-                  >
-                  </angular2-multiselect>
-                </div>
-                <div class="mb-3">
-                  <label for="description">Select City</label>
-
-                  <angular2-multiselect [data]="itemListCity"
-                                        [settings]="settingsCountry"
-                                        formControlName="city"
-                  >
-                  </angular2-multiselect>
-                </div>
-
-                <div class="mb-3">
-                  <label for="description">Select Category</label>
-
-                  <angular2-multiselect [data]="itemListCategory"
-                                        [settings]="settingsCategory"
-                                        formControlName="category"
-                  >
-                  </angular2-multiselect>
-                </div>
-                <div class="mb-3">
-                  <label for="description">Select Tag</label>
-
-                  <mat-form-field class="example-chip-list">
-                    <mat-chip-list #chipList formControlName="tag" aria-label="Fruit selection">
-                      <mat-chip
-                        *ngFor="let fruit of fruits"
-                        [selectable]="selectable"
-                        [removable]="removable"
-                        (removed)="remove(fruit)">
-                        {{fruit}}
-                        <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-                      </mat-chip>
-                      <input
-                        placeholder="Select Tag..."
-                        #fruitInput
-                        [formControl]="fruitCtrl"
-                        [matAutocomplete]="auto"
-                        [matChipInputFor]="chipList"
-                        [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-                        [matChipInputAddOnBlur]="addOnBlur"
-                        (matChipInputTokenEnd)="add($event)">
-                    </mat-chip-list>
-                    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
-                      <ng-container *ngFor="let fruit of filteredFruits | async">
-                        <mat-option *ngIf="!fruits.includes(fruit)" [value]="fruit">
-                          <mat-checkbox color="primary"></mat-checkbox>
-                          {{fruit}}
-                        </mat-option>
-                      </ng-container>
-                    </mat-autocomplete>
-                  </mat-form-field>
-                </div>
-                <app-file-input formControlName="image"></app-file-input>
                 <div class="mb-3">
                   <label for="status">Status</label>
                   <c-form-check [switch]="true" class="form-control border-0">

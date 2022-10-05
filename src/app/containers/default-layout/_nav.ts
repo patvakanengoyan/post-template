@@ -17,6 +17,11 @@ export const navItems: INavData[] = [
     iconComponent: { name: 'cil-drop' }
   },
   {
+    name: 'Category',
+    url: 'admin/category',
+    iconComponent: { name: 'cil-notes' }
+  },
+  {
     name: 'Components',
     title: true
   },
