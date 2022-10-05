@@ -6,6 +6,7 @@ import {DeleteModalComponent} from "../../shared/utils/delete-modal/delete-modal
 import {RequestService} from "../../shared/service/request.service";
 import {environment} from "../../../environments/environment.prod";
 import {editorConfig} from "../../shared/ckEditorConfig/ck-editor-config";
+import {list} from "../../shared/countryList/countryList";
 import {COMMA, ENTER} from "@angular/cdk/keycodes";
 import {FormControl} from '@angular/forms';
 import {Observable, startWith} from "rxjs";
@@ -27,6 +28,7 @@ export class PostsComponent implements OnInit {
   @Input() config = editorConfig;
   @ViewChild('autoShownModal', { static: false }) autoShownModal?: ModalDirective;
   @ViewChild(DeleteModalComponent) private modal!: DeleteModalComponent;
+  countryList = list;
   isModalShown = false;
   requestType: any;
   itemListCountry: any = [];
@@ -70,12 +72,13 @@ export class PostsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.setCountyList()
     // this.getData();
-    this.itemListCountry = [
-      {"id":1,"itemName":"USA"},
-      {"id":2,"itemName":"England"},
-      {"id":3,"itemName":"France"},
-    ];
+    // this.itemListCountry = [
+    //   {"id":1,"itemName":"USA"},
+    //   {"id":2,"itemName":"England"},
+    //   {"id":3,"itemName":"France"},
+    // ];
 
     this.settingsCountry = {
       enableSearchFilter: true,
@@ -83,12 +86,12 @@ export class PostsComponent implements OnInit {
       singleSelection: true,
       text:"Select item"
     };
-    this.itemListCity = [
-      {"id":1,"itemName":"New York",},
-      {"id":2,"itemName":"Las Vegas"},
-      {"id":3,"itemName":"London"},
-      {"id":4,"itemName":"Paris"},
-    ];
+    // this.itemListCity = [
+    //   {"id":1,"itemName":"New York",},
+    //   {"id":2,"itemName":"Las Vegas"},
+    //   {"id":3,"itemName":"London"},
+    //   {"id":4,"itemName":"Paris"},
+    // ];
     this.itemListCategory = [
       {"id":1,"itemName":"Business"},
       {"id":2,"itemName":"Culture"},
@@ -222,6 +225,23 @@ export class PostsComponent implements OnInit {
 
   deleteItem(id) {
     this.modal.modalRef.hide();
+  }
+
+  setCountyList () {
+    let countries = Object.keys(this.countryList);
+    let list = countries.map((item, i) => {
+      return {id: i + 1, itemName: item};
+    });
+    this.itemListCountry = [...list];
+  }
+
+  setCitiesList () {
+    this.form.get('city').reset();
+    let cities = this.form.value.country[0] ? this.countryList[this.form.value.country[0].itemName] : [];
+    let list = cities.map((item, i) => {
+      return {id: i + 1, itemName: item};
+    });
+    this.itemListCity = [...list];
   }
 
 }
