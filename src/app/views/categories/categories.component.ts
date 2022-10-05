@@ -32,22 +32,28 @@ export class CategoriesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.getData();
+    this.getData();
     this.form = this.fb.group({
       title: ['', Validators.required],
-      status: ['', Validators.required],
+      status: [''],
     })
   }
 
-  getData(url) {
-    this.requestService.getData(url).subscribe((res) => {
-      this.data = res;
+  getData() {
+    this.requestService.getData(this.url).subscribe((res) => {
+      this.data = res['data'];
     })
   }
 
   getById(id) {
     this.requestService.getData(this.url + '/' + id ).subscribe((res) => {
-      this.viewData = res;
+      this.viewData = res[0];
+      if (this.requestType == 'edit') {
+        this.form.patchValue({
+          title: this.viewData.title,
+          status: this.viewData.status
+        })
+      }
     })
   }
 
@@ -73,27 +79,33 @@ export class CategoriesComponent implements OnInit {
   }
 
   onSubmit(form: any){
+    let data = {
+      "title":form.title,
+      "translations":{
+        "en":{"title":"new new Category title"},
+        "hy":{"title":"new new Category title For Hy"}
+      },
+      "status": form.status == true || form.status == 1 ? 1 : 0
+    }
     if (this.requestType == 'edit') {
+      this.requestService.updateData(this.url, data, this.viewData.id ).subscribe((res) => {
+        this.getData();
+        this.onHidden();
+      })
 
     } else if (this.requestType == 'add') {
-      let data = new FormData()
-      // for (let key in form) {
-      //   if (key == 'image') {
-      //     if (this.file) {
-      //       data.append(key, this.file);
-      //     }
-      //   }else if (key == 'categories') {
-      //     for (let item in this.form.value['categories']) {
-      //       data.append(`categories[${[item]}]`, this.form.value['categories'][item].id);
-      //     }
-      //   } else {
-      //     data.append(key, this.form.value[key]);
-      //   }
-      // }
+      this.requestService.createData(this.url,data).subscribe((res) => {
+        this.getData();
+        this.onHidden();
+      })
     }
   }
 
   deleteItem(id) {
     this.modal.modalRef.hide();
+    this.requestService.delete(this.url, id ).subscribe((res) => {
+      this.getData();
+      this.onHidden();
+    })
   }
 }

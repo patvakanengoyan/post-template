@@ -15,23 +15,23 @@
           </tr>
           </thead>
           <tbody>
-          <tr>
+          <tr *ngFor="let item of data">
             <td>
-              <span cTooltip="Tooltip text" class="cursor-pointer" (click)="showModal(1, 'view')">Mark</span>
+              <span cTooltip="{{item.title}}" class="cursor-pointer" (click)="showModal(item.id, 'view')">{{item.title}}</span>
             </td>
             <td>
               <c-form-check [switch]="true">
-                <input cFormCheckInput checked type="checkbox"/>
+                <input cFormCheckInput [checked]="item.status" type="checkbox"/>
               </c-form-check>
             </td>
             <td class="actions">
-              <a (click)="showModal(1, 'view')" title="View">
+              <a (click)="showModal(item.id, 'view')" title="View">
                 <i class="fa fa-eye cursor-pointer"></i>
               </a>
-              <a (click)="showModal(1, 'edit')" title="Edit">
+              <a (click)="showModal(item.id, 'edit')" title="Edit">
                 <i class="fa fa-pencil cursor-pointer"></i>
               </a>
-              <a (click)="popup.deleteModal(1)" title="Delete">
+              <a (click)="popup.deleteModal(item.id)" title="Delete">
                 <i class="fa fa-close cursor-pointer"></i>
               </a>
             </td>
@@ -65,9 +65,8 @@
 
         <div class="modal-body">
           <div *ngIf="requestType == 'view'">
-            <p>I am a modal that is shown right after initialization!</p>
-            <p>I wasn't present in DOM until you clicked the button</p>
-            <p>When you close me, I'll be removed from the DOM</p>
+            <b>Title: </b><p>{{viewData?.title}}</p>
+            <b>Status: </b><p>{{viewData?.status == 1 ? 'Active' : 'Inactive'}}</p>
           </div>
           <div *ngIf="requestType == 'edit' || requestType == 'add'">
             <div class="container-md" data-aos="fade-in">
