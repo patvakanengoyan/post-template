@@ -73,13 +73,13 @@
       </div>
       <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)">
 
-      <div class="modal-body">
-        <div *ngIf="requestType == 'view'">
-          <p>I am a modal that is shown right after initialization!</p>
-          <p>I wasn't present in DOM until you clicked the button</p>
-          <p>When you close me, I'll be removed from the DOM</p>
-        </div>
-        <div *ngIf="requestType == 'edit' || requestType == 'add'">
+        <div class="modal-body">
+          <div *ngIf="requestType == 'view'">
+            <p>I am a modal that is shown right after initialization!</p>
+            <p>I wasn't present in DOM until you clicked the button</p>
+            <p>When you close me, I'll be removed from the DOM</p>
+          </div>
+          <div *ngIf="requestType == 'edit' || requestType == 'add'">
             <div class="container-md" data-aos="fade-in">
               <div class="row">
                 <div class="mb-3">
@@ -122,26 +122,52 @@
                 <div class="mb-3">
                   <label for="description">Select Tag</label>
 
-                  <angular2-multiselect [data]="itemListTag"
-                                        [settings]="settingsCategory"
-                                        formControlName="tag"
-                  >
-                  </angular2-multiselect>
+                  <mat-form-field class="example-chip-list">
+                    <mat-chip-list #chipList formControlName="tag" aria-label="Fruit selection">
+                      <mat-chip
+                        *ngFor="let fruit of fruits"
+                        [selectable]="selectable"
+                        [removable]="removable"
+                        (removed)="remove(fruit)">
+                        {{fruit}}
+                        <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                      </mat-chip>
+                      <input
+                        placeholder="Select Tag..."
+                        #fruitInput
+                        [formControl]="fruitCtrl"
+                        [matAutocomplete]="auto"
+                        [matChipInputFor]="chipList"
+                        [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                        [matChipInputAddOnBlur]="addOnBlur"
+                        (matChipInputTokenEnd)="add($event)">
+                    </mat-chip-list>
+                    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+                      <ng-container *ngFor="let fruit of filteredFruits | async">
+                        <mat-option *ngIf="!fruits.includes(fruit)" [value]="fruit">
+                          <mat-checkbox color="primary"></mat-checkbox>
+                          {{fruit}}
+                        </mat-option>
+                      </ng-container>
+                    </mat-autocomplete>
+                  </mat-form-field>
                 </div>
                 <div class="mb-3">
                   <label for="status">Status</label>
                   <c-form-check [switch]="true" class="form-control border-0">
-                    <input cFormCheckInput type="checkbox" id="status" formControlName="status" />
+                    <input cFormCheckInput type="checkbox" id="status" formControlName="status"/>
                   </c-form-check>
                 </div>
               </div>
             </div>
+          </div>
         </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" (click)="hideModal()">Close</button>
-        <button *ngIf="requestType == 'edit' || requestType == 'add'" type="submit" class="btn btn-primary">Save changes</button>
-      </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="hideModal()">Close</button>
+          <button *ngIf="requestType == 'edit' || requestType == 'add'" type="submit" class="btn btn-primary">Save
+            changes
+          </button>
+        </div>
       </form>
     </div>
   </div>

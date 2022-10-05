@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, Validators} from "@angular/forms";
 import * as customBuild from '../../shared/ckCustomBuild/build/ckeditor.js';
 import {ModalDirective} from "ngx-bootstrap/modal";
@@ -6,6 +6,12 @@ import {DeleteModalComponent} from "../../shared/utils/delete-modal/delete-modal
 import {RequestService} from "../../shared/service/request.service";
 import {environment} from "../../../environments/environment.prod";
 import {editorConfig} from "../../shared/ckEditorConfig/ck-editor-config";
+import {COMMA, ENTER} from "@angular/cdk/keycodes";
+import {FormControl} from '@angular/forms';
+import {Observable, startWith} from "rxjs";
+import {MatChipInputEvent} from "@angular/material/chips";
+import {MatAutocomplete, MatAutocompleteSelectedEvent} from "@angular/material/autocomplete";
+import {map} from "rxjs/operators";
 
 @Component({
   selector: 'app-posts',
@@ -21,7 +27,7 @@ export class PostsComponent implements OnInit {
     description: ['', Validators.required],
     country: ['', Validators.required],
     city: ['', Validators.required],
-    tag: ['', Validators.required],
+    tag: [''],
     category: ['', Validators.required],
     image: ['', Validators.required],
     status: ['', Validators.required],
@@ -40,11 +46,30 @@ export class PostsComponent implements OnInit {
 
   itemListTag: any = [];
 
+  visible = true;
+  selectable = true;
+  removable = true;
+  addOnBlur = true;
+  separatorKeysCodes: number[] = [ENTER, COMMA];
+  fruitCtrl = new FormControl();
+  filteredFruits: Observable<string[]>;
+  fruits: string[] = [];
+  allFruits: string[] = ['Apple', 'Lemon', 'Lime', 'Orange', 'Strawberry'];
+
+  @ViewChild('fruitInput', {static: false}) fruitInput!: ElementRef<HTMLInputElement>;
+  @ViewChild('auto', {static: false}) matAutocomplete!: MatAutocomplete;
+
+
   constructor(public requestService: RequestService,
-              public fb: FormBuilder) { }
+              public fb: FormBuilder) {
+    this.filteredFruits = this.fruitCtrl.valueChanges.pipe(
+      startWith(null),
+      map((fruit: string | null) => (fruit ? this._filter(fruit) : this.allFruits.slice())),
+    );
+  }
 
   ngOnInit(): void {
-    this.getData();
+    // this.getData();
     this.itemListCountry = [
       {"id":1,"itemName":"USA"},
       {"id":2,"itemName":"England"},
@@ -118,10 +143,57 @@ export class PostsComponent implements OnInit {
     this.isModalShown = false;
   }
 
+  add(event: MatChipInputEvent): void {
+    // Add fruit only when MatAutocomplete is not open
+    // To make sure this does not conflict with OptionSelected Event
+    if (!this.matAutocomplete.isOpen) {
+      const input = event.input;
+      const value = event.value;
+
+      // Add our fruit
+      if ((value || '').trim()) {
+        this.fruits.push(value.trim());
+      }
+
+      // Reset the input value
+      if (input) {
+        input.value = '';
+      }
+
+      this.fruitCtrl.setValue(null);
+    }
+  }
+
+  remove(fruit: string): void {
+    const index = this.fruits.indexOf(fruit);
+
+    if (index >= 0) {
+      this.fruits.splice(index, 1);
+    }
+  }
+
+  selected(event: MatAutocompleteSelectedEvent): void {
+    this.fruits.push(event.option.viewValue);
+    this.fruitInput.nativeElement.value = '';
+    this.fruitCtrl.setValue(null);
+  }
+
+  private _filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
+
+    return this.allFruits.filter(fruit => fruit.toLowerCase().indexOf(filterValue) === 0);
+  }
+
+  onFilteringProjId(e) {
+    console.log(e);
+  }
+
   onSubmit(form: any){
     if (this.requestType == 'edit') {
 
     } else if (this.requestType == 'add') {
+      console.log(this.fruits);
+      console.log(form);
       let data = new FormData()
       // for (let key in form) {
       //   if (key == 'image') {
@@ -137,7 +209,6 @@ export class PostsComponent implements OnInit {
       //   }
       // }
     }
-    console.log(form);
   }
 
   deleteItem(id) {

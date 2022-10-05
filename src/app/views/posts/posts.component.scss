@@ -13,3 +13,9 @@
   position: absolute;
   top: 0
 }
+.example-chip-list {
+  width: 100%;
+}
+::ng-deep .cdk-overlay-container {
+  z-index: 1058;
+}
