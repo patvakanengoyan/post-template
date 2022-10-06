@@ -21,7 +21,7 @@ export class SinglePostComponent implements OnInit {
   }
 
   getData (url: string) {
-    this.requestService.getData(url + '/' + this.activatedRoute.snapshot.params['id']).subscribe((item: object) => {
+    this.requestService.getData(url + '/' + this.activatedRoute.snapshot.params['id']).subscribe((item: any) => {
       this.data = item;
     })
   }

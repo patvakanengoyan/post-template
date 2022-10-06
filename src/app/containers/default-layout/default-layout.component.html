@@ -1,4 +1,16 @@
 <!--sidebar-->
+<div *ngIf="loading" class="fade show" style="text-align: center; padding-top: calc(100vh / 2); height: 100vh;
+    z-index: 1100;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #cdcdcd8c;">
+  <i class="spinner-grow spinner-grow-sm"></i>
+  <span class="m-1">Loading...</span>
+</div>
+
 <c-sidebar
   #sidebar="cSidebar"
   class="d-print-none sidebar sidebar-fixed"

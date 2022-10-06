@@ -55,6 +55,8 @@ import {HeaderComponent} from "./web-pages/components/header/header.component";
 import {FooterComponent} from "./web-pages/components/footer/footer.component";
 import {RefreshTokenService} from "./shared/service/refresh-token.service";
 import {AppInterceptor} from "./shared/service/app-interceptor";
+import {RequestService} from "./shared/service/request.service";
+import {ToastrModule} from "ngx-toastr";
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
@@ -93,7 +95,6 @@ const APP_CONTAINERS = [
     FormModule,
     UtilitiesModule,
     ButtonGroupModule,
-    ReactiveFormsModule,
     SidebarModule,
     SharedModule,
     TabsModule,
@@ -104,7 +105,10 @@ const APP_CONTAINERS = [
     CardModule,
       AngularMultiSelectModule,
       HttpClientModule,
-      ReactiveFormsModule
+      ReactiveFormsModule,
+    ToastrModule.forRoot({
+      positionClass :'toast-bottom-right'
+    })
   ],
   providers: [
     // {
@@ -112,11 +116,11 @@ const APP_CONTAINERS = [
     //   useClass: HashLocationStrategy,
     // },
     // {provide: HTTP_INTERCEPTORS, useClass: AppInterceptor, multi: true},
-
     {
       provide: PERFECT_SCROLLBAR_CONFIG,
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG,
     },
+    { provide: HTTP_INTERCEPTORS, useClass: AppInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: RefreshTokenService, multi: true },
     IconSetService,
     Title

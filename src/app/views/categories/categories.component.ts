@@ -22,6 +22,7 @@ export class CategoriesComponent implements OnInit {
   @ViewChild(DeleteModalComponent) private modal!: DeleteModalComponent;
   isModalShown = false;
   requestType: any;
+  paginationConfig: any;
 
   @ViewChild('fruitInput', {static: false}) fruitInput!: ElementRef<HTMLInputElement>;
   @ViewChild('auto', {static: false}) matAutocomplete!: MatAutocomplete;
@@ -32,16 +33,17 @@ export class CategoriesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getData();
+    this.getData(this.url);
     this.form = this.fb.group({
       title: ['', Validators.required],
       status: [''],
     })
   }
 
-  getData() {
-    this.requestService.getData(this.url).subscribe((res) => {
-      this.data = res['data'];
+  getData(url) {
+    this.requestService.getData(url).subscribe((res) => {
+      this.data = res['data'] ? res['data'] : [];
+      this.paginationConfig = res;
     })
   }
 
@@ -89,13 +91,13 @@ export class CategoriesComponent implements OnInit {
     }
     if (this.requestType == 'edit') {
       this.requestService.updateData(this.url, data, this.viewData.id ).subscribe((res) => {
-        this.getData();
+        this.getData(this.url);
         this.onHidden();
       })
 
     } else if (this.requestType == 'add') {
       this.requestService.createData(this.url,data).subscribe((res) => {
-        this.getData();
+        this.getData(this.url);
         this.onHidden();
       })
     }
@@ -104,7 +106,7 @@ export class CategoriesComponent implements OnInit {
   deleteItem(id) {
     this.modal.modalRef.hide();
     this.requestService.delete(this.url, id ).subscribe((res) => {
-      this.getData();
+      this.getData(this.url);
       this.onHidden();
     })
   }

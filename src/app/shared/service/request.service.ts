@@ -13,7 +13,7 @@ export class RequestService {
   loading = this.isloading.asObservable();
   reqCount = 0;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   getData(apiUrl:string) {
     this.isloading.next({type: 'get', isLoading: true, reqCount: ++this.reqCount});

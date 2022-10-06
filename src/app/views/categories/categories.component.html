@@ -39,11 +39,12 @@
           </tbody>
         </table>
         <div class="d-flex justify-content-center">
-          <pagination [boundaryLinks]="true"
-                      [totalItems]="77"
-                      [maxSize]="10"
-                      previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
-          </pagination>
+          <app-pagination [data]="{data: paginationConfig, url: url}" (newItemEvent)="getData($event)"></app-pagination>
+<!--          <pagination [boundaryLinks]="true"-->
+<!--                      [totalItems]="77"-->
+<!--                      [maxSize]="10"-->
+<!--                      previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">-->
+<!--          </pagination>-->
         </div>
       </c-card-body>
     </c-card>

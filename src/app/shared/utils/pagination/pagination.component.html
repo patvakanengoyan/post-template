@@ -1,0 +1,9 @@
+<div *ngIf="data?.data && data?.data.total > 10">
+  <pagination [boundaryLinks]="true"
+              [totalItems]="data?.data?.total"
+              [maxSize]="10"
+              [itemsPerPage]="data?.data?.per_page"
+              (pageChanged)="pageChanged($event)"
+              previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
+  </pagination>
+</div>

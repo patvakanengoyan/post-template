@@ -5,23 +5,26 @@ import { map, catchError } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
 import {Router} from "@angular/router";
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class AppInterceptor implements HttpInterceptor {
+
   constructor(private toastr: ToastrService,
               private router: Router) {
   }
 
-  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+  intercept(req: HttpRequest<any>, next: HttpHandler) {
 
 
     return next.handle(req).pipe(map((event: HttpEvent<any>) => {
         let url = req.url;
-        if (url.search('admin/login') != -1 || url.search('logout') != -1 || url.search('assets/map') != -1 || url.search('help/message/view') != -1) {
+        if (url.search('admin/login') != -1 || url.search('logout') != -1) {
         } else {
           if (event instanceof HttpResponse) {
             let url = new URL(req.url)
             if (req.method === 'POST' || req.method === 'DELETE' || req.method === 'PUT') {
-              if (!req.url.includes('refresh') && !url.pathname.includes('api/rooms')) {
+              if (!req.url.includes('refresh')) {
                 let messages = event.body.messages ? event.body.messages : event.body.message;
                 this.toastr.success(messages);
               }

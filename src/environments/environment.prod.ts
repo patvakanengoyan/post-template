@@ -8,10 +8,10 @@ export const environment = {
     baseUrl: apiUrl + prefix,
     admin: {
       login: apiUrl + prefix + 'admin/login',
-      refresh: apiUrl + prefix +  '',
+      refresh: apiUrl + prefix +  'admin/refresh',
       logout: apiUrl + prefix +  'admin/logout',
-      posts: apiUrl + 'admin/posts',
-      slider: apiUrl + 'admin/slider',
+      posts: apiUrl + prefix + 'admin/post',
+      slider: apiUrl + prefix + 'admin/slider',
       category: apiUrl + prefix + 'admin/category'
     }
 };

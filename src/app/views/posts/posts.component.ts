@@ -48,6 +48,7 @@ export class PostsComponent implements OnInit {
   filteredFruits: Observable<string[]>;
   // fruits: string[] = ['Lemon'];
   allFruits: string[] = ['Apple', 'Lemon', 'Lime', 'Orange', 'Strawberry'];
+  paginationConfig: any;
 
   @ViewChild('fruitInput', {static: false}) fruitInput!: ElementRef<HTMLInputElement>;
   @ViewChild('auto', {static: false}) matAutocomplete!: MatAutocomplete;
@@ -73,12 +74,7 @@ export class PostsComponent implements OnInit {
 
   ngOnInit(): void {
     this.setCountyList()
-    // this.getData();
-    // this.itemListCountry = [
-    //   {"id":1,"itemName":"USA"},
-    //   {"id":2,"itemName":"England"},
-    //   {"id":3,"itemName":"France"},
-    // ];
+    this.getData(this.url);
 
     this.settingsCountry = {
       enableSearchFilter: true,
@@ -86,12 +82,6 @@ export class PostsComponent implements OnInit {
       singleSelection: true,
       text:"Select item"
     };
-    // this.itemListCity = [
-    //   {"id":1,"itemName":"New York",},
-    //   {"id":2,"itemName":"Las Vegas"},
-    //   {"id":3,"itemName":"London"},
-    //   {"id":4,"itemName":"Paris"},
-    // ];
     this.itemListCategory = [
       {"id":1,"itemName":"Business"},
       {"id":2,"itemName":"Culture"},
@@ -115,9 +105,9 @@ export class PostsComponent implements OnInit {
     ];
   }
 
-  getData() {
-    this.requestService.getData(this.url).subscribe((res) => {
-        this.data = res;
+  getData(url) {
+    this.requestService.getData(url).subscribe((res) => {
+
     })
   }
 
