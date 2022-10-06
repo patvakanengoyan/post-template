@@ -29,7 +29,7 @@ export class LoginComponent {
         for (let key in data) {
           localStorage.setItem(key, data[key]);
         }
-        this.router.navigateByUrl(`admin/dashboard`);
+        this.router.navigateByUrl(`admin/posts`);
       }
     });
   }
