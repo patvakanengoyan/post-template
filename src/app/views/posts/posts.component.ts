@@ -107,7 +107,8 @@ export class PostsComponent implements OnInit {
 
   getData(url) {
     this.requestService.getData(url).subscribe((res) => {
-
+      this.data = res['data'] ? res['data'] : [];
+      this.paginationConfig = res;
     })
   }
 
