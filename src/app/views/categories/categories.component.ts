@@ -37,7 +37,7 @@ export class CategoriesComponent implements OnInit {
 
   getData(url) {
     this.requestService.getData(url).subscribe((res) => {
-      this.data = res['data'] ? res['data'] : [];
+      this.data = res['data'] ? res['data'] : res;
       this.paginationConfig = res;
     })
   }
@@ -79,8 +79,8 @@ export class CategoriesComponent implements OnInit {
     let data = {
       "title":form.title,
       "translations":{
-        "en":{"title":"new new Category title"},
-        "hy":{"title":"new new Category title For Hy"}
+        "en":{"title":form.title},
+        "hy":{"title":form.title}
       },
       "status": form.status == true || form.status == 1 ? 1 : 0
     }

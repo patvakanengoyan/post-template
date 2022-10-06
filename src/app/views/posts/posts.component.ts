@@ -20,13 +20,13 @@ import {map} from "rxjs/operators";
   styleUrls: ['./posts.component.scss']
 })
 export class PostsComponent implements OnInit {
-  url: any = `${environment.admin.posts}`;
+  url: any = `${environment.admin.posts.get}`;
   data: any;
   viewData: any;
   form: any = FormGroup;
   public Editor = customBuild;
   @Input() config = editorConfig;
-  @ViewChild('autoShownModal', { static: false }) autoShownModal?: ModalDirective;
+  @ViewChild('autoShownModal', {static: false}) autoShownModal?: ModalDirective;
   @ViewChild(DeleteModalComponent) private modal!: DeleteModalComponent;
   countryList = list;
   isModalShown = false;
@@ -52,6 +52,11 @@ export class PostsComponent implements OnInit {
 
   @ViewChild('tagInput', {static: false}) tagInput!: ElementRef<HTMLInputElement>;
   @ViewChild('auto', {static: false}) matAutocomplete!: MatAutocomplete;
+  imageValue: any;
+  editImagePath: any;
+  imagePath: any;
+  image: any;
+  file: any;
 
 
   constructor(public requestService: RequestService,
@@ -65,10 +70,10 @@ export class PostsComponent implements OnInit {
       description: ['', Validators.required],
       country: ['', Validators.required],
       city: ['', Validators.required],
-      tag: [[], Validators.required],
-      category: ['', Validators.required],
+      tag: [[]],
+      categories: ['', Validators.required],
       image: ['', Validators.required],
-      status: ['', Validators.required],
+      status: [''],
     })
   }
 
@@ -80,64 +85,95 @@ export class PostsComponent implements OnInit {
       enableSearchFilter: true,
       addNewItemOnFilter: true,
       singleSelection: true,
-      text:"Select item"
+      text: "Select item"
     };
-    this.itemListCategory = [
-      {"id":1,"itemName":"Business"},
-      {"id":2,"itemName":"Culture"},
-      {"id":3,"itemName":"Sport"},
-      {"id":4,"itemName":"Food"},
-      {"id":5,"itemName":"Startups"},
-      {"id":6,"itemName":"Travel"},
-    ];
 
     this.settingsCategory = {
       enableSearchFilter: true,
       selectAllText: 'Select All',
-      text:"Select item"
+      text: "Select item"
     };
     this.itemListTag = [
-      {"id":1,"itemName":"Business"},
-      {"id":2,"itemName":"Culture"},
-      {"id":3,"itemName":"Sport"},
-      {"id":4,"itemName":"Food"},
-      {"id":5,"itemName":"Startups"},
+      {"id": 1, "itemName": "Business"},
+      {"id": 2, "itemName": "Culture"},
+      {"id": 3, "itemName": "Sport"},
+      {"id": 4, "itemName": "Food"},
+      {"id": 5, "itemName": "Startups"},
     ];
   }
 
   getData(url) {
     this.requestService.getData(url).subscribe((res) => {
-      this.data = res['data'] ? res['data'] : [];
+      this.data = res['data'] ? res['data'] : res;
       this.paginationConfig = res;
     })
   }
 
   getById(id) {
-    this.requestService.getData(this.url + '/' + id ).subscribe((res) => {
-      this.viewData = res;
+    this.requestService.getData(this.url + '/' + id).subscribe((res: any) => {
+      this.viewData = res[0];
+      if (this.requestType == 'edit') {
+        let arr = [] as any;
+        for (let i = 0; i < this.viewData.categories.length; i++) {
+          arr.push({
+            id: this.viewData.categories[i].id,
+            itemName: this.viewData.categories[i].translation
+          })
+        }
+        this.editImagePath = this.viewData.image.url;
+        this.form.controls.image.clearValidators();
+        this.form.controls.image.updateValueAndValidity();
+        this.form.patchValue({
+          title: this.viewData.title,
+          description: this.viewData.description,
+          categories: arr,
+          country: [{id: Object.keys(this.countryList).indexOf(this.viewData.country) + 1, itemName: this.viewData.country}],
+          city: [{id: this.countryList[this.viewData.country].indexOf(this.viewData.city), itemName: this.viewData.city}],
+          status: this.viewData.status
+        });
+        this.setCitiesList(true)
+      }
     })
+  }
+
+  getCategoryList () {
+    this.requestService.getData(`${environment.admin.posts.getAllCategoryList}`).subscribe((res: any) => {
+      if (!res['message']) {
+        this.itemListCategory = [];
+        for (let i in res) {
+          this.itemListCategory.push(
+            {"id": +i,"itemName":res[i]}
+          );
+        }
+
+      }
+    });
   }
 
   showModal(id, type): void {
     this.isModalShown = true;
     this.requestType = type
     if (type === 'view') {
-        this.getById(id)
+      this.getById(id)
     } else if (type === 'edit') {
-        this.getById(id)
+      this.getById(id)
+      this.getCategoryList();
     } else if (type === 'add') {
-
+      this.getCategoryList();
     }
   }
 
   hideModal(): void {
     this.autoShownModal?.hide();
+    this.editImagePath = undefined;
+    this.imageValue = undefined;
+    this.file = undefined;
+    this.form.reset();
+    this.tagFiled.value = [];
   }
 
   onHidden(): void {
     this.isModalShown = false;
-    this.form.reset();
-    this.tagFiled.value = [];
   }
 
   get tagFiled() {
@@ -191,34 +227,81 @@ export class PostsComponent implements OnInit {
     return this.alltags.filter(tag => tag.toLowerCase().indexOf(filterValue) === 0);
   }
 
-  onSubmit(form: any){
-    if (this.requestType == 'edit') {
+  onChangeInput(e) {
+    this.file = e.target ? e.target.files[0] : e;
+    if (this.file) {
+      const fileName = this.file.name;
+      if (/\.(jpe?g|png|bmp)$/i.test(fileName)) {
+        const filesize = this.file.size;
+        if (filesize > 15728640) {
+          this.form.controls.image.setErrors({size: 'error'});
+        } else {
+          let reader = new FileReader();
+          reader.readAsDataURL(this.file);
+          reader.onload = () => {
+            this.imageValue = reader.result;
+          };
+          this.image = this.file;
+        }
+      } else {
+        this.form.controls.image.setErrors({type: 'error'});
+      }
+    } else {
+      this.file = undefined;
+      this.imageValue = undefined;
+      this.form.controls.image.setErrors(null);
+    }
+  }
 
+  onSubmit(form: any) {
+    let url = this.requestType == 'edit' ? this.url + '/' + this.viewData.id : this.url;
+
+    let data = new FormData()
+    for (let key in this.form.value) {
+      if (key == 'image') {
+        if (this.file) {
+          data.append(key, this.file);
+        }
+      } else if (key == 'categories') {
+        for (let item in this.form.value['categories']) {
+          data.append(`categories[${[item]}]`, this.form.value['categories'][item].id);
+        }
+      } else {
+        // data.append(key, this.form.value[key]);
+      }
+    }
+    data.append('country', form.country[0].itemName)
+    data.append('city', form.city[0].itemName)
+    data.append('translations[en][title]', form.title)
+    data.append('translations[hy][title]', form.title)
+    data.append('translations[en][description]', form.description)
+    data.append('translations[hy][description]', form.description)
+    data.append('status', form.status == true || form.status == '1' ? '1' : '0');
+
+
+    if (this.requestType == 'edit') {
+      data.append('_method', 'PUT')
+      this.requestService.createData(url, data).subscribe((res) => {
+        this.getData(this.url);
+        this.hideModal();
+      })
     } else if (this.requestType == 'add') {
-      // console.log(this.tags);
-      console.log(form);
-      let data = new FormData()
-      // for (let key in form) {
-      //   if (key == 'image') {
-      //     if (this.file) {
-      //       data.append(key, this.file);
-      //     }
-      //   }else if (key == 'categories') {
-      //     for (let item in this.form.value['categories']) {
-      //       data.append(`categories[${[item]}]`, this.form.value['categories'][item].id);
-      //     }
-      //   } else {
-      //     data.append(key, this.form.value[key]);
-      //   }
-      // }
+      this.requestService.createData(url, data).subscribe((res) => {
+        this.getData(this.url);
+        this.hideModal();
+      })
     }
   }
 
   deleteItem(id) {
     this.modal.modalRef.hide();
+    this.requestService.delete(this.url, id).subscribe((res) => {
+      this.getData(this.url);
+      this.hideModal();
+    })
   }
 
-  setCountyList () {
+  setCountyList() {
     let countries = Object.keys(this.countryList);
     let list = countries.map((item, i) => {
       return {id: i + 1, itemName: item};
@@ -226,8 +309,8 @@ export class PostsComponent implements OnInit {
     this.itemListCountry = [...list];
   }
 
-  setCitiesList () {
-    this.form.get('city').reset();
+  setCitiesList(set?) {
+    set ? '' : this.form.get('city').reset();
     let cities = this.form.value.country[0] ? this.countryList[this.form.value.country[0].itemName] : [];
     let list = cities.map((item, i) => {
       return {id: i + 1, itemName: item};

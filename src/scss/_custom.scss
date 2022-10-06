@@ -59,3 +59,25 @@
 .c-btn.btn-iceblue {
   display: none;
 }
+.column-size {
+  -moz-column-count: 2;
+  column-count: 2;
+  word-break: break-all;
+}
+.image-block {
+  width: 144px;
+  height: 141px;
+  right: 7px;
+  position: relative;
+}
+.user-image {
+  width: 130px;
+  height: 130px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+.user-edit-icon {
+  position: absolute;
+  right: 0;
+  top: 0;
+}

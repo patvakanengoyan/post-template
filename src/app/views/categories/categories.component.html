@@ -6,7 +6,10 @@
         <button class="btn btn-primary float-end" (click)="showModal(null, 'add')">Add</button>
       </c-card-header>
       <c-card-body>
-        <table cTable *ngIf="data">
+        <div *ngIf="data && data['message']">
+          <span>No result</span>
+        </div>
+        <table cTable *ngIf="data && !data['message']">
           <thead>
           <tr>
             <th scope="col">Title</th>
@@ -40,11 +43,6 @@
         </table>
         <div class="d-flex justify-content-center">
           <app-pagination [data]="{data: paginationConfig, url: url}" (newItemEvent)="getData($event)"></app-pagination>
-<!--          <pagination [boundaryLinks]="true"-->
-<!--                      [totalItems]="77"-->
-<!--                      [maxSize]="10"-->
-<!--                      previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">-->
-<!--          </pagination>-->
         </div>
       </c-card-body>
     </c-card>

@@ -12,6 +12,7 @@ export class RequestService {
   private isloading = new Subject<object>();
   loading = this.isloading.asObservable();
   reqCount = 0;
+  imgSite = environment.imagePrefix;
 
   constructor(private http: HttpClient) {}
 

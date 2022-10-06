@@ -6,7 +6,10 @@
         <button class="btn btn-primary float-end" (click)="showModal(null, 'add')">Add</button>
       </c-card-header>
       <c-card-body>
-        <table cTable>
+        <div *ngIf="data && data['message']">
+          <span>No result</span>
+        </div>
+        <table cTable *ngIf="data && !data['message']">
           <thead>
           <tr>
             <th scope="col">Title</th>
@@ -20,28 +23,33 @@
           </tr>
           </thead>
           <tbody>
-          <tr>
+          <tr *ngFor="let item of data">
             <td>
-              <span cTooltip="Tooltip text" class="cursor-pointer" (click)="showModal(1, 'view')">Mark</span>
+              <span cTooltip="{{item.title}}" class="cursor-pointer"
+                    (click)="showModal(item.id, 'view')">{{item.title}}</span>
             </td>
-            <td>Otto</td>
-            <td>@mdo</td>
-            <td>Mark</td>
-            <td>Otto</td>
+            <td [innerHTML]="item.description"></td>
+            <td>{{item.country}}</td>
+            <td>{{item.city}}</td>
+            <td>
+              <span *ngFor="let cat of item.categories, let last = last">
+                {{cat.title ? cat.title : 'no result'}}<span *ngIf="!last">, &nbsp;</span>
+              </span>
+            </td>
             <td>@mdo</td>
             <td>
               <c-form-check [switch]="true">
-                <input cFormCheckInput checked type="checkbox"/>
+                <input cFormCheckInput [checked]="item.status" type="checkbox"/>
               </c-form-check>
             </td>
             <td class="actions">
-              <a (click)="showModal(1, 'view')" title="View">
+              <a (click)="showModal(item.id, 'view')" title="View">
                 <i class="fa fa-eye cursor-pointer"></i>
               </a>
-              <a (click)="showModal(1, 'edit')" title="Edit">
+              <a (click)="showModal(item.id, 'edit')" title="Edit">
                 <i class="fa fa-pencil cursor-pointer"></i>
               </a>
-              <a (click)="popup.deleteModal(1)" title="Delete">
+              <a (click)="popup.deleteModal(item.id)" title="Delete">
                 <i class="fa fa-close cursor-pointer"></i>
               </a>
             </td>
@@ -50,11 +58,6 @@
         </table>
         <div class="d-flex justify-content-center">
           <app-pagination [data]="{data: paginationConfig, url: url}" (newItemEvent)="getData($event)"></app-pagination>
-<!--          <pagination [boundaryLinks]="true"-->
-<!--                      [totalItems]="77"-->
-<!--                      [maxSize]="10"-->
-<!--                      previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">-->
-<!--          </pagination>-->
         </div>
       </c-card-body>
     </c-card>
@@ -76,9 +79,19 @@
 
         <div class="modal-body">
           <div *ngIf="requestType == 'view'">
-            <p>I am a modal that is shown right after initialization!</p>
-            <p>I wasn't present in DOM until you clicked the button</p>
-            <p>When you close me, I'll be removed from the DOM</p>
+            <img style="max-width: 100%; max-height: 350px;" src="{{this.requestService.imgSite + viewData.image.url}}"
+                 alt="">
+            <div class="column-size">
+              <p><b>Title:</b> {{viewData.title}}</p>
+              <div><b>Description:</b> <div [innerHTML]="viewData.description"></div></div>
+              <p><b>Country:</b> {{viewData.country}}</p>
+              <p><b>City:</b> {{viewData.city}}</p>
+              <p><b>Categories:</b>
+                <span *ngFor="let cat of viewData.categories, let last = last">
+                  {{cat.title}}<span *ngIf="!last">, &nbsp;</span>
+                </span>
+              </p>
+            </div>
           </div>
           <div *ngIf="requestType == 'edit' || requestType == 'add'">
             <div class="container-md" data-aos="fade-in">
@@ -119,7 +132,7 @@
 
                   <angular2-multiselect [data]="itemListCategory"
                                         [settings]="settingsCategory"
-                                        formControlName="category"
+                                        formControlName="categories"
                   >
                   </angular2-multiselect>
                 </div>
@@ -156,7 +169,17 @@
                   </mat-form-field>
                 </div>
                 <div class="col-6 mb-3">
-                  <app-file-input formControlName="image"></app-file-input>
+                  <!--                  <app-file-input formControlName="image"></app-file-input>-->
+                  <div *ngIf="imageValue || editImagePath">
+                    <div class="image-block">
+                      <img *ngIf="imageValue || editImagePath"
+                           src="{{imageValue ? imageValue : this.requestService.imgSite + editImagePath}}" alt="image"
+                           class="user-image">
+                    </div>
+                  </div>
+                  <label for="image">Image</label>
+                  <input type="file" class="form-control" (change)="onChangeInput($event)" formControlName="image"
+                         id="image">
                 </div>
                 <div class="col-6 mb-3">
                   <label for="status">Status</label>
@@ -170,8 +193,10 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" (click)="hideModal()">Close</button>
-          <button *ngIf="requestType == 'edit' || requestType == 'add'" type="submit" class="btn btn-primary">Save
-            changes
+          <button *ngIf="requestType == 'edit' || requestType == 'add'"
+                  type="submit" class="btn btn-primary"
+                  [disabled]="!form.valid">
+            Save changes
           </button>
         </div>
       </form>
