@@ -103,11 +103,13 @@ const APP_CONTAINERS = [
     BadgeModule,
     ListGroupModule,
     CardModule,
-      AngularMultiSelectModule,
-      HttpClientModule,
-      ReactiveFormsModule,
+    AngularMultiSelectModule,
+    HttpClientModule,
+    ReactiveFormsModule,
     ToastrModule.forRoot({
-      positionClass :'toast-bottom-right'
+      positionClass :'toast-top-right',
+      timeOut: 7000,
+      progressBar: true
     })
   ],
   providers: [
