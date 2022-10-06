@@ -13,7 +13,6 @@
           <thead>
           <tr>
             <th scope="col">Title</th>
-            <th scope="col">Description</th>
             <th scope="col">Country</th>
             <th scope="col">City</th>
             <th scope="col">Category</th>
@@ -28,7 +27,6 @@
               <span cTooltip="{{item.title}}" class="cursor-pointer"
                     (click)="showModal(item.id, 'view')">{{item.title}}</span>
             </td>
-            <td [innerHTML]="item.description"></td>
             <td>{{item.country}}</td>
             <td>{{item.city}}</td>
             <td>
@@ -79,11 +77,10 @@
 
         <div class="modal-body">
           <div *ngIf="requestType == 'view'">
-            <img style="max-width: 100%; max-height: 350px;" src="{{this.requestService.imgSite + viewData.image.url}}"
+            <img style="max-width: 300px; max-height: 350px;" src="{{this.requestService.imgSite + viewData?.image.url}}"
                  alt="">
-            <div class="column-size">
+            <div *ngIf="viewData">
               <p><b>Title:</b> {{viewData.title}}</p>
-              <div><b>Description:</b> <div [innerHTML]="viewData.description"></div></div>
               <p><b>Country:</b> {{viewData.country}}</p>
               <p><b>City:</b> {{viewData.city}}</p>
               <p><b>Categories:</b>
@@ -91,6 +88,8 @@
                   {{cat.title}}<span *ngIf="!last">, &nbsp;</span>
                 </span>
               </p>
+              <div><b>Description:</b> <div [innerHTML]="viewData.description"></div></div>
+
             </div>
           </div>
           <div *ngIf="requestType == 'edit' || requestType == 'add'">
