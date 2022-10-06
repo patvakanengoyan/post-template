@@ -712,11 +712,9 @@ export const list = {
   "Armenia": [
     "Abovyan",
     "Agarak",
-    "Apaga",
     "Aparan",
-    "Arabkir",
     "Ashtarak",
-    "Erebuni Fortress",
+    "Gyumri",
     "Hrazdan",
     "Ijevan",
     "Jermuk",

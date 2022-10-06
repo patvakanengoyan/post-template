@@ -1,10 +1,9 @@
-import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {environment} from "../../../environments/environment.prod";
-import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {editorConfig} from "../../shared/ckEditorConfig/ck-editor-config";
 import {ModalDirective} from "ngx-bootstrap/modal";
 import {DeleteModalComponent} from "../../shared/utils/delete-modal/delete-modal.component";
-import {MatAutocomplete, MatAutocompleteSelectedEvent} from "@angular/material/autocomplete";
 import {RequestService} from "../../shared/service/request.service";
 
 @Component({
@@ -23,10 +22,6 @@ export class CategoriesComponent implements OnInit {
   isModalShown = false;
   requestType: any;
   paginationConfig: any;
-
-  @ViewChild('fruitInput', {static: false}) fruitInput!: ElementRef<HTMLInputElement>;
-  @ViewChild('auto', {static: false}) matAutocomplete!: MatAutocomplete;
-
 
   constructor(public requestService: RequestService,
               public fb: FormBuilder) {
@@ -47,8 +42,8 @@ export class CategoriesComponent implements OnInit {
     })
   }
 
-  getById(id) {
-    this.requestService.getData(this.url + '/' + id ).subscribe((res) => {
+  getById(url, id) {
+    this.requestService.getData(url + '/' + id ).subscribe((res) => {
       this.viewData = res[0];
       if (this.requestType == 'edit') {
         this.form.patchValue({
@@ -63,9 +58,9 @@ export class CategoriesComponent implements OnInit {
     this.isModalShown = true;
     this.requestType = type
     if (type === 'view') {
-      this.getById(id)
+      this.getById(this.url, id)
     } else if (type === 'edit') {
-      this.getById(id)
+      this.getById(this.url, id)
     } else if (type === 'add') {
 
     }
@@ -73,11 +68,11 @@ export class CategoriesComponent implements OnInit {
 
   hideModal(): void {
     this.autoShownModal?.hide();
+    this.form.reset();
   }
 
   onHidden(): void {
     this.isModalShown = false;
-    this.form.reset();
   }
 
   onSubmit(form: any){
@@ -90,24 +85,24 @@ export class CategoriesComponent implements OnInit {
       "status": form.status == true || form.status == 1 ? 1 : 0
     }
     if (this.requestType == 'edit') {
-      this.requestService.updateData(this.url, data, this.viewData.id ).subscribe((res) => {
+      this.requestService.updateData(this.url, data, this.viewData.id).subscribe((res) => {
         this.getData(this.url);
-        this.onHidden();
+        this.hideModal();
       })
 
     } else if (this.requestType == 'add') {
-      this.requestService.createData(this.url,data).subscribe((res) => {
+      this.requestService.createData(this.url, data).subscribe((res) => {
         this.getData(this.url);
-        this.onHidden();
+        this.hideModal();
       })
     }
   }
 
   deleteItem(id) {
     this.modal.modalRef.hide();
-    this.requestService.delete(this.url, id ).subscribe((res) => {
+    this.requestService.delete(this.url, id).subscribe((res) => {
       this.getData(this.url);
-      this.onHidden();
+      this.hideModal();
     })
   }
 }

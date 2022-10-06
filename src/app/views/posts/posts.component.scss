@@ -19,3 +19,9 @@
 ::ng-deep .cdk-overlay-container {
   z-index: 1058;
 }
+::ng-deep .mat-form-field-appearance-legacy .mat-form-field-infix {
+  border-top-width: 0;
+}
+::ng-deep .mat-chip-list-wrapper .mat-standard-chip {
+  margin: 0 4px 4px 4px !important;
+}

@@ -6,7 +6,7 @@
         <button class="btn btn-primary float-end" (click)="showModal(null, 'add')">Add</button>
       </c-card-header>
       <c-card-body>
-        <table cTable>
+        <table cTable *ngIf="data">
           <thead>
           <tr>
             <th scope="col">Title</th>

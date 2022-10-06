@@ -44,21 +44,21 @@ export class PostsComponent implements OnInit {
   removable = true;
   addOnBlur = true;
   separatorKeysCodes: number[] = [ENTER, COMMA];
-  fruitCtrl = new FormControl();
-  filteredFruits: Observable<string[]>;
-  // fruits: string[] = ['Lemon'];
-  allFruits: string[] = ['Apple', 'Lemon', 'Lime', 'Orange', 'Strawberry'];
   paginationConfig: any;
+  tagCtrl = new FormControl();
+  filteredtags: Observable<string[]>;
+  // tags: string[] = ['Lemon'];
+  alltags: string[] = ['Business', 'Culture', 'Sport', 'Food', 'Startups'];
 
-  @ViewChild('fruitInput', {static: false}) fruitInput!: ElementRef<HTMLInputElement>;
+  @ViewChild('tagInput', {static: false}) tagInput!: ElementRef<HTMLInputElement>;
   @ViewChild('auto', {static: false}) matAutocomplete!: MatAutocomplete;
 
 
   constructor(public requestService: RequestService,
               public fb: FormBuilder) {
-    this.filteredFruits = this.fruitCtrl.valueChanges.pipe(
+    this.filteredtags = this.tagCtrl.valueChanges.pipe(
       startWith(null),
-      map((fruit: string | null) => (fruit ? this._filter(fruit) : this.allFruits.slice())),
+      map((tag: string | null) => (tag ? this._filter(tag) : this.alltags.slice())),
     );
     this.form = this.fb.group({
       title: ['', Validators.required],
@@ -145,13 +145,13 @@ export class PostsComponent implements OnInit {
   }
 
   add(event: MatChipInputEvent): void {
-    // Add fruit only when MatAutocomplete is not open
+    // Add tag only when MatAutocomplete is not open
     // To make sure this does not conflict with OptionSelected Event
     if (!this.matAutocomplete.isOpen) {
       const input = event.input;
       const value = event.value;
 
-      // Add our fruit
+      // Add our tag
       if ((value || '').trim()) {
         this.tagFiled.value.push(value.trim());
         this.tagFiled.updateValueAndValidity();
@@ -163,12 +163,12 @@ export class PostsComponent implements OnInit {
         input.value = '';
       }
 
-      this.fruitCtrl.setValue(null);
+      this.tagCtrl.setValue(null);
     }
   }
 
-  remove(fruit: string): void {
-    const index = this.tagFiled.value.indexOf(fruit);
+  remove(tag: string): void {
+    const index = this.tagFiled.value.indexOf(tag);
 
     if (index >= 0) {
       this.tagFiled.value.splice(index, 1);
@@ -178,24 +178,24 @@ export class PostsComponent implements OnInit {
   }
 
   selected(event: MatAutocompleteSelectedEvent): void {
-    // this.fruits.push(event.option.viewValue);
+    // this.tags.push(event.option.viewValue);
     this.tagFiled.value.push(event.option.viewValue);
     this.tagFiled.updateValueAndValidity();
-    this.fruitInput.nativeElement.value = '';
-    this.fruitCtrl.setValue(null);
+    this.tagInput.nativeElement.value = '';
+    this.tagCtrl.setValue(null);
   }
 
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
 
-    return this.allFruits.filter(fruit => fruit.toLowerCase().indexOf(filterValue) === 0);
+    return this.alltags.filter(tag => tag.toLowerCase().indexOf(filterValue) === 0);
   }
 
   onSubmit(form: any){
     if (this.requestType == 'edit') {
 
     } else if (this.requestType == 'add') {
-      // console.log(this.fruits);
+      // console.log(this.tags);
       console.log(form);
       let data = new FormData()
       // for (let key in form) {

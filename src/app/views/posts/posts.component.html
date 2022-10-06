@@ -127,19 +127,18 @@
                   <label for="description">Select Tag</label>
 
                   <mat-form-field class="example-chip-list">
-                    <mat-chip-list #chipList formControlName="tag" aria-label="Fruit selection">
+                    <mat-chip-list #chipList formControlName="tag" aria-label="tag selection">
                       <mat-chip
-                        *ngFor="let fruit of form.get('tag').value"
+                        *ngFor="let tag of form.get('tag').value"
                         [selectable]="selectable"
                         [removable]="removable"
-                        (removed)="remove(fruit)">
-                        {{fruit}}
+                        (removed)="remove(tag)">
+                        {{tag}}
                         <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
                       </mat-chip>
                       <input
-                        placeholder="Select Tag..."
-                        #fruitInput
-                        [formControl]="fruitCtrl"
+                        #tagInput
+                        [formControl]="tagCtrl"
                         [matAutocomplete]="auto"
                         [matChipInputFor]="chipList"
                         [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
@@ -147,10 +146,10 @@
                         (matChipInputTokenEnd)="add($event)">
                     </mat-chip-list>
                     <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
-                      <ng-container *ngFor="let fruit of filteredFruits | async">
-                        <mat-option *ngIf="!form.get('tag').value.includes(fruit)" [value]="fruit">
+                      <ng-container *ngFor="let tag of filteredtags | async">
+                        <mat-option *ngIf="!form.get('tag').value.includes(tag)" [value]="tag">
                           <mat-checkbox color="primary"></mat-checkbox>
-                          {{fruit}}
+                          {{tag}}
                         </mat-option>
                       </ng-container>
                     </mat-autocomplete>
