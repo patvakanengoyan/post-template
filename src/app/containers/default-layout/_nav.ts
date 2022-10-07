@@ -19,6 +19,6 @@ export const navItems: INavData[] = [
   {
     name: 'Category',
     url: 'admin/category',
-    iconComponent: { name: 'cil-notes' }
+    iconComponent: { name: 'cil-star' }
   },
 ];
