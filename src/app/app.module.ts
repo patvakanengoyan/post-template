@@ -46,17 +46,12 @@ import {
 import { IconModule, IconSetService } from '@coreui/icons-angular';
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {AngularMultiSelectModule} from "angular2-multiselect-dropdown";
-import {HomeComponent} from "./web-pages/home/home.component";
 import {NotfoundComponent} from "./web-pages/notfound/notfound.component";
-import {SinglePostComponent} from "./web-pages/single-post/single-post.component";
-import {AboutComponent} from "./web-pages/about/about.component";
-import {ContactComponent} from "./web-pages/contact/contact.component";
-import {HeaderComponent} from "./web-pages/components/header/header.component";
-import {FooterComponent} from "./web-pages/components/footer/footer.component";
 import {RefreshTokenService} from "./shared/service/refresh-token.service";
 import {AppInterceptor} from "./shared/service/app-interceptor";
-import {RequestService} from "./shared/service/request.service";
 import {ToastrModule} from "ngx-toastr";
+import {ComponentsModule} from "./web-pages/components/components.module";
+
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
@@ -66,13 +61,7 @@ const APP_CONTAINERS = [
   DefaultFooterComponent,
   DefaultHeaderComponent,
   DefaultLayoutComponent,
-    HomeComponent,
     NotfoundComponent,
-    SinglePostComponent,
-    HeaderComponent,
-    AboutComponent,
-    ContactComponent,
-    FooterComponent
 ];
 
 @NgModule({
@@ -97,6 +86,7 @@ const APP_CONTAINERS = [
     ButtonGroupModule,
     SidebarModule,
     SharedModule,
+    ComponentsModule,
     TabsModule,
     ListGroupModule,
     ProgressModule,
@@ -110,7 +100,7 @@ const APP_CONTAINERS = [
       positionClass :'toast-top-right',
       timeOut: 7000,
       progressBar: true
-    })
+    }),
   ],
   providers: [
     // {

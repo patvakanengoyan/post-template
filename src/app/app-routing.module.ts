@@ -6,18 +6,20 @@ import { Page404Component } from './views/pages/page404/page404.component';
 import { Page500Component } from './views/pages/page500/page500.component';
 import { LoginComponent } from './views/pages/login/login.component';
 import { RegisterComponent } from './views/pages/register/register.component';
-import {HomeComponent} from "./web-pages/home/home.component";
-import {SinglePostComponent} from "./web-pages/single-post/single-post.component";
-import {ContactComponent} from "./web-pages/contact/contact.component";
-import {AboutComponent} from "./web-pages/about/about.component";
 import {NotfoundComponent} from "./web-pages/notfound/notfound.component";
 import {CanActivateService} from "./shared/guards/canActivate.service";
 import {CanActivateChildService} from "./shared/guards/canActivateChild.service";
 
 const routes: Routes = [
     {
+      path: 'home',
+      loadChildren: () =>
+        import('./web-pages/home/home.module').then((m) => m.HomeModule)
+    },
+    {
         path: '',
-        component: HomeComponent
+        loadChildren: () =>
+          import('./web-pages/home/home.module').then((m) => m.HomeModule)
     },
     {
       path: 'login',
@@ -29,54 +31,57 @@ const routes: Routes = [
     },
     {
         path: 'post/:id',
-        component: SinglePostComponent
+        loadChildren: () =>
+        import('./web-pages/single-post/single-post.module').then((m) => m.SinglePostModule)
     },
     {
         path: 'about',
-        component: AboutComponent
+        loadChildren: () =>
+        import('./web-pages/about/about.module').then((m) => m.AboutModule)
     },
     {
         path: 'contact',
-        component: ContactComponent
+        loadChildren: () =>
+        import('./web-pages/contact/contact.module').then((m) => m.ContactModule)
     },
-  {
-    path: '',
-    redirectTo: 'admin/dashboard',
-    pathMatch: 'full'
-  },
-  {
-    path: '',
-    component: DefaultLayoutComponent,
-    canActivateChild: [CanActivateChildService],
-    data: {
-      title: 'Home'
-    },
-    children: [
-      {
-        path: 'admin/dashboard',
-        loadChildren: () =>
-          import('./views/dashboard/dashboard.module').then((m) => m.DashboardModule)
+    // {
+    //   path: '',
+    //   redirectTo: 'admin/dashboard',
+    //   pathMatch: 'full'
+    // },
+    {
+      path: '',
+      component: DefaultLayoutComponent,
+      canActivateChild: [CanActivateChildService],
+      data: {
+        title: 'Home'
       },
-      {
-        path: 'admin/posts',
-        loadChildren: () =>
-          import('./views/posts/posts.module').then((m) => m.PostsModule)
-      },
-      {
-        path: 'admin/slider',
-        loadChildren: () =>
-          import('./views/slider/slider.module').then((m) => m.SliderModule)
-      },
-      {
-        path: 'admin/category',
-        loadChildren: () =>
-          import('./views/categories/categories.module').then((m) => m.CategoriesModule)
-      },
-      {
-        path: 'pages',
-        loadChildren: () =>
-          import('./views/pages/pages.module').then((m) => m.PagesModule)
-      },
+      children: [
+        {
+          path: 'admin/dashboard',
+          loadChildren: () =>
+            import('./views/dashboard/dashboard.module').then((m) => m.DashboardModule)
+        },
+        {
+          path: 'admin/posts',
+          loadChildren: () =>
+            import('./views/posts/posts.module').then((m) => m.PostsModule)
+        },
+        {
+          path: 'admin/slider',
+          loadChildren: () =>
+            import('./views/slider/slider.module').then((m) => m.SliderModule)
+        },
+        {
+          path: 'admin/category',
+          loadChildren: () =>
+            import('./views/categories/categories.module').then((m) => m.CategoriesModule)
+        },
+        {
+          path: 'pages',
+          loadChildren: () =>
+            import('./views/pages/pages.module').then((m) => m.PagesModule)
+        },
     ]
   },
   {

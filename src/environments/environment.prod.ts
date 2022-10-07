@@ -2,7 +2,7 @@ export const apiUrl = 'http://192.168.0.116:8000';
 export const apiUrl1 = 'http://127.0.0.1:3000';
 export const prefix = '/api/en/'
 export const environment = {
-  production: false,
+  production: true,
   imagePrefix: apiUrl + '',
   posts: {
     get: apiUrl1 + '/data'

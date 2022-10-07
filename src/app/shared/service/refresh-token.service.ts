@@ -27,7 +27,7 @@ export class RefreshTokenService {
 
         if (error instanceof HttpErrorResponse) {
           if (request.url.includes('refresh') ||
-            request.url.includes('login') || request.url.includes('rooms') || request.url.includes('friends/list?joint_room_type=2')) {
+            request.url.includes('login')) {
             if (request.url.includes('refresh')) {
               return this.logoutUser();
             }

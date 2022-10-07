@@ -1,7 +1,6 @@
 import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
-
 import { navItems } from './_nav';
-import {BehaviorSubject, Subscription} from 'rxjs';
+import {Subscription} from 'rxjs';
 import {RequestService} from "../../shared/service/request.service";
 
 @Component({
@@ -15,7 +14,7 @@ export class DefaultLayoutComponent implements OnInit{
     suppressScrollX: true,
   };
   subscriptionLoading!: Subscription;
-  loading: any = false;
+  public loading: boolean = false;
 
   constructor(public requestService: RequestService,
               private cdRef: ChangeDetectorRef) {

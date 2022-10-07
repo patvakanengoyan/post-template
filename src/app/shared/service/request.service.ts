@@ -8,16 +8,16 @@ import {environment} from "../../../environments/environment.prod";
   providedIn: 'root'
 })
 export class RequestService {
-  httpHeaders: any;
-  private isloading = new Subject<object>();
-  loading = this.isloading.asObservable();
-  reqCount = 0;
-  imgSite = environment.imagePrefix;
+  private httpHeaders: any;
+  private isLoading = new Subject<object>();
+  public loading = this.isLoading.asObservable();
+  private reqCount: number = 0;
+  public imgSite: string = environment.imagePrefix;
 
   constructor(private http: HttpClient) {}
 
   getData(apiUrl:string) {
-    this.isloading.next({type: 'get', isLoading: true, reqCount: ++this.reqCount});
+    this.isLoading.next({type: 'get', isLoading: true, reqCount: ++this.reqCount});
     this.httpHeaders = new HttpHeaders({
       Authorization: (localStorage.getItem('token_type') ? localStorage.getItem('token_type')  + ' ': '') + localStorage.getItem('access_token'),
       'Accept-Language': 'en'
@@ -28,13 +28,13 @@ export class RequestService {
     );
     return this.http.get(apiUrl, {headers: this.httpHeaders, observe: 'body'}).pipe(
       finalize(() => {
-        this.isloading.next({type: 'get', isLoading: false, reqCount: --this.reqCount})}),
+        this.isLoading.next({type: 'get', isLoading: false, reqCount: --this.reqCount})}),
       catchError(this.handleError)
     );
   }
 
   createData(url: string, value?:any) {
-    this.isloading.next({type: 'create', isLoading: true, reqCount: ++this.reqCount});
+    this.isLoading.next({type: 'create', isLoading: true, reqCount: ++this.reqCount});
     this.httpHeaders = new HttpHeaders({
       Authorization: (localStorage.getItem('token_type') ? localStorage.getItem('token_type')  + ' ': '') + localStorage.getItem('access_token'),
       'Accept-Language': 'en'
@@ -46,14 +46,14 @@ export class RequestService {
     return this.http.post<any>(url, value, {headers: this.httpHeaders})
       .pipe(
         finalize(() => {
-          this.isloading.next({type: 'create', isLoading: false, reqCount: --this.reqCount});
+          this.isLoading.next({type: 'create', isLoading: false, reqCount: --this.reqCount});
         }),
         catchError(this.handleError)
       );
   }
 
   delete(url: string, id: any): Observable<{}> {
-    this.isloading.next({type: 'delete', isLoading: true, reqCount: ++this.reqCount});
+    this.isLoading.next({type: 'delete', isLoading: true, reqCount: ++this.reqCount});
     this.httpHeaders = new HttpHeaders({
       Authorization: localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token')
     });
@@ -65,14 +65,14 @@ export class RequestService {
     return this.http.delete(urlApi, {headers: this.httpHeaders})
       .pipe(
         finalize(() => {
-          this.isloading.next({type: 'delete', isLoading: false, reqCount: --this.reqCount});
+          this.isLoading.next({type: 'delete', isLoading: false, reqCount: --this.reqCount});
         }),
         catchError(this.handleError)
       );
   }
 
   updateData(url: string, value: any, id: any) {
-    this.isloading.next({type: 'update', isLoading: true, reqCount: ++this.reqCount});
+    this.isLoading.next({type: 'update', isLoading: true, reqCount: ++this.reqCount});
     this.httpHeaders = new HttpHeaders({
       Authorization: localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token')
     });
@@ -84,16 +84,14 @@ export class RequestService {
     return this.http.put<any>(urlApi, value, {headers: this.httpHeaders})
       .pipe(
         finalize(() => {
-          this.isloading.next({type: 'update', isLoading: false, reqCount: --this.reqCount});
+          this.isLoading.next({type: 'update', isLoading: false, reqCount: --this.reqCount});
         }),
         catchError(this.handleError)
       );
   }
 
   refreshToken() {
-    let countryCode = localStorage.getItem('countryCode') ? localStorage.getItem('countryCode') : 'arm';
-    let shortCode = localStorage.getItem('shortCode') ? localStorage.getItem('shortCode') : 'hy';
-    const url = `${environment.baseUrl}/${countryCode}/${shortCode}/${environment.admin.refresh}`;
+    const url = `${environment.admin.refresh}`;
     const header = new HttpHeaders()
       .set('Authorization', 'Bearer ' + localStorage.getItem('access_token'))
       .set('Content-Type', 'application/json');

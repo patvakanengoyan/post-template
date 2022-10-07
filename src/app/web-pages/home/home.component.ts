@@ -1,7 +1,7 @@
 import {Component, ElementRef, OnInit} from '@angular/core';
 import {RequestService} from "../../shared/service/request.service";
 import {FormBuilder} from "@angular/forms";
-import {environment} from "../../../environments/environment.prod";
+import {environment} from "../../../environments/environment";
 
 @Component({
   selector: 'app-home',
