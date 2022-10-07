@@ -37,8 +37,6 @@ export class PostsComponent implements OnInit {
   itemListCategory: any = [];
   settingsCategory: any = {};
 
-  itemListTag: any = [];
-
   visible = true;
   selectable = true;
   removable = true;
@@ -48,7 +46,7 @@ export class PostsComponent implements OnInit {
   tagCtrl = new FormControl();
   filteredtags: Observable<string[]>;
   // tags: string[] = ['Lemon'];
-  alltags: string[] = ['Business', 'Culture', 'Sport', 'Food', 'Startups'];
+  alltags: string[] = ['Business', 'Culture', 'Sport', 'Food'];
 
   @ViewChild('tagInput', {static: false}) tagInput!: ElementRef<HTMLInputElement>;
   @ViewChild('auto', {static: false}) matAutocomplete!: MatAutocomplete;
@@ -93,13 +91,6 @@ export class PostsComponent implements OnInit {
       selectAllText: 'Select All',
       text: "Select item"
     };
-    this.itemListTag = [
-      {"id": 1, "itemName": "Business"},
-      {"id": 2, "itemName": "Culture"},
-      {"id": 3, "itemName": "Sport"},
-      {"id": 4, "itemName": "Food"},
-      {"id": 5, "itemName": "Startups"},
-    ];
   }
 
   getData(url) {
@@ -214,7 +205,6 @@ export class PostsComponent implements OnInit {
   }
 
   selected(event: MatAutocompleteSelectedEvent): void {
-    // this.tags.push(event.option.viewValue);
     this.tagFiled.value.push(event.option.viewValue);
     this.tagFiled.updateValueAndValidity();
     this.tagInput.nativeElement.value = '';
