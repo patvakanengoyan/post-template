@@ -88,7 +88,7 @@
 
 ::ng-deep.selected-list .c-btn {
   width: 100%;
-  padding: 5px 10px;
+  padding: 5px 10px !important;
   cursor: pointer;
   display: flex;
   position: relative
@@ -107,9 +107,10 @@
 
 ::ng-deep.dropdown-list {
   position: absolute;
-  padding-top: 14px;
+  padding-top: 0 !important;
   width: 100%;
-  z-index: 99999
+  z-index: 99999;
+  bottom: auto !important;
 }
 
 ::ng-deep.dropdown-list ul {
@@ -319,7 +320,12 @@
 
 ::ng-deep.pure-checkbox input[type=checkbox]:checked + label:after {
   content: "";
-  transition: transform .2s ease-out
+  transition: transform .2s ease-out;
+  left: 3px;
+  width: 9px;
+  height: 4px;
+  margin-top: -5px;
+  border-width: 0 0 2px 2px;
 }
 
 ::ng-deep.pure-checkbox input[type=radio]:checked + label:before {
@@ -422,6 +428,10 @@
 ::ng-deep .pure-checkbox input[type=checkbox]+label:before {
   color: #0079fe;
   border: 1px solid #0079fe;
+  left: 0;
+  width: 15px;
+  height: 15px;
+  margin-top: -9px;
 }
 ::ng-deep .pure-checkbox input[type=checkbox]:checked+label:before {
   background: #0079fe;
