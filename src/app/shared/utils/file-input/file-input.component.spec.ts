@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { FileInputComponent } from './file-input.component';
+import {ReactiveFormsModule} from "@angular/forms";
 
 describe('FileInputComponent', () => {
   let component: FileInputComponent;
@@ -8,7 +9,8 @@ describe('FileInputComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FileInputComponent ]
+      declarations: [ FileInputComponent ],
+      imports: [ReactiveFormsModule]
     })
     .compileComponents();
 

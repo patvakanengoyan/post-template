@@ -11,15 +11,15 @@ import {environment} from "../../../../environments/environment.prod";
 })
 export class LoginComponent {
 
-  form: any = FormGroup;
+  form = this.fb.group({
+    username: ['', Validators.compose([Validators.required, Validators.pattern(/^([\+0-9]{9,15})|([A-Za-z0-9._%\+\-]+@[a-z0-9.\-]+\.[a-z]{2,10})$/)])],
+    password: ['', Validators.compose([Validators.required, Validators.minLength(8)])]
+  })
 
   constructor(private fb: FormBuilder,
               private requestService: RequestService,
-              private router: Router,) {
-    this.form = this.fb.group({
-      username: ['', Validators.compose([Validators.required, Validators.pattern(/^([\+0-9]{9,15})|([A-Za-z0-9._%\+\-]+@[a-z0-9.\-]+\.[a-z]{2,10})$/)])],
-      password: ['', Validators.compose([Validators.required, Validators.minLength(8)])]
-    })
+              private router: Router) {
+
   }
 
 
