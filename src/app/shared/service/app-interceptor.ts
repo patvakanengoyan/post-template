@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpResponse, HttpErrorResponse } from '@angular/common/http';
-import { BehaviorSubject, Observable, throwError } from 'rxjs';
+import {throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
 import {Router} from "@angular/router";
@@ -13,7 +13,7 @@ export class AppInterceptor implements HttpInterceptor {
   constructor(private toastr: ToastrService,
               private router: Router) {
   }
-
+  /*catch errors ans show message*/
   intercept(req: HttpRequest<any>, next: HttpHandler) {
     return next.handle(req).pipe(map((event: HttpEvent<any>) => {
         let url = req.url;

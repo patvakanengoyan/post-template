@@ -19,7 +19,7 @@ export class RefreshTokenService {
 
   constructor(public authService: RequestService, public router: Router) {}
 
-
+  /*check refresh token request status code*/
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpSentEvent | HttpHeaderResponse |
     HttpProgressEvent | HttpResponse<any> | HttpUserEvent<any>> {
     return next.handle(request).pipe(
@@ -46,15 +46,14 @@ export class RefreshTokenService {
         }
       }));
   }
-
+  /*check refresh token request status code*/
   handle400Error(error: any) {
     if (error && error.status === 400 && error.error && error.error.error === 'invalid_grant') {
       return this.logoutUser();
     }
-
     return observableThrowError(error);
   }
-
+  /*check refresh token request status code*/
   handle401Error(request: HttpRequest<any>, next: HttpHandler) {
     if (!this.isRefreshingToken) {
       this.isRefreshingToken = true;
@@ -83,14 +82,11 @@ export class RefreshTokenService {
     }
   }
 
-
+  /*set new access token*/
   getNewRequest(request: HttpRequest<any>, token: string): HttpRequest<any> {
     const newAccessToken = token;
     if (!newAccessToken) {
       return request;
-    }
-    if (request.headers.getAll('')) {
-
     }
     return request.clone({
       setHeaders: {
@@ -98,7 +94,7 @@ export class RefreshTokenService {
       }
     });
   }
-
+  /*logout function*/
   logoutUser() {
     localStorage.clear();
     this.router.navigate([`/login`]);

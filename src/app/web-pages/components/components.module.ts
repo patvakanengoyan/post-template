@@ -16,6 +16,6 @@ import {RouterModule} from "@angular/router";
     AngularMultiSelectModule,
     RouterModule
   ],
-  exports: [FooterComponent, HeaderComponent,]
+  exports: [FooterComponent, HeaderComponent]
 })
 export class ComponentsModule { }

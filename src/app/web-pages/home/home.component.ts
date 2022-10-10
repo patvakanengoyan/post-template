@@ -9,17 +9,9 @@ import {environment} from "../../../environments/environment";
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  url = environment.posts.get;
-  data: any[] = [];
+  public url: string = environment.posts.get;
+  public data: any[] = [];
   form: any;
-  // form = this.fb.group({
-  //   title: 'Why',
-  //   description: '',
-  //   country: '',
-  //   city: '',
-  //   tag: this.fb.array([{id: 1, itemName: 'arm'}]),
-  //   category: ''
-  // })
   filterResult: any = {};
   allData: any;
   constructor(private requestService: RequestService,
@@ -101,21 +93,5 @@ export class HomeComponent implements OnInit {
       }
       return false;
     })
-    // if (this.form.value[key] instanceof Array) {
-    //   this.form.value[key].forEach((item: any) => {
-    //     for (let i = 0; i < this.data.length; i++) {
-    //       if (this.data[i][key].includes(item.itemName)) {
-    //         this.filterResult[this.data[i].id] = this.data[i];
-    //         break;
-    //       }
-    //     }
-    //   })
-    // } else {
-    //   this.data.forEach((item) => {
-    //     if (item[key].toLowerCase().includes(this.form.value[key].toLowerCase())) {
-    //       this.filterResult[item.id] = item;
-    //     }
-    //   })
-    // }
   }
 }

@@ -15,7 +15,7 @@ export class RequestService {
   public imgSite: string = environment.imagePrefix;
 
   constructor(private http: HttpClient) {}
-
+  /*get request function*/
   getData(apiUrl:string) {
     this.isLoading.next({type: 'get', isLoading: true, reqCount: ++this.reqCount});
     this.httpHeaders = new HttpHeaders({
@@ -32,7 +32,7 @@ export class RequestService {
       catchError(this.handleError)
     );
   }
-
+  /*post request function*/
   createData(url: string, value?:any) {
     this.isLoading.next({type: 'create', isLoading: true, reqCount: ++this.reqCount});
     this.httpHeaders = new HttpHeaders({
@@ -51,7 +51,7 @@ export class RequestService {
         catchError(this.handleError)
       );
   }
-
+  /*delete request function*/
   delete(url: string, id: any): Observable<{}> {
     this.isLoading.next({type: 'delete', isLoading: true, reqCount: ++this.reqCount});
     this.httpHeaders = new HttpHeaders({
@@ -70,7 +70,7 @@ export class RequestService {
         catchError(this.handleError)
       );
   }
-
+  /*put request function*/
   updateData(url: string, value: any, id: any) {
     this.isLoading.next({type: 'update', isLoading: true, reqCount: ++this.reqCount});
     this.httpHeaders = new HttpHeaders({
@@ -89,7 +89,7 @@ export class RequestService {
         catchError(this.handleError)
       );
   }
-
+  /*send refresh token*/
   refreshToken() {
     const url = `${environment.admin.refresh}`;
     const header = new HttpHeaders()

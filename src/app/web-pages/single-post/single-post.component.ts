@@ -9,8 +9,8 @@ import {environment} from "../../../environments/environment.prod";
   styleUrls: ['./single-post.component.css']
 })
 export class SinglePostComponent implements OnInit {
-  url = environment.posts.get;
-  data: any = {};
+  public url: string = environment.posts.get;
+  public data: any | object = {};
   constructor(private requestService: RequestService,
               public activatedRoute: ActivatedRoute
               ) {
