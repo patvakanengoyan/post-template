@@ -61,7 +61,7 @@
     </c-card>
   </c-col>
 </c-row>
-<div *ngIf="isModalShown" [config]="{ show: true }" (onHidden)="onHidden()" bsModal #autoShownModal="bs-modal"
+<div *ngIf="isModalShown" [config]="{ show: true }" (onHidden)="hideModal()" bsModal #autoShownModal="bs-modal"
      class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-auto-name">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
@@ -96,13 +96,21 @@
             <div class="container-md" data-aos="fade-in">
               <div class="row">
                 <div class="mb-3">
-                  <label for="title">Title</label>
+                  <label for="title" [ngClass]="(form.controls.title?.invalid &&
+        (form.controls.title?.dirty || form.controls.title?.touched)) ? 'invalid-label-color' : ''">Title *</label>
                   <input type="text" class="form-control" formControlName="title" id="title">
+                  <div *ngIf="!form.controls.title?.valid && (form.controls.title?.dirty || form.controls.title?.touched)">
+                    <span class="error-message">The title is required</span>
+                  </div>
                 </div>
                 <div class="mb-3">
-                  <label for="description">Description</label>
+                  <label for="description" [ngClass]="(form.controls.description?.invalid &&
+        (form.controls.description?.dirty || form.controls.description?.touched)) ? 'invalid-label-color' : ''">Description * </label>
                   <ckeditor id="description" [editor]="Editor" [config]='config'
                             [formControlName]="'description'"></ckeditor>
+                  <div *ngIf="!form.controls.description?.valid && (form.controls.description?.dirty || form.controls.description?.touched)">
+                    <span class="error-message">The description is required</span>
+                  </div>
                 </div>
                 <div class="col-6 mb-3">
                   <label for="description">Select Country</label>
@@ -176,7 +184,7 @@
                            class="user-image">
                     </div>
                   </div>
-                  <label for="image">Image</label>
+                  <label for="image">Image *</label>
                   <input type="file" class="form-control" (change)="onChangeInput($event)" formControlName="image"
                          id="image">
                 </div>

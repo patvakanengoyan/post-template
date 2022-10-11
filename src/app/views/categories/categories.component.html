@@ -48,7 +48,7 @@
     </c-card>
   </c-col>
 </c-row>
-<div *ngIf="isModalShown" [config]="{ show: true }" (onHidden)="onHidden()" bsModal #autoShownModal="bs-modal"
+<div *ngIf="isModalShown" [config]="{ show: true }" (onHidden)="hideModal()" bsModal #autoShownModal="bs-modal"
      class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-auto-name">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">

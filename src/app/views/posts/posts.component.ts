@@ -21,26 +21,26 @@ import {map} from "rxjs/operators";
 })
 export class PostsComponent implements OnInit {
   url: any = `${environment.admin.posts.get}`;
-  data: any;
-  viewData: any;
+  data: any = [];
+  viewData: any = {};
   form: any = FormGroup;
   public Editor = customBuild;
   @Input() config = editorConfig;
   @ViewChild('autoShownModal', {static: false}) autoShownModal?: ModalDirective;
   @ViewChild(DeleteModalComponent) private modal!: DeleteModalComponent;
   countryList = list;
-  isModalShown = false;
-  requestType: any;
+  isModalShown: boolean = false;
+  requestType: string = '';
   itemListCountry: any = [];
   settingsCountry: any = {};
   itemListCity: any = [];
   itemListCategory: any = [];
   settingsCategory: any = {};
 
-  visible = true;
-  selectable = true;
-  removable = true;
-  addOnBlur = true;
+  visible: boolean = true;
+  selectable: boolean = true;
+  removable: boolean = true;
+  addOnBlur: boolean = true;
   separatorKeysCodes: number[] = [ENTER, COMMA];
   paginationConfig: any;
   tagCtrl = new FormControl();
@@ -75,6 +75,9 @@ export class PostsComponent implements OnInit {
     })
   }
 
+  /*
+    The callback method that is called immediately after the page is called.
+   */
   ngOnInit(): void {
     this.setCountyList()
     this.getData(this.url);
@@ -93,6 +96,9 @@ export class PostsComponent implements OnInit {
     };
   }
 
+  /*
+    Get all data method
+   */
   getData(url) {
     this.requestService.getData(url).subscribe((res) => {
       this.data = res['data'] ? res['data'] : res;
@@ -100,6 +106,9 @@ export class PostsComponent implements OnInit {
     })
   }
 
+  /*
+    Get data by id
+   */
   getById(id) {
     this.requestService.getData(this.url + '/' + id).subscribe((res: any) => {
       this.viewData = res[0];
@@ -118,8 +127,14 @@ export class PostsComponent implements OnInit {
           title: this.viewData.title,
           description: this.viewData.description,
           categories: arr,
-          country: [{id: Object.keys(this.countryList).indexOf(this.viewData.country) + 1, itemName: this.viewData.country}],
-          city: [{id: this.countryList[this.viewData.country].indexOf(this.viewData.city), itemName: this.viewData.city}],
+          country: [{
+            id: Object.keys(this.countryList).indexOf(this.viewData.country) + 1,
+            itemName: this.viewData.country
+          }],
+          city: [{
+            id: this.countryList[this.viewData.country].indexOf(this.viewData.city),
+            itemName: this.viewData.city
+          }],
           status: this.viewData.status
         });
         this.setCitiesList(true)
@@ -127,13 +142,16 @@ export class PostsComponent implements OnInit {
     })
   }
 
-  getCategoryList () {
+  /*
+    Get category data list
+   */
+  getCategoryList() {
     this.requestService.getData(`${environment.admin.posts.getAllCategoryList}`).subscribe((res: any) => {
       if (!res['message']) {
         this.itemListCategory = [];
         for (let i in res) {
           this.itemListCategory.push(
-            {"id": +i,"itemName":res[i]}
+            {"id": +i, "itemName": res[i]}
           );
         }
 
@@ -141,6 +159,9 @@ export class PostsComponent implements OnInit {
     });
   }
 
+  /*
+    Method for open modal
+   */
   showModal(id, type): void {
     this.isModalShown = true;
     this.requestType = type
@@ -154,8 +175,12 @@ export class PostsComponent implements OnInit {
     }
   }
 
+  /*
+    Method for hide modal
+   */
   hideModal(): void {
     this.autoShownModal?.hide();
+    this.isModalShown = false;
     this.editImagePath = undefined;
     this.imageValue = undefined;
     this.file = undefined;
@@ -163,14 +188,16 @@ export class PostsComponent implements OnInit {
     this.tagFiled.value = [];
   }
 
-  onHidden(): void {
-    this.isModalShown = false;
-  }
-
+  /*
+    Get form filed 'tag'
+   */
   get tagFiled() {
     return this.form.get('tag');
   }
 
+  /*
+    Adds an element to the "tag" field
+   */
   add(event: MatChipInputEvent): void {
     // Add tag only when MatAutocomplete is not open
     // To make sure this does not conflict with OptionSelected Event
@@ -194,6 +221,9 @@ export class PostsComponent implements OnInit {
     }
   }
 
+  /*
+    Removes the element in the "tag" field
+   */
   remove(tag: string): void {
     const index = this.tagFiled.value.indexOf(tag);
 
@@ -204,6 +234,9 @@ export class PostsComponent implements OnInit {
     }
   }
 
+  /*
+    Selected the element in the "tag" field
+   */
   selected(event: MatAutocompleteSelectedEvent): void {
     this.tagFiled.value.push(event.option.viewValue);
     this.tagFiled.updateValueAndValidity();
@@ -211,12 +244,18 @@ export class PostsComponent implements OnInit {
     this.tagCtrl.setValue(null);
   }
 
+  /*
+    Filter selected elements in the "tag" field
+   */
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
 
     return this.alltags.filter(tag => tag.toLowerCase().indexOf(filterValue) === 0);
   }
 
+  /*
+    Image upload and validation method
+   */
   onChangeInput(e) {
     this.file = e.target ? e.target.files[0] : e;
     if (this.file) {
@@ -243,6 +282,9 @@ export class PostsComponent implements OnInit {
     }
   }
 
+  /*
+    Send data method
+   */
   onSubmit(form: any) {
     let url = this.requestType == 'edit' ? this.url + '/' + this.viewData.id : this.url;
 
@@ -283,6 +325,9 @@ export class PostsComponent implements OnInit {
     }
   }
 
+  /*
+    Delete item from data
+   */
   deleteItem(id) {
     this.modal.modalRef.hide();
     this.requestService.delete(this.url, id).subscribe((res) => {
@@ -291,6 +336,9 @@ export class PostsComponent implements OnInit {
     })
   }
 
+  /*
+    Get country list
+   */
   setCountyList() {
     let countries = Object.keys(this.countryList);
     let list = countries.map((item, i) => {
@@ -299,6 +347,9 @@ export class PostsComponent implements OnInit {
     this.itemListCountry = [...list];
   }
 
+  /*
+    Get city list after select country
+   */
   setCitiesList(set?) {
     set ? '' : this.form.get('city').reset();
     let cities = this.form.value.country[0] ? this.countryList[this.form.value.country[0].itemName] : [];
