@@ -7,14 +7,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-  form = this.fb.group({
-    title: '',
-    description: '',
-    country: '',
-    city: '',
-    tag: [''],
-    category: ''
-  })
+  form: any = FormGroup;
   @Output() submit = new EventEmitter<string>();
   searchShow: boolean =false;
 
@@ -32,6 +25,14 @@ export class HeaderComponent implements OnInit {
   constructor(public fb: FormBuilder,) { }
 
   ngOnInit(): void {
+    this.form = this.fb.group({
+      title: '',
+      description: '',
+      country: '',
+      city: '',
+      tag: [''],
+      category: ''
+    })
     this.itemListCountry = [
       {"id":1,"itemName":"USA"},
       {"id":2,"itemName":"England"},

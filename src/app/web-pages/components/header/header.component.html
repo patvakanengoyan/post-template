@@ -60,10 +60,10 @@
 
 </header>
 <div class="search_block" *ngIf="searchShow">
-  <button type="button" class="btn-close float-end" (click)="searchForm()" aria-label="Close"></button>
   <form [formGroup]="form" (ngSubmit)="searchSubmit(form.value)">
     <div class="container-md" data-aos="fade-in">
       <div class="row">
+          <button type="button" class="btn-close float-end position-relative" (click)="searchForm()" aria-label="Close"></button>
           <h1>Search</h1>
         <div class="col-md-4">
           <div class="mb-3">
@@ -99,7 +99,6 @@
           </angular2-multiselect>
           </div>
         </div>
-
         <div class="col-md-4">
           <div class="mb-3">
           <label for="description">Select Category</label>
