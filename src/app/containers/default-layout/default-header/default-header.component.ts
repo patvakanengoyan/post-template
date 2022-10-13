@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import { HeaderComponent } from '@coreui/angular';
 import {environment} from "../../../../environments/environment.prod";
 import {RequestService} from "../../../shared/service/request.service";
@@ -8,7 +8,7 @@ import {Router} from "@angular/router";
   selector: 'app-default-header',
   templateUrl: './default-header.component.html',
 })
-export class DefaultHeaderComponent extends HeaderComponent {
+export class DefaultHeaderComponent extends HeaderComponent implements OnInit{
 
   @Input() sidebarId: string = "sidebar";
 
@@ -16,6 +16,15 @@ export class DefaultHeaderComponent extends HeaderComponent {
               private router: Router,
               ) {
     super();
+  }
+
+
+  ngOnInit() {
+    console.log(1);
+    console.log(environment.url);
+    this.requestService.getData(`${environment.chat.gateway}`).subscribe((res) => {
+      console.log(res);
+    })
   }
 
   logout () {

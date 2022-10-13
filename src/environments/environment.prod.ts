@@ -1,8 +1,10 @@
 export const apiUrl = 'http://192.168.0.116:8000';
 export const apiUrl1 = 'http://127.0.0.1:3000';
+export const apiUrlChat = 'http://185.177.105.151:1998/';
 export const prefix = '/api/en/'
 export const environment = {
   production: true,
+  url: apiUrlChat + '',
   imagePrefix: apiUrl + '',
   posts: {
     get: apiUrl1 + '/data'
@@ -18,5 +20,9 @@ export const environment = {
     },
     slider: apiUrl + prefix + 'admin/slider',
     category: apiUrl + prefix + 'admin/category'
+  },
+  chat: {
+    gateway: apiUrlChat + 'api/gateway?version=1.0&platform=web',
+    login: apiUrlChat + 'api/login'
   }
 };
