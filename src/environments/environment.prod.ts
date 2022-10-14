@@ -1,4 +1,4 @@
-export const apiUrl = 'http://192.168.0.116:8000';
+export const apiUrl = 'http://185.177.105.151:10040';
 export const apiUrl1 = 'http://127.0.0.1:3000';
 export const apiUrlChat = 'http://185.177.105.151:1998/';
 export const prefix = '/api/en/'

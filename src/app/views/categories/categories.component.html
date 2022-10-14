@@ -60,7 +60,7 @@
           <span aria-hidden="true" class="visually-hidden">&times;</span>
         </button>
       </div>
-      <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)">
+      <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)" class="data_form">
 
         <div class="modal-body">
           <div *ngIf="requestType == 'view'">
