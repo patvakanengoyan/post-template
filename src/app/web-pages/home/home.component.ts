@@ -10,7 +10,11 @@ import {environment} from "../../../environments/environment";
 })
 export class HomeComponent implements OnInit {
   public url: string = environment.posts.get;
+  public urlRabbiVersion: string = environment.webPages.rabbiVersion.get;
+  public urlAcademic: string = environment.webPages.academic.get;
   public data: any[] = [];
+  public dataRabbiVersion: any[] = [];
+  public dataAcademic: any[] = [];
   form: any;
   filterResult: any = {};
   allData: any;
@@ -21,12 +25,28 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.getData(this.url);
+    this.getDataRabbiVersion(this.urlRabbiVersion);
+    this.getDataAcademic(this.urlAcademic);
   }
 
   getData (url: string) {
     this.requestService.getData(url).subscribe((item: any) => {
       this.data = item;
-      this.allData = item;
+      // this.allData = item;
+    })
+  }
+
+  getDataRabbiVersion (url: string) {
+    this.requestService.getData(url).subscribe((item: any) => {
+      this.dataRabbiVersion = item;
+      // this.allData = item;
+    })
+  }
+
+  getDataAcademic (url: string) {
+    this.requestService.getData(url).subscribe((item: any) => {
+      this.dataAcademic = item;
+      // this.allData = item;
     })
   }
 

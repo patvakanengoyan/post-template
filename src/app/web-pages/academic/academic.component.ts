@@ -17,6 +17,7 @@ export class AcademicComponent implements OnInit {
               public el: ElementRef) { }
 
   ngOnInit(): void {
+    this.getData(this.url);
   }
   getData (url: string) {
     this.requestService.getData(url).subscribe((item: any) => {

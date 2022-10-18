@@ -616,34 +616,92 @@
   ],
   "pieces": [
     {
-      "bn": 1,
+      "id": 1,
+      "c": "c1",
       "m": 1,
       "v": "Berachos",
-      "t": "Secrets Heard Among the Living",
-      "token": " ",
-      "q": "Now the next year he again went and spent the night in the cemetary,\r\n<br> And he heard the same two spirits conversing with each other:\r\n\t<table border=\"1\">\r\n\t\t<tr><td> Spirit 1 <\/td>\r\n\t\t\t<td> My friend, let us roam the world and hear <br> from behind the curtain what misfortune <br> is to come to the world this year.<\/td>\r\n\t\t<\/tr>\t\t<tr><td> Spirit 2 <\/td>\r\n\t\t\t<td> My friend, Leave me be! <br> The words that we have spoke between <br> ourselves in year past have already <br> been heard among the living. <\/td>\r\n\t\t<\/tr>\r\n\t<\/table>\r\n<hr>&emsp;<b><u>Question:<\/u><\/b>&nbsp;&nbsp;So perhaps the dead do know what is spoken by the living, \r\n<br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;since this spirit was aware of what her mother had been told?\r\n<br>&emsp;<b><u>Answer:<\/u><\/b>&emsp;&nbsp;&nbsp;Perhaps another person died in the meantime \r\n<br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;and went and told them about it.",
-      "tags": [
-        {
-          "level1": "People",
-          "level2": "talmudRandom",
-          "level3": "Poor Man"
-        },
-        {
-          "level1": "Culture",
-          "level2": "Family",
-          "level3": "mother"
-        },
-        {
-          "level1": "Culture",
-          "level2": "Actions",
-          "level3": "hear"
-        },
-        {
-          "level1": "Spiritual",
-          "level2": "Mystical",
-          "level3": "behind the curtain"
-        }
-      ]
+      "bn": 1,
+      "l": "A",
+      "p": "2a",
+      "s": "?",
+      "k": false,
+      "t": "TITLE GOES HERE",
+      "z1": "false",
+      "z2": "false",
+      "z3": "false",
+      "z4": "false",
+      "z5": "false",
+      "z6": "false",
+      "z7": "false",
+      "p1": " ",
+      "p2": " ",
+      "q": "&emsp;<b><u>Question:<\/b><\/u>&emsp;&nbsp;From when (from what time) \r\n<br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;&nbsp;does one recite Shema in the evening? \r\n<br>&emsp;<b><u>Answer:<\/b><\/u>&emsp;&emsp; From the time when the priests \r\n<br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;&nbsp;enter to partake of their teruma. "
+    },
+    {
+      "id": 2,
+      "c": "c2",
+      "m": 1,
+      "v": "Berachos",
+      "bn": 2,
+      "l": "A",
+      "p": "2a",
+      "s": "?",
+      "k": false,
+      "t": "TITLE GOES HERE",
+      "z1": "false",
+      "z2": "false",
+      "z3": "false",
+      "z4": "false",
+      "z5": "false",
+      "z6": "false",
+      "z7": "false",
+      "p1": " ",
+      "p2": " ",
+      "q": "&emsp;<b><u>Question:<\/b><\/u>&emsp;&nbsp;Until when does the time for the \r\n<br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;&nbsp;recitation of the evening Shema extend?\r\n<br>&emsp;<b><u>Answer:<\/b><\/u>&emsp;&emsp;Until the end of the first watch. "
+    },
+    {
+      "id": 3,
+      "c": "c3",
+      "m": 1,
+      "v": "Berachos",
+      "bn": 3,
+      "l": "A",
+      "p": "2a",
+      "s": "?",
+      "k": false,
+      "t": "TITLE GOES HERE",
+      "z1": "false",
+      "z2": "false",
+      "z3": "false",
+      "z4": "false",
+      "z5": "false",
+      "z6": "false",
+      "z7": "false",
+      "p1": " ",
+      "p2": " ",
+      "q": "The term used in the Torah \r\n<br>(see Deuteronomy 6:7)\r\n<br>to indicate the time for the recitation \r\n<br>of the evening Shema is <span class=\"red\">beshokhbekha<\/span>. \r\n<br>which means when you lie down. \r\n<hr>This refers to the time individuals go to sleep. "
+    },
+    {
+      "id": 4,
+      "c": "c4",
+      "m": 1,
+      "v": "Berachos",
+      "bn": 4,
+      "l": "A",
+      "p": "2a",
+      "s": "?",
+      "k": false,
+      "t": "TITLE GOES HERE",
+      "z1": "false",
+      "z2": "false",
+      "z3": "false",
+      "z4": "false",
+      "z5": "false",
+      "z6": "false",
+      "z7": "false",
+      "p1": " ",
+      "p2": " ",
+      "q": "Therefore, the time for the recitation \r\n<br>of the Shema is the first portion of the night, \r\n<br>when individuals typically prepare for sleep. "
     }
   ]
 }
