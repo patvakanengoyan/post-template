@@ -22,6 +22,26 @@ const routes: Routes = [
           import('./web-pages/home/home.module').then((m) => m.HomeModule)
     },
     {
+      path: 'rabbi-version',
+      loadChildren: () =>
+        import('./web-pages/rabbi-version/rabbi-version.module').then((m) => m.RabbiVersionModule)
+    },
+    {
+      path: 'kids',
+      loadChildren: () =>
+        import('./web-pages/kids/kids.module').then((m) => m.KidsModule)
+    },
+    {
+      path: 'academic',
+      loadChildren: () =>
+        import('./web-pages/academic/academic.module').then((m) => m.AcademicModule)
+    },
+    {
+      path: 'pieces',
+      loadChildren: () =>
+        import('./web-pages/pieces/pieces.module').then((m) => m.PiecesModule)
+    },
+    {
       path: 'login',
       component: LoginComponent,
       canActivate: [CanActivateService],

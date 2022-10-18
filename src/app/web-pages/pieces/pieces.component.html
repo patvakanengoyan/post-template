@@ -1,0 +1,23 @@
+<app-header></app-header>
+<main id="main">
+  <div class="container" data-aos="fade-up">
+    <div class="row g-5">
+      <div *ngIf="data.length == 0" class="pb-3 pt-2 text-center">
+        <img src="assets/img/ezgif.com-gif-maker (2).jpg" alt="no result">
+        <h2>Sorry But No Result</h2>
+        <button type="button" class="btn btn-primary">Reset</button>
+      </div>
+
+      <div *ngFor="let item of data" class="col-lg-3 post-entry-1">
+        <a [routerLink]="['post', item?.id]"><img src="assets/img/post-landscape-5.jpg" alt="" class="img-fluid"></a>
+        <div class="post-meta">
+          <span class="date">{{item?.v}} </span> <span class="mx-1">&bullet;</span> <span>{{item?.p}}<sup>{{item?.s}}</sup> <span class="mx-1">&bullet;</span> </span>
+          <span class="date">{{item?.l}} </span> | <span>{{item?.bn}}</span>
+        </div>
+        <h2><a routerLink="post/1">{{item?.t}}</a></h2>
+      </div>
+    </div>
+  </div>
+</main>
+<app-footer></app-footer>
+<a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>

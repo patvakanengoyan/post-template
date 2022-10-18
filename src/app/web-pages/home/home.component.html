@@ -72,9 +72,12 @@
         </div>
 
         <div *ngFor="let item of data" class="col-lg-3 post-entry-1">
-          <a [routerLink]="['post', item?.id]"><img src="{{item?.image}}" alt="" class="img-fluid"></a>
-          <div class="post-meta"><span class="date" *ngFor="let key of item?.categories">{{key}} </span> <span class="mx-1">&bullet;</span> <span>Jul 5th '22</span></div>
-          <h2><a routerLink="post/1">{{item?.title}}</a></h2>
+          <a [routerLink]="['post', item?.id]"><img src="assets/img/post-landscape-5.jpg" alt="" class="img-fluid"></a>
+          <div class="post-meta">
+            <span class="date">{{item?.v}} </span> <span class="mx-1">&bullet;</span> <span>{{item?.p}}<sup>{{item?.s}}</sup> <span class="mx-1">&bullet;</span> </span>
+            <span class="date">{{item?.l}} </span> | <span>{{item?.bn}}</span>
+          </div>
+          <h2><a routerLink="post/1">{{item?.t}}</a></h2>
         </div>
 
 <!--        <div class="col-lg-3 post-entry-1">-->
@@ -112,6 +115,106 @@
       </div> <!-- End .row -->
     </div>
   </section> <!-- End Post Grid Section -->
+
+  <section id="kids" class="kids">
+    <div class="container" data-aos="fade-up">
+      <div class="section-header d-flex justify-content-between align-items-center mb-5">
+        <h2>Kids</h2>
+        <div><a routerLink="kids" class="more">See All Kids</a></div>
+      </div>
+      <div class="row g-5">
+        <div *ngIf="data.length == 0" class="text-center">
+          <img src="assets/img/ezgif.com-gif-maker (2).jpg" alt="no result">
+          <h2>Sorry But No Result</h2>
+          <button type="button" class="btn btn-primary" (click)="searchResult('reset')">Reset</button>
+        </div>
+
+        <div *ngFor="let item of data" class="col-lg-3 post-entry-1">
+          <a [routerLink]="['post', item?.id]"><img src="assets/img/post-landscape-5.jpg" alt="" class="img-fluid"></a>
+          <div class="post-meta">
+            <span class="date">{{item?.v}} </span> <span class="mx-1">&bullet;</span> <span>{{item?.p}}<sup>{{item?.s}}</sup> <span class="mx-1">&bullet;</span> </span>
+            <span class="date">{{item?.l}} </span> | <span>{{item?.bn}}</span>
+          </div>
+          <h2><a routerLink="post/1">{{item?.t}}</a></h2>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="rabbi-version" class="rabbi-version">
+    <div class="container" data-aos="fade-up">
+      <div class="section-header d-flex justify-content-between align-items-center mb-5">
+        <h2>Rabbi version</h2>
+        <div><a routerLink="rabbi-version" class="more">See All Rabbi version</a></div>
+      </div>
+      <div class="row g-5">
+        <div *ngIf="data.length == 0" class="text-center">
+          <img src="assets/img/ezgif.com-gif-maker (2).jpg" alt="no result">
+          <h2>Sorry But No Result</h2>
+          <button type="button" class="btn btn-primary" (click)="searchResult('reset')">Reset</button>
+        </div>
+
+        <div *ngFor="let item of data" class="col-lg-3 post-entry-1">
+          <a [routerLink]="['post', item?.id]"><img src="assets/img/post-landscape-5.jpg" alt="" class="img-fluid"></a>
+          <div class="post-meta">
+            <span class="date">{{item?.v}} </span> <span class="mx-1">&bullet;</span> <span>{{item?.p}}<sup>{{item?.s}}</sup> <span class="mx-1">&bullet;</span> </span>
+            <span class="date">{{item?.l}} </span> | <span>{{item?.bn}}</span>
+          </div>
+          <h2><a routerLink="post/1">{{item?.t}}</a></h2>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="academic" class="academic">
+    <div class="container" data-aos="fade-up">
+      <div class="section-header d-flex justify-content-between align-items-center mb-5">
+        <h2>Academic</h2>
+        <div><a routerLink="academic" class="more">See All Academic</a></div>
+      </div>
+      <div class="row g-5">
+        <div *ngIf="data.length == 0" class="text-center">
+          <img src="assets/img/ezgif.com-gif-maker (2).jpg" alt="no result">
+          <h2>Sorry But No Result</h2>
+          <button type="button" class="btn btn-primary" (click)="searchResult('reset')">Reset</button>
+        </div>
+
+        <div *ngFor="let item of data" class="col-lg-3 post-entry-1">
+          <a [routerLink]="['post', item?.id]"><img src="assets/img/post-landscape-5.jpg" alt="" class="img-fluid"></a>
+          <div class="post-meta">
+            <span class="date">{{item?.v}} </span> <span class="mx-1">&bullet;</span> <span>{{item?.p}}<sup>{{item?.s}}</sup> <span class="mx-1">&bullet;</span> </span>
+            <span class="date">{{item?.l}} </span> | <span>{{item?.bn}}</span>
+          </div>
+          <h2><a routerLink="post/1">{{item?.t}}</a></h2>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="pieces" class="pieces">
+    <div class="container" data-aos="fade-up">
+      <div class="section-header d-flex justify-content-between align-items-center mb-5">
+        <h2>Pieces</h2>
+        <div><a routerLink="academic" class="more">See All Pieces</a></div>
+      </div>
+      <div class="row g-5">
+        <div *ngIf="data.length == 0" class="text-center">
+          <img src="assets/img/ezgif.com-gif-maker (2).jpg" alt="no result">
+          <h2>Sorry But No Result</h2>
+          <button type="button" class="btn btn-primary" (click)="searchResult('reset')">Reset</button>
+        </div>
+
+        <div *ngFor="let item of data" class="col-lg-3 post-entry-1">
+          <a [routerLink]="['post', item?.id]"><img src="assets/img/post-landscape-5.jpg" alt="" class="img-fluid"></a>
+          <div class="post-meta">
+            <span class="date">{{item?.v}} </span> <span class="mx-1">&bullet;</span> <span>{{item?.p}}<sup>{{item?.s}}</sup> <span class="mx-1">&bullet;</span> </span>
+            <span class="date">{{item?.l}} </span> | <span>{{item?.bn}}</span>
+          </div>
+          <h2><a routerLink="post/1">{{item?.t}}</a></h2>
+        </div>
+      </div>
+    </div>
+  </section>
 
 
 

@@ -125,7 +125,7 @@
       "id": 1,
       "vn": "9",
       "v": "Berachos .",
-      "c": "c3",
+      "c": "red",
       "p": "4a",
       "s": "1",
       "l": "B",
@@ -145,6 +145,51 @@
       "p1": " ",
       "p2": " ",
       "q": "<span class=\"verse\"> Benayahu the son of Yehouada<\/span>\r\n\t\t\t\t<br> This is a reference to the Sanhedrin.\r\n\t\t\t\t<hr> <span class=\"verse\"> And Evyathar<\/span>\r\n\t\t\t\t<br> This is a reference to the Urim VeTumim\r\n\t\t\t\t<br> As Scripture says elsewhere:\r\n\t\t\t\t<br> <span class=\"verse\"> And Benayahu the son of Yehoyada <br> was above the Kereisi and the Peleisi <\/span>\r\n\t\t\t\t<hr> This means that the Sanhedrin took <br> immediate precedence to the Urim VeTumim."
+    }
+  ],
+  "rabbi": [
+    {
+      "id": 1,
+      "VN": 1,
+      "V": " Berachos",
+      "LC": "z1",
+      "C": "c1",
+      "P": "5b",
+      "S": "3",
+      "Z": "",
+      "L": "A",
+      "N": 1,
+      "T": "God Cannot Punish Without Justice",
+      "q": "Start"
+    }
+  ],
+  "academic": [
+    {
+      "id": 1,
+      "bn": 1,
+      "c": "c1",
+      "m": 1,
+      "v": "Berachos",
+      "p": "???",
+      "sf": 0,
+      "q": "The night consists of 3 watches.<br> By speaking of watches rather <br> than hours it teaches that <br> there are watches in Heaven and<br> there are watches on Earth <br> that are paired up together.",
+      "tags": [
+        {
+          "level1": "Nature",
+          "level2": "Sky",
+          "level3": "heaven and earth"
+        },
+        {
+          "level1": "Culture",
+          "level2": "Time",
+          "level3": "night"
+        },
+        {
+          "level1": "Spiritual",
+          "level2": "Mystical",
+          "level3": "watches"
+        }
+      ]
     }
   ]
 }

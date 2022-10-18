@@ -7,7 +7,18 @@ export const environment = {
   url: apiUrlChat + '',
   imagePrefix: apiUrl + '',
   posts: {
-    get: apiUrl1 + '/data'
+    get: apiUrl1 + '/kids'
+  },
+  webPages: {
+    kids: {
+      get: apiUrl1 + '/kids'
+    },
+    rabbiVersion: {
+      get: apiUrl1 + '/rabbi'
+    },
+    academic: {
+      get: apiUrl1 + '/academic'
+    },
   },
   baseUrl: apiUrl + prefix,
   admin: {
