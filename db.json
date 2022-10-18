@@ -145,7 +145,16 @@
       "p1": " ",
       "p2": " ",
       "q": "<span class=\"verse\"> Benayahu the son of Yehouada<\/span>\r\n\t\t\t\t<br> This is a reference to the Sanhedrin.\r\n\t\t\t\t<hr> <span class=\"verse\"> And Evyathar<\/span>\r\n\t\t\t\t<br> This is a reference to the Urim VeTumim\r\n\t\t\t\t<br> As Scripture says elsewhere:\r\n\t\t\t\t<br> <span class=\"verse\"> And Benayahu the son of Yehoyada <br> was above the Kereisi and the Peleisi <\/span>\r\n\t\t\t\t<hr> This means that the Sanhedrin took <br> immediate precedence to the Urim VeTumim."
-    }
+    },
+    { "id": 2, "b": "c1", "c": "c4", "m": 1, "v": "Berachos .", "vn": "10", "bn": "10", "an": "10", "l": "B", "p": "4a", "s": "1", "k": false, "t": "Precise and Complete Words", "z1": "false", "z2": "false", "z3": "false", "z4": "false", "z5": "false", "z6": "false", "z7": "false", "p1": " ", "p2": " ", "q": "&emsp; <u>Question:<\/u> Why were the Urim VeTumim \r\n<br> &emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;called Kereisi and Peleisi?\r\n\t\t\t\t<br> &emsp; <u>Answer:<\/u> &nbsp;&nbsp;They were called Kereisi because \r\n<br> &emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;they rendered their words precisely,\r\n\t\t\t\t<br> &emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;They were called Peleisi because \r\n<br>&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;they were wondrous in their words."},
+    { "id": 3, "b" : "c1","c" : "c2",  "m" : 1, "v":"Berachos .", "vn":"8"  , "bn":"8"  ,"an" : "8",  "l"  : "B" , "p" : "3b", "s": "4",    "k" : false,        "t" : "A Pit and its Dirt"          			, "z1" : "Quote....t" , "z2" : "false" , "z3" : "false" , "z4" : "false" , "z5" : "false" , "z6" : "false" , "z7" : "false" , "p1": "David", "p2" : " ", "q" : "\t<table border=\"1\">\r\n\t\t<tr><td> David: <\/td>\r\n\t\t\t<td> Go and support each other.  <\/td>\r\n\t\t<\/tr>\r\n\t\t\r\n\t\t<tr><td> Sages: <\/td>\r\n\t\t\t<td>      A handful of food does not satisfy a lion, \r\n\t\t\t     <br> and a pit cannot be filled from its own Earth!  <\/td>\r\n\t\t<\/tr>\r\n\t<\/table>"},
+    { "id": 4, "b" : "c1","c" : "c1 ", "m" : 1, "v":"Berachos .", "vn":"7"  , "bn":"7"  ,"an" : "7",  "l"  : "B" , "p" : "3b", "s": "4",    "k" : false,  	   "t" : "Your people are Starving"         	, "z1" : "false" , "z2" : "false" , "z3" : "false" , "z4" : "false" , "z5" : "false" , "z6" : "false" , "z7" : "false" , "p1": "David", "p2" : " ", "q" : "When the light of dawn rose, the sages of \r\n<br>  Israel entered into King David\"s presence. \r\n\r\n\t<table border=\"1\">\r\n\t\t\r\n\t\t<tr><td> Sages: <\/td>\r\n\t    \t<td>      Our Master, the king! \r\n\t    \t     <br> Your nation Israel needs sustence.  <\/td>\r\n\t<\/table>"},
+    { "id": 5, "b" : "c1","c" : "c6",  "m" : 1, "v":"Berachos .", "vn":"6"  , "bn":"6"  ,"an" : "6",  "l"  : "A" , "p" : "3a", "s": "3,4",  "k" : false,      "t" : "This Happens all the Time"          	, "z1" : "false" , "z2" : "false" , "z3" : "false" , "z4" : "false" , "z5" : "false" , "z6" : "false" , "z7" : "false" , "p1": " ", "p2" : " ", "q" : "\t<table border=\"1\">\r\n\t\t<tr><td>Elijah<\/td>\r\n\t\t\t<td>And not only this, but at the time that the people of Israel \r\n\t\t\t\t<br> enter the synagogues and house of study \r\n\t\t\t\t<br> and respond in the Kaddish, \r\n\t\t\t\t<br> MAY THE GREAT NAME BE BLESSED, \r\n\t\t\t\t<hr> God shakes his head and says, \r\n\t\t\t\t<br> \"Fortunate is the the king \r\n\t\t\t\t<br> who is praised this way in his house. \r\n\t\t\t\t<br> What is there for the father who has exiled his sons? \r\n\t\t\t\t<br> And woe to the sons who have been exiled form their fathers table.\"\r\n\t<\/table>"},
+    { "id": 6, "b" : "c1","c" : "c5",  "m" : 1, "v":"Berachos .", "vn":"5"  , "bn":"5"  ,"an" : "5",  "l"  : "A" , "p" : "3a", "s": "3",    "k" : false,    	 "t" : "Cooing like a Dove"          		  	, "z1" : "false" , "z2" : "false" , "z3" : "false" , "z4" : "false" , "z5" : "false" , "z6" : "false" , "z7" : "false" , "p1": " ", "p2" : " ", "q" : "\t<table border=\"1\">\r\n\t\t\r\n\t\t<tr><td> Elijah: <\/td>\r\n\t    \t<td> What sound did you hear when you were in this ruin? <\/td>\r\n\t    <\/tr>    \r\n\r\n\t\t<tr><td> Yose: <\/td>\r\n\t\t\t<td> I heard a heavenly voice that was cooing like a dove, \r\n\t\t\t\t<br> saying: <i>\"Woe to the sons because of whose sins \r\n\t\t    \t<br> I destroyed my house, and burned my temple, \r\n\t\t    \t<br> and exiled them among the nations of the world.\"<\/i>\r\n\t\t\t<\/td>\r\n\t\t<\/tr>\r\n\t\t\r\n\t\t<tr><td> Elijah: <\/td>\r\n\t\t\t<td> By your life and the life of your head, it is not only \r\n\t\t\t\t<br> at this moment that the heavenly voice says this,\r\n\t\t\t\t<br> But on each and every day it says this 3 times, \r\n\t\t<\/td>\r\n\t\t<\/tr>\r\n\t<\/table>"},
+    { "id": 7, "b" : "c1","c" : "c4",  "m" : 1, "v":"Berachos .", "vn":"4"  , "bn":"4"  ,"an" : "4",  "l"  : "A" , "p" : "3a", "s": "3",    "k" : false,      "t" : "Why Did You Enter the Ruin?"            , "z1" : "false" , "z2" : "false" , "z3" : "false" , "z4" : "false" , "z5" : "false" , "z6" : "false" , "z7" : "false" , "p1": " ", "p2" : " ", "q" : "\t<table border=\"1\">\r\n\t\t\r\n\t\t<tr><td> Elijah: <\/td>\r\n\t    \t<td> Peace be unto you my teacher <\/td>\r\n\t    <\/tr>    \r\n\r\n\t\t<tr><td> Yose: <\/td>\r\n\t\t\t<td> Peace unto you my teacher and master. <\/td>\r\n\t\t<\/tr>\r\n\t\t\r\n\t\t<tr><td> Elijah: <\/td>\r\n\t    \t<td>      My son, for what reason did you \r\n\t    \t     <br> enter this ruin and endanger yourself? <\/td>\r\n\t    <\/tr>   \r\n\r\n\t\t<tr><td> Yose: <\/td>\r\n\t\t\t<td> To Pray.<\/td>\r\n\t\t<\/tr>\r\n\t\t\r\n\t\t<tr><td> Elijah: <\/td>\r\n\t    \t<td> You should have prayed on the road \r\n\t    \t     <br> and have not entered the ruin.  <\/td>\r\n\t    <\/tr>   \r\n\r\n\t\t<tr><td> Yose: <\/td>\r\n\t\t\t<td> I did not pray on the road for I was afraid\r\n\t\t\t    <br>  that a passerby might interrupt me.  <\/td>\r\n\t\t<\/tr>\r\n\r\n\t\t<tr><td> Elijah: <\/td>\r\n\t\t\t<td> In that case you should have \r\n\t\t\t\t<br> prayed the abridged prayer.  <\/td>\r\n\t\t<\/tr>\r\n\t<\/table>\r\n<\/td>\r\n<\/tr>"},
+    { "id": 8, "b" : "c1","c" : "c3",  "m" : 1, "v":"Berachos .", "vn":"3"  , "bn":"3"  ,"an" : "3",  "l"  : "A" , "p" : "3a", "s": "2,3",  "k" : false, 	 "t" : "Elijah Waits for Yose"            		, "z1" : "false" , "z2" : "false" , "z3" : "false" , "z4" : "false" , "z5" : "false" , "z6" : "false" , "z7" : "Spiritual....t"  , "p1": "Elijah", "p2" : "Yose", "q" : "Yose relates a personal story \r\n<br> about his meeting with Elijah.\r\n<br> I was once travelling on the road, \r\n<br> and I entered a ruin of Jerusalem to pray. \r\n<hr> Elijah the prophet, remembered for the good, \r\n<br> came and waited for me at the entrance \r\n<br> of the ruin until I finished my prayer. "},
+    { "id": 9, "b" : "c1","c" : "c2",  "m" : 1, "v":"Berachos .", "vn":"2"  , "bn":"2"  ,"an" : "2",  "l"  : "A" , "p" : "3a", "s": "2",    "k" : false,      "t" : "Roaring Like a Lion"         		  	, "z1" : "false" , "z2" : "false" , "z3" : "false" , "z4" : "false" , "z5" : "false" , "z6" : "false" , "z7" : "false" , "p1": " ", "p2" : " ", "q" : "The night consists of 3 watches, and at each \r\n<br> and every watch  God sits and roars like a lion,\r\n\t\r\n\t<table border=\"1\">\r\n\t\t<tr><td>God<\/td>\r\n\t\t\t<td> Woe to the children  that because of their sins \r\n\t\t\t\t<br> I destroyed My Temple, burned My Sancutary, \r\n\t\t\t\t<br> and exiled them among the nations of the world.<\/td>\r\n\t\t<\/tr>\r\n\t<\/table>"},
+    { "id": 10, "b" : "c1","c" : "c1",  "m" : 1, "v":"Berachos .", "vn":"1"  , "bn":"1"  ,"an" : "1",  "l"  : "A" , "p" : "3a","s":"1",	   "k" : false, 	 "t" : "As Above So Below"                      , "z1" : "false" , "z2" : "false" , "z3" : "false" , "z4" : "false" , "z5" : "false" , "z6" : "false" , "z7" : "Spiritual....t"  , "p1": " ", "p2" : " ", "q" : "The night consists of 3 watches.\r\n<br> By speaking of watches rather \r\n<br> than hours it teaches that \r\n<br> there are watches in Heaven and\r\n<br> there are watches on Earth \r\n<br> that are paired up together.\r\n<hr> So when it is night on Earth \r\n<br> the span of the night can be \r\n<br> broken up into 3 distinct parts.\r\n<br> At each of these parts of the night,\r\n<br> when God screams in Heaven\r\n<br> something on Earth is also screaming."}
   ],
   "rabbi": [
     {
@@ -161,7 +170,12 @@
       "N": 1,
       "T": "God Cannot Punish Without Justice",
       "q": "Start"
-    }
+    },
+    { "id": 2, "VN" : 1, "V" : " Berachos" , "LC" : "z1" , "C" : "c2", "P" : "5b", "S" : "3", "Z" : "", "L" : "A" ,  "N" : 2, "T"  : "Anyone Heard Anything Make It Known"},
+    { "id": 3, "VN" : 1, "V" : " Berachos" , "LC" : "z1" , "C" : "c3", "P" : "5b", "S" : "3", "Z" : "29", "L" : "A" ,  "N" : 3, "T"  : "Divide A Third For Worker To Take"},
+    { "id": 4, "VN" : 1, "V" : " Berachos" , "LC" : "z1" , "C" : "c4", "P" : "5b", "S" : "3", "Z" : "", "L" : "A" ,  "N" : 4, "T"  : "Left None Stole All, Not Rightful Share"},
+    { "id": 5, "VN" : 1, "V" : " Berachos" , "LC" : "z1" , "C" : "c5", "P" : "5b", "S" : "3", "Z" : "31", "R" : "Rema2" , "L" : "A" ,  "N" : 5, "T"  : "Huna Harbored Claim, Cannot Withhold From Worker"},
+    { "id": 6, "VN" : 1, "V" : " Berachos" , "LC" : "z1" , "C" : "c6", "P" : "5b", "S" : "3", "Z" : "", "L" : "A" ,  "N" : 6, "T"  : "Price Of Vinegar To Price Of Wine"}
   ],
   "academic": [
     {
@@ -190,6 +204,36 @@
           "level3": "watches"
         }
       ]
-    }
+    },
+    {"id": 2, "bn" : 2 , "c": "c2", "m":1 , "v":"Berachos",    "p" : "???", "sf": 0, "q" : "So when it is night on Earth <br> the span of the night can be <br> broken up into 3 distinct parts.<br> At each of these parts of the night,<br> when God screams in Heaven<br> something on Earth is also screaming.",
+      "tags" : [
+        { "level1" : "Nature" , "level2" : "Sky" , "level3" : "heaven and earth"},
+        { "level1" : "Culture" , "level2" : "Time" , "level3" : "night"},
+        { "level1" : "Spiritual" , "level2" : "GodActions" , "level3" : "God screams"}
+      ]},
+
+    {"id": 3, "bn" : 3 , "c": "c3", "m":1 , "v":"Berachos",   "p" : "???", "sf": 0, "q" : "The night consists of 3 watches, and at each <br> and every watch God sits and roars like a lion, <br>crying out over the suffering of Israel<br>and the loss of connection with His people.",
+      "tags" : [
+        { "level1" : "Culture" , "level2" : "Actions" , "level3" : "roar"},
+        { "level1" : "Nature" , "level2" : "LandAnimals" , "level3" : "lion"},
+        { "level1" : "Spiritual" , "level2" : "GodActions" , "level3" : "God sits"},
+        { "level1" : "Spiritual" , "level2" : "GodActions" , "level3" : "God cries"},
+        { "level1" : "Culture" , "level2" : "Time" , "level3" : "night"},
+        { "level1" : "Spiritual" , "level2" : "Mystical" , "level3" : "watches"},
+        { "level1" : "Religion" , "level2" : "General" , "level3" : "suffering"}
+      ]},
+
+    {"id": 4, "bn" : 4 , "c": "c4", "m":1 , "v":"Berachos",    "p" : "???", "sf": 0, "q" : "God screams throughout the night: <table class='chat'><tr><td>God</td><td> Woe to the children  that because of their sins<br> I destroyed My Temple, burned My Sancutary,<br> and exiled them among the nations of the world.</td></tr></table>",
+      "tags" : [
+        { "level1" : "Culture" , "level2" : "Family" , "level3" : "children"},
+        { "level1" : "Religion" , "level2" : "General" , "level3" : "sin"},
+        { "level1" : "Nations" , "level2" : "Empries" , "level3" : "nations of the world"},
+        { "level1" : "Culture" , "level2" : "Places" , "level3" : "destroy temple, sanctuary, exile"},
+        { "level1" : "Nature" , "level2" : "Sky" , "level3" : "world"},
+        { "level1" : "Culture" , "level2" : "Time" , "level3" : "night"},
+        { "level1" : "Spiritual" , "level2" : "GodActions" , "level3" : "God destroys"},
+        { "level1" : "Spiritual" , "level2" : "GodActions" , "level3" : "God screams"},
+        { "level1" : "Spiritual" , "level2" : "GodActions" , "level3" : "God speaks"}
+      ]}
   ]
 }
