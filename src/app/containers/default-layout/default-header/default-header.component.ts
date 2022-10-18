@@ -3,6 +3,7 @@ import { HeaderComponent } from '@coreui/angular';
 import {environment} from "../../../../environments/environment.prod";
 import {RequestService} from "../../../shared/service/request.service";
 import {Router} from "@angular/router";
+import {SocketConnectionService} from "../../../shared/service/socket-connection.service";
 
 @Component({
   selector: 'app-default-header',
@@ -14,12 +15,14 @@ export class DefaultHeaderComponent extends HeaderComponent implements OnInit{
 
   constructor(private requestService: RequestService,
               private router: Router,
+              private socketConnection: SocketConnectionService
               ) {
     super();
   }
 
 
   ngOnInit() {
+    this.socketConnection.connect();
     console.log(1);
     console.log(environment.url);
     this.requestService.getData(`${environment.chat.gateway}`).subscribe((res) => {

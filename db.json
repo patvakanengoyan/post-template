@@ -7,8 +7,14 @@
       "image": "assets/img/post-landscape-2.jpg",
       "country": "USA",
       "city": "New York",
-      "tag": ["Business", "Culture"],
-      "categories": ["Business", "Culture"]
+      "tag": [
+        "Business",
+        "Culture"
+      ],
+      "categories": [
+        "Business",
+        "Culture"
+      ]
     },
     {
       "id": 2,
@@ -17,8 +23,12 @@
       "image": "assets/img/post-landscape-5.jpg",
       "country": "USA",
       "city": "Las Vegas",
-      "tag": ["Sport"],
-      "categories": ["Sport"]
+      "tag": [
+        "Sport"
+      ],
+      "categories": [
+        "Sport"
+      ]
     },
     {
       "id": 3,
@@ -27,8 +37,13 @@
       "image": "assets/img/post-landscape-7.jpg",
       "country": "USA",
       "city": "Las Vegas",
-      "tag": ["Food"],
-      "categories": ["Food", "Travel"]
+      "tag": [
+        "Food"
+      ],
+      "categories": [
+        "Food",
+        "Travel"
+      ]
     },
     {
       "id": 4,
@@ -37,8 +52,12 @@
       "image": "assets/img/post-landscape-7.jpg",
       "country": "England",
       "city": "London",
-      "tag": ["Startups"],
-      "categories": ["Startups"]
+      "tag": [
+        "Startups"
+      ],
+      "categories": [
+        "Startups"
+      ]
     },
     {
       "id": 5,
@@ -47,8 +66,12 @@
       "image": "assets/img/post-landscape-6.jpg",
       "country": "USA",
       "city": "Las Vegas",
-      "tag": ["Startups"],
-      "categories": ["Startups"]
+      "tag": [
+        "Startups"
+      ],
+      "categories": [
+        "Startups"
+      ]
     },
     {
       "id": 6,
@@ -57,8 +80,12 @@
       "image": "assets/img/post-landscape-8.jpg",
       "country": "USA",
       "city": "Las Vegas",
-      "tag": ["Sport"],
-      "categories": ["Sport"]
+      "tag": [
+        "Sport"
+      ],
+      "categories": [
+        "Sport"
+      ]
     },
     {
       "id": 7,
@@ -67,8 +94,14 @@
       "image": "assets/img/post-landscape-1.jpg",
       "country": "France",
       "city": "Paris",
-      "tag": ["Business", "Culture"],
-      "categories": ["Business", "Culture"]
+      "tag": [
+        "Business",
+        "Culture"
+      ],
+      "categories": [
+        "Business",
+        "Culture"
+      ]
     },
     {
       "id": 8,
@@ -77,8 +110,41 @@
       "image": "assets/img/post-landscape-3.jpg",
       "country": "USA",
       "city": "New York",
-      "tag": ["Business", "Culture"],
-      "categories": ["Business", "Culture"]
+      "tag": [
+        "Business",
+        "Culture"
+      ],
+      "categories": [
+        "Business",
+        "Culture"
+      ]
+    }
+  ],
+  "kids": [
+    {
+      "id": 1,
+      "vn": "9",
+      "v": "Berachos .",
+      "c": "c3",
+      "p": "4a",
+      "s": "1",
+      "l": "B",
+      "t": "First Ask the High Court",
+      "b": "c1",
+      "m": 1,
+      "bn": "9",
+      "an": "9",
+      "k": false,
+      "z1": "false",
+      "z2": "false",
+      "z3": "false",
+      "z4": "false",
+      "z5": "false",
+      "z6": "false",
+      "z7": "false",
+      "p1": " ",
+      "p2": " ",
+      "q": "<span class=\"verse\"> Benayahu the son of Yehouada<\/span>\r\n\t\t\t\t<br> This is a reference to the Sanhedrin.\r\n\t\t\t\t<hr> <span class=\"verse\"> And Evyathar<\/span>\r\n\t\t\t\t<br> This is a reference to the Urim VeTumim\r\n\t\t\t\t<br> As Scripture says elsewhere:\r\n\t\t\t\t<br> <span class=\"verse\"> And Benayahu the son of Yehoyada <br> was above the Kereisi and the Peleisi <\/span>\r\n\t\t\t\t<hr> This means that the Sanhedrin took <br> immediate precedence to the Urim VeTumim."
     }
   ]
 }

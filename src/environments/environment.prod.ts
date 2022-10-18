@@ -23,6 +23,8 @@ export const environment = {
   },
   chat: {
     gateway: apiUrlChat + 'api/gateway?version=1.0&platform=web',
-    login: apiUrlChat + 'api/login'
+    login: apiUrlChat + 'api/login',
+    getUserList: apiUrlChat + 'api/v1.0/room/list',
+    joinRoom: apiUrlChat + 'api/v1.0/room'
   }
 };

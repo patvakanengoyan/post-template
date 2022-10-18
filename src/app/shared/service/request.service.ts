@@ -15,17 +15,20 @@ export class RequestService {
   public imgSite: string = environment.imagePrefix;
 
   constructor(private http: HttpClient) {}
+
   /*get request function*/
-  getData(apiUrl:string) {
+  getData(apiUrl:string, forSocket?: boolean) {
     this.isLoading.next({type: 'get', isLoading: true, reqCount: ++this.reqCount});
     this.httpHeaders = new HttpHeaders({
       Authorization: (localStorage.getItem('token_type') ? localStorage.getItem('token_type')  + ' ': '') + localStorage.getItem('access_token'),
-      'Accept-Language': 'en'
-    });
-    this.httpHeaders = this.httpHeaders.set(
-      'Accept-Language',
-      localStorage.getItem('Accept-Language') ? localStorage.getItem('Accept-Language') : 'en'
-    );
+      'Accept-Language': localStorage.getItem('Accept-Language') as string ? localStorage.getItem('Accept-Language') as string : 'en'
+    })
+    if (forSocket) {
+      this.httpHeaders = this.httpHeaders
+        .set('ex-id', localStorage.getItem('_'))
+        .set('ex-authorization', localStorage.getItem('socket_token'))
+        .set('ex-language', 'en');
+    }
     return this.http.get(apiUrl, {headers: this.httpHeaders, observe: 'body'}).pipe(
       finalize(() => {
         this.isLoading.next({type: 'get', isLoading: false, reqCount: --this.reqCount})}),
@@ -33,16 +36,22 @@ export class RequestService {
     );
   }
   /*post request function*/
-  createData(url: string, value?:any) {
+  createData(url: string, value?:any, forSocket?: boolean) {
     this.isLoading.next({type: 'create', isLoading: true, reqCount: ++this.reqCount});
     this.httpHeaders = new HttpHeaders({
       Authorization: (localStorage.getItem('token_type') ? localStorage.getItem('token_type')  + ' ': '') + localStorage.getItem('access_token'),
       'Accept-Language': 'en'
     });
-    this.httpHeaders = this.httpHeaders.set(
-      'Accept-Language',
-      localStorage.getItem('Accept-Language') ? localStorage.getItem('Accept-Language') : 'en'
-    );
+    if (forSocket) {
+      this.httpHeaders = this.httpHeaders
+        .set('ex-id', localStorage.getItem('_'))
+        .set('ex-authorization', localStorage.getItem('socket_token'))
+        .set('ex-language', 'en');
+    }
+    // this.httpHeaders = this.httpHeaders.set(
+    //   'Accept-Language',
+    //   localStorage.getItem('Accept-Language') ? localStorage.getItem('Accept-Language') : 'en'
+    // );
     return this.http.post<any>(url, value, {headers: this.httpHeaders})
       .pipe(
         finalize(() => {
