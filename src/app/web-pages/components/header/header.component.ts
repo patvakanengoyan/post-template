@@ -1,5 +1,7 @@
 import {Component, OnInit, Output, EventEmitter} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {RequestService} from "../../../shared/service/request.service";
+import {SocketConnectionService} from "../../../shared/service/socket-connection.service";
 
 @Component({
   selector: 'app-header',
@@ -22,16 +24,15 @@ export class HeaderComponent implements OnInit {
 
   itemListTag: any = [];
 
-  constructor(public fb: FormBuilder,) { }
+  constructor(public requestService: RequestService,
+              private socketConnection: SocketConnectionService,
+              public fb: FormBuilder) { }
 
   ngOnInit(): void {
-    this.form = this.fb.group({
-      title: '',
-      description: '',
-      country: '',
-      city: '',
-      tag: [''],
-      category: ''
+    this.socketConnection.socketConnected.subscribe((connected) => {
+      if (connected) {
+        // this.getUserList();
+      }
     })
     this.itemListCountry = [
       {"id":1,"itemName":"USA"},
