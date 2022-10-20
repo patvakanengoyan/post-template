@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {environment} from "../../../../environments/environment.prod";
 import {RequestService} from "../../../shared/service/request.service";
 import {ActivatedRoute} from "@angular/router";
@@ -10,12 +10,12 @@ import {FormBuilder, Validators} from "@angular/forms";
   styleUrls: ['./rabbi-version-view.component.scss']
 })
 export class RabbiVersionViewComponent implements OnInit {
-
+  @ViewChild('login') loginModal;
   public url: string = environment.posts.get;
   public data: any | object = {};
   public form = this.fb.group({
-    name: ['', Validators.required],
-    email: ['', Validators.compose([Validators.required])],
+    // name: ['', Validators.required],
+    // email: ['', Validators.compose([Validators.required])],
     message: ['', Validators.required]
   })
   constructor(private requestService: RequestService,
@@ -32,6 +32,8 @@ export class RabbiVersionViewComponent implements OnInit {
   }
 
   sendComment() {
-
+    if (!localStorage.getItem('user_token') && this.form.valid){
+      this.loginModal.showModal();
+    }
   }
 }

@@ -5,6 +5,7 @@ import {ComponentsModule} from "../components/components.module";
 import {RabbiVersionComponent} from "./rabbi-version.component";
 import {RabbiVersionRoutingModule} from "./rabbi-version-routing.module";
 import { RabbiVersionViewComponent } from './rabbi-version-view/rabbi-version-view.component';
+import {SharedModule} from "../../shared/shared.module";
 
 @NgModule({
   declarations: [RabbiVersionComponent, RabbiVersionViewComponent],
@@ -12,7 +13,8 @@ import { RabbiVersionViewComponent } from './rabbi-version-view/rabbi-version-vi
     CommonModule,
     RabbiVersionRoutingModule,
     ReactiveFormsModule,
-    ComponentsModule
+    ComponentsModule,
+    SharedModule
   ]
 })
 export class RabbiVersionModule {
