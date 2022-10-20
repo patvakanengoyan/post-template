@@ -79,39 +79,6 @@
           </div>
           <h2><a routerLink="post/1">{{item?.t}}</a></h2>
         </div>
-
-<!--        <div class="col-lg-3 post-entry-1">-->
-<!--          <a routerLink="post/1"><img src="assets/img/post-landscape-5.jpg" alt="" class="img-fluid"></a>-->
-<!--          <div class="post-meta"><span class="date">Food</span> <span class="mx-1">&bullet;</span> <span>Jul 17th '22</span></div>-->
-<!--          <h2><a routerLink="post/1">How to Avoid Distraction and Stay Focused During Video Calls?</a></h2>-->
-<!--        </div>-->
-<!--        -->
-<!--        <div class="col-lg-3 post-entry-1">-->
-<!--          <a routerLink="post/1"><img src="assets/img/post-landscape-7.jpg" alt="" class="img-fluid"></a>-->
-<!--          <div class="post-meta"><span class="date">Design</span> <span class="mx-1">&bullet;</span> <span>Mar 15th '22</span></div>-->
-<!--          <h2><a routerLink="post/1">Why Craigslist Tampa Is One of The Most Interesting Places On the Web?</a></h2>-->
-<!--        </div>-->
-<!--        -->
-<!--        <div class="col-lg-3 post-entry-1">-->
-<!--          <a routerLink="post/1"><img src="assets/img/post-landscape-2.jpg" alt="" class="img-fluid"></a>-->
-<!--          <div class="post-meta"><span class="date">Sport</span> <span class="mx-1">&bullet;</span> <span>Jul 5th '22</span></div>-->
-<!--          <h2><a routerLink="post/1">Let’s Get Back to Work, New York</a></h2>-->
-<!--        </div>-->
-<!--        -->
-<!--        <div class="col-lg-3 post-entry-1">-->
-<!--          <a routerLink="post/1"><img src="assets/img/post-landscape-5.jpg" alt="" class="img-fluid"></a>-->
-<!--          <div class="post-meta"><span class="date">Food</span> <span class="mx-1">&bullet;</span> <span>Jul 17th '22</span></div>-->
-<!--          <h2><a routerLink="post/1">How to Avoid Distraction and Stay Focused During Video Calls?</a></h2>-->
-<!--        </div>-->
-<!--        -->
-<!--        <div class="col-lg-3 post-entry-1">-->
-<!--          <a routerLink="post/1"><img src="assets/img/post-landscape-7.jpg" alt="" class="img-fluid"></a>-->
-<!--          <div class="post-meta"><span class="date">Design</span> <span class="mx-1">&bullet;</span> <span>Mar 15th '22</span></div>-->
-<!--          <h2><a routerLink="post/1">Why Craigslist Tampa Is One of The Most Interesting Places On the Web?</a></h2>-->
-<!--        </div>-->
-
-
-
       </div> <!-- End .row -->
     </div>
   </section> <!-- End Post Grid Section -->
@@ -123,12 +90,6 @@
         <div><a routerLink="kids" class="more">See All Kids</a></div>
       </div>
       <div class="row g-5">
-        <div *ngIf="data.length == 0" class="text-center">
-          <img src="assets/img/ezgif.com-gif-maker (2).jpg" alt="no result">
-          <h2>Sorry But No Result</h2>
-          <button type="button" class="btn btn-primary" (click)="searchResult('reset')">Reset</button>
-        </div>
-
         <div *ngFor="let item of data" class="col-lg-3 post-entry-1">
           <a [routerLink]="['/kids', item?.id]"><img src="assets/img/post-landscape-5.jpg" alt="" class="img-fluid"></a>
           <div class="post-meta">
@@ -148,12 +109,6 @@
         <div><a routerLink="rabbi-version" class="more">See All Rabbi version</a></div>
       </div>
       <div class="row g-5">
-        <div *ngIf="dataRabbiVersion.length == 0" class="text-center">
-          <img src="assets/img/ezgif.com-gif-maker (2).jpg" alt="no result">
-          <h2>Sorry But No Result</h2>
-          <button type="button" class="btn btn-primary" (click)="searchResult('reset')">Reset</button>
-        </div>
-
         <div *ngFor="let item of dataRabbiVersion" class="col-lg-3 post-entry-1">
           <a [routerLink]="['/rabbi-version', item?.id]"><img src="assets/img/post-landscape-5.jpg" alt="" class="img-fluid"></a>
           <div class="post-meta">
@@ -173,12 +128,6 @@
         <div><a routerLink="academic" class="more">See All Academic</a></div>
       </div>
       <div class="row g-5">
-        <div *ngIf="dataAcademic.length == 0" class="text-center">
-          <img src="assets/img/ezgif.com-gif-maker (2).jpg" alt="no result">
-          <h2>Sorry But No Result</h2>
-          <button type="button" class="btn btn-primary" (click)="searchResult('reset')">Reset</button>
-        </div>
-
         <div *ngFor="let item of dataAcademic" class="col-lg-3 post-entry-1">
           <a [routerLink]="['/academic', item?.id]"><img src="assets/img/post-landscape-5.jpg" alt="" class="img-fluid"></a>
           <div class="post-meta">

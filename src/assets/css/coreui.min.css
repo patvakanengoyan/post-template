@@ -237,9 +237,9 @@ sup {
 /*  text-decoration: underline*/
 /*}*/
 
-a:hover {
-  color: var(--cui-link-hover-color)
-}
+/*a:hover {*/
+/*  color: var(--cui-link-hover-color)*/
+/*}*/
 
 a:not([href]):not([class]), a:not([href]):not([class]):hover {
   color: inherit;

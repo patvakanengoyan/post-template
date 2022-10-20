@@ -29,6 +29,14 @@ export class HeaderComponent implements OnInit {
               public fb: FormBuilder) { }
 
   ngOnInit(): void {
+    this.form = this.fb.group({
+      title: '',
+      description: '',
+      country: '',
+      city: '',
+      tag: '',
+      category: ''
+    })
     this.socketConnection.socketConnected.subscribe((connected) => {
       if (connected) {
         // this.getUserList();
