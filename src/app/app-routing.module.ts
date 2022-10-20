@@ -27,6 +27,11 @@ const routes: Routes = [
         import('./web-pages/rabbi-version/rabbi-version.module').then((m) => m.RabbiVersionModule)
     },
     {
+      path: 'registration',
+      loadChildren: () =>
+        import('./web-pages/registration/registration.module').then((m) => m.RegistrationModule)
+    },
+    {
       path: 'kids',
       loadChildren: () =>
         import('./web-pages/kids/kids.module').then((m) => m.KidsModule)
@@ -101,6 +106,11 @@ const routes: Routes = [
           path: 'pages',
           loadChildren: () =>
             import('./views/pages/pages.module').then((m) => m.PagesModule)
+        },
+        {
+          path: 'admin/users',
+          loadChildren: () =>
+            import('./views/users/users.module').then((m) => m.UsersModule)
         },
     ]
   },

@@ -20,6 +20,7 @@ export const environment = {
     academic: {
       get: apiUrl1 + '/academic'
     },
+    registration: apiUrl + prefix + 'admin/registration',
   },
   baseUrl: apiUrl + prefix,
   admin: {
@@ -31,7 +32,10 @@ export const environment = {
       getAllCategoryList: apiUrl + prefix + 'admin/post_category/list'
     },
     slider: apiUrl + prefix + 'admin/slider',
-    category: apiUrl + prefix + 'admin/category'
+    category: apiUrl + prefix + 'admin/category',
+    users: {
+      get: apiUrl + prefix + 'admin/user',
+    }
   },
   chat: {
     gateway: apiUrlChat + 'api/gateway?version=1.0&platform=web',
