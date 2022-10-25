@@ -112,6 +112,26 @@ const routes: Routes = [
           loadChildren: () =>
             import('./views/users/users.module').then((m) => m.UsersModule)
         },
+        {
+          path: 'admin/taxonomy',
+          loadChildren: () =>
+            import('./views/taxonomy/taxonomy.module').then((m) => m.TaxonomyModule)
+        },
+        {
+          path: 'admin/topic-keys',
+          loadChildren: () =>
+            import('./views/topic-keys/topic-keys.module').then((m) => m.TopicKeysModule)
+        },
+        {
+          path: 'admin/topics',
+          loadChildren: () =>
+            import('./views/topics/topics.module').then((m) => m.TopicsModule)
+        },
+        {
+          path: 'admin/volumes',
+          loadChildren: () =>
+            import('./views/volumes/volumes.module').then((m) => m.VolumesModule)
+        },
     ]
   },
   {

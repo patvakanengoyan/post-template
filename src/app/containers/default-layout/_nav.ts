@@ -26,4 +26,24 @@ export const navItems: INavData[] = [
     url: 'admin/users',
     iconComponent: { name: 'cil-star' }
   },
+  {
+    name: 'Topics',
+    url: 'admin/topics',
+    iconComponent: { name: 'cil-star' }
+  },
+  {
+    name: 'Topic keys',
+    url: 'admin/topic-keys',
+    iconComponent: { name: 'cil-star' }
+  },
+  {
+    name: 'Taxonomy',
+    url: 'admin/taxonomy',
+    iconComponent: { name: 'cil-star' }
+  },
+  {
+    name: 'Volumes',
+    url: 'admin/volumes',
+    iconComponent: { name: 'cil-star' }
+  },
 ];

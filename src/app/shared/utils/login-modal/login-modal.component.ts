@@ -1,7 +1,8 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {BsModalService, ModalDirective} from "ngx-bootstrap/modal";
+import {ModalDirective} from "ngx-bootstrap/modal";
 import {FormBuilder, Validators} from "@angular/forms";
 import {RequestService} from "../../service/request.service";
+import {environment} from "../../../../environments/environment.prod";
 
 @Component({
   selector: 'app-login-modal',
@@ -37,8 +38,9 @@ export class LoginModalComponent implements OnInit {
     this.isModalShown = true;
   }
   onSubmit () {
-    this.requestService.createData(``, this.form.value).subscribe((res) => {
-      console.log(res)
+    this.requestService.createData(`${environment.webPages.login}`, this.form.value).subscribe((res) => {
+      console.log(res);
+      this.hideModal();
     })
   }
 }

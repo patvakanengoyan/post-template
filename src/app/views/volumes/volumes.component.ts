@@ -6,13 +6,13 @@ import {DeleteModalComponent} from "../../shared/utils/delete-modal/delete-modal
 import {RequestService} from "../../shared/service/request.service";
 
 @Component({
-  selector: 'app-users',
-  templateUrl: './users.component.html',
-  styleUrls: ['./users.component.scss']
+  selector: 'app-volumes',
+  templateUrl: './volumes.component.html',
+  styleUrls: ['./volumes.component.scss']
 })
-export class UsersComponent implements OnInit {
+export class VolumesComponent implements OnInit {
 
-  url: any = `${environment.admin.users.get}`;
+  url: any = `${environment.admin.volumes.get}`;
   data: any;
   paginationConfig: any;
   viewData: any;

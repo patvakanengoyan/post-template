@@ -38,8 +38,9 @@
             </div>
             <div class="form-group col-md-4">
               <input type="email" class="form-control" formControlName="email" id="email" placeholder="Your Email" required>
-              <div *ngIf="form.get('email')?.hasError('required') && (form.get('email')?.dirty || form.get('email')?.touched)">
-                <span class="error-message">The email is required</span>
+              <div>
+                <span *ngIf="form.get('email')?.hasError('required') && (form.get('email')?.dirty || form.get('email')?.touched)" class="error-message">The email is required</span>
+                <span *ngIf="form.get('email')?.hasError('pattern') && (form.get('email')?.dirty || form.get('email')?.touched)" class="error-message">The email is invalid</span>
               </div>
             </div>
             <div class="form-group col-md-6">

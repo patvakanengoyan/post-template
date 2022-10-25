@@ -19,7 +19,8 @@ export const environment = {
     academic: {
       get: apiUrl1 + '/academic'
     },
-    registration: apiUrl + prefix + 'admin/registration',
+    registration: apiUrl + prefix + 'registration',
+    login:  apiUrl + prefix + 'login'
   },
   baseUrl: apiUrl + prefix,
   admin: {
@@ -32,8 +33,20 @@ export const environment = {
     },
     slider: apiUrl + prefix + 'admin/slider',
     category: apiUrl + prefix + 'admin/category',
+    taxonomy: {
+      get: apiUrl + prefix + 'admin/taxonomy?skip=0&limit=50&level1=Culture&level2=Actions&level3=an&filter_mode=like'
+    },
+    volumes: {
+      get: apiUrl + prefix + 'admin/volumes?skip=0&limit=50'
+    },
+    topics: {
+      get: apiUrl + prefix + 'admin/topics?skip=0&limit=50'
+    },
+    topic_keys: {
+      get:  apiUrl + prefix +  'admin/topics/keys?skip=0&limit=50'
+    },
     users: {
-      get: apiUrl + prefix + 'admin/user',
+      get: apiUrl + prefix + 'admin/admin',
     }
   },
   chat: {
