@@ -62,22 +62,9 @@
           <div *ngIf="requestType == 'view'">
             <p><b>Level 1: </b>{{viewData?.level1}}</p>
             <p><b>Level 2: </b>{{viewData?.level2}}</p>
-            <p>When you close me, I'll be removed from the DOM</p>
-            lang_code
-            :
-            "en"
-            lang_name
-            :
-            "English"
-            level1
-            :
-            "Culture"
-            level2
-            :
-            "Actions"
-            level3
-            :
-            "arrange"
+            <p><b>Level 3: </b>{{viewData?.level3}}</p>
+            <p><b>Language name : </b>{{viewData?.lang_name}}</p>
+            <p><b>Language code : </b>{{viewData?.lang_code}}</p>
           </div>
           <div *ngIf="requestType == 'edit' || requestType == 'add' || requestType == 'add_translate'">
             <div class="container-md" data-aos="fade-in">

@@ -42,7 +42,7 @@ export class VolumesComponent implements OnInit {
       status: [''],
       password: ['', Validators.required],
       password_confirmation: ['', Validators.required],
-    },{validator: this.matchingPasswords('password', 'password_confirmation')})
+    })
   }
 
   getData(url) {
