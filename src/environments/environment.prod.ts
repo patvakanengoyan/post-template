@@ -34,7 +34,7 @@ export const environment = {
     slider: apiUrl + prefix + 'admin/slider',
     category: apiUrl + prefix + 'admin/category',
     taxonomy: {
-      get: apiUrl + prefix + 'admin/taxonomy?skip=0&limit=50&level1=Culture&level2=Actions&level3=an&filter_mode=like'
+      get: apiUrl + prefix + 'admin/taxonomy'
     },
     volumes: {
       get: apiUrl + prefix + 'admin/volumes?skip=0&limit=50'

@@ -23,10 +23,7 @@ export class DefaultHeaderComponent extends HeaderComponent implements OnInit{
 
   ngOnInit() {
     this.socketConnection.connect();
-    console.log(1);
-    console.log(environment.url);
     this.requestService.getData(`${environment.chat.gateway}`).subscribe((res) => {
-      console.log(res);
     })
   }
 

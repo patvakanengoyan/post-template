@@ -9,33 +9,28 @@
         <table cTable>
           <thead>
           <tr>
-            <th scope="col">Guid</th>
             <th scope="col">Level 1</th>
             <th scope="col">Level 2</th>
             <th scope="col">Level 3</th>
-<!--            <th scope="col">Status</th>-->
             <th scope="col">Actions</th>
           </tr>
           </thead>
           <tbody>
           <tr *ngFor="let item of data">
-            <td>{{item?.guid}}</td>
             <td>{{item?.level1}}</td>
             <td>{{item?.level1}}</td>
             <td>{{item?.level1}}</td>
-<!--            <td>-->
-<!--              <c-form-check [switch]="item?.status">-->
-<!--                <input cFormCheckInput checked type="checkbox" />-->
-<!--              </c-form-check>-->
-<!--            </td>-->
             <td class="actions">
-              <a (click)="showModal(1, 'view')" title="View">
+              <a (click)="showModal(item.id, 'add_translate', item)" title="Add">
+                <i class="fa fa-plus cursor-pointer" aria-hidden="true"></i>
+              </a>
+              <a (click)="showModal(item.id, 'view', item)" title="View">
                 <i class="fa fa-eye cursor-pointer"></i>
               </a>
-              <a (click)="showModal(1, 'edit')" title="Edit">
+              <a (click)="showModal(item.id, 'edit', item)" title="Edit">
                 <i class="fa fa-pencil cursor-pointer"></i>
               </a>
-              <a (click)="popup.deleteModal(1)" title="Delete">
+              <a (click)="popup.deleteModal(item.id)" title="Delete">
                 <i class="fa fa-close cursor-pointer"></i>
               </a>
             </td>
@@ -65,85 +60,59 @@
 
         <div class="modal-body">
           <div *ngIf="requestType == 'view'">
-            <p>I am a modal that is shown right after initialization!</p>
-            <p>I wasn't present in DOM until you clicked the button</p>
+            <p><b>Level 1: </b>{{viewData?.level1}}</p>
+            <p><b>Level 2: </b>{{viewData?.level2}}</p>
             <p>When you close me, I'll be removed from the DOM</p>
+            lang_code
+            :
+            "en"
+            lang_name
+            :
+            "English"
+            level1
+            :
+            "Culture"
+            level2
+            :
+            "Actions"
+            level3
+            :
+            "arrange"
           </div>
-          <div *ngIf="requestType == 'edit' || requestType == 'add'">
+          <div *ngIf="requestType == 'edit' || requestType == 'add' || requestType == 'add_translate'">
             <div class="container-md" data-aos="fade-in">
               <div class="row">
-                <div class="col-6 mb-3">
-                  <label for="first_name" [ngClass]="(form.controls.first_name?.invalid &&
-                      (form.controls.first_name?.dirty || form.controls.first_name?.touched)) ? 'invalid-label-color' : ''">First Name *</label>
-                  <input type="text" class="form-control" formControlName="first_name" id="first_name">
-                  <div *ngIf="!form.controls.first_name?.valid && (form.controls.first_name?.dirty || form.controls.first_name?.touched)">
-                    <span class="error-message">The First Name is required</span>
+                <div class="mb-3">
+                  <label for="level1" [ngClass]="(form.controls.level1?.invalid &&
+        (form.controls.level1?.dirty || form.controls.level1?.touched)) ? 'invalid-label-color' : ''">Level 1 *</label>
+                  <input type="text" class="form-control" formControlName="level1" id="level1">
+                  <div *ngIf="!form.controls.level1?.valid && (form.controls.level1?.dirty || form.controls.level1?.touched)">
+                    <span class="error-message">The level 1 is required</span>
                   </div>
                 </div>
-                <div class="col-6 mb-3">
-                  <label for="uri" [ngClass]="(form.controls.last_name?.invalid &&
-                  (form.controls.last_name?.dirty || form.controls.last_name?.touched)) ? 'invalid-label-color' : ''">Last Name *</label>
-                  <input type="text" class="form-control" formControlName="last_name" id="uri">
-                  <div *ngIf="!form.controls.last_name?.valid && (form.controls.last_name?.dirty || form.controls.last_name?.touched)">
-                    <span class="error-message">The Last Name is required</span>
+                <div class="mb-3">
+                  <label for="level2" [ngClass]="(form.controls.level2?.invalid &&
+        (form.controls.level2?.dirty || form.controls.level2?.touched)) ? 'invalid-label-color' : ''">Level 2 *</label>
+                  <input type="text" class="form-control" formControlName="level2" id="level2">
+                  <div *ngIf="!form.controls.level2?.valid && (form.controls.level2?.dirty || form.controls.level2?.touched)">
+                    <span class="error-message">The level 2 is required</span>
                   </div>
                 </div>
-                <div class="col-6 mb-3">
-                  <label for="email" [ngClass]="(form.controls.email?.invalid &&
-                  (form.controls.email?.dirty || form.controls.email?.touched)) ? 'invalid-label-color' : ''">Email *</label>
-                  <input type="text" class="form-control" formControlName="email" id="email">
-                  <div *ngIf="!form.controls.email?.valid && (form.controls.email?.dirty || form.controls.email?.touched)">
-                    <span class="error-message">The Email is required</span>
+                <div class="mb-3">
+                  <label for="level3" [ngClass]="(form.controls.level3?.invalid &&
+        (form.controls.level3?.dirty || form.controls.level3?.touched)) ? 'invalid-label-color' : ''">Level 3 *</label>
+                  <input type="text" class="form-control" formControlName="level3" id="level3">
+                  <div *ngIf="!form.controls.level3?.valid && (form.controls.level3?.dirty || form.controls.level3?.touched)">
+                    <span class="error-message">The level 3 is required</span>
                   </div>
                 </div>
-                <div class="col-6 mb-3">
-                  <label for="role" [ngClass]="(form.controls.role?.invalid &&
-                  (form.controls.role?.dirty || form.controls.role?.touched)) ? 'invalid-label-color' : ''">Role *</label>
-                  <select class="form-select" formControlName="role" id="role">
-                    <option selected>Select Role</option>
-                    <option value="admin">Super Admin</option>
-                    <option value="administrator">Admin</option>
-                    <option value="moderator">Moderator</option>
-                  </select>
-                  <div *ngIf="!form.controls.role?.valid && (form.controls.role?.dirty || form.controls.role?.touched)">
-                    <span class="error-message">The Role is required</span>
+                <div class="mb-3">
+                  <label for="lang_code" [ngClass]="(form.controls.lang_code?.invalid &&
+        (form.controls.lang_code?.dirty || form.controls.lang_code?.touched)) ? 'invalid-label-color' : ''">Language code *</label>
+                  <input type="text" class="form-control" formControlName="lang_code" id="lang_code">
+                  <div *ngIf="!form.controls.lang_code?.valid && (form.controls.lang_code?.dirty || form.controls.lang_code?.touched)">
+                    <span class="error-message">The language code is required</span>
                   </div>
-                </div>
-                <div class="col-6 mb-3">
-                  <label for="password" [ngClass]="(form.controls.password?.invalid &&
-                  (form.controls.password?.dirty || form.controls.password?.touched)) ? 'invalid-label-color' : ''">Password *</label>
-                  <input type="password" class="form-control" formControlName="password" id="password">
-                  <div *ngIf="!form.controls.password?.valid && (form.controls.password?.dirty || form.controls.password?.touched)">
-                    <span class="error-message">The password is required</span>
-                  </div>
-                </div>
-
-                <div class="col-6 mb-3">
-                  <label for="password_confirmation" [ngClass]="(form.controls.password_confirmation?.invalid &&
-                  (form.controls.password_confirmation?.dirty || form.controls.password_confirmation?.touched)) ? 'invalid-label-color' : ''">Confirm password *</label>
-                  <input type="password" class="form-control" formControlName="password_confirmation" id="password_confirmation">
-                  <div>
-                    <span *ngIf="form.get('password_confirmation')?.hasError('required') && (form.get('password_confirmation')?.dirty || form.get('password_confirmation')?.touched)" class="error-message">The confirm password is required</span>
-                    <span *ngIf="form.get('password_confirmation')?.hasError('required') && (form.get('password_confirmation')?.dirty || form.get('password_confirmation')?.touched)" class="error-message">Passwords dont match</span>
-                  </div>
-                </div>
-
-                <div class="col-6 mb-3">
-                  <label for="password_confirmation" [ngClass]="(form.controls.email?.invalid &&
-                  (form.controls.email?.dirty || form.controls.email?.touched)) ? 'invalid-label-color' : ''">Image *</label>
-                  <input type="file" class="form-control" (change)="onChangeInput($event)" formControlName="image"
-                         id="image">
-                  <div *ngIf="!form.controls.password_confirmation?.valid && (form.controls.password_confirmation?.dirty || form.controls.password_confirmation?.touched)">
-                    <span class="error-message">The Image is required</span>
-                  </div>
-                </div>
-
-
-                <div class="col-6 mb-3">
-                  <label for="status">Status</label>
-                  <c-form-check [switch]="true" class="form-control border-0">
-                    <input cFormCheckInput type="checkbox" id="status" formControlName="status" />
-                  </c-form-check>
                 </div>
               </div>
             </div>
@@ -151,7 +120,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" (click)="hideModal()">Close</button>
-          <button *ngIf="requestType == 'edit' || requestType == 'add'"
+          <button *ngIf="requestType == 'edit' || requestType == 'add' || requestType == 'add_translate'"
                   type="submit" class="btn btn-primary"
                   [disabled]="!form.valid"
           >Save changes</button>

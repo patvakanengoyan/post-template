@@ -24,26 +24,26 @@ export const navItems: INavData[] = [
   {
     name: 'Users',
     url: 'admin/users',
-    iconComponent: { name: 'cil-star' }
+    iconComponent: { name: 'cil-user' }
   },
   {
     name: 'Topics',
     url: 'admin/topics',
-    iconComponent: { name: 'cil-star' }
+    iconComponent: { name: 'cil-align-center' }
   },
   {
     name: 'Topic keys',
     url: 'admin/topic-keys',
-    iconComponent: { name: 'cil-star' }
+    iconComponent: { name: 'cil-justify-center' }
   },
   {
     name: 'Taxonomy',
     url: 'admin/taxonomy',
-    iconComponent: { name: 'cil-star' }
+    iconComponent: { name: 'cil-settings' }
   },
   {
     name: 'Volumes',
     url: 'admin/volumes',
-    iconComponent: { name: 'cil-star' }
+    iconComponent: { name: 'cil-save' }
   },
 ];

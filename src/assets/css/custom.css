@@ -9,6 +9,9 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .fa-close {
   color: red;
 }
+.fa-plus {
+  color: #2eb85c;
+}
 .btn-primary {
   color: #fff;
   background-color: #0d6efd;

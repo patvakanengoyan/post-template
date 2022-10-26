@@ -17,7 +17,7 @@ export class AppInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler) {
     return next.handle(req).pipe(map((event: HttpEvent<any>) => {
         let url = req.url;
-        if (url.search('admin/login') != -1 || url.search('logout') != -1) {
+        if (url.search('login') != -1 || url.search('logout') != -1) {
         } else {
           if (event instanceof HttpResponse) {
             let url = new URL(req.url)
