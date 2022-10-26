@@ -40,10 +40,10 @@ export const environment = {
       get: apiUrl + prefix + 'admin/volumes?skip=0&limit=50'
     },
     topics: {
-      get: apiUrl + prefix + 'admin/topics?skip=0&limit=50'
+      get: apiUrl + prefix + 'admin/topics'
     },
     topic_keys: {
-      get:  apiUrl + prefix +  'admin/topics/keys?skip=0&limit=50'
+      get:  apiUrl + prefix +  'admin/topics/keys'
     },
     users: {
       get: apiUrl + prefix + 'admin/admin',

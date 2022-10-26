@@ -31,13 +31,13 @@
               </c-form-check>
             </td>
             <td class="actions">
-              <a (click)="showModal(1, 'view')" title="View">
+              <a (click)="showModal(item.id, 'view')" title="View">
                 <i class="fa fa-eye cursor-pointer"></i>
               </a>
-              <a (click)="showModal(1, 'edit')" title="Edit">
+              <a (click)="showModal(item.id, 'edit')" title="Edit">
                 <i class="fa fa-pencil cursor-pointer"></i>
               </a>
-              <a (click)="popup.deleteModal(1)" title="Delete">
+              <a (click)="popup.deleteModal(item.id)" title="Delete">
                 <i class="fa fa-close cursor-pointer"></i>
               </a>
             </td>
@@ -131,8 +131,8 @@
                 </div>
 
                 <div class="col-6 mb-3">
-                  <label for="password_confirmation" [ngClass]="(form.controls.email?.invalid &&
-                  (form.controls.email?.dirty || form.controls.email?.touched)) ? 'invalid-label-color' : ''">Image *</label>
+                  <label for="password_confirmation" [ngClass]="(form.controls.image?.invalid &&
+                  (form.controls.image?.dirty || form.controls.image?.touched)) ? 'invalid-label-color' : ''">Image *</label>
                   <input type="file" class="form-control" (change)="onChangeInput($event)" formControlName="image"
                          id="image">
                   <div *ngIf="form.get('image')?.valid && (form.get('image')?.dirty || form.get('image')?.touched)">

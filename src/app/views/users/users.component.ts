@@ -121,7 +121,10 @@ export class UsersComponent implements OnInit {
   }
 
   deleteItem(id) {
-    this.modal.modalRef.hide();
+    this.requestService.delete(this.url, id).subscribe((item) => {
+      this.getData(this.url);
+      this.modal.modalRef.hide();
+    })
   }
 
   matchingPasswords(passwordKey: string, passwordConfirmationKey: string) {
