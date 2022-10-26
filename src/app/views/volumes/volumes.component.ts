@@ -18,146 +18,86 @@ export class VolumesComponent implements OnInit {
   viewData: any;
   form: any = FormGroup;
   itemId!: number;
-  @ViewChild('autoShownModal', { static: false }) autoShownModal?: ModalDirective;
+  @ViewChild('autoShownModal', {static: false}) autoShownModal?: ModalDirective;
   @ViewChild(DeleteModalComponent) private modal!: DeleteModalComponent;
   isModalShown = false;
   requestType: any;
-  imageValue: any;
-  editImagePath: any;
-  imagePath: any;
-  image: any;
-  file: any;
 
   constructor(public requestService: RequestService,
-              public fb: FormBuilder) { }
+              public fb: FormBuilder) {
+  }
 
   ngOnInit(): void {
     this.getData(this.url);
+  }
+
+  forGet() {
     this.form = this.fb.group({
-      first_name: ['', Validators.required],
-      last_name: ['', Validators.required],
-      email: ['', Validators.required],
-      role: ['', Validators.required],
+      key: ['', Validators.required],
+      color: ['#000000'],
       image: ['', Validators.required],
-      status: [''],
-      password: ['', Validators.required],
-      password_confirmation: ['', Validators.required],
     })
   }
 
   getData(url) {
     this.requestService.getData(url).subscribe((res) => {
-      this.data = res['data'];
+      this.data = res['data'] ? res['data'] : res;
+      this.paginationConfig = res;
     })
   }
 
-  getById(id) {
-    this.requestService.getData(this.url + '/' + id ).subscribe((res) => {
-      this.viewData = res;
-      this.form.patchValue({
-        first_name: res[0].first_name,
-        last_name: res[0].last_name,
-        email: res[0].email,
-        role: res[0].role,
-        status: res[0].status,
-      })
-    })
-  }
-
-  showModal(id, type): void {
+  showModal(item, type): void {
     this.isModalShown = true;
     this.requestType = type
-    this.itemId = id;
+    this.itemId = item ? item.id : null;
     if (type === 'view') {
-      this.getById(id)
+      this.viewData = item;
     } else if (type === 'edit') {
-      this.getById(id)
+      this.forGet();
+      this.form.patchValue({
+        key: item.key,
+        color: item.color,
+        image: item.image
+      })
     } else if (type === 'add') {
-
+      this.forGet();
     }
   }
 
   hideModal(): void {
     this.autoShownModal?.hide();
-  }
-
-  onHidden(): void {
     this.isModalShown = false;
     this.form.reset();
   }
 
-  onSubmit(form: any){
-    form.status = form.status ? 1 : 0;
-    let url = this.url;
-    let data = new FormData()
+  onSubmit(form: any) {
+    let data = {
+      "color": form.color,
+      "image": form.image,
+      "volume": {
+        "en": form.key,
+        "hy": form.key,
+      }
+    }
+
     if (this.requestType == 'edit') {
-      url = `${this.url}/${this.itemId}`;
-      data.append('_method', 'PUT');
-      for (let key in form) {
-        if (key == 'image') {
-          if (this.file) {
-            data.append(key, this.file);
-          }
-        } else {
-          data.append(key, this.form.value[key]);
-        }
-      }
+      this.requestService.updateData(this.url, data, this.itemId + '/update').subscribe((res) => {
+        this.hideModal();
+        this.getData(this.url);
+      })
     } else if (this.requestType == 'add') {
-      for (let key in form) {
-        if (key == 'image') {
-          if (this.file) {
-            data.append(key, this.file);
-          }
-        } else {
-          data.append(key, this.form.value[key]);
-        }
-      }
-      this.requestService.createData(url, data).subscribe((res) => {
+      this.requestService.createData(this.url + '/' + 'create', data).subscribe((res) => {
         this.hideModal();
         this.getData(this.url);
       })
     }
-    console.log(form);
   }
 
   deleteItem(id) {
     this.modal.modalRef.hide();
+    this.requestService.delete(this.url, id + '/delete').subscribe((res) => {
+      this.getData(this.url);
+      this.hideModal();
+    })
   }
-
-  matchingPasswords(passwordKey: string, passwordConfirmationKey: string) {
-    return (group: FormGroup) => {
-      let password= group.controls[passwordKey];
-      let passwordConfirmation= group.controls[passwordConfirmationKey];
-      if (password.value !== passwordConfirmation.value) {
-        return passwordConfirmation.setErrors({mismatchedPasswords: true})
-      }
-    }
-  }
-
-  onChangeInput(e) {
-    this.file = e.target ? e.target.files[0] : e;
-    if (this.file) {
-      const fileName = this.file.name;
-      if (/\.(jpe?g|png|bmp)$/i.test(fileName)) {
-        const filesize = this.file.size;
-        if (filesize > 15728640) {
-          this.form.controls.image.setErrors({size: 'error'});
-        } else {
-          let reader = new FileReader();
-          reader.readAsDataURL(this.file);
-          reader.onload = () => {
-            this.imageValue = reader.result;
-          };
-          this.image = this.file;
-        }
-      } else {
-        this.form.controls.image.setErrors({type: 'error'});
-      }
-    } else {
-      this.file = undefined;
-      this.imageValue = undefined;
-      this.form.controls.image.setErrors(null);
-    }
-  }
-
 }

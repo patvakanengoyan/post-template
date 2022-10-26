@@ -9,37 +9,29 @@
         <table cTable>
           <thead>
           <tr>
-            <th scope="col"></th>
-            <th scope="col">Guid</th>
+            <th scope="col">Image</th>
+            <th scope="col">Color</th>
             <th scope="col">Key</th>
             <th scope="col">Main key</th>
-            <th scope="col">Language Name</th>
-<!--            <th scope="col">Status</th>-->
             <th scope="col">Actions</th>
           </tr>
           </thead>
           <tbody>
           <tr *ngFor="let item of data">
-            <td>
-              <img src="{{item?.image?.url}}" alt="" style="width: 100px">
+            <td (click)="showModal(item, 'view')" class="cursor-pointer">
+              <img src="{{item?.image}}" alt="" style="width: 35px;max-height: 50px;">
             </td>
-            <td>{{item?.guid}}</td>
+            <td>{{item?.color}}</td>
             <td>{{item?.key}}</td>
             <td>{{item?.main_key}}</td>
-            <td>{{item?.lang_name}}</td>
-<!--            <td>-->
-<!--              <c-form-check [switch]="item?.status">-->
-<!--                <input cFormCheckInput checked type="checkbox" />-->
-<!--              </c-form-check>-->
-<!--            </td> -->
             <td class="actions">
-              <a (click)="showModal(1, 'view')" title="View">
+              <a (click)="showModal(item, 'view')" title="View">
                 <i class="fa fa-eye cursor-pointer"></i>
               </a>
-              <a (click)="showModal(1, 'edit')" title="Edit">
+              <a (click)="showModal(item, 'edit')" title="Edit">
                 <i class="fa fa-pencil cursor-pointer"></i>
               </a>
-              <a (click)="popup.deleteModal(1)" title="Delete">
+              <a (click)="popup.deleteModal(item.id)" title="Delete">
                 <i class="fa fa-close cursor-pointer"></i>
               </a>
             </td>
@@ -53,7 +45,7 @@
     </c-card>
   </c-col>
 </c-row>
-<div *ngIf="isModalShown" [config]="{ show: true }" (onHidden)="onHidden()" bsModal #autoShownModal="bs-modal"
+<div *ngIf="isModalShown" [config]="{ show: true }" (onHidden)="hideModal()" bsModal #autoShownModal="bs-modal"
      class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-auto-name">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
@@ -69,45 +61,55 @@
 
         <div class="modal-body">
           <div *ngIf="requestType == 'view'">
-            <p>I am a modal that is shown right after initialization!</p>
-            <p>I wasn't present in DOM until you clicked the button</p>
-            <p>When you close me, I'll be removed from the DOM</p>
+            <img style="max-width: 300px; max-height: 350px;" src="{{this.requestService.imgSite + viewData?.image}}"
+                 alt="img">
+            <div>
+              <p><b>Main key: </b> {{viewData.main_key}}</p>
+              <p><b>Key: </b> {{viewData.key}}</p>
+              <p><b>Color: </b> {{viewData.color}}</p>
+            </div>
           </div>
           <div *ngIf="requestType == 'edit' || requestType == 'add'">
             <div class="container-md" data-aos="fade-in">
               <div class="row">
                 <div class="col-6 mb-3">
-                  <label for="first_name" [ngClass]="(form.controls.first_name?.invalid &&
-                      (form.controls.first_name?.dirty || form.controls.first_name?.touched)) ? 'invalid-label-color' : ''">First Name *</label>
-                  <input type="text" class="form-control" formControlName="first_name" id="first_name">
-                  <div *ngIf="!form.controls.first_name?.valid && (form.controls.first_name?.dirty || form.controls.first_name?.touched)">
-                    <span class="error-message">The First Name is required</span>
+                  <label for="key" [ngClass]="(form.controls.key?.invalid &&
+        (form.controls.key?.dirty || form.controls.key?.touched)) ? 'invalid-label-color' : ''">Key *</label>
+                  <input type="text" class="form-control" formControlName="key" id="key">
+                  <div *ngIf="!form.controls.key?.valid && (form.controls.key?.dirty || form.controls.key?.touched)">
+                    <span class="error-message">The key is required</span>
                   </div>
                 </div>
                 <div class="col-6 mb-3">
-                  <label for="uri" [ngClass]="(form.controls.last_name?.invalid &&
-                  (form.controls.last_name?.dirty || form.controls.last_name?.touched)) ? 'invalid-label-color' : ''">Last Name *</label>
-                  <input type="text" class="form-control" formControlName="last_name" id="uri">
-                  <div *ngIf="!form.controls.last_name?.valid && (form.controls.last_name?.dirty || form.controls.last_name?.touched)">
-                    <span class="error-message">The Last Name is required</span>
+                  <label for="image" [ngClass]="(form.controls.image?.invalid &&
+        (form.controls.image?.dirty || form.controls.image?.touched)) ? 'invalid-label-color' : ''">Image *</label>
+                  <input type="text" class="form-control" formControlName="image" id="image">
+                  <div *ngIf="!form.controls.image?.valid && (form.controls.image?.dirty || form.controls.image?.touched)">
+                    <span class="error-message">The image is required</span>
                   </div>
                 </div>
                 <div class="col-6 mb-3">
-                  <label for="email" [ngClass]="(form.controls.email?.invalid &&
-                  (form.controls.email?.dirty || form.controls.email?.touched)) ? 'invalid-label-color' : ''">Email *</label>
-                  <input type="text" class="form-control" formControlName="email" id="email">
-                  <div *ngIf="!form.controls.email?.valid && (form.controls.email?.dirty || form.controls.email?.touched)">
-                    <span class="error-message">The Email is required</span>
+                  <label for="main_key" [ngClass]="(form.controls.main_key?.invalid &&
+        (form.controls.main_key?.dirty || form.controls.main_key?.touched)) ? 'invalid-label-color' : ''">Main key *</label>
+                  <angular2-multiselect [data]="itemList"
+                                        formControlName="main_key"
+                                        id="main_key"
+                                        [settings]="settings"
+                                        (onScrollToEnd)="fetchMore($event)">
+                  </angular2-multiselect>
+
+                  <div *ngIf="!form.controls.main_key?.valid && (form.controls.main_key?.dirty || form.controls.main_key?.touched)">
+                    <span class="error-message">The main key is required</span>
                   </div>
                 </div>
-
-
-<!--                <div class="col-6 mb-3">-->
-<!--                  <label for="status">Status</label>-->
-<!--                  <c-form-check [switch]="true" class="form-control border-0">-->
-<!--                    <input cFormCheckInput type="checkbox" id="status" formControlName="status" />-->
-<!--                  </c-form-check>-->
-<!--                </div>-->
+                <div class="col-6 mb-3">
+                  <label for="color" [ngClass]="(form.controls.color?.invalid &&
+        (form.controls.color?.dirty || form.controls.color?.touched)) ? 'invalid-label-color' : ''">Color *</label>
+                  <input type="color" class="form-control" formControlName="color" id="color">
+                  <div *ngIf="!form.controls.color?.valid && (form.controls.color?.dirty || form.controls.color?.touched)">
+                    <span class="error-message">The color is required</span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

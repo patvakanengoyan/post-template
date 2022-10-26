@@ -37,7 +37,7 @@ export const environment = {
       get: apiUrl + prefix + 'admin/taxonomy'
     },
     volumes: {
-      get: apiUrl + prefix + 'admin/volumes?skip=0&limit=50'
+      get: apiUrl + prefix + 'admin/volumes'
     },
     topics: {
       get: apiUrl + prefix + 'admin/topics'

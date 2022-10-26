@@ -17,11 +17,14 @@
           </thead>
           <tbody>
           <tr *ngFor="let item of data">
-            <td>{{item?.level1}}</td>
+            <td>
+              <span cTooltip="{{item.level1}}" class="cursor-pointer"
+                    (click)="showModal(item.id, 'view', item)">{{item.level1}}</span>
+            </td>
             <td>{{item?.level1}}</td>
             <td>{{item?.level1}}</td>
             <td class="actions">
-              <a (click)="showModal(item.id, 'add_translate', item)" title="Add">
+              <a (click)="showModal(item.id, 'add_translate', item)" title="Add a language">
                 <i class="fa fa-plus cursor-pointer" aria-hidden="true"></i>
               </a>
               <a (click)="showModal(item.id, 'view', item)" title="View">
@@ -44,7 +47,7 @@
     </c-card>
   </c-col>
 </c-row>
-<div *ngIf="isModalShown" [config]="{ show: true }" (onHidden)="onHidden()" bsModal #autoShownModal="bs-modal"
+<div *ngIf="isModalShown" [config]="{ show: true }" (onHidden)="hideModal()" bsModal #autoShownModal="bs-modal"
      class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-auto-name">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
@@ -96,7 +99,7 @@
                 <div class="mb-3">
                   <label for="lang_code" [ngClass]="(form.controls.lang_code?.invalid &&
         (form.controls.lang_code?.dirty || form.controls.lang_code?.touched)) ? 'invalid-label-color' : ''">Language code *</label>
-                  <input type="text" class="form-control" formControlName="lang_code" id="lang_code">
+                  <input type="text" class="form-control" formControlName="lang_code" id="lang_code" [readonly]="requestType == 'edit'">
                   <div *ngIf="!form.controls.lang_code?.valid && (form.controls.lang_code?.dirty || form.controls.lang_code?.touched)">
                     <span class="error-message">The language code is required</span>
                   </div>

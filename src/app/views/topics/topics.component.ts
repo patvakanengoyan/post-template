@@ -18,80 +18,153 @@ export class TopicsComponent implements OnInit {
   viewData: any;
   form: any = FormGroup;
   itemId!: number;
-  @ViewChild('autoShownModal', { static: false }) autoShownModal?: ModalDirective;
+  @ViewChild('autoShownModal', {static: false}) autoShownModal?: ModalDirective;
   @ViewChild(DeleteModalComponent) private modal!: DeleteModalComponent;
   isModalShown = false;
   requestType: any;
+  itemList: any = [];
+  selectedItems = [];
+  settings: any = {};
+  loading = false;
+  indices: any;
+  readonly bufferSize: number = 10;
+  page: number = 1;
+  isLoaded: boolean = true;
 
   constructor(public requestService: RequestService,
-              public fb: FormBuilder) { }
+              public fb: FormBuilder,) {
+  }
 
   ngOnInit(): void {
-    this.getData(`${this.url}?skip=0&limit=50`);
+    this.getData(`${this.url}`);
+    this.selectedItems = [];
+    this.settings = {
+      text: "Select item",
+      selectAllText: 'Select All',
+      unSelectAllText: 'UnSelect All',
+      enableSearchFilter: true,
+      lazyLoading: true,
+      singleSelection: true,
+    };
+  }
+
+  forGet() {
     this.form = this.fb.group({
-      first_name: ['', Validators.required],
-      last_name: ['', Validators.required],
-      email: ['', Validators.required],
-    })
+      key: ['', Validators.required],
+      main_key: ['', Validators.required],
+      color: ['#000000'],
+      image: ['', Validators.required],
+    });
+  }
+
+  fetchMore(event: any) {
+    if (event.endIndex === this.itemList.length - 1 && this.isLoaded) {
+      this.loading = true;
+      this.isLoaded = false;
+      this.requestService.getData(environment.admin.topic_keys.get + '?page=' + this.page).subscribe((res: any) => {
+        if (!res['message']) {
+          let newData: any = [];
+          this.isLoaded = res.last_page !== this.page;
+          for (let i in res['data']) {
+            newData.push(
+              {"id": res['data'][i]['guid'], "itemName": res['data'][i]['name']}
+            );
+          }
+          this.itemList = [...this.itemList.concat(newData)]
+          this.loading = false;
+          this.page += 1
+        }
+      });
+    }
   }
 
   getData(url) {
     this.requestService.getData(url).subscribe((res) => {
-      this.data = res['data'];
+      this.data = res['data'] ? res['data'] : res;
+      this.paginationConfig = res;
     })
   }
 
-  getById(id) {
-    this.requestService.getData(this.url + '/' + id ).subscribe((res) => {
-      this.viewData = res;
+
+  getTopicKeysList(item, type) {
+    if (type == 'edit') {
       this.form.patchValue({
-        first_name: res[0].first_name,
-        last_name: res[0].last_name,
-        email: res[0].email,
-        role: res[0].role,
-        status: res[0].status,
+        key: item.key,
+        main_key: [{"id": "4ea67854-8d0a-4a57-a243-1ef6d4717ed0", "itemName": item.main_key}],
+        color: item.color,
+        image: item.image,
       })
-    })
+    }
+    this.requestService.getData(environment.admin.topic_keys.get).subscribe((res: any) => {
+      if (!res['message']) {
+        // let data = [] as any;
+        // for (let i in res['data']) {
+        //   data.push(
+        //     {"id": res['data'][i]['guid'], "itemName": res['data'][i]['name']}
+        //   );
+        // }
+        // this.itemList = [...data]
+
+      }
+
+    });
+
   }
 
-  showModal(id, type): void {
-    this.isModalShown = true;
-    this.requestType = type
-    this.itemId = id;
-    if (type === 'view') {
-      this.getById(id)
-    } else if (type === 'edit') {
-      this.getById(id)
-    } else if (type === 'add') {
 
+  showModal(item, type): void {
+    this.isModalShown = true;
+    this.requestType = type;
+    this.itemId = item ? item.id : null;
+    if (type === 'view') {
+      this.viewData = item;
+    } else if (type === 'edit') {
+      this.getTopicKeysList(item, type)
+      this.forGet();
+    } else if (type === 'add') {
+      this.forGet();
+      // this.getTopicKeysList(item, type)
     }
   }
 
   hideModal(): void {
     this.autoShownModal?.hide();
-  }
-
-  onHidden(): void {
     this.isModalShown = false;
+    this.itemList = [];
+    this.page = 1;
+    this.isLoaded = true;
     this.form.reset();
   }
 
-  onSubmit(form: any){
-    let url = this.url;
-    let data = new FormData()
+  onSubmit(form: any) {
+    let data = {
+      "color": form.color,
+      "image": form.image,
+      "main_key_guid": form.main_key[0].id,
+      "key": {
+        "en": form.key,
+        "hy": form.key,
+      }
+    }
+
     if (this.requestType == 'edit') {
-      url = `${this.url}/${this.itemId}`;
-      data.append('_method', 'PUT');
+      this.requestService.updateData(this.url, data, this.itemId + '/update').subscribe((res) => {
+        this.hideModal();
+        this.getData(this.url);
+      })
     } else if (this.requestType == 'add') {
-      this.requestService.createData(url, data).subscribe((res) => {
+      this.requestService.createData(this.url + '/' + 'create', data).subscribe((res) => {
         this.hideModal();
         this.getData(this.url);
       })
     }
-    console.log(form);
   }
 
   deleteItem(id) {
     this.modal.modalRef.hide();
+    this.requestService.delete(this.url, id + '/delete').subscribe((res) => {
+      this.getData(this.url);
+      this.hideModal();
+    })
   }
 }

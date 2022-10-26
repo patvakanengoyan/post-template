@@ -7,6 +7,7 @@ import {ModalModule} from "ngx-bootstrap/modal";
 import {SharedModule} from "../../shared/shared.module";
 import {TopicsComponent} from "./topics.component";
 import {TopicsRoutingModule} from "./topics-routing.module";
+import {AngularMultiSelectModule} from "angular2-multiselect-dropdown";
 
 @NgModule({
   declarations: [TopicsComponent],
@@ -21,7 +22,8 @@ import {TopicsRoutingModule} from "./topics-routing.module";
     PaginationModule.forRoot(),
     ModalModule.forRoot(),
     TooltipModule,
-    SharedModule
+    SharedModule,
+    AngularMultiSelectModule
   ]
 })
 export class TopicsModule {

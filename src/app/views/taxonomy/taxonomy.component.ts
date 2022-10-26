@@ -34,7 +34,7 @@ export class TaxonomyComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getData(this.url + '?skip=0&limit=50&level1=Culture&level2=Actions&level3=an&filter_mode=like');
+    this.getData(this.url);
     this.form = this.fb.group({
       level1: ['', Validators.required],
       level2: ['', Validators.required],
@@ -45,7 +45,8 @@ export class TaxonomyComponent implements OnInit {
 
   getData(url) {
     this.requestService.getData(url).subscribe((res) => {
-      this.data = res['data'];
+      this.data = res['data'] ? res['data'] : res;
+      this.paginationConfig = res;
     })
   }
 
@@ -56,28 +57,19 @@ export class TaxonomyComponent implements OnInit {
       level3: item.level3,
       lang_code: item.lang_code,
     })
-    this.viewData = item;
-    // this.requestService.getData(this.url + '/' + id ).subscribe((res) => {
-    //   this.viewData = res;
-    //   this.form.patchValue({
-    //     level1: res[0].first_name,
-    //     level2: res[0].last_name,
-    //     level3: res[0].email,
-    //     lang_code: res[0].status,
-    //   })
-    // })
   }
 
   showModal(id, type, item?): void {
     this.isModalShown = true;
     this.requestType = type
-    this.itemId = id;
+    this.itemId = item ? item.id : null;
+    this.guid = '';
     if (type === 'view') {
-      this.getById(item)
+      this.viewData = item;
     } else if (type === 'edit') {
       this.getById(item)
     } else if (type === 'add') {
-      this.guid = '';
+
     } else if (type === 'add_translate') {
       this.getById(item)
       this.guid = item.guid;
@@ -86,9 +78,6 @@ export class TaxonomyComponent implements OnInit {
 
   hideModal(): void {
     this.autoShownModal?.hide();
-  }
-
-  onHidden(): void {
     this.isModalShown = false;
     this.form.reset();
   }
@@ -107,13 +96,13 @@ export class TaxonomyComponent implements OnInit {
     if (this.requestType == 'edit') {
       this.requestService.updateData(this.url, data, this.itemId + '/update').subscribe((res) => {
         this.hideModal();
-        this.getData(this.url + '?skip=0&limit=50&level1=Culture&level2=Actions&level3=an&filter_mode=like');
+        this.getData(this.url);
       })
 
     } else if (this.requestType == 'add' || this.requestType == 'add_translate') {
       this.requestService.createData(this.url + '/' + 'create', data).subscribe((res) => {
         this.hideModal();
-        this.getData(this.url + '?skip=0&limit=50&level1=Culture&level2=Actions&level3=an&filter_mode=like');
+        this.getData(this.url);
       })
     }
   }
@@ -121,7 +110,7 @@ export class TaxonomyComponent implements OnInit {
   deleteItem(id) {
     this.modal.modalRef.hide();
     this.requestService.delete(this.url, id + '/delete').subscribe((res) => {
-      this.getData(this.url + '?skip=0&limit=50&level1=Culture&level2=Actions&level3=an&filter_mode=like');
+      this.getData(this.url);
       this.hideModal();
     })
   }
