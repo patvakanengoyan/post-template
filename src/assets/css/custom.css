@@ -94,3 +94,6 @@ button:focus {
 html:not([dir=rtl]) .wrapper {
   padding-left: var(--cui-sidebar-occupy-start,0);
 }
+input:read-only {
+  background-color: #d8dbe0;
+}

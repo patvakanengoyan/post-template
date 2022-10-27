@@ -30,6 +30,7 @@ export class TopicsComponent implements OnInit {
   readonly bufferSize: number = 10;
   page: number = 1;
   isLoaded: boolean = true;
+  mId: any;
 
   constructor(public requestService: RequestService,
               public fb: FormBuilder,) {
@@ -46,16 +47,16 @@ export class TopicsComponent implements OnInit {
       lazyLoading: true,
       singleSelection: true,
     };
-  }
-
-  forGet() {
     this.form = this.fb.group({
       key: ['', Validators.required],
       main_key: ['', Validators.required],
-      color: ['#000000'],
-      image: ['', Validators.required],
+      color: [''],
+      image: ['', Validators.compose([
+        Validators.required, Validators.pattern(/^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/)
+      ])],
     });
   }
+
 
   fetchMore(event: any) {
     if (event.endIndex === this.itemList.length - 1 && this.isLoaded) {
@@ -66,9 +67,11 @@ export class TopicsComponent implements OnInit {
           let newData: any = [];
           this.isLoaded = res.last_page !== this.page;
           for (let i in res['data']) {
-            newData.push(
-              {"id": res['data'][i]['guid'], "itemName": res['data'][i]['name']}
-            );
+            if (this.mId != res['data'][i]['guid']) {
+              newData.push(
+                {"id": res['data'][i]['guid'], "itemName": res['data'][i]['name']}
+              );
+            }
           }
           this.itemList = [...this.itemList.concat(newData)]
           this.loading = false;
@@ -90,25 +93,13 @@ export class TopicsComponent implements OnInit {
     if (type == 'edit') {
       this.form.patchValue({
         key: item.key,
-        main_key: [{"id": "4ea67854-8d0a-4a57-a243-1ef6d4717ed0", "itemName": item.main_key}],
+        main_key: [{"id": item.main_key_guid, "itemName": item.main_key}],
         color: item.color,
         image: item.image,
       })
     }
-    this.requestService.getData(environment.admin.topic_keys.get).subscribe((res: any) => {
-      if (!res['message']) {
-        // let data = [] as any;
-        // for (let i in res['data']) {
-        //   data.push(
-        //     {"id": res['data'][i]['guid'], "itemName": res['data'][i]['name']}
-        //   );
-        // }
-        // this.itemList = [...data]
-
-      }
-
-    });
-
+    this.mId = item.main_key_guid;
+    this.itemList = [...[{"id": item.main_key_guid, "itemName": item.main_key}]]
   }
 
 
@@ -120,9 +111,7 @@ export class TopicsComponent implements OnInit {
       this.viewData = item;
     } else if (type === 'edit') {
       this.getTopicKeysList(item, type)
-      this.forGet();
     } else if (type === 'add') {
-      this.forGet();
       // this.getTopicKeysList(item, type)
     }
   }
@@ -138,7 +127,7 @@ export class TopicsComponent implements OnInit {
 
   onSubmit(form: any) {
     let data = {
-      "color": form.color,
+      "color": form.color ? form.color : '#000000',
       "image": form.image,
       "main_key_guid": form.main_key[0].id,
       "key": {

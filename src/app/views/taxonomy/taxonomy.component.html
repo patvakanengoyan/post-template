@@ -12,6 +12,7 @@
             <th scope="col">Level 1</th>
             <th scope="col">Level 2</th>
             <th scope="col">Level 3</th>
+            <th scope="col">Language</th>
             <th scope="col">Actions</th>
           </tr>
           </thead>
@@ -21,8 +22,9 @@
               <span cTooltip="{{item.level1}}" class="cursor-pointer"
                     (click)="showModal(item.id, 'view', item)">{{item.level1}}</span>
             </td>
-            <td>{{item?.level1}}</td>
-            <td>{{item?.level1}}</td>
+            <td>{{item?.level2}}</td>
+            <td>{{item?.level3}}</td>
+            <td>{{item?.lang_name}}</td>
             <td class="actions">
               <a (click)="showModal(item.id, 'add_translate', item)" title="Add a language">
                 <i class="fa fa-plus cursor-pointer" aria-hidden="true"></i>

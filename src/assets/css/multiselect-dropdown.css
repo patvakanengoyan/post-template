@@ -341,7 +341,8 @@
 }
 
 ::ng-deep.pure-checkbox input[type=checkbox]:checked + label:after {
-  transform: rotate(-45deg) scale(1)
+  transform: rotate(-45deg) scale(1);
+  border-color: #fff;
 }
 
 ::ng-deep.list-message {

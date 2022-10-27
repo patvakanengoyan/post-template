@@ -29,13 +29,10 @@ export class VolumesComponent implements OnInit {
 
   ngOnInit(): void {
     this.getData(this.url);
-  }
-
-  forGet() {
     this.form = this.fb.group({
       key: ['', Validators.required],
-      color: ['#000000'],
-      image: ['', Validators.required],
+      color: [''],
+      image: ['', Validators.compose([Validators.required, Validators.pattern(/^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/)])],
     })
   }
 
@@ -53,14 +50,12 @@ export class VolumesComponent implements OnInit {
     if (type === 'view') {
       this.viewData = item;
     } else if (type === 'edit') {
-      this.forGet();
       this.form.patchValue({
         key: item.key,
         color: item.color,
         image: item.image
       })
     } else if (type === 'add') {
-      this.forGet();
     }
   }
 
@@ -72,7 +67,7 @@ export class VolumesComponent implements OnInit {
 
   onSubmit(form: any) {
     let data = {
-      "color": form.color,
+      "color": form.color ? form.color : '#000000',
       "image": form.image,
       "volume": {
         "en": form.key,
