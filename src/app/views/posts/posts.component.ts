@@ -121,8 +121,8 @@ export class PostsComponent implements OnInit {
           })
         }
         this.editImagePath = this.viewData.image.url;
-        this.form.controls.image.clearValidators();
-        this.form.controls.image.updateValueAndValidity();
+        // this.form.controls.image.clearValidators();
+        // this.form.controls.image.updateValueAndValidity();
         this.form.patchValue({
           title: this.viewData.title,
           description: this.viewData.description,
@@ -302,27 +302,22 @@ export class PostsComponent implements OnInit {
         // data.append(key, this.form.value[key]);
       }
     }
-    data.append('country', form.country[0].itemName)
-    data.append('city', form.city[0].itemName)
-    data.append('translations[en][title]', form.title)
-    data.append('translations[hy][title]', form.title)
-    data.append('translations[en][description]', form.description)
-    data.append('translations[hy][description]', form.description)
+    // data.append('country', form.country[0].itemName);
+    // data.append('city', form.city[0].itemName);
+    data.append('translations[en][title]', form.title);
+    data.append('translations[hy][title]', form.title);
+    data.append('translations[en][description]', form.description);
+    data.append('translations[hy][description]', form.description);
     data.append('status', form.status == true || form.status == '1' ? '1' : '0');
 
-
+    console.log(this.form.value)
     if (this.requestType == 'edit') {
-      data.append('_method', 'PUT')
-      this.requestService.createData(url, data).subscribe((res) => {
-        this.getData(this.url);
-        this.hideModal();
-      })
-    } else if (this.requestType == 'add') {
-      this.requestService.createData(url, data).subscribe((res) => {
-        this.getData(this.url);
-        this.hideModal();
-      })
+      data.append('_method', 'PUT');
     }
+    this.requestService.createData(url, data).subscribe((res) => {
+      this.getData(this.url);
+      this.hideModal();
+    })
   }
 
   /*

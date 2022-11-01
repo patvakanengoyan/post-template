@@ -27,7 +27,7 @@ export class TopicKeysComponent implements OnInit {
               public fb: FormBuilder) { }
 
   ngOnInit(): void {
-    this.getData(`${this.url}?skip=0&limit=50`);
+    this.getData(`${this.url}`);
     this.form = this.fb.group({
       name: ['', Validators.required],
       lang_code: [''],
@@ -57,7 +57,7 @@ export class TopicKeysComponent implements OnInit {
     this.isModalShown = true;
     this.viewData = item;
     this.requestType = type
-    this.itemId = item.id;
+    this.itemId = item ? item.id : null;
     if (type === 'view') {
       // this.getById(item.id);
     } else if (type === 'edit') {

@@ -1,5 +1,5 @@
 import {Component, forwardRef, Input, OnInit} from '@angular/core';
-import {FormBuilder, NG_VALUE_ACCESSOR, Validators} from "@angular/forms";
+import {AbstractControl, FormBuilder, FormControl, NG_VALUE_ACCESSOR, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-file-input',
@@ -16,11 +16,12 @@ import {FormBuilder, NG_VALUE_ACCESSOR, Validators} from "@angular/forms";
 
 export class FileInputComponent implements OnInit {
   @Input() data;
-  form = this.fb.group({
-    file: ['', Validators.required]
+  @Input() control: AbstractControl = new FormControl();
+  public form = this.fb.group({
+    file: ['']
   });
-  image: any;
-  imageValue: any;
+  public image: any;
+  public imageValue: any;
   constructor(private fb: FormBuilder) { }
 
   onChange: any = () => {}
@@ -32,9 +33,10 @@ export class FileInputComponent implements OnInit {
     this.onTouch = fn;
   }
   writeValue(input: any) {
-    console.log(input)
+    if (input) {
       this.onChange(input);
       this.onTouch();
+    }
   }
 
   ngOnInit(): void {
@@ -45,7 +47,7 @@ export class FileInputComponent implements OnInit {
       if (/\.(jpe?g|png|bmp)$/i.test(fileName)) {
         const filesize = e.target.files[0].size;
         if (filesize > 15728640) {
-          this.form.controls.file.setErrors({size: 'error'});
+          this.control.setErrors({size: 'error'});
         } else {
           let reader = new FileReader();
           reader.readAsDataURL(e.target.files[0]);
@@ -57,14 +59,17 @@ export class FileInputComponent implements OnInit {
           this.onTouch();
         }
       } else {
-        this.form.controls.file.setErrors({type: 'error'});
+        this.control.setErrors({type: 'error'});
       }
     } else {
       this.imageValue = undefined;
       this.onChange(null);
       this.onTouch();
-      this.form.controls.file.setErrors(null);
+      this.control.setErrors(this.control.errors);
     }
-    console.log(this.form)
+
+    console.log(this.control?.hasError('type'));
+    console.log(this.form?.dirty);
+    console.log(this.form?.touched);
   }
 }

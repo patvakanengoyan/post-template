@@ -176,17 +176,17 @@
                   </mat-form-field>
                 </div>
                 <div class="col-6 mb-3">
-                  <!--                  <app-file-input formControlName="image"></app-file-input>-->
-                  <div *ngIf="imageValue || editImagePath">
-                    <div class="image-block">
-                      <img *ngIf="imageValue || editImagePath"
-                           src="{{imageValue ? imageValue : this.requestService.imgSite + editImagePath}}" alt="image"
-                           class="user-image">
-                    </div>
-                  </div>
-                  <label for="image">Image *</label>
-                  <input type="file" class="form-control" (change)="onChangeInput($event)" formControlName="image"
-                         id="image">
+                  <app-file-input  [control]="form.get('image')" formControlName="image"></app-file-input>
+<!--                  <div *ngIf="imageValue || editImagePath">-->
+<!--                    <div class="image-block">-->
+<!--                      <img *ngIf="imageValue || editImagePath"-->
+<!--                           src="{{imageValue ? imageValue : this.requestService.imgSite + editImagePath}}" alt="image"-->
+<!--                           class="user-image">-->
+<!--                    </div>-->
+<!--                  </div>-->
+<!--                  <label for="image">Image *</label>-->
+<!--                  <input type="file" class="form-control" (change)="onChangeInput($event)" formControlName="image"-->
+<!--                         id="image">-->
                 </div>
                 <div class="col-6 mb-3">
                   <label for="status">Status</label>
