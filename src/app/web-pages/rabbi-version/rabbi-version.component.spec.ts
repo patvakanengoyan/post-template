@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { RabbiVersionComponent } from './rabbi-version.component';
+import {HttpClientTestingModule} from "@angular/common/http/testing";
 
 describe('RabbiVersionComponent', () => {
   let component: RabbiVersionComponent;
@@ -8,7 +9,8 @@ describe('RabbiVersionComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ RabbiVersionComponent ]
+      declarations: [ RabbiVersionComponent ],
+      imports: [HttpClientTestingModule]
     })
     .compileComponents();
 

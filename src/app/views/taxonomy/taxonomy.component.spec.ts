@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TaxonomyComponent } from './taxonomy.component';
+import {HttpClientTestingModule} from "@angular/common/http/testing";
+import {ReactiveFormsModule} from "@angular/forms";
 
 describe('TaxonomyComponent', () => {
   let component: TaxonomyComponent;
@@ -8,7 +10,8 @@ describe('TaxonomyComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TaxonomyComponent ]
+      declarations: [ TaxonomyComponent ],
+      imports: [HttpClientTestingModule, ReactiveFormsModule]
     })
     .compileComponents();
 

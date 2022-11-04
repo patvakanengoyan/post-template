@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AcademicViewComponent } from './academic-view.component';
+import {HttpClientTestingModule} from "@angular/common/http/testing";
+import {ReactiveFormsModule} from "@angular/forms";
+import {RouterTestingModule} from "@angular/router/testing";
 
 describe('AcademicViewComponent', () => {
   let component: AcademicViewComponent;
@@ -8,7 +11,8 @@ describe('AcademicViewComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AcademicViewComponent ]
+      declarations: [ AcademicViewComponent ],
+      imports: [HttpClientTestingModule, ReactiveFormsModule, RouterTestingModule]
     })
     .compileComponents();
 
