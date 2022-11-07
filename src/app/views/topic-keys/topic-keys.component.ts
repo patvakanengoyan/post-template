@@ -101,7 +101,7 @@ export class TopicKeysComponent implements OnInit {
   }
 
   deleteItem(id) {
-    this.requestService.delete(this.url, id).subscribe((item) => {
+    this.requestService.delete(this.url, id + '/delete').subscribe((item) => {
       this.getData(this.url);
       this.modal.modalRef.hide();
     })

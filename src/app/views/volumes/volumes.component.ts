@@ -81,7 +81,7 @@ export class VolumesComponent implements OnInit {
         this.getData(this.url);
       })
     } else if (this.requestType == 'add') {
-      this.requestService.createData(this.url + '/' + 'create', data).subscribe((res) => {
+      this.requestService.createData(`${this.url}/create`, data).subscribe((res) => {
         this.hideModal();
         this.getData(this.url);
       })
@@ -89,10 +89,9 @@ export class VolumesComponent implements OnInit {
   }
 
   deleteItem(id) {
-    this.modal.modalRef.hide();
     this.requestService.delete(this.url, id + '/delete').subscribe((res) => {
       this.getData(this.url);
-      this.hideModal();
+      this.modal.modalRef.hide();
     })
   }
 }
