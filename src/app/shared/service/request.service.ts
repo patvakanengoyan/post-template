@@ -31,7 +31,7 @@ export class RequestService {
     if (forSocket) {
       this.httpHeaders = this.httpHeaders
         .set('ex-id', localStorage.getItem('_'))
-        .set('ex-authorization', localStorage.getItem('socket_token'))
+        .set('ex-authorization', localStorage.getItem('site_access_token'))
         .set('ex-language', 'en');
     }
     return this.http.get(apiUrl, {headers: this.httpHeaders, observe: 'body'}).pipe(
@@ -50,7 +50,7 @@ export class RequestService {
     if (forSocket) {
       this.httpHeaders = this.httpHeaders
         .set('ex-id', localStorage.getItem('_'))
-        .set('ex-authorization', localStorage.getItem('socket_token'))
+        .set('ex-authorization', localStorage.getItem('site_access_token'))
         .set('ex-language', 'en');
     }
     // this.httpHeaders = this.httpHeaders.set(
