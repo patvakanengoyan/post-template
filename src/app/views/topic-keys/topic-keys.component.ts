@@ -18,14 +18,18 @@ export class TopicKeysComponent implements OnInit {
   viewData: any;
   form: any = FormGroup;
   itemId!: number;
-  @ViewChild('autoShownModal', { static: false }) autoShownModal?: ModalDirective;
+  @ViewChild('autoShownModal', {static: false}) autoShownModal?: ModalDirective;
   @ViewChild(DeleteModalComponent) private modal!: DeleteModalComponent;
   isModalShown = false;
   requestType: any;
 
   constructor(public requestService: RequestService,
-              public fb: FormBuilder) { }
+              public fb: FormBuilder) {
+  }
 
+  /*
+    The callback method that is called immediately after the page is called.
+   */
   ngOnInit(): void {
     this.getData(`${this.url}`);
     this.form = this.fb.group({
@@ -35,6 +39,9 @@ export class TopicKeysComponent implements OnInit {
     })
   }
 
+  /*
+    Get all data method
+   */
   getData(url) {
     this.requestService.getData(url).subscribe((res) => {
       this.data = res['data'];
@@ -42,48 +49,41 @@ export class TopicKeysComponent implements OnInit {
     })
   }
 
-  getById(id) {
-    this.requestService.getData(this.url + '/' + id ).subscribe((res) => {
-      this.viewData = res;
-      this.form.patchValue({
-        first_name: res[0].first_name,
-        last_name: res[0].last_name,
-        guid: res[0].guid
-      })
-    })
-  }
-
+  /*
+    Method for open modal
+  */
   showModal(item, type): void {
     this.isModalShown = true;
     this.viewData = item;
     this.requestType = type
     this.itemId = item ? item.id : null;
     if (type === 'view') {
-      // this.getById(item.id);
     } else if (type === 'edit') {
       this.form.patchValue({
         name: item.name,
         lang_code: item.lang_code,
         guid: item.guid
       })
-      // this.getById(id);
     } else if (type === 'add') {
 
     }
   }
 
+  /*
+    Method for hide modal
+   */
   hideModal(): void {
     this.autoShownModal?.hide();
-  }
-
-  onHidden(): void {
     this.isModalShown = false;
     this.form.reset();
   }
 
-  onSubmit(form: any){
+  /*
+    Send data method
+  */
+  onSubmit(form: any) {
     if (this.requestType == 'edit') {
-      this.requestService.updateData(`${this.url}/${this.itemId}`, form,'update').subscribe((res) => {
+      this.requestService.updateData(`${this.url}/${this.itemId}`, form, 'update').subscribe((res) => {
         this.hideModal();
         this.getData(this.url);
       })
@@ -97,9 +97,11 @@ export class TopicKeysComponent implements OnInit {
         this.getData(this.url);
       })
     }
-    console.log(form);
   }
 
+  /*
+   Delete item from data
+  */
   deleteItem(id) {
     this.requestService.delete(this.url, id + '/delete').subscribe((item) => {
       this.getData(this.url);

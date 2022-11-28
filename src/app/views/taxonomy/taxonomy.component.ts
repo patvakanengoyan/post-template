@@ -33,6 +33,9 @@ export class TaxonomyComponent implements OnInit {
               public fb: FormBuilder) {
   }
 
+  /*
+    The callback method that is called immediately after the page is called.
+   */
   ngOnInit(): void {
     this.getData(this.url);
     this.form = this.fb.group({
@@ -43,6 +46,9 @@ export class TaxonomyComponent implements OnInit {
     })
   }
 
+  /*
+    Get all data method
+   */
   getData(url) {
     this.requestService.getData(url).subscribe((res) => {
       this.data = res['data'] ? res['data'] : res;
@@ -50,6 +56,9 @@ export class TaxonomyComponent implements OnInit {
     })
   }
 
+  /*
+    Get data by id
+   */
   getById(item) {
     this.form.patchValue({
       level1: item.level1,
@@ -59,6 +68,9 @@ export class TaxonomyComponent implements OnInit {
     })
   }
 
+  /*
+    Method for open modal
+   */
   showModal(id, type, item?): void {
     this.isModalShown = true;
     this.requestType = type
@@ -76,12 +88,18 @@ export class TaxonomyComponent implements OnInit {
     }
   }
 
+  /*
+    Method for hide modal
+   */
   hideModal(): void {
     this.autoShownModal?.hide();
     this.isModalShown = false;
     this.form.reset();
   }
 
+  /*
+    Send data method
+   */
   onSubmit(form: any) {
     let data = {
       "level1": form.level1,
@@ -107,6 +125,9 @@ export class TaxonomyComponent implements OnInit {
     }
   }
 
+  /*
+    Delete item from data
+   */
   deleteItem(id) {
     this.requestService.delete(this.url, id + '/delete').subscribe((res) => {
       this.getData(this.url);

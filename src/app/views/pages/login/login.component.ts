@@ -36,7 +36,6 @@ export class LoginComponent {
         }
 
         this.requestService.createData(`${environment.chat.login}`, login).subscribe((res) => {
-          console.log(res);
           localStorage.setItem('socket_token', res.data.result.access_token.token)
         });
 

@@ -27,6 +27,9 @@ export class VolumesComponent implements OnInit {
               public fb: FormBuilder) {
   }
 
+  /*
+    The callback method that is called immediately after the page is called.
+   */
   ngOnInit(): void {
     this.getData(this.url);
     this.form = this.fb.group({
@@ -36,6 +39,9 @@ export class VolumesComponent implements OnInit {
     })
   }
 
+  /*
+    Get all data method
+   */
   getData(url) {
     this.requestService.getData(url).subscribe((res) => {
       this.data = res['data'] ? res['data'] : res;
@@ -43,6 +49,9 @@ export class VolumesComponent implements OnInit {
     })
   }
 
+  /*
+    Method for open modal
+   */
   showModal(item, type): void {
     this.isModalShown = true;
     this.requestType = type
@@ -59,12 +68,18 @@ export class VolumesComponent implements OnInit {
     }
   }
 
+  /*
+    Method for hide modal
+   */
   hideModal(): void {
     this.autoShownModal?.hide();
     this.isModalShown = false;
     this.form.reset();
   }
 
+  /*
+    Send data method
+   */
   onSubmit(form: any) {
     let data = {
       "color": form.color ? form.color : '#000000',
@@ -88,6 +103,9 @@ export class VolumesComponent implements OnInit {
     }
   }
 
+  /*
+    Delete item from data
+   */
   deleteItem(id) {
     this.requestService.delete(this.url, id + '/delete').subscribe((res) => {
       this.getData(this.url);

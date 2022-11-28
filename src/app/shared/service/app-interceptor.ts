@@ -20,7 +20,6 @@ export class AppInterceptor implements HttpInterceptor {
         if (url.search('login') != -1 || url.search('logout') != -1) {
         } else {
           if (event instanceof HttpResponse) {
-            let url = new URL(req.url)
             if (req.method === 'POST' || req.method === 'DELETE' || req.method === 'PUT') {
               if (!req.url.includes('refresh')) {
                 let messages = event.body.messages ? event.body.messages : event.body.message;
@@ -56,7 +55,7 @@ export class AppInterceptor implements HttpInterceptor {
           }
           this.toastr.error(showError);
         }
-        return throwError(error);
+        return throwError(() => error);
       })
     );
 

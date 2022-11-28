@@ -36,6 +36,9 @@ export class TopicsComponent implements OnInit {
               public fb: FormBuilder,) {
   }
 
+  /*
+    The callback method that is called immediately after the page is called.
+   */
   ngOnInit(): void {
     this.getData(`${this.url}`);
     this.selectedItems = [];
@@ -58,6 +61,9 @@ export class TopicsComponent implements OnInit {
   }
 
 
+  /*
+    Get topic keys data
+   */
   fetchMore(event: any) {
     if (event.endIndex === this.itemList.length - 1 && this.isLoaded) {
       this.loading = true;
@@ -81,6 +87,9 @@ export class TopicsComponent implements OnInit {
     }
   }
 
+  /*
+   Get all data method
+  */
   getData(url) {
     this.requestService.getData(url).subscribe((res) => {
       this.data = res['data'] ? res['data'] : res;
@@ -88,7 +97,9 @@ export class TopicsComponent implements OnInit {
     })
   }
 
-
+  /*
+    Get topic key list
+   */
   getTopicKeysList(item, type) {
     if (type == 'edit') {
       this.form.patchValue({
@@ -102,7 +113,9 @@ export class TopicsComponent implements OnInit {
     this.itemList = [...[{"id": item.main_key_guid, "itemName": item.main_key}]]
   }
 
-
+  /*
+    Method for open modal
+  */
   showModal(item, type): void {
     this.isModalShown = true;
     this.requestType = type;
@@ -112,10 +125,13 @@ export class TopicsComponent implements OnInit {
     } else if (type === 'edit') {
       this.getTopicKeysList(item, type)
     } else if (type === 'add') {
-      // this.getTopicKeysList(item, type)
+
     }
   }
 
+  /*
+    Method for hide modal
+  */
   hideModal(): void {
     this.autoShownModal?.hide();
     this.isModalShown = false;
@@ -125,6 +141,9 @@ export class TopicsComponent implements OnInit {
     this.form.reset();
   }
 
+  /*
+    Send data method
+   */
   onSubmit(form: any) {
     let data = {
       "color": form.color ? form.color : '#000000',
@@ -149,6 +168,9 @@ export class TopicsComponent implements OnInit {
     }
   }
 
+  /*
+    Delete item from data
+  */
   deleteItem(id) {
     this.requestService.delete(this.url, id + '/delete').subscribe((res) => {
       this.getData(this.url);

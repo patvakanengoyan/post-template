@@ -1,4 +1,4 @@
-import {throwError as observableThrowError, Observable, BehaviorSubject} from 'rxjs';
+import {throwError as observableThrowError, Observable, BehaviorSubject, throwError} from 'rxjs';
 
 import {take, filter, catchError, switchMap, finalize} from 'rxjs/operators';
 import {Injectable} from '@angular/core';
@@ -31,7 +31,7 @@ export class RefreshTokenService {
             if (request.url.includes('refresh')) {
               return this.logoutUser();
             }
-            return observableThrowError(error);
+            return throwError(() => error);
           }
           switch ((<HttpErrorResponse>error).status) {
             case 400:
@@ -39,7 +39,7 @@ export class RefreshTokenService {
             case 401:
               return this.handle401Error(request, next);
             default:
-              return observableThrowError(error);
+              return throwError(() => error);
           }
         } else {
           return observableThrowError(error);
@@ -59,9 +59,7 @@ export class RefreshTokenService {
       this.isRefreshingToken = true;
       this.tokenSubject.next(null!);
 
-      const authService = this.authService;
-
-      return authService.refreshToken().pipe(
+      return this.authService.refreshToken().pipe(
         switchMap((newToken: any) => {
           if (newToken && newToken !== 'error') {
             this.tokenSubject.next(newToken);
@@ -98,6 +96,6 @@ export class RefreshTokenService {
   logoutUser() {
     localStorage.clear();
     this.router.navigate([`/login`]);
-    return observableThrowError('');
+    return throwError(() => new Error(`Invalid`));
   }
 }

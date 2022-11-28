@@ -39,7 +39,7 @@
     </c-card>
   </c-col>
 </c-row>
-<div *ngIf="isModalShown" [config]="{ show: true }" (onHidden)="onHidden()" bsModal #autoShownModal="bs-modal"
+<div *ngIf="isModalShown" [config]="{ show: true }" (onHidden)="hideModal()" bsModal #autoShownModal="bs-modal"
      class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-auto-name">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -69,20 +69,6 @@
                     <span class="error-message">The Name is required</span>
                   </div>
                 </div>
-<!--                <div class="col-6 mb-3">-->
-<!--                  <label for="lang_code" [ngClass]="(form.controls.lang_code?.invalid &&-->
-<!--                  (form.controls.lang_code?.dirty || form.controls.lang_code?.touched)) ? 'invalid-label-color' : ''">Last Name *</label>-->
-<!--                  <input type="text" class="form-control" formControlName="lang_code" id="lang_code">-->
-<!--                  <div *ngIf="!form.controls.lang_code?.valid && (form.controls.lang_code?.dirty || form.controls.lang_code?.touched)">-->
-<!--                    <span class="error-message">The Last Name is required</span>-->
-<!--                  </div>-->
-<!--                </div>-->
-<!--                <div class="col-6 mb-3">-->
-<!--                  <label for="status">Status</label>-->
-<!--                  <c-form-check [switch]="true" class="form-control border-0">-->
-<!--                    <input cFormCheckInput type="checkbox" id="status" formControlName="status" />-->
-<!--                  </c-form-check>-->
-<!--                </div>-->
               </div>
             </div>
           </div>
