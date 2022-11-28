@@ -15,7 +15,6 @@ export class AppInterceptor implements HttpInterceptor {
   }
   /*catch errors ans show message*/
   intercept(req: HttpRequest<any>, next: HttpHandler) {
-    console.log(req);
     return next.handle(req).pipe(map((event: HttpEvent<any>) => {
         let url = req.url;
         if (url.search('login') != -1 || url.search('logout') != -1) {
