@@ -51,6 +51,7 @@ import {RefreshTokenService} from "./shared/service/refresh-token.service";
 import {AppInterceptor} from "./shared/service/app-interceptor";
 import {ToastrModule} from "ngx-toastr";
 import {ComponentsModule} from "./web-pages/components/components.module";
+import {CanActivateFromSiteService} from "./shared/guards/can-activate-from-site.service";
 
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -115,7 +116,8 @@ const APP_CONTAINERS = [
     { provide: HTTP_INTERCEPTORS, useClass: AppInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: RefreshTokenService, multi: true },
     IconSetService,
-    Title
+    Title,
+    CanActivateFromSiteService
   ],
   bootstrap: [AppComponent],
 })

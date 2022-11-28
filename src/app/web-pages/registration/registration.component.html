@@ -54,7 +54,7 @@
               <input type="password" class="form-control" formControlName="confirm_password" id="confirm_password" placeholder="Confirm Password" required>
               <div>
                 <span *ngIf="form.get('confirm_password')?.hasError('required') && (form.get('confirm_password')?.dirty || form.get('confirm_password')?.touched)" class="error-message">The confirm password is required</span>
-                <span *ngIf="form.get('confirm_password')?.hasError('mismatchedPasswords') && (form.get('confirm_password')?.dirty || form.get('confirm_password')?.touched)" class="error-message">Passwords dont match</span>
+                <span *ngIf="form.get('confirm_password')?.hasError('mismatchedPasswords') && (form.get('confirm_password')?.dirty || form.get('confirm_password')?.touched)" class="error-message">Passwords don't match</span>
                 <span *ngIf="form.get('confirm_password')?.hasError('minlength') && (form.get('confirm_password')?.dirty || form.get('confirm_password')?.touched)" class="error-message">The confirm password must be min 6 symbol</span>
               </div>
             </div>

@@ -40,7 +40,8 @@
             ],
             "scripts": [],
             "allowedCommonJsDependencies": [
-              "rxjs-compat"
+              "rxjs-compat",
+              "@tweenjs/tween.js"
             ]
           },
           "configurations": {

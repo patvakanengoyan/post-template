@@ -9,6 +9,7 @@ import { RegisterComponent } from './views/pages/register/register.component';
 import {NotfoundComponent} from "./web-pages/notfound/notfound.component";
 import {CanActivateService} from "./shared/guards/canActivate.service";
 import {CanActivateChildService} from "./shared/guards/canActivateChild.service";
+import {CanActivateFromSiteService} from "./shared/guards/can-activate-from-site.service";
 
 const routes: Routes = [
     {
@@ -30,6 +31,12 @@ const routes: Routes = [
       path: 'registration',
       loadChildren: () =>
         import('./web-pages/registration/registration.module').then((m) => m.RegistrationModule)
+    },
+    {
+      path: 'sign-in',
+      canActivate: [CanActivateFromSiteService],
+      loadChildren: () =>
+        import('./web-pages/sign-in/sign-in.module').then((m) => m.SignInModule)
     },
     {
       path: 'kids',

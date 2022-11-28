@@ -14,6 +14,11 @@ export class RequestService {
   private reqCount: number = 0;
   public imgSite: string = environment.imagePrefix;
 
+  userName: any = `${localStorage.getItem('site_first_name')}`;
+  userLastName: any =`${localStorage.getItem('site_last_name')}`;
+  userEmail: any =`${localStorage.getItem('site_email')}`;
+  userImage: any =`${localStorage.getItem('site_image')}`;
+
   constructor(private http: HttpClient) {}
 
   /*get request function*/

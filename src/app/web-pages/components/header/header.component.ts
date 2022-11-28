@@ -2,6 +2,8 @@ import {Component, OnInit, Output, EventEmitter} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {RequestService} from "../../../shared/service/request.service";
 import {SocketConnectionService} from "../../../shared/service/socket-connection.service";
+import {environment} from "../../../../environments/environment.prod";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-header',
@@ -26,9 +28,15 @@ export class HeaderComponent implements OnInit {
 
   constructor(public requestService: RequestService,
               private socketConnection: SocketConnectionService,
-              public fb: FormBuilder) { }
+              public fb: FormBuilder,
+              public router: Router) { }
 
   ngOnInit(): void {
+    this.requestService.userName = `${localStorage.getItem('site_first_name')}`;
+    this.requestService.userLastName = `${localStorage.getItem('site_last_name')}`;
+    this.requestService.userEmail = `${localStorage.getItem('site_email')}`;
+    this.requestService.userImage = `${localStorage.getItem('site_image')}`;
+
     this.form = this.fb.group({
       title: '',
       description: '',
@@ -84,6 +92,33 @@ export class HeaderComponent implements OnInit {
     ];
   }
 
+  logout() {
+        this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.router.onSameUrlNavigation = 'reload';
+    this.router.navigate(['/']);
+    this.requestService.createData(`${environment.webPages.logout}`, '').subscribe(() => {
+      localStorage.removeItem('site_refresh_token');
+      localStorage.removeItem('site_first_name');
+      localStorage.removeItem('site_role');
+      localStorage.removeItem('site_expires_in');
+      localStorage.removeItem('site_access_token');
+      localStorage.removeItem('site_id');
+      localStorage.removeItem('site_token_type');
+      localStorage.removeItem('site_birthday');
+      localStorage.removeItem('site_last_name');
+      localStorage.removeItem('site_role_name');
+      localStorage.removeItem('site_email');
+      localStorage.removeItem('site_image');
+      this.requestService.userName = null;
+      this.requestService.userLastName = null;
+      this.requestService.userEmail = null;
+      this.requestService.userImage = null;
+
+      this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+      this.router.onSameUrlNavigation = 'reload';
+      this.router.navigate(['/']);
+    })
+  }
 
   searchForm(){
     this.searchShow = !this.searchShow

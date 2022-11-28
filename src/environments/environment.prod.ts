@@ -20,7 +20,8 @@ export const environment = {
       get: apiUrl1 + '/academic'
     },
     registration: apiUrl + prefix + 'registration',
-    login:  apiUrl + prefix + 'login'
+    login:  apiUrl + prefix + 'login',
+    logout:  apiUrl + prefix + 'logout'
   },
   baseUrl: apiUrl + prefix,
   admin: {
