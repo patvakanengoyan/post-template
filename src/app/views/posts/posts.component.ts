@@ -1,5 +1,5 @@
 import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
-import {FormArray, FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import * as customBuild from '../../shared/ckCustomBuild/build/ckeditor.js';
 import {ModalDirective} from "ngx-bootstrap/modal";
 import {DeleteModalComponent} from "../../shared/utils/delete-modal/delete-modal.component";
@@ -20,7 +20,7 @@ import {map} from "rxjs/operators";
   styleUrls: ['./posts.component.scss']
 })
 export class PostsComponent implements OnInit {
-  url: any = `${environment.admin.posts.get}`;
+  url: string = `${environment.admin.posts.get}`;
   data: any = [];
   viewData: any = {};
   form: any = FormGroup;
@@ -50,11 +50,7 @@ export class PostsComponent implements OnInit {
 
   @ViewChild('tagInput', {static: false}) tagInput!: ElementRef<HTMLInputElement>;
   @ViewChild('auto', {static: false}) matAutocomplete!: MatAutocomplete;
-  imageValue: any;
   editImagePath: any;
-  imagePath: any;
-  image: any;
-  file: any;
 
 
   constructor(public requestService: RequestService,
@@ -121,8 +117,8 @@ export class PostsComponent implements OnInit {
           })
         }
         this.editImagePath = this.viewData.image.url;
-        // this.form.controls.image.clearValidators();
-        // this.form.controls.image.updateValueAndValidity();
+        this.form.controls.image.clearValidators();
+        this.form.controls.image.updateValueAndValidity();
         this.form.patchValue({
           title: this.viewData.title,
           description: this.viewData.description,
@@ -154,7 +150,6 @@ export class PostsComponent implements OnInit {
             {"id": +i, "itemName": res[i]}
           );
         }
-
       }
     });
   }
@@ -164,11 +159,11 @@ export class PostsComponent implements OnInit {
    */
   showModal(id, type): void {
     this.isModalShown = true;
-    this.requestType = type
+    this.requestType = type;
     if (type === 'view') {
-      this.getById(id)
+      this.getById(id);
     } else if (type === 'edit') {
-      this.getById(id)
+      this.getById(id);
       this.getCategoryList();
     } else if (type === 'add') {
       this.getCategoryList();
@@ -182,8 +177,6 @@ export class PostsComponent implements OnInit {
     this.autoShownModal?.hide();
     this.isModalShown = false;
     this.editImagePath = undefined;
-    this.imageValue = undefined;
-    this.file = undefined;
     this.form.reset();
     this.tagFiled.value = [];
   }
@@ -256,44 +249,44 @@ export class PostsComponent implements OnInit {
   /*
     Image upload and validation method
    */
-  onChangeInput(e) {
-    this.file = e.target ? e.target.files[0] : e;
-    if (this.file) {
-      const fileName = this.file.name;
-      if (/\.(jpe?g|png|bmp)$/i.test(fileName)) {
-        const filesize = this.file.size;
-        if (filesize > 15728640) {
-          this.form.controls.image.setErrors({size: 'error'});
-        } else {
-          let reader = new FileReader();
-          reader.readAsDataURL(this.file);
-          reader.onload = () => {
-            this.imageValue = reader.result;
-          };
-          this.image = this.file;
-        }
-      } else {
-        this.form.controls.image.setErrors({type: 'error'});
-      }
-    } else {
-      this.file = undefined;
-      this.imageValue = undefined;
-      this.form.controls.image.setErrors(null);
-    }
-  }
+  // onChangeInput(e) {
+  //   this.file = e.target ? e.target.files[0] : e;
+  //   if (this.file) {
+  //     const fileName = this.file.name;
+  //     if (/\.(jpe?g|png|bmp)$/i.test(fileName)) {
+  //       const filesize = this.file.size;
+  //       if (filesize > 15728640) {
+  //         this.form.controls.image.setErrors({size: 'error'});
+  //       } else {
+  //         let reader = new FileReader();
+  //         reader.readAsDataURL(this.file);
+  //         reader.onload = () => {
+  //           this.imageValue = reader.result;
+  //         };
+  //         this.image = this.file;
+  //       }
+  //     } else {
+  //       this.form.controls.image.setErrors({type: 'error'});
+  //     }
+  //   } else {
+  //     this.file = undefined;
+  //     this.imageValue = undefined;
+  //     this.form.controls.image.setErrors(null);
+  //   }
+  // }
 
   /*
     Send data method
    */
   onSubmit(form: any) {
     let url = this.requestType == 'edit' ? this.url + '/' + this.viewData.id : this.url;
-
-    let data = new FormData()
+    let data = new FormData();
     for (let key in this.form.value) {
-      if (key == 'image') {
-        if (this.file) {
-          data.append(key, this.file);
-        }
+      if (key == 'image' && this.form.value[key]) {
+          data.append(key, this.form.value[key]);
+        // if (this.file) {
+        //   data.append(key, this.file);
+        // }
       } else if (key == 'categories') {
         for (let item in this.form.value['categories']) {
           data.append(`categories[${[item]}]`, this.form.value['categories'][item].id);

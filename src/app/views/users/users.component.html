@@ -130,14 +130,15 @@
                   </div>
                 </div>
 
-                <div class="col-6 mb-3">
-                  <label for="password_confirmation" [ngClass]="(form.controls.image?.invalid &&
-                  (form.controls.image?.dirty || form.controls.image?.touched)) ? 'invalid-label-color' : ''">Image *</label>
-                  <input type="file" class="form-control" (change)="onChangeInput($event)" formControlName="image"
-                         id="image">
-                  <div *ngIf="form.get('image')?.valid && (form.get('image')?.dirty || form.get('image')?.touched)">
-                    <span class="error-message">The Image is required</span>
-                  </div>
+                <div class="col-6">
+                  <app-file-input  [control]="form.get('image')" [data]="{label: 'Image', editPath: editImagePath}" formControlName="image"></app-file-input>
+                  <!--<label for="password_confirmation" [ngClass]="(form.controls.image?.invalid &&-->
+                  <!--(form.controls.image?.dirty || form.controls.image?.touched)) ? 'invalid-label-color' : ''">Image *</label>-->
+                  <!--<input type="file" class="form-control" (change)="onChangeInput($event)" formControlName="image"-->
+                         <!--id="image">-->
+                  <!--<div *ngIf="form.get('image')?.valid && (form.get('image')?.dirty || form.get('image')?.touched)">-->
+                    <!--<span class="error-message">The Image is required</span>-->
+                  <!--</div>-->
                 </div>
 
 

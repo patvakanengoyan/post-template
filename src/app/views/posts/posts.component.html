@@ -37,7 +37,7 @@
             <td>@mdo</td>
             <td>
               <c-form-check [switch]="true">
-                <input cFormCheckInput [checked]="item.status" type="checkbox"/>
+                <input cFormCheckInput [checked]="item.status" disabled type="checkbox"/>
               </c-form-check>
             </td>
             <td class="actions">
@@ -176,7 +176,7 @@
                   </mat-form-field>
                 </div>
                 <div class="col-6 mb-3">
-                  <app-file-input  [control]="form.get('image')" formControlName="image"></app-file-input>
+                  <app-file-input  [control]="form.get('image')" [data]="{label: 'Image', editPath: editImagePath}" formControlName="image"></app-file-input>
 <!--                  <div *ngIf="imageValue || editImagePath">-->
 <!--                    <div class="image-block">-->
 <!--                      <img *ngIf="imageValue || editImagePath"-->

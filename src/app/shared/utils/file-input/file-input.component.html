@@ -1,5 +1,12 @@
 <div [formGroup]="form" class="mb-3">
-  <label for="image">Image</label>
+  <div *ngIf="imageValue || data?.editPath">
+    <div class="image-block">
+      <img *ngIf="imageValue || data?.editPath"
+           src="{{imageValue ? imageValue : this.requestService.imgSite + data?.editPath}}" alt="image"
+           class="user-image">
+    </div>
+  </div>
+  <label for="image">{{data?.label ? data?.label : 'Image'}}</label>
   <input type="file" class="form-control" (change)="onChangeInput($event)" formControlName="file" id="image">
   <div>
     <span *ngIf="control?.hasError('required') && (control?.dirty || control?.touched)" class="error-message">The Image is required</span>

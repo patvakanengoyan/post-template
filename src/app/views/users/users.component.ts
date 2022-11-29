@@ -12,7 +12,7 @@ import {RequestService} from "../../shared/service/request.service";
 })
 export class UsersComponent implements OnInit {
 
-  url: any = `${environment.admin.users.get}`;
+  url: string = `${environment.admin.users.get}`;
   data: any;
   paginationConfig: any;
   viewData: any;
@@ -22,12 +22,7 @@ export class UsersComponent implements OnInit {
   @ViewChild(DeleteModalComponent) private modal!: DeleteModalComponent;
   isModalShown = false;
   requestType: any;
-  imageValue: any;
   editImagePath: any;
-  imagePath: any;
-  image: any;
-  file: any;
-
   constructor(public requestService: RequestService,
               public fb: FormBuilder) { }
 
@@ -66,7 +61,7 @@ export class UsersComponent implements OnInit {
 
   showModal(id, type): void {
     this.isModalShown = true;
-    this.requestType = type
+    this.requestType = type;
     this.itemId = id;
     if (type === 'view') {
       this.getById(id)
@@ -83,32 +78,29 @@ export class UsersComponent implements OnInit {
 
   onHidden(): void {
     this.isModalShown = false;
+    this.editImagePath = undefined;
     this.form.reset();
   }
 
   onSubmit(form: any){
     form.status = form.status ? 1 : 0;
     let url = this.url;
-    let data = new FormData()
+    let data = new FormData();
     if (this.requestType == 'edit') {
       url = `${this.url}/${this.itemId}`;
       data.append('_method', 'PUT');
       for (let key in form) {
-        if (key == 'image') {
-          if (this.file) {
-            data.append(key, this.file);
-          }
+        if (key == 'image' && this.form.value[key]) {
+            data.append(key, this.form.value[key]);
         } else {
           data.append(key, this.form.value[key]);
         }
       }
     } else if (this.requestType == 'add') {
       for (let key in form) {
-        if (key == 'image') {
-          if (this.file) {
-            data.append(key, this.file);
-          }
-        } else {
+          if (key == 'image' && this.form.value[key]) {
+              data.append(key, this.form.value[key]);
+          } else {
           data.append(key, this.form.value[key]);
         }
       }
@@ -117,7 +109,6 @@ export class UsersComponent implements OnInit {
         this.getData(this.url);
       })
     }
-    console.log(form);
   }
 
   deleteItem(id) {
@@ -137,30 +128,6 @@ export class UsersComponent implements OnInit {
     }
   }
 
-  onChangeInput(e) {
-    this.file = e.target ? e.target.files[0] : e;
-    if (this.file) {
-      const fileName = this.file.name;
-      if (/\.(jpe?g|png|bmp)$/i.test(fileName)) {
-        const filesize = this.file.size;
-        if (filesize > 15728640) {
-          this.form.controls.image.setErrors({size: 'error'});
-        } else {
-          let reader = new FileReader();
-          reader.readAsDataURL(this.file);
-          reader.onload = () => {
-            this.imageValue = reader.result;
-          };
-          this.image = this.file;
-        }
-      } else {
-        this.form.controls.image.setErrors({type: 'error'});
-      }
-    } else {
-      this.file = undefined;
-      this.imageValue = undefined;
-      this.form.controls.image.setErrors(null);
-    }
-  }
+
 
 }

@@ -1,5 +1,6 @@
 import {Component, forwardRef, Input, OnInit} from '@angular/core';
 import {AbstractControl, FormBuilder, FormControl, NG_VALUE_ACCESSOR, Validators} from "@angular/forms";
+import {RequestService} from "../../service/request.service";
 
 @Component({
   selector: 'app-file-input',
@@ -22,10 +23,10 @@ export class FileInputComponent implements OnInit {
   });
   public image: any;
   public imageValue: any;
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder,public requestService: RequestService,) { }
 
-  onChange: any = () => {}
-  onTouch: any = () => {}
+  onChange: any = () => {};
+  onTouch: any = () => {};
   registerOnChange(fn: any): void {
     this.onChange = fn;
   }
@@ -67,9 +68,5 @@ export class FileInputComponent implements OnInit {
       this.onTouch();
       this.control.setErrors(this.control.errors);
     }
-
-    console.log(this.control?.hasError('type'));
-    console.log(this.form?.dirty);
-    console.log(this.form?.touched);
   }
 }
