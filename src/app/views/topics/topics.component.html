@@ -106,10 +106,10 @@
                   </div>
                 </div>
                 <div class="col-6 mb-3">
-                  <label for="color" [ngClass]="(form.controls.color?.invalid &&
+                  <label for="image" [ngClass]="(form.controls.color?.invalid &&
         (form.controls.color?.dirty || form.controls.color?.touched)) ? 'invalid-label-color' : ''">Color *</label>
-                  <input type="color" class="form-control" formControlName="color" id="color">
-                  <div *ngIf="!form.controls.color?.valid && (form.controls.color?.dirty || form.controls.color?.touched)">
+                  <input type="text" class="form-control" formControlName="color" id="color">
+                  <div *ngIf="form.controls.color?.errors?.required && (form.controls.color?.dirty || form.controls.color?.touched)">
                     <span class="error-message">The color is required</span>
                   </div>
                 </div>

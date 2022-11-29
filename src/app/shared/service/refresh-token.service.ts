@@ -17,7 +17,7 @@ export class RefreshTokenService {
   private isRefreshingToken = false;
   private tokenSubject: BehaviorSubject<string> = new BehaviorSubject<string>(null!);
 
-  constructor(public authService: RequestService, public router: Router) {}
+  constructor(public requestService: RequestService, public router: Router) {}
 
   /*check refresh token request status code*/
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpSentEvent | HttpHeaderResponse |
@@ -59,17 +59,31 @@ export class RefreshTokenService {
       this.isRefreshingToken = true;
       this.tokenSubject.next(null!);
 
-      return this.authService.refreshToken().pipe(
-        switchMap((newToken: any) => {
-          if (newToken && newToken !== 'error') {
-            this.tokenSubject.next(newToken);
-            return next.handle(this.getNewRequest(request, newToken));
-          }
-          return this.logoutUser();
-        }),
-        finalize(() => {
-          this.isRefreshingToken = false;
-        }), );
+      if (this.requestService.userLastName) {
+        return this.requestService.refreshTokenSite().pipe(
+          switchMap((newToken: any) => {
+            if (newToken && newToken !== 'error') {
+              this.tokenSubject.next(newToken);
+              return next.handle(this.getNewRequest(request, newToken));
+            }
+            return this.logoutUser();
+          }),
+          finalize(() => {
+            this.isRefreshingToken = false;
+          }), );
+      } else {
+        return this.requestService.refreshToken().pipe(
+          switchMap((newToken: any) => {
+            if (newToken && newToken !== 'error') {
+              this.tokenSubject.next(newToken);
+              return next.handle(this.getNewRequest(request, newToken));
+            }
+            return this.logoutUser();
+          }),
+          finalize(() => {
+            this.isRefreshingToken = false;
+          }), );
+      }
     } else {
       return this.tokenSubject.pipe(
         filter(token => token != null),
@@ -88,14 +102,23 @@ export class RefreshTokenService {
     }
     return request.clone({
       setHeaders: {
-        Authorization: 'Bearer ' + newAccessToken
+        Authorization: 'Bearer ' + newAccessToken,
+        'ex-authorization': newAccessToken
       }
     });
   }
+
   /*logout function*/
   logoutUser() {
-    localStorage.clear();
-    this.router.navigate([`/login`]);
+    if (!this.requestService.userLastName) {
+      this.router.navigate(['/login']).then(r => console.log(r));
+      localStorage.removeItem('access_token');
+    } else {
+      this.router.navigate(['/']);
+      localStorage.removeItem('site_access_token');
+    }
+    // localStorage.clear();
+    // this.router.navigate([`/login`]);
     return throwError(() => new Error(`Invalid`));
   }
 }

@@ -26,7 +26,6 @@ export class SignInComponent implements OnInit {
 
   onSubmit(form) {
     this.requestService.createData(`${environment.webPages.login}`, form).subscribe((res) => {
-      console.log(res);
       for (let key in res) {
         localStorage.setItem('site_' + key, res[key]);
       }

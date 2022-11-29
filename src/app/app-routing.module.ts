@@ -104,11 +104,11 @@ const routes: Routes = [
           loadChildren: () =>
             import('./views/slider/slider.module').then((m) => m.SliderModule)
         },
-        {
-          path: 'admin/category',
-          loadChildren: () =>
-            import('./views/categories/categories.module').then((m) => m.CategoriesModule)
-        },
+        // {
+        //   path: 'admin/category',
+        //   loadChildren: () =>
+        //     import('./views/categories/categories.module').then((m) => m.CategoriesModule)
+        // },
         {
           path: 'pages',
           loadChildren: () =>
