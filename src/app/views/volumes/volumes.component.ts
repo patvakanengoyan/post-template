@@ -34,7 +34,7 @@ export class VolumesComponent implements OnInit {
     this.getData(this.url);
     this.form = this.fb.group({
       key: ['', Validators.required],
-      color: [''],
+      color: ['', Validators.required],
       image: ['', Validators.compose([Validators.required, Validators.pattern(/^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/)])],
     })
   }
@@ -82,11 +82,10 @@ export class VolumesComponent implements OnInit {
    */
   onSubmit(form: any) {
     let data = {
-      "color": form.color ? form.color : '#000000',
+      "color": form.color,
       "image": form.image,
       "volume": {
         "en": form.key,
-        "hy": form.key,
       }
     }
 

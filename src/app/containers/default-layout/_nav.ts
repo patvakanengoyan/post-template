@@ -16,11 +16,11 @@ export const navItems: INavData[] = [
     url: 'admin/slider',
     iconComponent: { name: 'cil-drop' }
   },
-  {
-    name: 'Category',
-    url: 'admin/category',
-    iconComponent: { name: 'cil-star' }
-  },
+  // {
+  //   name: 'Category',
+  //   url: 'admin/category',
+  //   iconComponent: { name: 'cil-star' }
+  // },
   {
     name: 'Users',
     url: 'admin/users',

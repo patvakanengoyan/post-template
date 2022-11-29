@@ -14,10 +14,10 @@ export class RequestService {
   private reqCount: number = 0;
   public imgSite: string = environment.imagePrefix;
 
-  userName: any = `${localStorage.getItem('site_first_name')}`;
-  userLastName: any =`${localStorage.getItem('site_last_name')}`;
-  userEmail: any =`${localStorage.getItem('site_email')}`;
-  userImage: any =`${localStorage.getItem('site_image')}`;
+  userName: any = localStorage.getItem('site_first_name');
+  userLastName: any =localStorage.getItem('site_last_name');
+  userEmail: any =localStorage.getItem('site_email');
+  userImage: any =localStorage.getItem('site_image');
 
   constructor(private http: HttpClient) {}
 
@@ -125,6 +125,34 @@ export class RequestService {
         })
       );
   }
+
+
+  refreshTokenSite() {
+    const url = `${environment.webPages.refresh}`;
+    const header = new HttpHeaders()
+      .set('Authorization', 'Bearer ' + localStorage.getItem('site_access_token'))
+      .set('Content-Type', 'application/json');
+    const body = {
+      'refresh_token': localStorage.getItem('site_refresh_token')
+    };
+
+    return this.http.post(url, body, {headers: header})
+      .pipe(
+        map((data: any) => {
+          if (data && data['access_token']) {
+            for (let key in data) {
+              localStorage.setItem('site_' + key, data[key]);
+            }
+            // localStorage.setItem('access_token', data['access_token']);
+            // localStorage.setItem('refresh_token', data['refresh_token']);
+            return data['access_token'];
+          }
+          return data;
+        })
+      );
+  }
+
+
   private handleError(error: HttpErrorResponse) {
     let errorMessage;
     if (error.error instanceof ErrorEvent) {

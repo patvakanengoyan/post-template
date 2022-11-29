@@ -4,6 +4,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ModalDirective} from "ngx-bootstrap/modal";
 import {DeleteModalComponent} from "../../shared/utils/delete-modal/delete-modal.component";
 import {RequestService} from "../../shared/service/request.service";
+import {Topics} from "../../shared/models/topics";
 
 @Component({
   selector: 'app-topics',
@@ -13,7 +14,7 @@ import {RequestService} from "../../shared/service/request.service";
 export class TopicsComponent implements OnInit {
 
   url: any = `${environment.admin.topics.get}`;
-  data: any;
+  data: Topics[] = [];
   paginationConfig: any;
   viewData: any;
   form: any = FormGroup;
@@ -53,7 +54,7 @@ export class TopicsComponent implements OnInit {
     this.form = this.fb.group({
       key: ['', Validators.required],
       main_key: ['', Validators.required],
-      color: [''],
+      color: ['', Validators.required],
       image: ['', Validators.compose([
         Validators.required, Validators.pattern(/^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/)
       ])],
@@ -146,12 +147,11 @@ export class TopicsComponent implements OnInit {
    */
   onSubmit(form: any) {
     let data = {
-      "color": form.color ? form.color : '#000000',
+      "color": form.color,
       "image": form.image,
       "main_key_guid": form.main_key[0].id,
       "key": {
         "en": form.key,
-        "hy": form.key,
       }
     }
 

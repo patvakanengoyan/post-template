@@ -69,9 +69,5 @@ export const editorConfig = {
   language: {
     ui: 'en',
     content: 'en',
-    textPartLanguage: [
-      { title: 'Arabic', languageCode: 'ar' },
-      { title: 'English', languageCode: 'en' }
-    ],
   },
 };
