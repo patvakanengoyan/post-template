@@ -6,13 +6,13 @@ import {DeleteModalComponent} from "../../shared/utils/delete-modal/delete-modal
 import {RequestService} from "../../shared/service/request.service";
 import {environment} from "../../../environments/environment.prod";
 import {editorConfig} from "../../shared/ckEditorConfig/ck-editor-config";
-import {list} from "../../shared/countryList/countryList";
-import {COMMA, ENTER} from "@angular/cdk/keycodes";
+import {COMMA, ENTER, V} from "@angular/cdk/keycodes";
 import {FormControl} from '@angular/forms';
 import {Observable, startWith} from "rxjs";
 import {MatChipInputEvent} from "@angular/material/chips";
 import {MatAutocomplete, MatAutocompleteSelectedEvent} from "@angular/material/autocomplete";
 import {map} from "rxjs/operators";
+import {forkJoin} from "rxjs";
 
 @Component({
   selector: 'app-posts',
@@ -28,14 +28,10 @@ export class PostsComponent implements OnInit {
   @Input() config = editorConfig;
   @ViewChild('autoShownModal', {static: false}) autoShownModal?: ModalDirective;
   @ViewChild(DeleteModalComponent) private modal!: DeleteModalComponent;
-  countryList = list;
   isModalShown: boolean = false;
   requestType: string = '';
-  itemListCountry: any = [];
-  settingsCountry: any = {};
-  itemListCity: any = [];
-  itemListCategory: any = [];
-  settingsCategory: any = {};
+  monoSelect: any = {};
+  multiSelect: any = {};
 
   visible: boolean = true;
   selectable: boolean = true;
@@ -47,11 +43,18 @@ export class PostsComponent implements OnInit {
   filteredtags: Observable<string[]>;
   // tags: string[] = ['Lemon'];
   alltags: string[] = ['Business', 'Culture', 'Sport', 'Food'];
-
   @ViewChild('tagInput', {static: false}) tagInput!: ElementRef<HTMLInputElement>;
   @ViewChild('auto', {static: false}) matAutocomplete!: MatAutocomplete;
   editImagePath: any;
-
+  taxonomyList: any = [];
+  volumesList: any = [];
+  topicList: any = [];
+  type: any[] = [
+      {id: 'KidsClick', itemName: 'KidsClick'},
+      {id: 'AcademicSearch', itemName: 'AcademicSearch'},
+      {id: 'Pieces', itemName: 'Pieces'},
+      {id: 'June2020', itemName: 'June2020'},
+      ];
 
   constructor(public requestService: RequestService,
               public fb: FormBuilder) {
@@ -62,11 +65,16 @@ export class PostsComponent implements OnInit {
     this.form = this.fb.group({
       title: ['', Validators.required],
       description: ['', Validators.required],
-      country: ['', Validators.required],
-      city: ['', Validators.required],
-      tag: [[]],
-      categories: ['', Validators.required],
-      image: ['', Validators.required],
+      taxonomies: [''],
+      volume:[''],
+      topics: [''],
+      volume_number: ['', Validators.pattern(/^[0-9]*$/)],
+      letter: ['', Validators.compose([Validators.maxLength(3), Validators.pattern(/^[a-zA-z]*$/)]) ],
+      page: ['', Validators.pattern(/^[0-9]*$/)],
+      slice_of_page: ['', Validators.compose([Validators.pattern(/^[0-9]*$/), Validators.minLength(2)])],
+      color: [''],
+      type: ['', Validators.required],
+      image: [''],
       status: [''],
     })
   }
@@ -75,18 +83,20 @@ export class PostsComponent implements OnInit {
     The callback method that is called immediately after the page is called.
    */
   ngOnInit(): void {
-    this.setCountyList()
     this.getData(this.url);
-
-    this.settingsCountry = {
+    this.getLists();
+    this.monoSelect = {
       enableSearchFilter: true,
       addNewItemOnFilter: true,
       singleSelection: true,
+      selectAllText: 'Select All',
       text: "Select item"
     };
 
-    this.settingsCategory = {
+    this.multiSelect = {
       enableSearchFilter: true,
+      singleSelection: false,
+      badgeShowLimit: 1,
       selectAllText: 'Select All',
       text: "Select item"
     };
@@ -109,49 +119,47 @@ export class PostsComponent implements OnInit {
     this.requestService.getData(this.url + '/' + id).subscribe((res: any) => {
       this.viewData = res[0];
       if (this.requestType == 'edit') {
-        let arr = [] as any;
-        for (let i = 0; i < this.viewData.categories.length; i++) {
-          arr.push({
-            id: this.viewData.categories[i].id,
-            itemName: this.viewData.categories[i].translation
+        let topics = [] as any;
+        for (let i = 0; i < this.viewData.topics.length; i++) {
+            topics.push({
+            id: this.viewData.topics[i].guid,
+            itemName: this.viewData.topics[i].key
           })
         }
+        let taxonomies = [] as any;
+        for (let i = 0; i < this.viewData.taxonomies.length; i++) {
+          let item = this.viewData.taxonomies;
+            taxonomies.push({
+                id: this.viewData.taxonomies[i].guid,
+                itemName: `Level 1 : ${item[i].level1}, Level 2 : ${item.level2}, Level 3 : ${item.level3}`
+            })
+        }
+          let volumes = [] as any;
+          for (let i = 0; i < this.viewData.volumes.length; i++) {
+              volumes.push({
+                  id: this.viewData.volumes[i].guid,
+                  itemName: this.viewData.volumes[i].key
+              })
+          }
         this.editImagePath = this.viewData.image.url;
         this.form.controls.image.clearValidators();
         this.form.controls.image.updateValueAndValidity();
         this.form.patchValue({
           title: this.viewData.title,
           description: this.viewData.description,
-          categories: arr,
-          country: [{
-            id: Object.keys(this.countryList).indexOf(this.viewData.country) + 1,
-            itemName: this.viewData.country
-          }],
-          city: [{
-            id: this.countryList[this.viewData.country].indexOf(this.viewData.city),
-            itemName: this.viewData.city
-          }],
+          taxonomies: taxonomies,
+          volume: volumes,
+          topics: topics,
+          volume_number: this.viewData.volume_number,
+          letter: this.viewData.letter,
+          page: this.viewData.page,
+          slice_of_page: this.viewData.slice_of_page,
+          color: this.viewData.color,
+          type: [{id: this.viewData.type, itemName: this.viewData.type}],
           status: this.viewData.status
         });
-        this.setCitiesList(true)
       }
     })
-  }
-
-  /*
-    Get category data list
-   */
-  getCategoryList() {
-    this.requestService.getData(`${environment.admin.posts.getAllCategoryList}`).subscribe((res: any) => {
-      if (!res['message']) {
-        this.itemListCategory = [];
-        for (let i in res) {
-          this.itemListCategory.push(
-            {"id": +i, "itemName": res[i]}
-          );
-        }
-      }
-    });
   }
 
   /*
@@ -164,9 +172,7 @@ export class PostsComponent implements OnInit {
       this.getById(id);
     } else if (type === 'edit') {
       this.getById(id);
-      this.getCategoryList();
     } else if (type === 'add') {
-      this.getCategoryList();
     }
   }
 
@@ -178,7 +184,7 @@ export class PostsComponent implements OnInit {
     this.isModalShown = false;
     this.editImagePath = undefined;
     this.form.reset();
-    this.tagFiled.value = [];
+    // this.tagFiled.value = [];
   }
 
   /*
@@ -245,72 +251,38 @@ export class PostsComponent implements OnInit {
 
     return this.alltags.filter(tag => tag.toLowerCase().indexOf(filterValue) === 0);
   }
-
-  /*
-    Image upload and validation method
-   */
-  // onChangeInput(e) {
-  //   this.file = e.target ? e.target.files[0] : e;
-  //   if (this.file) {
-  //     const fileName = this.file.name;
-  //     if (/\.(jpe?g|png|bmp)$/i.test(fileName)) {
-  //       const filesize = this.file.size;
-  //       if (filesize > 15728640) {
-  //         this.form.controls.image.setErrors({size: 'error'});
-  //       } else {
-  //         let reader = new FileReader();
-  //         reader.readAsDataURL(this.file);
-  //         reader.onload = () => {
-  //           this.imageValue = reader.result;
-  //         };
-  //         this.image = this.file;
-  //       }
-  //     } else {
-  //       this.form.controls.image.setErrors({type: 'error'});
-  //     }
-  //   } else {
-  //     this.file = undefined;
-  //     this.imageValue = undefined;
-  //     this.form.controls.image.setErrors(null);
-  //   }
-  // }
-
   /*
     Send data method
    */
   onSubmit(form: any) {
     let url = this.requestType == 'edit' ? this.url + '/' + this.viewData.id : this.url;
     let data = new FormData();
-    for (let key in this.form.value) {
-      if (key == 'image' && this.form.value[key]) {
-          data.append(key, this.form.value[key]);
-        // if (this.file) {
-        //   data.append(key, this.file);
-        // }
-      } else if (key == 'categories') {
-        for (let item in this.form.value['categories']) {
-          data.append(`categories[${[item]}]`, this.form.value['categories'][item].id);
-        }
-      } else {
-        // data.append(key, this.form.value[key]);
-      }
+    for (let i = 0; i < this.form.value['topics'].length; i++) {
+        data.append(`topics[${[i]}]`, this.form.value['topics'][i].id);
     }
-    // data.append('country', form.country[0].itemName);
-    // data.append('city', form.city[0].itemName);
+    for (let i = 0; i < this.form.value['taxonomies'].length; i++) {
+        data.append(`taxonomies[${[i]}]`, this.form.value['taxonomies'][i].id);
+    }
+    if (this.form.value['image']) {
+        data.append('image', form.image);
+    }
+    data.append('volume', this.form.value['volume'][0].id);
+    data.append('volume_number', form.volume_number);
+    data.append('letter', form.letter);
+    data.append('page', form.page);
+    data.append('slice_of_page', form.slice_of_page);
+    data.append('color', form.color);
+    data.append('type', form.type[0].id);
     data.append('translations[en][title]', form.title);
-    data.append('translations[hy][title]', form.title);
     data.append('translations[en][description]', form.description);
-    data.append('translations[hy][description]', form.description);
     data.append('status', form.status == true || form.status == '1' ? '1' : '0');
-
-    console.log(this.form.value)
     if (this.requestType == 'edit') {
       data.append('_method', 'PUT');
     }
     this.requestService.createData(url, data).subscribe((res) => {
       this.getData(this.url);
       this.hideModal();
-    })
+    });
   }
 
   /*
@@ -324,27 +296,33 @@ export class PostsComponent implements OnInit {
     })
   }
 
-  /*
-    Get country list
-   */
-  setCountyList() {
-    let countries = Object.keys(this.countryList);
-    let list = countries.map((item, i) => {
-      return {id: i + 1, itemName: item};
-    });
-    this.itemListCountry = [...list];
-  }
-
-  /*
-    Get city list after select country
-   */
-  setCitiesList(set?) {
-    set ? '' : this.form.get('city').reset();
-    let cities = this.form.value.country[0] ? this.countryList[this.form.value.country[0].itemName] : [];
-    let list = cities.map((item, i) => {
-      return {id: i + 1, itemName: item};
-    });
-    this.itemListCity = [...list];
+  getLists() {
+    let request1 = this.requestService.getData(`${environment.admin.posts.getTaxonomyList}`);
+    let request2 = this.requestService.getData(`${environment.admin.posts.getTopicList}`);
+    let request3 = this.requestService.getData(`${environment.admin.posts.getVolumesList}`);
+    forkJoin([request1, request2, request3]).subscribe(([item1, item2, item3]: any) => {
+        this.taxonomyList = [];
+        for (let i = 0; i < item1.data.length; i++) {
+          this.taxonomyList.push({
+              id: item1.data[i].guid,
+              itemName: `Level 1 : ${item1.data[i].level1}, Level 2 : ${item1.data[i].level2}, Level 3 : ${item1.data[i].level3}`
+          });
+        }
+        this.topicList = [];
+        for (let i = 0; i < item2.data.length; i++) {
+            this.topicList.push({
+                id: item2.data[i].guid,
+                itemName: item2.data[i].key
+            });
+        }
+        this.volumesList = [];
+        for (let i = 0; i < item3.data.length; i++) {
+            this.volumesList.push({
+                id: item3.data[i].guid,
+                itemName: item3.data[i].key
+            });
+        }
+    })
   }
 
 }

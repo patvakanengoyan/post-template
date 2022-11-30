@@ -13,10 +13,9 @@
           <thead>
           <tr>
             <th scope="col">Title</th>
-            <th scope="col">Country</th>
-            <th scope="col">City</th>
-            <th scope="col">Category</th>
-            <th scope="col">Tag</th>
+            <th scope="col">Letter</th>
+            <th scope="col">Page</th>
+            <th scope="col">Color</th>
             <th scope="col">Status</th>
             <th scope="col">Actions</th>
           </tr>
@@ -27,14 +26,11 @@
               <span cTooltip="{{item.title}}" class="cursor-pointer"
                     (click)="showModal(item.id, 'view')">{{item.title}}</span>
             </td>
-            <td>{{item.country}}</td>
-            <td>{{item.city}}</td>
+            <td>{{item?.letter}}</td>
+            <td>{{item?.page}}</td>
             <td>
-              <span *ngFor="let cat of item.categories, let last = last">
-                {{cat.title ? cat.title : 'no result'}}<span *ngIf="!last">, &nbsp;</span>
-              </span>
+              {{item?.color}}
             </td>
-            <td>@mdo</td>
             <td>
               <c-form-check [switch]="true">
                 <input cFormCheckInput [checked]="item.status" disabled type="checkbox"/>
@@ -81,13 +77,12 @@
                  alt="img">
             <div>
               <p><b>Title:</b> {{viewData.title}}</p>
-              <p><b>Country:</b> {{viewData.country}}</p>
-              <p><b>City:</b> {{viewData.city}}</p>
-              <p><b>Categories:</b>
-                <span *ngFor="let cat of viewData.categories, let last = last">
-                  {{cat.title}}<span *ngIf="!last">, &nbsp;</span>
-                </span>
-              </p>
+              <p><b>Type:</b> {{viewData.type}}</p>
+              <p><b>Letter:</b> {{viewData.letter}}</p>
+              <p><b>Page:</b> {{viewData.page}}</p>
+              <p><b>Volume number:</b> {{viewData.volume_number}}</p>
+              <p><b>Color:</b> {{viewData.color}}</p>
+              <p><b>Slice of page:</b> {{viewData.slice_of_page}}</p>
               <div><b>Description:</b> <div [innerHTML]="viewData.description"></div></div>
 
             </div>
@@ -95,13 +90,21 @@
           <div *ngIf="requestType == 'edit' || requestType == 'add'">
             <div class="container-md" data-aos="fade-in">
               <div class="row">
-                <div class="mb-3">
+                <div class="col-6 mb-3">
                   <label for="title" [ngClass]="(form.controls.title?.invalid &&
         (form.controls.title?.dirty || form.controls.title?.touched)) ? 'invalid-label-color' : ''">Title *</label>
                   <input type="text" class="form-control" formControlName="title" id="title">
                   <div *ngIf="!form.controls.title?.valid && (form.controls.title?.dirty || form.controls.title?.touched)">
                     <span class="error-message">The title is required</span>
                   </div>
+                </div>
+                <div class="col-6 mb-3">
+                  <label for="type">Type</label>
+                  <angular2-multiselect [data]="type"
+                                        [settings]="monoSelect"
+                                        formControlName="type"
+                  >
+                  </angular2-multiselect>
                 </div>
                 <div class="mb-3">
                   <label for="description" [ngClass]="(form.controls.description?.invalid &&
@@ -112,69 +115,103 @@
                     <span class="error-message">The description is required</span>
                   </div>
                 </div>
+
                 <div class="col-6 mb-3">
-                  <label for="description">Select Country</label>
-                  <angular2-multiselect [data]="itemListCountry"
-                                        [settings]="settingsCountry"
-                                        formControlName="country"
-                                        id="country"
-                                        (onSelect)="setCitiesList()"
-                                        (onDeSelect)="setCitiesList()"
-                                        (onDeSelectAll)="setCitiesList()"
+                  <label for="taxonomies">Taxonomies</label>
+                  <angular2-multiselect [data]="taxonomyList"
+                                        [settings]="multiSelect"
+                                        formControlName="taxonomies"
                   >
                   </angular2-multiselect>
                 </div>
                 <div class="col-6 mb-3">
-                  <label for="description">Select City</label>
-
-                  <angular2-multiselect [data]="itemListCity"
-                                        [settings]="settingsCountry"
-                                        formControlName="city"
-                  >
-                  </angular2-multiselect>
-                </div>
-
-                <div class="col-6 mb-3">
-                  <label for="description">Select Category</label>
-
-                  <angular2-multiselect [data]="itemListCategory"
-                                        [settings]="settingsCategory"
-                                        formControlName="categories"
+                  <label for="volume">Volume</label>
+                  <angular2-multiselect [data]="volumesList"
+                                        [settings]="monoSelect"
+                                        formControlName="volume"
                   >
                   </angular2-multiselect>
                 </div>
                 <div class="col-6 mb-3">
-                  <label for="description">Select Tag</label>
-
-                  <mat-form-field class="example-chip-list">
-                    <mat-chip-list #chipList formControlName="tag" aria-label="tag selection">
-                      <mat-chip
-                        *ngFor="let tag of form.get('tag').value"
-                        [selectable]="selectable"
-                        [removable]="removable"
-                        (removed)="remove(tag)">
-                        {{tag}}
-                        <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-                      </mat-chip>
-                      <input
-                        #tagInput
-                        [formControl]="tagCtrl"
-                        [matAutocomplete]="auto"
-                        [matChipInputFor]="chipList"
-                        [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-                        [matChipInputAddOnBlur]="addOnBlur"
-                        (matChipInputTokenEnd)="add($event)">
-                    </mat-chip-list>
-                    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
-                      <ng-container *ngFor="let tag of filteredtags | async">
-                        <mat-option *ngIf="!form.get('tag').value.includes(tag)" [value]="tag">
-                          <mat-checkbox color="primary"></mat-checkbox>
-                          {{tag}}
-                        </mat-option>
-                      </ng-container>
-                    </mat-autocomplete>
-                  </mat-form-field>
+                  <label for="topics">Topics</label>
+                  <angular2-multiselect [data]="topicList"
+                                        [settings]="multiSelect"
+                                        formControlName="topics"
+                  >
+                  </angular2-multiselect>
                 </div>
+                <div class="col-6 mb-3">
+                  <label for="title" [ngClass]="(form.controls.volume_number?.invalid &&
+        (form.controls.volume_number?.dirty || form.controls.volume_number?.touched)) ? 'invalid-label-color' : ''">Volume number </label>
+                  <input type="text" class="form-control" formControlName="volume_number" id="volume_number">
+                  <div *ngIf="!form.controls.volume_number?.valid && (form.controls.volume_number?.dirty || form.controls.volume_number?.touched)">
+                    <span class="error-message">The volume number is required</span>
+                  </div>
+                </div>
+                <div class="col-3 mb-3">
+                  <label for="letter" [ngClass]="(form.controls.letter?.invalid &&
+        (form.controls.letter?.dirty || form.controls.letter?.touched)) ? 'invalid-label-color' : ''">Letter </label>
+                  <input type="text" class="form-control" formControlName="letter" id="letter">
+                  <div *ngIf="!form.controls.letter?.valid && (form.controls.letter?.dirty || form.controls.letter?.touched)">
+                    <span class="error-message">The letter is required</span>
+                  </div>
+                </div>
+                <div class="col-3 mb-3">
+                  <label for="page" [ngClass]="(form.controls.page?.invalid &&
+        (form.controls.page?.dirty || form.controls.page?.touched)) ? 'invalid-label-color' : ''">Page </label>
+                  <input type="text" class="form-control" formControlName="page" id="page">
+                  <div *ngIf="!form.controls.page?.valid && (form.controls.page?.dirty || form.controls.page?.touched)">
+                    <span class="error-message">The page is required</span>
+                  </div>
+                </div>
+                <div class="col-3 mb-3">
+                  <label for="slice_of_page" [ngClass]="(form.controls.slice_of_page?.invalid &&
+        (form.controls.slice_of_page?.dirty || form.controls.slice_of_page?.touched)) ? 'invalid-label-color' : ''">Slice of page </label>
+                  <input type="text" class="form-control" formControlName="slice_of_page" id="slice_of_page">
+                  <div *ngIf="!form.controls.slice_of_page?.valid && (form.controls.slice_of_page?.dirty || form.controls.slice_of_page?.touched)">
+                    <span class="error-message">The slice of page is required</span>
+                  </div>
+                </div>
+                <div class="col-3 mb-3">
+                  <label for="page" [ngClass]="(form.controls.color?.invalid &&
+        (form.controls.color?.dirty || form.controls.color?.touched)) ? 'invalid-label-color' : ''">Color </label>
+                  <input type="text" class="form-control" formControlName="color" id="color">
+                  <div *ngIf="!form.controls.color?.valid && (form.controls.color?.dirty || form.controls.color?.touched)">
+                    <span class="error-message">The color is required</span>
+                  </div>
+                </div>
+                <!--<div class="col-6 mb-3">-->
+                  <!--<label for="description">Select Tag</label>-->
+
+                  <!--<mat-form-field class="example-chip-list">-->
+                    <!--<mat-chip-list #chipList formControlName="tag" aria-label="tag selection">-->
+                      <!--<mat-chip-->
+                        <!--*ngFor="let tag of form.get('tag').value"-->
+                        <!--[selectable]="selectable"-->
+                        <!--[removable]="removable"-->
+                        <!--(removed)="remove(tag)">-->
+                        <!--{{tag}}-->
+                        <!--<mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>-->
+                      <!--</mat-chip>-->
+                      <!--<input-->
+                        <!--#tagInput-->
+                        <!--[formControl]="tagCtrl"-->
+                        <!--[matAutocomplete]="auto"-->
+                        <!--[matChipInputFor]="chipList"-->
+                        <!--[matChipInputSeparatorKeyCodes]="separatorKeysCodes"-->
+                        <!--[matChipInputAddOnBlur]="addOnBlur"-->
+                        <!--(matChipInputTokenEnd)="add($event)">-->
+                    <!--</mat-chip-list>-->
+                    <!--<mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">-->
+                      <!--<ng-container *ngFor="let tag of filteredtags | async">-->
+                        <!--<mat-option *ngIf="!form.get('tag').value.includes(tag)" [value]="tag">-->
+                          <!--<mat-checkbox color="primary"></mat-checkbox>-->
+                          <!--{{tag}}-->
+                        <!--</mat-option>-->
+                      <!--</ng-container>-->
+                    <!--</mat-autocomplete>-->
+                  <!--</mat-form-field>-->
+                <!--</div>-->
                 <div class="col-6 mb-3">
                   <app-file-input  [control]="form.get('image')" [data]="{label: 'Image', editPath: editImagePath}" formControlName="image"></app-file-input>
 <!--                  <div *ngIf="imageValue || editImagePath">-->

@@ -31,7 +31,10 @@ export const environment = {
     logout: apiUrl + prefix + 'admin/logout',
     posts: {
       get: apiUrl + prefix + 'admin/post',
-      getAllCategoryList: apiUrl + prefix + 'admin/post_category/list'
+      getAllCategoryList: apiUrl + prefix + 'admin/post_category/list',
+      getTaxonomyList: apiUrl + prefix + 'admin/taxonomy',
+      getVolumesList: apiUrl + prefix + 'admin/volumes',
+      getTopicList: apiUrl + prefix + 'admin/topics'
     },
     slider: apiUrl + prefix + 'admin/slider',
     category: apiUrl + prefix + 'admin/category',
