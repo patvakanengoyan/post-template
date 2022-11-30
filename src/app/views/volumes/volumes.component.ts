@@ -4,6 +4,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ModalDirective} from "ngx-bootstrap/modal";
 import {DeleteModalComponent} from "../../shared/utils/delete-modal/delete-modal.component";
 import {RequestService} from "../../shared/service/request.service";
+import {Volumes} from "../../shared/models/volumes";
 
 @Component({
   selector: 'app-volumes',
@@ -13,7 +14,7 @@ import {RequestService} from "../../shared/service/request.service";
 export class VolumesComponent implements OnInit {
 
   url: any = `${environment.admin.volumes.get}`;
-  data: any;
+  data: Volumes[] = [];
   paginationConfig: any;
   viewData: any;
   form: any = FormGroup;

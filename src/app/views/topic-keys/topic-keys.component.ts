@@ -4,6 +4,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ModalDirective} from "ngx-bootstrap/modal";
 import {DeleteModalComponent} from "../../shared/utils/delete-modal/delete-modal.component";
 import {RequestService} from "../../shared/service/request.service";
+import {TopicKeys} from "../../shared/models/topic-keys";
 
 @Component({
   selector: 'app-topic-keys',
@@ -13,7 +14,7 @@ import {RequestService} from "../../shared/service/request.service";
 export class TopicKeysComponent implements OnInit {
 
   url: any = `${environment.admin.topic_keys.get}`;
-  data: any;
+  data: TopicKeys[] = [];
   paginationConfig: any;
   viewData: any;
   form: any = FormGroup;

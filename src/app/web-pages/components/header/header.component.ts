@@ -36,7 +36,6 @@ export class HeaderComponent implements OnInit {
     this.requestService.userLastName = localStorage.getItem('site_last_name');
     this.requestService.userEmail = localStorage.getItem('site_email');
     this.requestService.userImage = localStorage.getItem('site_image');
-    console.log(this.requestService.userName);
     this.form = this.fb.group({
       title: '',
       description: '',
@@ -93,48 +92,28 @@ export class HeaderComponent implements OnInit {
   }
 
   logout() {
-    localStorage.removeItem('site_refresh_token');
-    localStorage.removeItem('site_first_name');
-    localStorage.removeItem('site_role');
-    localStorage.removeItem('site_expires_in');
-    localStorage.removeItem('site_access_token');
-    localStorage.removeItem('site_id');
-    localStorage.removeItem('site_token_type');
-    localStorage.removeItem('site_birthday');
-    localStorage.removeItem('site_last_name');
-    localStorage.removeItem('site_role_name');
-    localStorage.removeItem('site_email');
-    localStorage.removeItem('site_image');
-    this.requestService.userName = null;
-    this.requestService.userLastName = null;
-    this.requestService.userEmail = null;
-    this.requestService.userImage = null;
+    this.requestService.createData(`${environment.webPages.logout}`, '').subscribe(() => {
+      localStorage.removeItem('site_refresh_token');
+      localStorage.removeItem('site_first_name');
+      localStorage.removeItem('site_role');
+      localStorage.removeItem('site_expires_in');
+      localStorage.removeItem('site_access_token');
+      localStorage.removeItem('site_id');
+      localStorage.removeItem('site_token_type');
+      localStorage.removeItem('site_birthday');
+      localStorage.removeItem('site_last_name');
+      localStorage.removeItem('site_role_name');
+      localStorage.removeItem('site_email');
+      localStorage.removeItem('site_image');
+      this.requestService.userName = null;
+      this.requestService.userLastName = null;
+      this.requestService.userEmail = null;
+      this.requestService.userImage = null;
 
-    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-    this.router.onSameUrlNavigation = 'reload';
-    this.router.navigate(['/']);
-    // this.requestService.createData(`${environment.webPages.logout}`, '').subscribe(() => {
-    //   localStorage.removeItem('site_refresh_token');
-    //   localStorage.removeItem('site_first_name');
-    //   localStorage.removeItem('site_role');
-    //   localStorage.removeItem('site_expires_in');
-    //   localStorage.removeItem('site_access_token');
-    //   localStorage.removeItem('site_id');
-    //   localStorage.removeItem('site_token_type');
-    //   localStorage.removeItem('site_birthday');
-    //   localStorage.removeItem('site_last_name');
-    //   localStorage.removeItem('site_role_name');
-    //   localStorage.removeItem('site_email');
-    //   localStorage.removeItem('site_image');
-    //   this.requestService.userName = null;
-    //   this.requestService.userLastName = null;
-    //   this.requestService.userEmail = null;
-    //   this.requestService.userImage = null;
-    //
-    //   this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-    //   this.router.onSameUrlNavigation = 'reload';
-    //   this.router.navigate(['/']);
-    // })
+      this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+      this.router.onSameUrlNavigation = 'reload';
+      this.router.navigate(['/']);
+    })
   }
 
   searchForm(){

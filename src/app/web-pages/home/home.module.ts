@@ -4,6 +4,7 @@ import {ReactiveFormsModule} from "@angular/forms";
 import {HomeComponent} from "./home.component";
 import {HomeRoutingModule} from "./home-routing.module";
 import {ComponentsModule} from "../components/components.module";
+import {SwiperModule} from "swiper/angular";
 
 @NgModule({
   declarations: [HomeComponent],
@@ -11,7 +12,8 @@ import {ComponentsModule} from "../components/components.module";
     CommonModule,
     HomeRoutingModule,
     ReactiveFormsModule,
-    ComponentsModule
+    ComponentsModule,
+    SwiperModule
   ]
 })
 export class HomeModule {

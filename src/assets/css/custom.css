@@ -101,3 +101,9 @@ input[type='text']:read-only {
   background-image: none !important;
   border-color: #d8dbe0 !important;
 }
+.modal {
+  z-index: 11 !important;
+}
+.modal-backdrop.show {
+  z-index: 1;
+}

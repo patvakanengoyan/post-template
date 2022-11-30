@@ -9,51 +9,61 @@
       <div class="row">
         <div class="col-12">
           <div class="swiper sliderFeaturedPosts">
-            <div class="swiper-wrapper">
-              <div class="swiper-slide">
-                <a routerLink="post/1" class="img-bg d-flex align-items-end" style="background-image: url('assets/img/post-slide-1.jpg');">
+            <swiper
+              [pagination]="{dynamicBullets: true}"
+              [navigation]="true"
+              [loop]="true"
+              class="mySwiper"
+            >
+              <ng-template swiperSlide>
+                <a routerLink="post/1" class="img-bg d-flex align-items-end"
+                   style="background-image: url('assets/img/post-slide-1.jpg');">
                   <div class="img-bg-inner">
                     <h2>The Best Homemade Masks for Face (keep the Pimples Away)</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quidem neque est mollitia! Beatae minima assumenda repellat harum vero, officiis ipsam magnam obcaecati cumque maxime inventore repudiandae quidem necessitatibus rem atque.</p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quidem neque est mollitia! Beatae
+                      minima assumenda repellat harum vero, officiis ipsam magnam obcaecati cumque maxime inventore
+                      repudiandae quidem necessitatibus rem atque.</p>
                   </div>
                 </a>
-              </div>
-
-              <div class="swiper-slide">
-                <a routerLink="post/1" class="img-bg d-flex align-items-end" style="background-image: url('assets/img/post-slide-2.jpg');">
+              </ng-template
+              >
+              <ng-template swiperSlide>
+                <a routerLink="post/1" class="img-bg d-flex align-items-end"
+                   style="background-image: url('assets/img/post-slide-2.jpg');">
                   <div class="img-bg-inner">
                     <h2>17 Pictures of Medium Length Hair in Layers That Will Inspire Your New Haircut</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quidem neque est mollitia! Beatae minima assumenda repellat harum vero, officiis ipsam magnam obcaecati cumque maxime inventore repudiandae quidem necessitatibus rem atque.</p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quidem neque est mollitia! Beatae
+                      minima assumenda repellat harum vero, officiis ipsam magnam obcaecati cumque maxime inventore
+                      repudiandae quidem necessitatibus rem atque.</p>
                   </div>
                 </a>
-              </div>
-
-              <div class="swiper-slide">
-                <a routerLink="post/1" class="img-bg d-flex align-items-end" style="background-image: url('assets/img/post-slide-3.jpg');">
+              </ng-template
+              >
+              <ng-template swiperSlide>
+                <a routerLink="post/1" class="img-bg d-flex align-items-end"
+                   style="background-image: url('assets/img/post-slide-3.jpg');">
                   <div class="img-bg-inner">
                     <h2>13 Amazing Poems from Shel Silverstein with Valuable Life Lessons</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quidem neque est mollitia! Beatae minima assumenda repellat harum vero, officiis ipsam magnam obcaecati cumque maxime inventore repudiandae quidem necessitatibus rem atque.</p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quidem neque est mollitia! Beatae
+                      minima assumenda repellat harum vero, officiis ipsam magnam obcaecati cumque maxime inventore
+                      repudiandae quidem necessitatibus rem atque.</p>
                   </div>
                 </a>
-              </div>
-
-              <div class="swiper-slide">
-                <a routerLink="post/1" class="img-bg d-flex align-items-end" style="background-image: url('assets/img/post-slide-4.jpg');">
+              </ng-template>
+              <ng-template swiperSlide>
+                <a routerLink="post/1" class="img-bg d-flex align-items-end"
+                   style="background-image: url('assets/img/post-slide-4.jpg');">
                   <div class="img-bg-inner">
                     <h2>9 Half-up/half-down Hairstyles for Long and Medium Hair</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quidem neque est mollitia! Beatae minima assumenda repellat harum vero, officiis ipsam magnam obcaecati cumque maxime inventore repudiandae quidem necessitatibus rem atque.</p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quidem neque est mollitia! Beatae
+                      minima assumenda repellat harum vero, officiis ipsam magnam obcaecati cumque maxime inventore
+                      repudiandae quidem necessitatibus rem atque.</p>
                   </div>
                 </a>
-              </div>
-            </div>
-            <div class="custom-swiper-button-next">
-              <span class="bi-chevron-right"></span>
-            </div>
-            <div class="custom-swiper-button-prev">
-              <span class="bi-chevron-left"></span>
-            </div>
+              </ng-template>
 
-            <div class="swiper-pagination"></div>
+            </swiper>
+
           </div>
         </div>
       </div>
@@ -74,7 +84,8 @@
         <div *ngFor="let item of data" class="col-lg-3 post-entry-1">
           <a [routerLink]="['/post', item?.id]"><img src="assets/img/post-landscape-5.jpg" alt="" class="img-fluid"></a>
           <div class="post-meta">
-            <span class="date">{{item?.v}} </span> <span class="mx-1">&bullet;</span> <span>{{item?.p}}<sup>{{item?.s}}</sup> <span class="mx-1">&bullet;</span> </span>
+            <span class="date">{{item?.v}} </span> <span class="mx-1">&bullet;</span> <span>{{item?.p}}
+            <sup>{{item?.s}}</sup> <span class="mx-1">&bullet;</span> </span>
             <span class="date">{{item?.l}} </span> | <span>{{item?.bn}}</span>
           </div>
           <h2><a [routerLink]="['/post', item?.id]">{{item?.t}}</a></h2>
@@ -93,7 +104,8 @@
         <div *ngFor="let item of data" class="col-lg-3 post-entry-1">
           <a [routerLink]="['/kids', item?.id]"><img src="assets/img/post-landscape-5.jpg" alt="" class="img-fluid"></a>
           <div class="post-meta">
-            <span class="date">{{item?.v}} </span> <span class="mx-1">&bullet;</span> <span>{{item?.p}}<sup>{{item?.s}}</sup> <span class="mx-1">&bullet;</span> </span>
+            <span class="date">{{item?.v}} </span> <span class="mx-1">&bullet;</span> <span>{{item?.p}}
+            <sup>{{item?.s}}</sup> <span class="mx-1">&bullet;</span> </span>
             <span class="date">{{item?.l}} </span> | <span>{{item?.bn}}</span>
           </div>
           <h2><a [routerLink]="['/kids', item?.id]">{{item?.t}}</a></h2>
@@ -110,9 +122,11 @@
       </div>
       <div class="row g-5">
         <div *ngFor="let item of dataRabbiVersion" class="col-lg-3 post-entry-1">
-          <a [routerLink]="['/rabbi-version', item?.id]"><img src="assets/img/post-landscape-5.jpg" alt="" class="img-fluid"></a>
+          <a [routerLink]="['/rabbi-version', item?.id]"><img src="assets/img/post-landscape-5.jpg" alt=""
+                                                              class="img-fluid"></a>
           <div class="post-meta">
-            <span class="date">{{item?.V}} </span> <span class="mx-1">&bullet;</span> <span>{{item?.P}}<sup>{{item?.S}}</sup> <span class="mx-1">&bullet;</span> </span>
+            <span class="date">{{item?.V}} </span> <span class="mx-1">&bullet;</span> <span>{{item?.P}}
+            <sup>{{item?.S}}</sup> <span class="mx-1">&bullet;</span> </span>
             <span class="date">{{item?.L}} </span> | <span>{{item?.q}}</span>
           </div>
           <h2><a [routerLink]="['/rabbi-version', item?.id]">{{item?.T}}</a></h2>
@@ -139,8 +153,6 @@
       </div>
     </div>
   </section>
-
-
 
 
 </main><!-- End #main -->

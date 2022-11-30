@@ -4,6 +4,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ModalDirective} from "ngx-bootstrap/modal";
 import {DeleteModalComponent} from "../../shared/utils/delete-modal/delete-modal.component";
 import {RequestService} from "../../shared/service/request.service";
+import {Users} from "../../shared/models/users";
 
 @Component({
   selector: 'app-users',
@@ -12,8 +13,8 @@ import {RequestService} from "../../shared/service/request.service";
 })
 export class UsersComponent implements OnInit {
 
-  url: string = `${environment.admin.users.get}`;
-  data: any;
+  url: any = `${environment.admin.users.get}`;
+  data: Users[] = [];
   paginationConfig: any;
   viewData: any;
   form: any = FormGroup;

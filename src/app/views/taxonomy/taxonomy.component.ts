@@ -4,6 +4,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ModalDirective} from "ngx-bootstrap/modal";
 import {DeleteModalComponent} from "../../shared/utils/delete-modal/delete-modal.component";
 import {RequestService} from "../../shared/service/request.service";
+import {Taxonomy} from "../../shared/models/taxonomy";
 
 @Component({
   selector: 'app-taxonomy',
@@ -13,7 +14,7 @@ import {RequestService} from "../../shared/service/request.service";
 export class TaxonomyComponent implements OnInit {
 
   url: any = `${environment.admin.taxonomy.get}`;
-  data: any;
+  data: Taxonomy[] = [];
   paginationConfig: any;
   viewData: any;
   form: any = FormGroup;

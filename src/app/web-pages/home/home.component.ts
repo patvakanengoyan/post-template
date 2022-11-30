@@ -2,6 +2,11 @@ import {Component, ElementRef, OnInit} from '@angular/core';
 import {RequestService} from "../../shared/service/request.service";
 import {FormBuilder} from "@angular/forms";
 import {environment} from "../../../environments/environment";
+// import Swiper core and required modules
+import SwiperCore, { Navigation, Pagination, Scrollbar, A11y } from 'swiper';
+
+// install Swiper modules
+SwiperCore.use([Navigation, Pagination, Scrollbar, A11y]);
 
 @Component({
   selector: 'app-home',
