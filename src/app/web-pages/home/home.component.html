@@ -10,10 +10,13 @@
         <div class="col-12">
           <div class="swiper sliderFeaturedPosts">
             <swiper
-              [pagination]="{dynamicBullets: true}"
+              [pagination]="{ clickable: true}"
               [navigation]="true"
               [loop]="true"
-              class="mySwiper"
+              [autoplay]="{
+                delay: 2500,
+                disableOnInteraction: false
+              }"
             >
               <ng-template swiperSlide>
                 <a routerLink="post/1" class="img-bg d-flex align-items-end"
