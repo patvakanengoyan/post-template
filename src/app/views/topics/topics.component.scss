@@ -1,1 +1,4 @@
 @import "../../../assets/css/multiselect-dropdown.css";
+::ng-deep .arrow-down, ::ng-deep .arrow-up {
+  display: none;
+}

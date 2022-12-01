@@ -76,11 +76,6 @@ const routes: Routes = [
         loadChildren: () =>
         import('./web-pages/contact/contact.module').then((m) => m.ContactModule)
     },
-    // {
-    //   path: '',
-    //   redirectTo: 'admin/dashboard',
-    //   pathMatch: 'full'
-    // },
     {
       path: '',
       component: DefaultLayoutComponent,
@@ -89,11 +84,6 @@ const routes: Routes = [
         title: 'Home'
       },
       children: [
-        {
-          path: 'admin/dashboard',
-          loadChildren: () =>
-            import('./views/dashboard/dashboard.module').then((m) => m.DashboardModule)
-        },
         {
           path: 'admin/posts',
           loadChildren: () =>
@@ -104,11 +94,6 @@ const routes: Routes = [
           loadChildren: () =>
             import('./views/slider/slider.module').then((m) => m.SliderModule)
         },
-        // {
-        //   path: 'admin/category',
-        //   loadChildren: () =>
-        //     import('./views/categories/categories.module').then((m) => m.CategoriesModule)
-        // },
         {
           path: 'pages',
           loadChildren: () =>
