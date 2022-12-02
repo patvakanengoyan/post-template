@@ -13,17 +13,17 @@ import {Users} from "../../shared/models/users";
 })
 export class UsersComponent implements OnInit {
 
-  url: any = `${environment.admin.users.get}`;
-  data: Users[] = [];
-  paginationConfig: any;
-  viewData: any;
-  form: any = FormGroup;
+  public url: string = `${environment.admin.users.get}`;
+  public data: Users[] = [];
+  public paginationConfig: any;
+  public viewData!: Users;
+  public form: any;
   itemId!: number;
   @ViewChild('autoShownModal', { static: false }) autoShownModal?: ModalDirective;
   @ViewChild(DeleteModalComponent) private modal!: DeleteModalComponent;
   isModalShown = false;
-  requestType: any;
-  editImagePath: any;
+  requestType: string = '';
+  editImagePath: string | undefined = '';
   constructor(public requestService: RequestService,
               public fb: FormBuilder) { }
 
@@ -34,10 +34,10 @@ export class UsersComponent implements OnInit {
       last_name: ['', Validators.required],
       email: ['', Validators.required],
       role: ['', Validators.required],
-      image: ['', Validators.required],
+      image: [''],
       status: [''],
-      password: ['', Validators.required],
-      password_confirmation: ['', Validators.required],
+      password: [''],
+      password_confirmation: [''],
     },{validator: this.matchingPasswords('password', 'password_confirmation')})
   }
 
@@ -48,7 +48,7 @@ export class UsersComponent implements OnInit {
   }
 
   getById(id) {
-    this.requestService.getData(this.url + '/' + id ).subscribe((res) => {
+    this.requestService.getData(this.url + '/' + id ).subscribe((res: any) => {
       this.viewData = res;
       this.form.patchValue({
         first_name: res[0].first_name,
@@ -67,9 +67,10 @@ export class UsersComponent implements OnInit {
     if (type === 'view') {
       this.getById(id)
     } else if (type === 'edit') {
-      this.getById(id)
+      this.getById(id);
+        this.setValidation();
     } else if (type === 'add') {
-
+        this.setValidation();
     }
   }
 
@@ -87,29 +88,23 @@ export class UsersComponent implements OnInit {
     form.status = form.status ? 1 : 0;
     let url = this.url;
     let data = new FormData();
+      for (let key in form) {
+        if (this.form.value[key]) {
+            if (key == 'image' && this.form.value[key]) {
+                data.append(key, this.form.value[key]);
+            } else {
+                data.append(key, this.form.value[key]);
+            }
+        }
+      }
     if (this.requestType == 'edit') {
       url = `${this.url}/${this.itemId}`;
       data.append('_method', 'PUT');
-      for (let key in form) {
-        if (key == 'image' && this.form.value[key]) {
-            data.append(key, this.form.value[key]);
-        } else {
-          data.append(key, this.form.value[key]);
-        }
-      }
-    } else if (this.requestType == 'add') {
-      for (let key in form) {
-          if (key == 'image' && this.form.value[key]) {
-              data.append(key, this.form.value[key]);
-          } else {
-          data.append(key, this.form.value[key]);
-        }
-      }
-      this.requestService.createData(url, data).subscribe((res) => {
+    }
+    this.requestService.createData(url, data).subscribe((res) => {
         this.hideModal();
         this.getData(this.url);
-      })
-    }
+    })
   }
 
   deleteItem(id) {
@@ -127,6 +122,21 @@ export class UsersComponent implements OnInit {
         return passwordConfirmation.setErrors({mismatchedPasswords: true})
       }
     }
+  }
+
+  setValidation () {
+    if (this.requestType == 'edit') {
+      this.form.get('password_confirmation').clearValidators();
+      this.form.get('password').clearValidators();
+      this.form.get('image').clearValidators();
+    } else {
+        this.form.get('password_confirmation').setValidators([Validators.required]);
+        this.form.get('password').setValidators([Validators.required]);
+        this.form.get('image').setValidators([Validators.required]);
+    }
+      this.form.get('password_confirmation').updateValueAndValidity();
+      this.form.get('password').updateValueAndValidity();
+      this.form.get('image').updateValueAndValidity();
   }
 
 

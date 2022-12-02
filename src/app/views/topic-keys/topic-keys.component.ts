@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {environment} from "../../../environments/environment.prod";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {AbstractControl, FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ModalDirective} from "ngx-bootstrap/modal";
 import {DeleteModalComponent} from "../../shared/utils/delete-modal/delete-modal.component";
 import {RequestService} from "../../shared/service/request.service";
@@ -13,16 +13,16 @@ import {TopicKeys} from "../../shared/models/topic-keys";
 })
 export class TopicKeysComponent implements OnInit {
 
-  url: any = `${environment.admin.topic_keys.get}`;
-  data: TopicKeys[] = [];
-  paginationConfig: any;
-  viewData: any;
-  form: any = FormGroup;
-  itemId!: number;
   @ViewChild('autoShownModal', {static: false}) autoShownModal?: ModalDirective;
   @ViewChild(DeleteModalComponent) private modal!: DeleteModalComponent;
-  isModalShown = false;
-  requestType: any;
+  public url: string = `${environment.admin.topic_keys.get}`;
+  public data: TopicKeys[] = [];
+  public paginationConfig: any;
+  public viewData: any;
+  public form: any = FormGroup;
+  public itemId!: number;
+  public isModalShown: boolean = false;
+  public requestType: string = '';
 
   constructor(public requestService: RequestService,
               public fb: FormBuilder) {
@@ -92,7 +92,7 @@ export class TopicKeysComponent implements OnInit {
       let value = {
         lang_code: 'en',
         name: form.name
-      }
+      };
       this.requestService.createData(`${this.url}/create`, value).subscribe((res) => {
         this.hideModal();
         this.getData(this.url);
@@ -103,11 +103,18 @@ export class TopicKeysComponent implements OnInit {
   /*
    Delete item from data
   */
-  deleteItem(id) {
+  deleteItem(id: number): void {
     this.requestService.delete(this.url, id + '/delete').subscribe((item) => {
       this.getData(this.url);
       this.modal.modalRef.hide();
     })
+  }
+
+  hasError (control: AbstractControl): boolean {
+    if (control?.invalid && (control?.dirty || control?.touched)) {
+      return true;
+    }
+    return false;
   }
 
 

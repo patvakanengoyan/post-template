@@ -13,22 +13,17 @@ import {Taxonomy} from "../../shared/models/taxonomy";
 })
 export class TaxonomyComponent implements OnInit {
 
-  url: any = `${environment.admin.taxonomy.get}`;
-  data: Taxonomy[] = [];
-  paginationConfig: any;
-  viewData: any;
-  form: any = FormGroup;
-  itemId!: number;
   @ViewChild('autoShownModal', {static: false}) autoShownModal?: ModalDirective;
   @ViewChild(DeleteModalComponent) private modal!: DeleteModalComponent;
-  isModalShown = false;
-  requestType: any;
-  imageValue: any;
-  editImagePath: any;
-  imagePath: any;
-  image: any;
-  file: any;
-  guid: any;
+  public url: string = `${environment.admin.taxonomy.get}`;
+  public data: Taxonomy[] = [];
+  public paginationConfig: any;
+  public viewData: any;
+  public form: any = FormGroup;
+  private itemId!: number;
+  public isModalShown: boolean = false;
+  public requestType: string = '';
+  private guid: any = '';
 
   constructor(public requestService: RequestService,
               public fb: FormBuilder) {
@@ -74,15 +69,13 @@ export class TaxonomyComponent implements OnInit {
    */
   showModal(id, type, item?): void {
     this.isModalShown = true;
-    this.requestType = type
+    this.requestType = type;
     this.itemId = item ? item.id : null;
     this.guid = '';
     if (type === 'view') {
       this.viewData = item;
     } else if (type === 'edit') {
       this.getById(item)
-    } else if (type === 'add') {
-
     } else if (type === 'add_translate') {
       this.getById(item)
       this.guid = item.guid;
@@ -110,7 +103,7 @@ export class TaxonomyComponent implements OnInit {
       "guid": this.guid
     }
     if (this.requestType == 'add') {
-      delete data.guid;
+      delete data['guid'];
     }
     if (this.requestType == 'edit') {
       this.requestService.updateData(this.url, data, this.itemId + '/update').subscribe((res) => {

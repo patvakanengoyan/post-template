@@ -94,24 +94,27 @@
                   <label for="title" [ngClass]="(form.controls.title?.invalid &&
         (form.controls.title?.dirty || form.controls.title?.touched)) ? 'invalid-label-color' : ''">Title *</label>
                   <input type="text" class="form-control" formControlName="title" id="title">
-                  <div *ngIf="!form.controls.title?.valid && (form.controls.title?.dirty || form.controls.title?.touched)">
+                  <div *ngIf="form.get('title')?.hasError('required') && (form.controls.title?.dirty || form.controls.title?.touched)">
                     <span class="error-message">The title is required</span>
                   </div>
                 </div>
                 <div class="col-6 mb-3">
-                  <label for="type">Type</label>
+                  <label for="type" [ngClass]="{'invalid-label-color': form.get('type')?.invalid && (form.get('type')?.dirty || form.get('type')?.touched)}">Type</label>
                   <angular2-multiselect [data]="type"
                                         [settings]="monoSelect"
                                         formControlName="type"
                   >
                   </angular2-multiselect>
+                  <div *ngIf="form.get('type')?.hasError('required') && (form.get('type')?.dirty || form.get('type')?.touched)">
+                    <span class="error-message">The type is required</span>
+                  </div>
                 </div>
                 <div class="mb-3">
                   <label for="description" [ngClass]="(form.controls.description?.invalid &&
         (form.controls.description?.dirty || form.controls.description?.touched)) ? 'invalid-label-color' : ''">Description * </label>
                   <ckeditor id="description" [editor]="Editor" [config]='config'
                             [formControlName]="'description'"></ckeditor>
-                  <div *ngIf="!form.controls.description?.valid && (form.controls.description?.dirty || form.controls.description?.touched)">
+                  <div *ngIf="form.get('description')?.hasError('required') && (form.get('description')?.dirty || form.get('description')?.touched)">
                     <span class="error-message">The description is required</span>
                   </div>
                 </div>
@@ -144,8 +147,8 @@
                   <label for="title" [ngClass]="(form.controls.volume_number?.invalid &&
         (form.controls.volume_number?.dirty || form.controls.volume_number?.touched)) ? 'invalid-label-color' : ''">Volume number </label>
                   <input type="text" class="form-control" formControlName="volume_number" id="volume_number">
-                  <div *ngIf="!form.controls.volume_number?.valid && (form.controls.volume_number?.dirty || form.controls.volume_number?.touched)">
-                    <span class="error-message">The volume number is required</span>
+                  <div *ngIf="form.get('volume_number')?.hasError('pattern') && (form.controls.volume_number?.dirty || form.controls.volume_number?.touched)">
+                    <span class="error-message">The volume number must be only number</span>
                   </div>
                 </div>
                 <div class="col-3 mb-3">
@@ -153,15 +156,15 @@
         (form.controls.letter?.dirty || form.controls.letter?.touched)) ? 'invalid-label-color' : ''">Letter </label>
                   <input type="text" class="form-control" formControlName="letter" id="letter">
                   <div *ngIf="!form.controls.letter?.valid && (form.controls.letter?.dirty || form.controls.letter?.touched)">
-                    <span class="error-message">The letter is required</span>
+                    <span class="error-message">The letter must be maximum 3 symbol and only a-z characters</span>
                   </div>
                 </div>
                 <div class="col-3 mb-3">
                   <label for="page" [ngClass]="(form.controls.page?.invalid &&
         (form.controls.page?.dirty || form.controls.page?.touched)) ? 'invalid-label-color' : ''">Page </label>
                   <input type="text" class="form-control" formControlName="page" id="page">
-                  <div *ngIf="!form.controls.page?.valid && (form.controls.page?.dirty || form.controls.page?.touched)">
-                    <span class="error-message">The page is required</span>
+                  <div *ngIf="form.get('page')?.hasError('pattern') && (form.controls.page?.dirty || form.controls.page?.touched)">
+                    <span class="error-message">The page must be only number</span>
                   </div>
                 </div>
                 <div class="col-3 mb-3">
@@ -169,7 +172,7 @@
         (form.controls.slice_of_page?.dirty || form.controls.slice_of_page?.touched)) ? 'invalid-label-color' : ''">Slice of page </label>
                   <input type="text" class="form-control" formControlName="slice_of_page" id="slice_of_page">
                   <div *ngIf="!form.controls.slice_of_page?.valid && (form.controls.slice_of_page?.dirty || form.controls.slice_of_page?.touched)">
-                    <span class="error-message">The slice of page is required</span>
+                    <span class="error-message">The letter must be minimum 2 symbol and only number</span>
                   </div>
                 </div>
                 <div class="col-3 mb-3">
