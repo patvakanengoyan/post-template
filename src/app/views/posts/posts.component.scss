@@ -14,3 +14,13 @@
 ::ng-deep .mat-chip-list-wrapper .mat-standard-chip {
   margin: 0 4px 4px 4px !important;
 }
+table tr td > span {
+  display: inline-block;
+  max-width: 220px;
+  width: auto;
+  white-space: nowrap;
+  overflow: hidden!important;
+  text-overflow: ellipsis;
+  top: 4px;
+  position: relative;
+}

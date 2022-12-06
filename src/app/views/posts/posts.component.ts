@@ -13,6 +13,7 @@ import {MatChipInputEvent} from "@angular/material/chips";
 import {MatAutocomplete, MatAutocompleteSelectedEvent} from "@angular/material/autocomplete";
 import {map} from "rxjs/operators";
 import {forkJoin} from "rxjs";
+import {DomSanitizer} from "@angular/platform-browser";
 
 @Component({
     selector: 'app-posts',
@@ -55,9 +56,11 @@ export class PostsComponent implements OnInit {
         {id: 'Pieces', itemName: 'Pieces'},
         {id: 'June2020', itemName: 'June2020'},
     ];
+    desc: any;
 
     constructor(public requestService: RequestService,
-                public fb: FormBuilder) {
+                public fb: FormBuilder,
+                public sanitizer: DomSanitizer) {
         this.filteredtags = this.tagCtrl.valueChanges.pipe(
             startWith(null),
             map((tag: string | null) => (tag ? this._filter(tag) : this.alltags.slice())),
@@ -117,8 +120,10 @@ export class PostsComponent implements OnInit {
      */
     getById(id) {
         this.requestService.getData(this.url + '/' + id).subscribe((res: any) => {
-            this.viewData = res[0];
-            if (this.requestType == 'edit') {
+          this.viewData = res[0];
+          this.desc = this.sanitizer.bypassSecurityTrustHtml(this.viewData.description);
+
+          if (this.requestType == 'edit') {
                 let topics = [] as any;
                 for (let i = 0; i < this.viewData.topics.length; i++) {
                     topics.push({
