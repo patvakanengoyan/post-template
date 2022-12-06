@@ -111,7 +111,7 @@ export class RefreshTokenService {
   /*logout function*/
   logoutUser() {
     if (!this.requestService.userLastName) {
-      this.router.navigate(['/login']).then(r => console.log(r));
+      this.router.navigate(['/login']);
       localStorage.removeItem('access_token');
     } else {
       this.router.navigate(['/']);

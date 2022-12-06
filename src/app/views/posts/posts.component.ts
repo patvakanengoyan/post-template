@@ -258,16 +258,22 @@ export class PostsComponent implements OnInit {
     onSubmit(form: any) {
         let url = this.requestType == 'edit' ? this.url + '/' + this.viewData.id : this.url;
         let data = new FormData();
-        for (let i = 0; i < this.form.value['topics'].length; i++) {
+        if (this.form.value['topics']) {
+          for (let i = 0; i < this.form.value['topics'].length; i++) {
             data.append(`topics[${[i]}]`, this.form.value['topics'][i].id);
+          }
         }
-        for (let i = 0; i < this.form.value['taxonomies'].length; i++) {
+        if (this.form.value['taxonomies']) {
+          for (let i = 0; i < this.form.value['taxonomies'].length; i++) {
             data.append(`taxonomies[${[i]}]`, this.form.value['taxonomies'][i].id);
+          }
         }
         if (this.form.value['image']) {
             data.append('image', form.image);
         }
-        data.append('volume', this.form.value['volume'][0].id);
+        if (this.form.value['volume']) {
+          data.append('volume', this.form.value['volume'][0].id);
+        }
         data.append('volume_number', form.volume_number);
         data.append('letter', form.letter);
         data.append('page', form.page);

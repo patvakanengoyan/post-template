@@ -13,6 +13,7 @@
           <thead>
           <tr>
             <th scope="col">Title</th>
+            <th scope="col">Type</th>
             <th scope="col">Letter</th>
             <th scope="col">Page</th>
             <th scope="col">Color</th>
@@ -26,6 +27,7 @@
               <span cTooltip="{{item.title}}" class="cursor-pointer"
                     (click)="showModal(item.id, 'view')">{{item.title}}</span>
             </td>
+            <td>{{item?.type}}</td>
             <td>{{item?.letter}}</td>
             <td>{{item?.page}}</td>
             <td>
