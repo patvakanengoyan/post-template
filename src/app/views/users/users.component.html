@@ -19,15 +19,16 @@
           </thead>
           <tbody>
           <tr *ngFor="let item of data">
-            <td>
-              <img src="{{this.requestService.imgSite + item?.image?.url}}" alt="" style="width: 35px; max-height: 50px;">
+            <td (click)="showModal(item.id, 'view')" class="cursor-pointer">
+              <img src="{{this.requestService.imgSite + item?.image?.url}}"
+                   alt="img" style="width: 35px; max-height: 50px;" class="cursor-pointer">
             </td>
             <td>{{item?.first_name}}</td>
             <td>{{item?.last_name}}</td>
             <td>{{item?.email}}</td>
             <td>
               <c-form-check [switch]="item?.status">
-                <input cFormCheckInput checked type="checkbox" />
+                <input cFormCheckInput [checked]="item.status" type="checkbox" />
               </c-form-check>
             </td>
             <td class="actions">
@@ -66,10 +67,15 @@
       <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)" class="data_form">
 
         <div class="modal-body">
-          <div *ngIf="requestType == 'view'">
-            <p>I am a modal that is shown right after initialization!</p>
-            <p>I wasn't present in DOM until you clicked the button</p>
-            <p>When you close me, I'll be removed from the DOM</p>
+          <div *ngIf="requestType == 'view' && viewData">
+            <img style="max-width: 300px; max-height: 350px;" src="{{this.requestService.imgSite + viewData[0].image?.url}}"
+                 alt="img">
+            <div>
+              <p><b>First name: </b>{{viewData[0].first_name}}</p>
+              <p><b>Last name: </b>{{viewData[0].last_name}}</p>
+              <p><b>Email: </b>{{viewData[0].email}}</p>
+              <p><b>Status: </b>{{viewData[0].status == 1 ? 'Active' : 'Inactive'}}</p>
+            </div>
           </div>
           <div *ngIf="requestType == 'edit' || requestType == 'add'">
             <div class="container-md" data-aos="fade-in">
