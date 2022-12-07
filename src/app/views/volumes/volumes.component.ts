@@ -91,12 +91,12 @@ export class VolumesComponent implements OnInit {
         if (this.requestType == 'edit') {
             this.requestService.updateData(this.url, data, this.itemId + '/update').subscribe((res) => {
                 this.hideModal();
-                this.getData(this.url);
+                this.getData(`${this.url}?page=${this.paginationConfig?.current_page}`);
             })
         } else if (this.requestType == 'add') {
             this.requestService.createData(`${this.url}/create`, data).subscribe((res) => {
                 this.hideModal();
-                this.getData(this.url);
+                this.getData(`${this.url}?page=${this.paginationConfig?.current_page}`);
             })
         }
     }
@@ -106,7 +106,7 @@ export class VolumesComponent implements OnInit {
      */
     deleteItem(id) {
         this.requestService.delete(this.url, id + '/delete').subscribe((res) => {
-            this.getData(this.url);
+            this.getData(`${this.url}?page=${this.paginationConfig?.current_page}`);
             this.modal.modalRef.hide();
         })
     }

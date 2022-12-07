@@ -86,7 +86,7 @@ export class TopicKeysComponent implements OnInit {
     if (this.requestType == 'edit') {
       this.requestService.updateData(`${this.url}/${this.itemId}`, form, 'update').subscribe((res) => {
         this.hideModal();
-        this.getData(this.url);
+        this.getData(`${this.url}?page=${this.paginationConfig?.current_page}`);
       })
     } else if (this.requestType == 'add') {
       let value = {
@@ -95,7 +95,7 @@ export class TopicKeysComponent implements OnInit {
       };
       this.requestService.createData(`${this.url}/create`, value).subscribe((res) => {
         this.hideModal();
-        this.getData(this.url);
+        this.getData(`${this.url}?page=${this.paginationConfig?.current_page}`);
       })
     }
   }
@@ -105,7 +105,7 @@ export class TopicKeysComponent implements OnInit {
   */
   deleteItem(id: number): void {
     this.requestService.delete(this.url, id + '/delete').subscribe((item) => {
-      this.getData(this.url);
+      this.getData(`${this.url}?page=${this.paginationConfig?.current_page}`);
       this.modal.modalRef.hide();
     })
   }

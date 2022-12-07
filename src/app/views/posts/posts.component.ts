@@ -292,7 +292,7 @@ export class PostsComponent implements OnInit {
             data.append('_method', 'PUT');
         }
         this.requestService.createData(url, data).subscribe((res) => {
-            this.getData(this.url);
+            this.getData(`${this.url}?page=${this.paginationConfig?.current_page}`);
             this.hideModal();
         });
     }
@@ -303,7 +303,7 @@ export class PostsComponent implements OnInit {
     deleteItem(id) {
         this.modal.modalRef.hide();
         this.requestService.delete(this.url, id).subscribe((res) => {
-            this.getData(this.url);
+            this.getData(`${this.url}?page=${this.paginationConfig?.current_page}`);
             this.hideModal();
         })
     }

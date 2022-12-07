@@ -103,13 +103,13 @@ export class UsersComponent implements OnInit {
     }
     this.requestService.createData(url, data).subscribe((res) => {
         this.hideModal();
-        this.getData(this.url);
+        this.getData(`${this.url}?page=${this.paginationConfig?.current_page}`);
     })
   }
 
   deleteItem(id) {
     this.requestService.delete(this.url, id).subscribe((item) => {
-      this.getData(this.url);
+      this.getData(`${this.url}?page=${this.paginationConfig?.current_page}`);
       this.modal.modalRef.hide();
     })
   }

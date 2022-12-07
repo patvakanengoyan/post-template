@@ -61,12 +61,12 @@
 </c-row>
 <div *ngIf="isModalShown" [config]="{ show: true }" (onHidden)="hideModal()" bsModal #autoShownModal="bs-modal"
      class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-auto-name">
-  <div class="modal-dialog modal-lg">
+  <div class="modal-dialog" [ngClass]="{'my-modal-width': requestType == 'add' || requestType == 'edit' ? true: false}">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 *ngIf="requestType == 'view'" class="modal-title pull-left">View</h4>
-        <h4 *ngIf="requestType == 'edit'" class="modal-title pull-left">Edit</h4>
-        <h4 *ngIf="requestType == 'add'" class="modal-title pull-left">Add</h4>
+        <h4 *ngIf="requestType == 'view'" class="modal-title pull-left">View Post</h4>
+        <h4 *ngIf="requestType == 'edit'" class="modal-title pull-left">Edit Post</h4>
+        <h4 *ngIf="requestType == 'add'" class="modal-title pull-left">Add Post</h4>
         <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="hideModal()">
           <span aria-hidden="true" class="visually-hidden">&times;</span>
         </button>
@@ -92,7 +92,7 @@
           <div *ngIf="requestType == 'edit' || requestType == 'add'">
             <div class="container-md" data-aos="fade-in">
               <div class="row">
-                <div class="col-6 mb-3">
+                <div class="col-4 mb-3">
                   <label for="title" [ngClass]="(form.controls.title?.invalid &&
         (form.controls.title?.dirty || form.controls.title?.touched)) ? 'invalid-label-color' : ''">Title *</label>
                   <input type="text" class="form-control" formControlName="title" id="title">
@@ -100,8 +100,8 @@
                     <span class="error-message">The title is required</span>
                   </div>
                 </div>
-                <div class="col-6 mb-3">
-                  <label for="type" [ngClass]="{'invalid-label-color': form.get('type')?.invalid && (form.get('type')?.dirty || form.get('type')?.touched)}">Type</label>
+                <div class="col-4 mb-3">
+                  <label for="type" [ngClass]="{'invalid-label-color': form.get('type')?.invalid && (form.get('type')?.dirty || form.get('type')?.touched)}">Type *</label>
                   <angular2-multiselect [data]="type"
                                         [settings]="monoSelect"
                                         formControlName="type"
@@ -110,6 +110,14 @@
                   <div *ngIf="form.get('type')?.hasError('required') && (form.get('type')?.dirty || form.get('type')?.touched)">
                     <span class="error-message">The type is required</span>
                   </div>
+                </div>
+                <div class="col-4 mb-3">
+                  <label for="topics">Topics</label>
+                  <angular2-multiselect [data]="topicList"
+                                        [settings]="multiSelect"
+                                        formControlName="topics"
+                  >
+                  </angular2-multiselect>
                 </div>
                 <div class="mb-3">
                   <label for="description" [ngClass]="(form.controls.description?.invalid &&
@@ -121,7 +129,7 @@
                   </div>
                 </div>
 
-                <div class="col-6 mb-3">
+                <div class="col-12 mb-3">
                   <label for="taxonomies">Taxonomies</label>
                   <angular2-multiselect [data]="taxonomyList"
                                         [settings]="multiSelect"
@@ -134,14 +142,6 @@
                   <angular2-multiselect [data]="volumesList"
                                         [settings]="monoSelect"
                                         formControlName="volume"
-                  >
-                  </angular2-multiselect>
-                </div>
-                <div class="col-6 mb-3">
-                  <label for="topics">Topics</label>
-                  <angular2-multiselect [data]="topicList"
-                                        [settings]="multiSelect"
-                                        formControlName="topics"
                   >
                   </angular2-multiselect>
                 </div>
@@ -169,7 +169,7 @@
                     <span class="error-message">The page must be only number</span>
                   </div>
                 </div>
-                <div class="col-3 mb-3">
+                <div class="col-2 mb-3">
                   <label for="slice_of_page" [ngClass]="(form.controls.slice_of_page?.invalid &&
         (form.controls.slice_of_page?.dirty || form.controls.slice_of_page?.touched)) ? 'invalid-label-color' : ''">Slice of page </label>
                   <input type="text" class="form-control" formControlName="slice_of_page" id="slice_of_page">
@@ -177,13 +177,19 @@
                     <span class="error-message">The letter must be minimum 2 symbol and only number</span>
                   </div>
                 </div>
-                <div class="col-3 mb-3">
+                <div class="col-2 mb-3">
                   <label for="page" [ngClass]="(form.controls.color?.invalid &&
         (form.controls.color?.dirty || form.controls.color?.touched)) ? 'invalid-label-color' : ''">Color </label>
                   <input type="text" class="form-control" formControlName="color" id="color">
                   <div *ngIf="!form.controls.color?.valid && (form.controls.color?.dirty || form.controls.color?.touched)">
                     <span class="error-message">The color is required</span>
                   </div>
+                </div>
+                <div class="col-2 mb-3">
+                  <label for="status">Status</label>
+                  <c-form-check [switch]="true" class="form-control border-0">
+                    <input cFormCheckInput type="checkbox" id="status" formControlName="status"/>
+                  </c-form-check>
                 </div>
                 <!--<div class="col-6 mb-3">-->
                   <!--<label for="description">Select Tag</label>-->
@@ -229,12 +235,6 @@
 <!--                  <label for="image">Image *</label>-->
 <!--                  <input type="file" class="form-control" (change)="onChangeInput($event)" formControlName="image"-->
 <!--                         id="image">-->
-                </div>
-                <div class="col-6 mb-3">
-                  <label for="status">Status</label>
-                  <c-form-check [switch]="true" class="form-control border-0">
-                    <input cFormCheckInput type="checkbox" id="status" formControlName="status"/>
-                  </c-form-check>
                 </div>
               </div>
             </div>
