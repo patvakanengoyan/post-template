@@ -10,3 +10,13 @@
   position: absolute;
   top: 0
 }
+table tr td > span {
+  display: inline-block;
+  max-width: 220px;
+  width: auto;
+  white-space: nowrap;
+  overflow: hidden!important;
+  text-overflow: ellipsis;
+  top: 4px;
+  position: relative;
+}

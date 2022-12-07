@@ -21,7 +21,8 @@
           <tr *ngFor="let item of data">
             <td (click)="showModal(item.id, 'view')" class="cursor-pointer">
               <img src="{{this.requestService.imgSite + item?.image?.url}}"
-                   alt="img" style="width: 35px; max-height: 50px;" class="cursor-pointer">
+                   alt="img" style="width: 35px; max-height: 50px;"
+                   onError="this.src='assets/images/no-image.png'">
             </td>
             <td>{{item?.first_name}}</td>
             <td>{{item?.last_name}}</td>
@@ -108,10 +109,10 @@
                   <label for="role" [ngClass]="(form.controls.role?.invalid &&
                   (form.controls.role?.dirty || form.controls.role?.touched)) ? 'invalid-label-color' : ''">Role *</label>
                   <select class="form-select" formControlName="role" id="role">
-                    <option selected>Select Role</option>
-                    <option value="Admin">Admin</option>
-                    <option value="Moderator">Moderator</option>
-                    <option value="Viewer">Viewer</option>
+
+                    <option value="admin">Super Admin</option>
+                    <option value="administrator">Admin</option>
+                    <option value="moderator">Moderator</option>
                   </select>
                   <div *ngIf="!form.controls.role?.valid && (form.controls.role?.dirty || form.controls.role?.touched)">
                     <span class="error-message">The Role is required</span>
@@ -138,13 +139,6 @@
 
                 <div class="col-6">
                   <app-file-input  [control]="form.get('image')" [data]="{label: 'Image', editPath: editImagePath}" formControlName="image"></app-file-input>
-                  <!--<label for="password_confirmation" [ngClass]="(form.controls.image?.invalid &&-->
-                  <!--(form.controls.image?.dirty || form.controls.image?.touched)) ? 'invalid-label-color' : ''">Image *</label>-->
-                  <!--<input type="file" class="form-control" (change)="onChangeInput($event)" formControlName="image"-->
-                         <!--id="image">-->
-                  <!--<div *ngIf="form.get('image')?.valid && (form.get('image')?.dirty || form.get('image')?.touched)">-->
-                    <!--<span class="error-message">The Image is required</span>-->
-                  <!--</div>-->
                 </div>
 
 

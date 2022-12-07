@@ -32,8 +32,6 @@ export class AppInterceptor implements HttpInterceptor {
         return event;
       }),
       catchError((error: HttpErrorResponse) => {
-        const started = Date.now();
-        const elapsed = Date.now() - started;
         if (error.status == 400) {
           if (typeof error.error['message'] == 'string') {
             this.toastr.error(error.error['message']);

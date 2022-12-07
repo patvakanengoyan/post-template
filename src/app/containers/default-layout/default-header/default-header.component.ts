@@ -13,7 +13,7 @@ export class DefaultHeaderComponent extends HeaderComponent implements OnInit{
 
   @Input() sidebarId: string = "sidebar";
 
-  constructor(private requestService: RequestService,
+  constructor(public requestService: RequestService,
               private router: Router,
               private socketConnection: SocketConnectionService
               ) {
@@ -22,6 +22,7 @@ export class DefaultHeaderComponent extends HeaderComponent implements OnInit{
 
 
   ngOnInit() {
+    this.requestService.adminImage = localStorage.getItem('image');
     this.socketConnection.connect();
     this.requestService.getData(`${environment.chat.gateway}`).subscribe((res) => {
     })

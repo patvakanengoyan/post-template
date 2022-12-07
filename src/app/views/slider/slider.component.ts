@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {RequestService} from "../../shared/service/request.service";
 import {ModalDirective} from "ngx-bootstrap/modal";
@@ -15,37 +15,62 @@ export class SliderComponent implements OnInit {
   data: any;
   viewData: any;
   form: any = FormGroup;
-  @ViewChild('autoShownModal', { static: false }) autoShownModal?: ModalDirective;
+  @ViewChild('autoShownModal', {static: false}) autoShownModal?: ModalDirective;
   @ViewChild(DeleteModalComponent) private modal!: DeleteModalComponent;
   isModalShown = false;
   requestType: any;
+  editImagePath: any;
+  paginationConfig: any;
 
   constructor(public requestService: RequestService,
-              public fb: FormBuilder) { }
+              public fb: FormBuilder) {
+  }
 
+  /*
+    The callback method that is called immediately after the page is called.
+   */
   ngOnInit(): void {
-    this.getData();
+    this.getData(this.url);
     this.form = this.fb.group({
       title: ['', Validators.required],
       description: ['', Validators.required],
-      uri: ['', Validators.required],
       image: ['', Validators.required],
-      status: ['', Validators.required],
+      status: [''],
     })
   }
 
-  getData() {
-    this.requestService.getData(this.url).subscribe((res) => {
-      this.data = res;
+  /*
+    Get all data method
+  */
+  getData(url) {
+    this.requestService.getData(url).subscribe((res) => {
+      this.data = res['data'] ? res['data'] : res;
+      this.paginationConfig = res;
     })
   }
 
+  /*
+     Get data by id
+  */
   getById(id) {
-    this.requestService.getData(this.url + '/' + id ).subscribe((res) => {
-      this.viewData = res;
+    this.requestService.getData(this.url + '/' + id).subscribe((res) => {
+      this.viewData = res[0];
+      if (this.requestType == 'edit') {
+        this.editImagePath = this.viewData.image.url;
+        this.form.controls.image.clearValidators();
+        this.form.controls.image.updateValueAndValidity();
+        this.form.patchValue({
+          title: this.viewData.title,
+          description: this.viewData.description,
+          status: this.viewData.status
+        });
+      }
     })
   }
 
+  /*
+     Method for open modal
+  */
   showModal(id, type): void {
     this.isModalShown = true;
     this.requestType = type
@@ -58,39 +83,46 @@ export class SliderComponent implements OnInit {
     }
   }
 
+  /*
+     Method for hide modal
+  */
   hideModal(): void {
     this.autoShownModal?.hide();
-  }
-
-  onHidden(): void {
     this.isModalShown = false;
+    this.editImagePath = undefined;
     this.form.reset();
   }
 
-  onSubmit(form: any){
-    if (this.requestType == 'edit') {
-
-    } else if (this.requestType == 'add') {
-      let data = new FormData()
-      // for (let key in form) {
-      //   if (key == 'image') {
-      //     if (this.file) {
-      //       data.append(key, this.file);
-      //     }
-      //   }else if (key == 'categories') {
-      //     for (let item in this.form.value['categories']) {
-      //       data.append(`categories[${[item]}]`, this.form.value['categories'][item].id);
-      //     }
-      //   } else {
-      //     data.append(key, this.form.value[key]);
-      //   }
-      // }
+  /*
+     Send data method
+  */
+  onSubmit(form: any) {
+    let url = this.requestType == 'edit' ? this.url + '/' + this.viewData.id : this.url;
+    let data = new FormData();
+    if (this.form.value['image']) {
+      data.append('image', form.image);
     }
-    console.log(form);
+    data.append('translations[en][title]', form.title);
+    data.append('translations[en][description]', form.description);
+    data.append('status', form.status == true || form.status == '1' ? '1' : '0');
+    if (this.requestType == 'edit') {
+      data.append('_method', 'PUT');
+    }
+    this.requestService.createData(url, data).subscribe((res) => {
+      this.getData(`${this.url}?page=${this.paginationConfig?.current_page}`);
+      this.hideModal();
+    });
   }
 
+  /*
+     Delete item from data
+  */
   deleteItem(id) {
     this.modal.modalRef.hide();
+    this.requestService.delete(this.url, id).subscribe((res) => {
+      this.getData(`${this.url}?page=${this.paginationConfig?.current_page}`);
+      this.hideModal();
+    })
   }
 
 }

@@ -53,11 +53,11 @@ const routes: Routes = [
       loadChildren: () =>
         import('./web-pages/pieces/pieces.module').then((m) => m.PiecesModule)
     },
-    {
-        path: 'june2020',
-        loadChildren: () =>
-            import('./web-pages/june2020/june2020.module').then((m) => m.June2020Module)
-    },
+    // {
+    //     path: 'june2020',
+    //     loadChildren: () =>
+    //         import('./web-pages/june2020/june2020.module').then((m) => m.June2020Module)
+    // },
     {
       path: 'login',
       component: LoginComponent,
@@ -115,9 +115,9 @@ const routes: Routes = [
             import('./views/taxonomy/taxonomy.module').then((m) => m.TaxonomyModule)
         },
         {
-          path: 'admin/topic-keys',
+          path: 'admin/main-topics',
           loadChildren: () =>
-            import('./views/topic-keys/topic-keys.module').then((m) => m.TopicKeysModule)
+            import('./views/main-topics/main-topics.module').then((m) => m.MainTopicsModule)
         },
         {
           path: 'admin/topics',

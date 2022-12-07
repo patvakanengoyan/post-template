@@ -14,10 +14,11 @@ export class RequestService {
   private reqCount: number = 0;
   public imgSite: string = environment.imagePrefix;
 
-  userName: any = localStorage.getItem('site_first_name');
-  userLastName: any =localStorage.getItem('site_last_name');
-  userEmail: any =localStorage.getItem('site_email');
-  userImage: any =localStorage.getItem('site_image');
+  public userName: any = localStorage.getItem('site_first_name');
+  public userLastName: any =localStorage.getItem('site_last_name');
+  public userEmail: any =localStorage.getItem('site_email');
+  public userImage: any =localStorage.getItem('site_image');
+  public adminImage: any =localStorage.getItem('image');
 
   constructor(private http: HttpClient) {}
 
@@ -53,10 +54,6 @@ export class RequestService {
         .set('ex-authorization', localStorage.getItem('site_access_token'))
         .set('ex-language', 'en');
     }
-    // this.httpHeaders = this.httpHeaders.set(
-    //   'Accept-Language',
-    //   localStorage.getItem('Accept-Language') ? localStorage.getItem('Accept-Language') : 'en'
-    // );
     return this.http.post<any>(url, value, {headers: this.httpHeaders})
       .pipe(
         finalize(() => {
@@ -143,8 +140,6 @@ export class RequestService {
             for (let key in data) {
               localStorage.setItem('site_' + key, data[key]);
             }
-            // localStorage.setItem('access_token', data['access_token']);
-            // localStorage.setItem('refresh_token', data['refresh_token']);
             return data['access_token'];
           }
           return data;

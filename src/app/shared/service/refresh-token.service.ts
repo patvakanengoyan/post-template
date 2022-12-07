@@ -117,8 +117,6 @@ export class RefreshTokenService {
       this.router.navigate(['/']);
       localStorage.removeItem('site_access_token');
     }
-    // localStorage.clear();
-    // this.router.navigate([`/login`]);
     return throwError(() => new Error(`Invalid`));
   }
 }

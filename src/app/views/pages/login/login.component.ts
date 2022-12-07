@@ -29,17 +29,6 @@ export class LoginComponent {
         for (let key in data) {
           localStorage.setItem(key, data[key]);
         }
-
-        let login = {
-          username: 'MARK2',
-          password: 'admin123456'
-        }
-
-        this.requestService.createData(`${environment.chat.login}`, login).subscribe((res) => {
-          localStorage.setItem('socket_token', res.data.result.access_token.token)
-        });
-
-
         this.router.navigateByUrl(`admin/posts`);
       }
     });

@@ -6,7 +6,10 @@
         <button class="btn btn-primary float-end" (click)="showModal(null, 'add')">Add</button>
       </c-card-header>
       <c-card-body>
-        <table cTable>
+        <div *ngIf="data && data['message']">
+          <span>No result</span>
+        </div>
+        <table cTable *ngIf="data && !data['message']">
           <thead>
           <tr>
             <th scope="col">Image</th>
@@ -17,25 +20,27 @@
           </tr>
           </thead>
           <tbody>
-          <tr>
-            <td>
-              <img src="../../../assets/img/post-slide-2.jpg" alt="" style="width: 35px;max-height: 50px;">
+          <tr *ngFor="let item of data">
+            <td (click)="showModal(item.id, 'view')" class="cursor-pointer">
+              <img src="{{this.requestService.imgSite + item?.image?.url}}"
+                   alt="img" style="width: 35px; max-height: 50px;"
+                   onError="this.src='assets/images/no-image.png'">
             </td>
-            <td>Otto</td>
-            <td>@mdo</td>
+            <td><span cTooltip="{{item.title}}">{{item.title}}</span></td>
+            <td><span cTooltip="{{item.description}}">{{item.description}}</span></td>
             <td>
               <c-form-check [switch]="true">
-                <input cFormCheckInput checked type="checkbox" />
+                <input cFormCheckInput [checked]="item.status" disabled type="checkbox"/>
               </c-form-check>
             </td>
             <td class="actions">
-              <a (click)="showModal(1, 'view')" title="View">
+              <a (click)="showModal(item.id, 'view')" title="View">
                 <i class="fa fa-eye cursor-pointer"></i>
               </a>
-              <a (click)="showModal(1, 'edit')" title="Edit">
+              <a (click)="showModal(item.id, 'edit')" title="Edit">
                 <i class="fa fa-pencil cursor-pointer"></i>
               </a>
-              <a (click)="popup.deleteModal(1)" title="Delete">
+              <a (click)="popup.deleteModal(item.id)" title="Delete">
                 <i class="fa fa-close cursor-pointer"></i>
               </a>
             </td>
@@ -43,24 +48,20 @@
           </tbody>
         </table>
         <div class="d-flex justify-content-center">
-          <pagination [boundaryLinks]="true"
-                      [totalItems]="77"
-                      [maxSize]="10"
-                      previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
-          </pagination>
+          <app-pagination [data]="{data: paginationConfig, url: url}" (newItemEvent)="getData($event)"></app-pagination>
         </div>
       </c-card-body>
     </c-card>
   </c-col>
 </c-row>
-<div *ngIf="isModalShown" [config]="{ show: true }" (onHidden)="onHidden()" bsModal #autoShownModal="bs-modal"
+<div *ngIf="isModalShown" [config]="{ show: true }" (onHidden)="hideModal()" bsModal #autoShownModal="bs-modal"
      class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-auto-name">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 *ngIf="requestType == 'view'" class="modal-title pull-left">View</h4>
-        <h4 *ngIf="requestType == 'edit'" class="modal-title pull-left">Edit</h4>
-        <h4 *ngIf="requestType == 'add'" class="modal-title pull-left">Add</h4>
+        <h4 *ngIf="requestType == 'view'" class="modal-title pull-left">View Slider</h4>
+        <h4 *ngIf="requestType == 'edit'" class="modal-title pull-left">Edit Slider</h4>
+        <h4 *ngIf="requestType == 'add'" class="modal-title pull-left">Add Slider</h4>
         <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="hideModal()">
           <span aria-hidden="true" class="visually-hidden">&times;</span>
         </button>
@@ -68,10 +69,14 @@
       <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)" class="data_form">
 
         <div class="modal-body">
-          <div *ngIf="requestType == 'view'">
-            <p>I am a modal that is shown right after initialization!</p>
-            <p>I wasn't present in DOM until you clicked the button</p>
-            <p>When you close me, I'll be removed from the DOM</p>
+          <div *ngIf="requestType == 'view' && viewData">
+            <img style="max-width: 300px; max-height: 350px;" src="{{this.requestService.imgSite + viewData[0].image?.url}}"
+                 alt="img">
+            <div>
+              <p><b>Title: </b>{{viewData[0].title}}</p>
+              <p><b>Description: </b>{{viewData[0].description}}</p>
+              <p><b>Status: </b>{{viewData[0].status == 1 ? 'Active' : 'Inactive'}}</p>
+            </div>
           </div>
           <div *ngIf="requestType == 'edit' || requestType == 'add'">
             <div class="container-md" data-aos="fade-in">
@@ -80,28 +85,26 @@
                   <label for="title" [ngClass]="(form.controls.title?.invalid &&
         (form.controls.title?.dirty || form.controls.title?.touched)) ? 'invalid-label-color' : ''">Title *</label>
                   <input type="text" class="form-control" formControlName="title" id="title">
-                  <div *ngIf="!form.controls.title?.valid && (form.controls.title?.dirty || form.controls.title?.touched)">
+                  <div
+                    *ngIf="!form.controls.title?.valid && (form.controls.title?.dirty || form.controls.title?.touched)">
                     <span class="error-message">The title is required</span>
                   </div>
                 </div>
                 <div class="mb-3">
-                  <label for="uri" [ngClass]="(form.controls.uri?.invalid &&
-        (form.controls.uri?.dirty || form.controls.uri?.touched)) ? 'invalid-label-color' : ''">Url *</label>
-                  <input type="text" class="form-control" formControlName="uri" id="uri">
-                  <div *ngIf="!form.controls.uri?.valid && (form.controls.uri?.dirty || form.controls.uri?.touched)">
-                    <span class="error-message">The url is required</span>
-                  </div>
-                </div>
-                <div class="mb-3">
                   <label for="description" [ngClass]="(form.controls.description?.invalid &&
-        (form.controls.description?.dirty || form.controls.description?.touched)) ? 'invalid-label-color' : ''">Description *</label>
+        (form.controls.description?.dirty || form.controls.description?.touched)) ? 'invalid-label-color' : ''">Description
+                    *</label>
                   <textarea formControlName="description" id="description" class="form-control"></textarea>
-                  <div *ngIf="!form.controls.description?.valid && (form.controls.description?.dirty || form.controls.description?.touched)">
+                  <div
+                    *ngIf="!form.controls.description?.valid && (form.controls.description?.dirty || form.controls.description?.touched)">
                     <span class="error-message">The description is required</span>
                   </div>
                 </div>
-
-                <div class="mb-3">
+                <div class="col-6 mb-3mb-3">
+                  <app-file-input [control]="form.get('image')" [data]="{label: 'Image', editPath: editImagePath}"
+                                  formControlName="image"></app-file-input>
+                </div>
+                <div class="col-6 mb-3">
                   <label for="status">Status</label>
                   <c-form-check [switch]="true" class="form-control border-0">
                     <input cFormCheckInput type="checkbox" id="status" formControlName="status" />
@@ -116,7 +119,8 @@
           <button *ngIf="requestType == 'edit' || requestType == 'add'"
                   type="submit" class="btn btn-primary"
                   [disabled]="!form.valid"
-          >Save changes</button>
+          >Save changes
+          </button>
         </div>
       </form>
     </div>

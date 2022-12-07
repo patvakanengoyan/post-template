@@ -2,11 +2,14 @@
   <c-col xs="12">
     <c-card class="mb-4">
       <c-card-header>
-        <strong>Users</strong>
+        <strong>Volumes</strong>
         <button class="btn btn-primary float-end" (click)="showModal(null, 'add')">Add</button>
       </c-card-header>
       <c-card-body>
-        <table cTable>
+        <div *ngIf="data && data['message']">
+          <span>No result</span>
+        </div>
+        <table cTable *ngIf="data && !data['message']">
           <thead>
           <tr>
             <th scope="col">Image</th>
@@ -19,7 +22,8 @@
           <tbody>
           <tr *ngFor="let item of data">
             <td (click)="showModal(item, 'view')" class="cursor-pointer">
-              <img src="{{item?.image}}" alt="" style="width: 35px;max-height: 50px;">
+              <img src="{{item?.image}}" alt="" style="width: 35px;max-height: 50px;"
+                   onError="this.src='assets/images/no-image.png'">
             </td>
             <td>{{item?.color}}</td>
             <td>{{item?.key}}</td>

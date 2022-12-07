@@ -22,8 +22,8 @@ export const navItems: INavData[] = [
     iconComponent: { name: 'cil-align-center' }
   },
   {
-    name: 'Topic keys',
-    url: 'admin/topic-keys',
+    name: 'Main topics',
+    url: 'admin/main-topics',
     iconComponent: { name: 'cil-justify-center' }
   },
   {

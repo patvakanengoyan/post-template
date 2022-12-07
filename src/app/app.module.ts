@@ -104,11 +104,6 @@ const APP_CONTAINERS = [
     }),
   ],
   providers: [
-    // {
-    //   provide: LocationStrategy,
-    //   useClass: HashLocationStrategy,
-    // },
-    // {provide: HTTP_INTERCEPTORS, useClass: AppInterceptor, multi: true},
     {
       provide: PERFECT_SCROLLBAR_CONFIG,
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG,

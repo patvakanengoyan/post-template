@@ -10,6 +10,9 @@ export const environment = {
     get: apiUrl1 + '/solr/talmudy_eng/select'
   },
   webPages: {
+    slider: {
+      get: apiUrl + prefix + 'slide',
+    },
     kids: {
       get: apiUrl1 + '/solr/talmudy_eng/select'
     },
@@ -39,7 +42,7 @@ export const environment = {
       getVolumesList: apiUrl + prefix + 'admin/volumes',
       getTopicList: apiUrl + prefix + 'admin/topics'
     },
-    slider: apiUrl + prefix + 'admin/slider',
+    slider: apiUrl + prefix + 'admin/slide',
     category: apiUrl + prefix + 'admin/category',
     taxonomy: {
       get: apiUrl + prefix + 'admin/taxonomy'

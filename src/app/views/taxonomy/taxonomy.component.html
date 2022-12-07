@@ -2,11 +2,14 @@
   <c-col xs="12">
     <c-card class="mb-4">
       <c-card-header>
-        <strong>Users</strong>
+        <strong>Taxonomy</strong>
         <button class="btn btn-primary float-end" (click)="showModal(null, 'add')">Add</button>
       </c-card-header>
       <c-card-body>
-        <table cTable>
+        <div *ngIf="data && data['message']">
+          <span>No result</span>
+        </div>
+        <table cTable *ngIf="data && !data['message']">
           <thead>
           <tr>
             <th scope="col">Level 1</th>

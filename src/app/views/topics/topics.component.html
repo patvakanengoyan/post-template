@@ -2,11 +2,14 @@
   <c-col xs="12">
     <c-card class="mb-4">
       <c-card-header>
-        <strong>Users</strong>
+        <strong>Topics</strong>
         <button class="btn btn-primary float-end" (click)="showModal(null, 'add')">Add</button>
       </c-card-header>
       <c-card-body>
-        <table cTable>
+        <div *ngIf="data && data['message']">
+          <span>No result</span>
+        </div>
+        <table cTable *ngIf="data && !data['message']">
           <thead>
           <tr>
             <th scope="col">Image</th>
@@ -19,7 +22,8 @@
           <tbody>
           <tr *ngFor="let item of data">
             <td (click)="showModal(item, 'view')" class="cursor-pointer">
-              <img src="{{item?.image}}" alt="img" style="width: 35px;max-height: 50px;">
+              <img src="{{item?.image}}" alt="img" style="width: 35px;max-height: 50px;"
+                   onError="this.src='assets/images/no-image.png'">
             </td>
             <td>{{item?.color}}</td>
             <td>{{item?.key}}</td>
@@ -93,7 +97,7 @@
                 </div>
                 <div class="col-6 mb-3">
                   <label for="main_key" [ngClass]="(form.controls.main_key?.invalid &&
-        (form.controls.main_key?.dirty || form.controls.main_key?.touched)) ? 'invalid-label-color' : ''">Main key *</label>
+        (form.controls.main_key?.dirty || form.controls.main_key?.touched)) ? 'invalid-label-color' : ''">Main topics *</label>
                   <angular2-multiselect [data]="itemList"
                                         formControlName="main_key"
                                         id="main_key"
