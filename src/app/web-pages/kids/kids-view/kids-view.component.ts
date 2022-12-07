@@ -3,6 +3,7 @@ import {environment} from "../../../../environments/environment.prod";
 import {RequestService} from "../../../shared/service/request.service";
 import {ActivatedRoute} from "@angular/router";
 import {FormBuilder, Validators} from "@angular/forms";
+import {DomSanitizer} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-kids-view',
@@ -17,22 +18,25 @@ export class KidsViewComponent implements OnInit {
     name: ['', Validators.required],
     email: ['', Validators.compose([Validators.required])],
     message: ['', Validators.required]
-  })
+  });
+  public imagePrefix: string = environment.imagePrefix;
   constructor(private requestService: RequestService,
               public activatedRoute: ActivatedRoute,
+              private sanitizer: DomSanitizer,
               public fb: FormBuilder) {}
 
   ngOnInit(): void {
-    this.getData(this.url);
+    this.getData(`${this.url}?facet=on&q=*%3A*&start=0&rows=10&fq=type:KidsClick&fq=id:${this.activatedRoute.snapshot.params['id']}`);
   }
   getData (url: string) {
-    this.requestService.getData(url + '/' + this.activatedRoute.snapshot.params['id']).subscribe((item: any) => {
-      this.data = item;
+    this.requestService.getData(url).subscribe((item: any) => {
+      this.data = item?.response?.docs[0];
+      this.data.content = this.sanitizer.bypassSecurityTrustHtml(this.data.content);
     })
   }
 
-  sendComment() {
 
-  }
+    sendComment() {
 
+    }
 }

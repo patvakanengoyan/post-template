@@ -124,6 +124,9 @@ input[type=text]:read-only {
     background-image: none !important;
     border-color: #d8dbe0 !important
 }
+.image-height {
+    height: 200px;
+}
 .ck.ck-balloon-panel.ck-balloon-panel_arrow_s.ck-balloon-panel_with-arrow.ck-toolbar-container {
     z-index: 1070;
 }

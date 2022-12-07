@@ -1,6 +1,9 @@
 <app-header></app-header>
 <main id="main">
-  <div class="container" data-aos="fade-up">
+  <div class="container pt-3" data-aos="fade-up">
+    <div class="section-header d-flex justify-content-between align-items-center mb-5">
+      <h2>Pieces</h2>
+    </div>
     <div class="row g-5">
       <div *ngIf="data.length == 0" class="pb-3 pt-2 text-center">
         <img src="assets/img/ezgif.com-gif-maker (2).jpg" alt="no result">
@@ -9,12 +12,13 @@
       </div>
 
       <div *ngFor="let item of data" class="col-lg-3 post-entry-1">
-        <a [routerLink]="['/pieces', item?.id]"><img src="assets/img/post-landscape-5.jpg" alt="" class="img-fluid"></a>
+        <a [routerLink]="['/pieces', item?.id]"><img src="{{imagePrefix + item?.image}}" alt="image" class="img-fluid image-height"></a>
         <div class="post-meta">
-          <span class="date">{{item?.v}} </span> <span class="mx-1">&bullet;</span> <span>{{item?.p}}<sup>{{item?.s}}</sup> <span class="mx-1">&bullet;</span> </span>
-          <span class="date">{{item?.l}} </span> | <span>{{item?.bn}}</span>
+          <span class="date">{{item?.volume}} </span> <span class="mx-1">&bullet;</span> <span>{{item?.volume_number}}
+          <sup>{{item?.slice}}</sup> <span class="mx-1">&bullet;</span> </span>
+          <span class="date">{{item?.letter}} </span> | <span>{{item?.page}}</span>
         </div>
-        <h2><a [routerLink]="['/pieces', item?.id]">{{item?.t}}</a></h2>
+        <h2><a [routerLink]="['/pieces', item?.id]">{{item?.title}}</a></h2>
       </div>
     </div>
   </div>

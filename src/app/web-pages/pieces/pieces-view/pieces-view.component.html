@@ -9,19 +9,24 @@
           <div class="single-post">
             <!--            <div class="post-meta"><span class="date">Business</span> <span class="mx-1">&bullet;</span> <span>Jul 5th '22</span></div>-->
             <!--            <h1 class="mb-5">13 Amazing Poems from Shel Silverstein with Valuable Life Lessons</h1>-->
-            <h1 class="mb-5">{{data?.t}}</h1>
+            <h1 class="mb-5">{{data?.title}}</h1>
             <!--            <p><span class="firstcharacter">L</span>orem ipsum dolor sit, amet consectetur adipisicing elit. Ratione officia sed, suscipit distinctio, numquam omnis quo fuga ipsam quis inventore voluptatum recusandae culpa, unde doloribus saepe labore alias voluptate expedita? Dicta delectus beatae explicabo odio voluptatibus quas, saepe qui aperiam autem obcaecati, illo et! Incidunt voluptas culpa neque repellat sint, accusamus beatae, cumque autem tempore quisquam quam eligendi harum debitis.</p>-->
 
-            <figure class="my-4">
-              <img src="assets/img/post-landscape-5.jpg" alt="" class="img-fluid">
+            <div class="my-4">
+              <img src="{{imagePrefix + data?.image}}" alt="" class="img-fluid">
               <!--              <figcaption>Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo, odit? </figcaption>-->
-            </figure>
+            </div>
             <div [ngStyle]="{'border-color': data?.c ? data?.c : 'white' }" class="block_data">
-              <p><b>Letter: </b><span>{{data?.l}} | {{data?.bn}}</span></p>
-              <p><b>Volume name: </b><span>{{data?.v}}</span></p>
-              <p><b>Page (number + letter): </b><span>{{data?.p}}</span></p>
-              <p><b>Slice of page: </b><span>{{data?.s}}</span></p>
-              <div><b>Description: </b><div [innerHTML]="data?.q"></div></div>
+              <p><b>Letter: </b><span>{{data?.letter}} | {{data?.bn}}</span></p>
+              <p><b>Volume name: </b><span>{{data?.volume}}</span></p>
+              <p><b>Page (number + letter): </b><span>{{data?.page}}</span></p>
+              <p><b>Slice of page: </b><span>{{data?.slice}}</span></p>
+              <p><b>Topic: </b><span>{{data?.topics}}</span></p>
+              <p><b>Main Topic: </b><span>{{data?.main_topic}}</span></p>
+              <p><b>Taxonomy level 1: </b><span>{{data?.taxanomy_lv1}}</span></p>
+              <p><b>Taxonomy level 2: </b><span>{{data?.taxanomy_lv2}}</span></p>
+              <p><b>Taxonomy level 3: </b><span>{{data?.taxanomy_lv3}}</span></p>
+              <div><b>Description: </b><div [innerHTML]="data?.content"></div></div>
             </div>
 
             <!--            <p>Sunt reprehenderit, hic vel optio odit est dolore, distinctio iure itaque enim pariatur ducimus. Rerum soluta, perspiciatis voluptatum cupiditate praesentium repellendus quas expedita exercitationem tempora aliquam quaerat in eligendi adipisci harum non omnis reprehenderit quidem beatae modi. Ea fugiat enim libero, ipsam dicta explicabo nihil, tempore, nulla repellendus eos necessitatibus eligendi corporis cum? Eaque harum, eligendi itaque numquam aliquam soluta.</p>-->
@@ -160,33 +165,33 @@
         </div>
         <div class="col-md-3">
           <!-- ======= Sidebar ======= -->
-          <div class="aside-block">
-            <h3 class="aside-title">Tags</h3>
-            <ul class="aside-tags list-unstyled">
-              <li><a href="category.html">Business</a></li>
-              <li><a href="category.html">Culture</a></li>
-              <li><a href="category.html">Sport</a></li>
-              <li><a href="category.html">Food</a></li>
-              <li><a href="category.html">Politics</a></li>
-              <li><a href="category.html">Celebrity</a></li>
-              <li><a href="category.html">Startups</a></li>
-              <li><a href="category.html">Travel</a></li>
-            </ul>
-          </div><!-- End Tags -->
+          <!--<div class="aside-block">-->
+            <!--<h3 class="aside-title">Tags</h3>-->
+            <!--<ul class="aside-tags list-unstyled">-->
+              <!--<li><a href="category.html">Business</a></li>-->
+              <!--<li><a href="category.html">Culture</a></li>-->
+              <!--<li><a href="category.html">Sport</a></li>-->
+              <!--<li><a href="category.html">Food</a></li>-->
+              <!--<li><a href="category.html">Politics</a></li>-->
+              <!--<li><a href="category.html">Celebrity</a></li>-->
+              <!--<li><a href="category.html">Startups</a></li>-->
+              <!--<li><a href="category.html">Travel</a></li>-->
+            <!--</ul>-->
+          <!--</div>&lt;!&ndash; End Tags &ndash;&gt;-->
 
-          <div class="aside-block">
-            <h3 class="aside-title">Categories</h3>
-            <ul class="aside-links list-unstyled">
-              <li><a href="category.html"><i class="bi bi-chevron-right"></i> Business</a></li>
-              <li><a href="category.html"><i class="bi bi-chevron-right"></i> Culture</a></li>
-              <li><a href="category.html"><i class="bi bi-chevron-right"></i> Sport</a></li>
-              <li><a href="category.html"><i class="bi bi-chevron-right"></i> Food</a></li>
-              <li><a href="category.html"><i class="bi bi-chevron-right"></i> Politics</a></li>
-              <li><a href="category.html"><i class="bi bi-chevron-right"></i> Celebrity</a></li>
-              <li><a href="category.html"><i class="bi bi-chevron-right"></i> Startups</a></li>
-              <li><a href="category.html"><i class="bi bi-chevron-right"></i> Travel</a></li>
-            </ul>
-          </div><!-- End Categories -->
+          <!--<div class="aside-block">-->
+            <!--<h3 class="aside-title">Categories</h3>-->
+            <!--<ul class="aside-links list-unstyled">-->
+              <!--<li><a href="category.html"><i class="bi bi-chevron-right"></i> Business</a></li>-->
+              <!--<li><a href="category.html"><i class="bi bi-chevron-right"></i> Culture</a></li>-->
+              <!--<li><a href="category.html"><i class="bi bi-chevron-right"></i> Sport</a></li>-->
+              <!--<li><a href="category.html"><i class="bi bi-chevron-right"></i> Food</a></li>-->
+              <!--<li><a href="category.html"><i class="bi bi-chevron-right"></i> Politics</a></li>-->
+              <!--<li><a href="category.html"><i class="bi bi-chevron-right"></i> Celebrity</a></li>-->
+              <!--<li><a href="category.html"><i class="bi bi-chevron-right"></i> Startups</a></li>-->
+              <!--<li><a href="category.html"><i class="bi bi-chevron-right"></i> Travel</a></li>-->
+            <!--</ul>-->
+          <!--</div>&lt;!&ndash; End Categories &ndash;&gt;-->
 
           <div class="aside-block">
 
@@ -194,9 +199,9 @@
               <li class="nav-item" role="presentation">
                 <button class="nav-link active" id="pills-popular-tab" data-bs-toggle="pill" data-bs-target="#pills-popular" type="button" role="tab" aria-controls="pills-popular" aria-selected="true">Popular</button>
               </li>
-              <li class="nav-item" role="presentation">
-                <button class="nav-link" id="pills-trending-tab" data-bs-toggle="pill" data-bs-target="#pills-trending" type="button" role="tab" aria-controls="pills-trending" aria-selected="false">Trending</button>
-              </li>
+              <!--<li class="nav-item" role="presentation">-->
+                <!--<button class="nav-link" id="pills-trending-tab" data-bs-toggle="pill" data-bs-target="#pills-trending" type="button" role="tab" aria-controls="pills-trending" aria-selected="false">Trending</button>-->
+              <!--</li>-->
               <li class="nav-item" role="presentation">
                 <button class="nav-link" id="pills-latest-tab" data-bs-toggle="pill" data-bs-target="#pills-latest" type="button" role="tab" aria-controls="pills-latest" aria-selected="false">Latest</button>
               </li>
@@ -243,43 +248,43 @@
                 </div>
               </div> <!-- End Popular -->
 
-              <!-- Trending -->
-              <div class="tab-pane fade" id="pills-trending" role="tabpanel" aria-labelledby="pills-trending-tab">
-                <div class="post-entry-1 border-bottom">
-                  <div class="post-meta"><span class="date">Lifestyle</span> <span class="mx-1">&bullet;</span> <span>Jul 5th '22</span></div>
-                  <h2 class="mb-2"><a href="#">17 Pictures of Medium Length Hair in Layers That Will Inspire Your New Haircut</a></h2>
-                  <span class="author mb-3 d-block">Jenny Wilson</span>
-                </div>
+              <!--&lt;!&ndash; Trending &ndash;&gt;-->
+              <!--<div class="tab-pane fade" id="pills-trending" role="tabpanel" aria-labelledby="pills-trending-tab">-->
+                <!--<div class="post-entry-1 border-bottom">-->
+                  <!--<div class="post-meta"><span class="date">Lifestyle</span> <span class="mx-1">&bullet;</span> <span>Jul 5th '22</span></div>-->
+                  <!--<h2 class="mb-2"><a href="#">17 Pictures of Medium Length Hair in Layers That Will Inspire Your New Haircut</a></h2>-->
+                  <!--<span class="author mb-3 d-block">Jenny Wilson</span>-->
+                <!--</div>-->
 
-                <div class="post-entry-1 border-bottom">
-                  <div class="post-meta"><span class="date">Culture</span> <span class="mx-1">&bullet;</span> <span>Jul 5th '22</span></div>
-                  <h2 class="mb-2"><a href="#">9 Half-up/half-down Hairstyles for Long and Medium Hair</a></h2>
-                  <span class="author mb-3 d-block">Jenny Wilson</span>
-                </div>
+                <!--<div class="post-entry-1 border-bottom">-->
+                  <!--<div class="post-meta"><span class="date">Culture</span> <span class="mx-1">&bullet;</span> <span>Jul 5th '22</span></div>-->
+                  <!--<h2 class="mb-2"><a href="#">9 Half-up/half-down Hairstyles for Long and Medium Hair</a></h2>-->
+                  <!--<span class="author mb-3 d-block">Jenny Wilson</span>-->
+                <!--</div>-->
 
-                <div class="post-entry-1 border-bottom">
-                  <div class="post-meta"><span class="date">Lifestyle</span> <span class="mx-1">&bullet;</span> <span>Jul 5th '22</span></div>
-                  <h2 class="mb-2"><a href="#">Life Insurance And Pregnancy: A Working Mom’s Guide</a></h2>
-                  <span class="author mb-3 d-block">Jenny Wilson</span>
-                </div>
+                <!--<div class="post-entry-1 border-bottom">-->
+                  <!--<div class="post-meta"><span class="date">Lifestyle</span> <span class="mx-1">&bullet;</span> <span>Jul 5th '22</span></div>-->
+                  <!--<h2 class="mb-2"><a href="#">Life Insurance And Pregnancy: A Working Mom’s Guide</a></h2>-->
+                  <!--<span class="author mb-3 d-block">Jenny Wilson</span>-->
+                <!--</div>-->
 
-                <div class="post-entry-1 border-bottom">
-                  <div class="post-meta"><span class="date">Sport</span> <span class="mx-1">&bullet;</span> <span>Jul 5th '22</span></div>
-                  <h2 class="mb-2"><a href="#">How to Avoid Distraction and Stay Focused During Video Calls?</a></h2>
-                  <span class="author mb-3 d-block">Jenny Wilson</span>
-                </div>
-                <div class="post-entry-1 border-bottom">
-                  <div class="post-meta"><span class="date">Business</span> <span class="mx-1">&bullet;</span> <span>Jul 5th '22</span></div>
-                  <h2 class="mb-2"><a href="#">The Best Homemade Masks for Face (keep the Pimples Away)</a></h2>
-                  <span class="author mb-3 d-block">Jenny Wilson</span>
-                </div>
+                <!--<div class="post-entry-1 border-bottom">-->
+                  <!--<div class="post-meta"><span class="date">Sport</span> <span class="mx-1">&bullet;</span> <span>Jul 5th '22</span></div>-->
+                  <!--<h2 class="mb-2"><a href="#">How to Avoid Distraction and Stay Focused During Video Calls?</a></h2>-->
+                  <!--<span class="author mb-3 d-block">Jenny Wilson</span>-->
+                <!--</div>-->
+                <!--<div class="post-entry-1 border-bottom">-->
+                  <!--<div class="post-meta"><span class="date">Business</span> <span class="mx-1">&bullet;</span> <span>Jul 5th '22</span></div>-->
+                  <!--<h2 class="mb-2"><a href="#">The Best Homemade Masks for Face (keep the Pimples Away)</a></h2>-->
+                  <!--<span class="author mb-3 d-block">Jenny Wilson</span>-->
+                <!--</div>-->
 
-                <div class="post-entry-1 border-bottom">
-                  <div class="post-meta"><span class="date">Lifestyle</span> <span class="mx-1">&bullet;</span> <span>Jul 5th '22</span></div>
-                  <h2 class="mb-2"><a href="#">10 Life-Changing Hacks Every Working Mom Should Know</a></h2>
-                  <span class="author mb-3 d-block">Jenny Wilson</span>
-                </div>
-              </div> <!-- End Trending -->
+                <!--<div class="post-entry-1 border-bottom">-->
+                  <!--<div class="post-meta"><span class="date">Lifestyle</span> <span class="mx-1">&bullet;</span> <span>Jul 5th '22</span></div>-->
+                  <!--<h2 class="mb-2"><a href="#">10 Life-Changing Hacks Every Working Mom Should Know</a></h2>-->
+                  <!--<span class="author mb-3 d-block">Jenny Wilson</span>-->
+                <!--</div>-->
+              <!--</div> &lt;!&ndash; End Trending &ndash;&gt;-->
 
               <!-- Latest -->
               <div class="tab-pane fade" id="pills-latest" role="tabpanel" aria-labelledby="pills-latest-tab">

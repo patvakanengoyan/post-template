@@ -50,6 +50,7 @@ export class UsersComponent implements OnInit {
   getById(id) {
     this.requestService.getData(this.url + '/' + id ).subscribe((res: any) => {
       this.viewData = res;
+      this.editImagePath = res[0]?.image?.url;
       this.form.patchValue({
         first_name: res[0].first_name,
         last_name: res[0].last_name,

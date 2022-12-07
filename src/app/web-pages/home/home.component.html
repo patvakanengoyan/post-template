@@ -74,28 +74,28 @@
   </section><!-- End Hero Slider Section -->
 
   <!-- ======= Post Grid Section ======= -->
-  <section id="posts" class="posts">
-    <div class="container" data-aos="fade-up">
-      <div class="row g-5">
+  <!--<section id="posts" class="posts">-->
+    <!--<div class="container" data-aos="fade-up">-->
+      <!--<div class="row g-5">-->
 
-        <div *ngIf="data.length == 0" class="text-center">
-          <img src="assets/img/ezgif.com-gif-maker (2).jpg" alt="no result">
-          <h2>Sorry But No Result</h2>
-          <button type="button" class="btn btn-primary" (click)="searchResult('reset')">Reset</button>
-        </div>
+        <!--<div *ngIf="data.length == 0" class="text-center">-->
+          <!--<img src="assets/img/ezgif.com-gif-maker (2).jpg" alt="no result">-->
+          <!--<h2>Sorry But No Result</h2>-->
+          <!--<button type="button" class="btn btn-primary" (click)="searchResult('reset')">Reset</button>-->
+        <!--</div>-->
 
-        <div *ngFor="let item of data" class="col-lg-3 post-entry-1">
-          <a [routerLink]="['/post', item?.id]"><img src="assets/img/post-landscape-5.jpg" alt="" class="img-fluid"></a>
-          <div class="post-meta">
-            <span class="date">{{item?.v}} </span> <span class="mx-1">&bullet;</span> <span>{{item?.p}}
-            <sup>{{item?.s}}</sup> <span class="mx-1">&bullet;</span> </span>
-            <span class="date">{{item?.l}} </span> | <span>{{item?.bn}}</span>
-          </div>
-          <h2><a [routerLink]="['/post', item?.id]">{{item?.t}}</a></h2>
-        </div>
-      </div> <!-- End .row -->
-    </div>
-  </section> <!-- End Post Grid Section -->
+        <!--<div *ngFor="let item of data" class="col-lg-3 post-entry-1">-->
+          <!--<a [routerLink]="['/post', item?.id]"><img src="assets/img/post-landscape-5.jpg" alt="image" class="img-fluid image-height"></a>-->
+          <!--<div class="post-meta">-->
+            <!--<span class="date">{{item?.volume}} </span> <span class="mx-1">&bullet;</span> <span>{{item?.volume_number}}-->
+            <!--<sup>{{item?.s}}</sup> <span class="mx-1">&bullet;</span> </span>-->
+            <!--<span class="date">{{item?.l}} </span> | <span>{{item?.bn}}</span>-->
+          <!--</div>-->
+          <!--<h2><a [routerLink]="['/post', item?.id]">{{item?.title}}</a></h2>-->
+        <!--</div>-->
+      <!--</div> &lt;!&ndash; End .row &ndash;&gt;-->
+    <!--</div>-->
+  <!--</section> &lt;!&ndash; End Post Grid Section &ndash;&gt;-->
 
   <section id="kids" class="kids">
     <div class="container" data-aos="fade-up">
@@ -104,14 +104,14 @@
         <div><a routerLink="kids" class="more">See All Kids</a></div>
       </div>
       <div class="row g-5">
-        <div *ngFor="let item of data" class="col-lg-3 post-entry-1">
-          <a [routerLink]="['/kids', item?.id]"><img src="assets/img/post-landscape-5.jpg" alt="" class="img-fluid"></a>
+        <div *ngFor="let item of dataKids" class="col-lg-3 post-entry-1">
+          <a [routerLink]="['/kids', item?.id]"><img src="{{imagePrefix + item?.image}}" alt="image" class="img-fluid image-height"></a>
           <div class="post-meta">
-            <span class="date">{{item?.v}} </span> <span class="mx-1">&bullet;</span> <span>{{item?.p}}
+            <span class="date">{{item?.volume}} </span> <span class="mx-1">&bullet;</span> <span>{{item?.volume_number}}
             <sup>{{item?.s}}</sup> <span class="mx-1">&bullet;</span> </span>
-            <span class="date">{{item?.l}} </span> | <span>{{item?.bn}}</span>
+            <span class="date">{{item?.letter}} </span> | <span>{{item?.page}}</span>
           </div>
-          <h2><a [routerLink]="['/kids', item?.id]">{{item?.t}}</a></h2>
+          <h2><a [routerLink]="['/kids', item?.id]">{{item?.title}}</a></h2>
         </div>
       </div>
     </div>
@@ -120,19 +120,19 @@
   <section id="rabbi-version" class="rabbi-version">
     <div class="container" data-aos="fade-up">
       <div class="section-header d-flex justify-content-between align-items-center mb-5">
-        <h2>Rabbi version</h2>
-        <div><a routerLink="rabbi-version" class="more">See All Rabbi version</a></div>
+        <h2>June2020</h2>
+        <div><a routerLink="june2020" class="more">See All June2020</a></div>
       </div>
       <div class="row g-5">
-        <div *ngFor="let item of dataRabbiVersion" class="col-lg-3 post-entry-1">
-          <a [routerLink]="['/rabbi-version', item?.id]"><img src="assets/img/post-landscape-5.jpg" alt=""
-                                                              class="img-fluid"></a>
+        <div *ngFor="let item of dataJune2020" class="col-lg-3 post-entry-1">
+          <a [routerLink]="['/june2020', item?.id]"><img src="{{imagePrefix + item?.image}}" alt="image"
+                                                              class="img-fluid image-height"></a>
           <div class="post-meta">
-            <span class="date">{{item?.V}} </span> <span class="mx-1">&bullet;</span> <span>{{item?.P}}
-            <sup>{{item?.S}}</sup> <span class="mx-1">&bullet;</span> </span>
-            <span class="date">{{item?.L}} </span> | <span>{{item?.q}}</span>
+            <span class="date">{{item?.volume}} </span> <span class="mx-1">&bullet;</span> <span>{{item?.volume_number}}
+            <sup>{{item?.s}}</sup> <span class="mx-1">&bullet;</span> </span>
+            <span class="date">{{item?.letter}} </span> | <span>{{item?.page}}</span>
           </div>
-          <h2><a [routerLink]="['/rabbi-version', item?.id]">{{item?.T}}</a></h2>
+          <h2><a [routerLink]="['/june2020', item?.id]">{{item?.title}}</a></h2>
         </div>
       </div>
     </div>
@@ -146,12 +146,33 @@
       </div>
       <div class="row g-5">
         <div *ngFor="let item of dataAcademic" class="col-lg-3 post-entry-1">
-          <a [routerLink]="['/academic', item?.id]"><img src="assets/img/post-landscape-5.jpg" alt="" class="img-fluid"></a>
+          <a [routerLink]="['/academic', item?.id]"><img src="{{imagePrefix + item?.image}}" alt="image" class="img-fluid image-height"></a>
           <div class="post-meta">
-            <span class="date">{{item?.v}} </span> <span class="mx-1">&bullet;</span> <span>{{item?.c}}  </span>
-            | <span>{{item?.bn}}</span>
+            <span class="date">{{item?.volume}} </span> <span class="mx-1">&bullet;</span> <span>{{item?.volume_number}}
+            <sup>{{item?.s}}</sup> <span class="mx-1">&bullet;</span> </span>
+            <span class="date">{{item?.letter}} </span> | <span>{{item?.page}}</span>
           </div>
-          <h2><a [routerLink]="['/academic', item?.id]">{{item?.t ? item?.t : 'No title'}}</a></h2>
+          <h2><a [routerLink]="['/academic', item?.id]">{{item?.title ? item?.title : 'No title'}}</a></h2>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="pieces" class="pieces">
+    <div class="container" data-aos="fade-up">
+      <div class="section-header d-flex justify-content-between align-items-center mb-5">
+        <h2>Pieces</h2>
+        <div><a routerLink="pieces" class="more">See All Pieces</a></div>
+      </div>
+      <div class="row g-5">
+        <div *ngFor="let item of dataPieces" class="col-lg-3 post-entry-1">
+          <a [routerLink]="['/pieces', item?.id]"><img src="{{imagePrefix + item?.image}}" alt="image" class="img-fluid image-height"></a>
+          <div class="post-meta">
+            <span class="date">{{item?.volume}} </span> <span class="mx-1">&bullet;</span> <span>{{item?.volume_number}}
+            <sup>{{item?.s}}</sup> <span class="mx-1">&bullet;</span> </span>
+            <span class="date">{{item?.letter}} </span> | <span>{{item?.page}}</span>
+          </div>
+          <h2><a [routerLink]="['/pieces', item?.id]">{{item?.title ? item?.title : 'No title'}}</a></h2>
         </div>
       </div>
     </div>

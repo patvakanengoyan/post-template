@@ -54,6 +54,11 @@ const routes: Routes = [
         import('./web-pages/pieces/pieces.module').then((m) => m.PiecesModule)
     },
     {
+        path: 'june2020',
+        loadChildren: () =>
+            import('./web-pages/june2020/june2020.module').then((m) => m.June2020Module)
+    },
+    {
       path: 'login',
       component: LoginComponent,
       canActivate: [CanActivateService],

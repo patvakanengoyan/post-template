@@ -109,9 +109,9 @@
                   (form.controls.role?.dirty || form.controls.role?.touched)) ? 'invalid-label-color' : ''">Role *</label>
                   <select class="form-select" formControlName="role" id="role">
                     <option selected>Select Role</option>
-                    <option value="admin">Super Admin</option>
-                    <option value="administrator">Admin</option>
-                    <option value="moderator">Moderator</option>
+                    <option value="Admin">Admin</option>
+                    <option value="Moderator">Moderator</option>
+                    <option value="Viewer">Viewer</option>
                   </select>
                   <div *ngIf="!form.controls.role?.valid && (form.controls.role?.dirty || form.controls.role?.touched)">
                     <span class="error-message">The Role is required</span>

@@ -1,23 +1,26 @@
 export const apiUrl = 'http://185.177.105.151:10040';
-export const apiUrl1 = 'http://127.0.0.1:3000';
+export const apiUrl1 = 'http://185.177.105.151:8983';
 export const apiUrlChat = 'http://185.177.105.151:1998/';
-export const prefix = '/api/en/'
+export const prefix = '/api/en/';
 export const environment = {
   production: true,
   url: apiUrlChat + '',
   imagePrefix: apiUrl + '',
   posts: {
-    get: apiUrl1 + '/kids'
+    get: apiUrl1 + '/solr/talmudy_eng/select'
   },
   webPages: {
     kids: {
-      get: apiUrl1 + '/kids'
+      get: apiUrl1 + '/solr/talmudy_eng/select'
     },
-    rabbiVersion: {
-      get: apiUrl1 + '/rabbi'
+    june2020: {
+      get: apiUrl1 + '/solr/talmudy_eng/select'
     },
     academic: {
-      get: apiUrl1 + '/academic'
+      get: apiUrl1 + '/solr/talmudy_eng/select'
+    },
+    pieces: {
+         get: apiUrl1 + '/solr/talmudy_eng/select'
     },
     registration: apiUrl + prefix + 'registration',
     login:  apiUrl + prefix + 'login',
