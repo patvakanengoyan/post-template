@@ -8,6 +8,7 @@ import {
 } from '@angular/common/http';
 import {RequestService} from "./request.service";
 import {Router} from '@angular/router';
+import { SocketConnectionService } from './socket-connection.service';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,7 @@ export class RefreshTokenService {
   private isRefreshingToken = false;
   private tokenSubject: BehaviorSubject<string> = new BehaviorSubject<string>(null!);
 
-  constructor(public requestService: RequestService, public router: Router) {}
+  constructor(public requestService: RequestService, public router: Router, public socket: SocketConnectionService) {}
 
   /*check refresh token request status code*/
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpSentEvent | HttpHeaderResponse |
@@ -42,7 +43,7 @@ export class RefreshTokenService {
               return throwError(() => error);
           }
         } else {
-          return observableThrowError(error);
+          return observableThrowError(() => error);
         }
       }));
   }
@@ -51,7 +52,7 @@ export class RefreshTokenService {
     if (error && error.status === 400 && error.error && error.error.error === 'invalid_grant') {
       return this.logoutUser();
     }
-    return observableThrowError(error);
+    return observableThrowError(() => error);
   }
   /*check refresh token request status code*/
   handle401Error(request: HttpRequest<any>, next: HttpHandler) {
@@ -70,6 +71,7 @@ export class RefreshTokenService {
           }),
           finalize(() => {
             this.isRefreshingToken = false;
+            this.socket.refreshTokenWork.next(true);
           }), );
       } else {
         return this.requestService.refreshToken().pipe(
@@ -82,6 +84,7 @@ export class RefreshTokenService {
           }),
           finalize(() => {
             this.isRefreshingToken = false;
+            this.socket.refreshTokenWork.next(true);
           }), );
       }
     } else {

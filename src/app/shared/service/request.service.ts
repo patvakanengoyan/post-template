@@ -30,9 +30,11 @@ export class RequestService {
       'Accept-Language': localStorage.getItem('Accept-Language') as string ? localStorage.getItem('Accept-Language') as string : 'en'
     })
     if (forSocket) {
+      console.log('req service', localStorage.getItem('_'));
       this.httpHeaders = this.httpHeaders
         .set('ex-id', localStorage.getItem('_'))
         .set('ex-authorization', localStorage.getItem('site_access_token'))
+        .set('Authorization', (localStorage.getItem('site_token_type') ? localStorage.getItem('site_token_type')  + ' ': '') + localStorage.getItem('site_access_token'))
         .set('ex-language', 'en');
     }
     return this.http.get(apiUrl, {headers: this.httpHeaders, observe: 'body'}).pipe(

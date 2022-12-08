@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {RequestService} from "../../shared/service/request.service";
 import {environment} from "../../../environments/environment.prod";
 import {Router} from "@angular/router";
+import { SocketConnectionService } from 'src/app/shared/service/socket-connection.service';
 
 @Component({
   selector: 'app-sign-in',
@@ -15,6 +16,7 @@ export class SignInComponent implements OnInit {
 
   constructor(public requestService: RequestService,
               public fb: FormBuilder,
+              private socket: SocketConnectionService,
               public router: Router) { }
 
   ngOnInit(): void {
@@ -31,6 +33,7 @@ export class SignInComponent implements OnInit {
       }
       this.router.routeReuseStrategy.shouldReuseRoute = () => false;
       this.router.onSameUrlNavigation = 'reload';
+      this.socket.connect();
       this.router.navigate(['/']);
     })
   }

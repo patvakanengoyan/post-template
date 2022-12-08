@@ -23,7 +23,6 @@ export class DefaultHeaderComponent extends HeaderComponent implements OnInit{
 
   ngOnInit() {
     this.requestService.adminImage = localStorage.getItem('image');
-    this.socketConnection.connect();
     this.requestService.getData(`${environment.chat.gateway}`).subscribe((res) => {
     })
   }

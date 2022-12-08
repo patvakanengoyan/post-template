@@ -4,6 +4,7 @@ import {ReactiveFormsModule} from "@angular/forms";
 import {ComponentsModule} from "../components/components.module";
 import {SinglePostComponent} from "./single-post.component";
 import {SinglePostRoutingModule} from "./single-post-routing.module";
+import { TimeagoModule } from 'ngx-timeago';
 
 @NgModule({
   declarations: [SinglePostComponent],
@@ -11,7 +12,8 @@ import {SinglePostRoutingModule} from "./single-post-routing.module";
     CommonModule,
     SinglePostRoutingModule,
     ReactiveFormsModule,
-    ComponentsModule
+    ComponentsModule,
+    TimeagoModule.forRoot()
   ]
 })
 export class SinglePostModule {
