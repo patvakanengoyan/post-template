@@ -58,6 +58,21 @@ export class PostsComponent implements OnInit {
     ];
     desc: any;
 
+    loading = false;
+    isLoadedList = {
+        volume: true,
+        taxonomies: true,
+        topics: true,
+    };
+    pages = {
+        volume: 1,
+        taxonomies: 1,
+        topics: 1,
+    };
+    selectedVolumes: any[] = [];
+    selectedTaxonomies: any[] = [];
+    selectedTopics: any[] = [];
+
     constructor(public requestService: RequestService,
                 public fb: FormBuilder,
                 public sanitizer: DomSanitizer) {
@@ -87,13 +102,14 @@ export class PostsComponent implements OnInit {
      */
     ngOnInit(): void {
         this.getData(this.url);
-        this.getLists();
+        // this.getLists();
         this.monoSelect = {
             enableSearchFilter: true,
             addNewItemOnFilter: true,
             singleSelection: true,
             selectAllText: 'Select All',
-            text: "Select item"
+            text: "Select item",
+            lazyLoading: true,
         };
 
         this.multiSelect = {
@@ -101,7 +117,8 @@ export class PostsComponent implements OnInit {
             singleSelection: false,
             badgeShowLimit: 1,
             selectAllText: 'Select All',
-            text: "Select item"
+            text: "Select item",
+            lazyLoading: true,
         };
     }
 
@@ -125,27 +142,35 @@ export class PostsComponent implements OnInit {
 
           if (this.requestType == 'edit') {
                 let topics = [] as any;
+                this.selectedTopics = [];
                 for (let i = 0; i < this.viewData.topics.length; i++) {
+                    this.selectedTopics.push(this.viewData.topics[i].guid);
                     topics.push({
                         id: this.viewData.topics[i].guid,
                         itemName: this.viewData.topics[i].key
                     })
                 }
+                this.topicList = [...topics];
                 let taxonomies = [] as any;
+                this.selectedTaxonomies = [];
                 for (let i = 0; i < this.viewData.taxonomies.length; i++) {
-                    let item = this.viewData.taxonomies;
+                    this.selectedTaxonomies.push(this.viewData.taxonomies[i].guid);
                     taxonomies.push({
                         id: this.viewData.taxonomies[i].guid,
-                        itemName: `Level 1 : ${item[i].level1}, Level 2 : ${item.level2}, Level 3 : ${item.level3}`
+                        itemName: `Level 1 : ${this.viewData.taxonomies[i].level1}, Level 2 : ${this.viewData.taxonomies[i].level2}, Level 3 : ${this.viewData.taxonomies[i].level3}`
                     })
                 }
+                this.taxonomyList = [...taxonomies];
                 let volumes = [] as any;
+                this.selectedVolumes = [];
                 for (let i = 0; i < this.viewData.volumes.length; i++) {
+                    this.selectedVolumes.push(this.viewData.volumes[i].guid);
                     volumes.push({
                         id: this.viewData.volumes[i].guid,
                         itemName: this.viewData.volumes[i].key
                     })
                 }
+                this.volumesList = [...volumes];
                 this.editImagePath = this.viewData.image.url;
                 this.form.controls.image.clearValidators();
                 this.form.controls.image.updateValueAndValidity();
@@ -189,6 +214,16 @@ export class PostsComponent implements OnInit {
         this.isModalShown = false;
         this.editImagePath = undefined;
         this.form.reset();
+        this.isLoadedList = {
+            volume: true,
+            taxonomies: true,
+            topics: true,
+        };
+        this.pages = {
+            volume: 1,
+            taxonomies: 1,
+            topics: 1,
+        };
         // this.tagFiled.value = [];
     }
 
@@ -308,33 +343,99 @@ export class PostsComponent implements OnInit {
         })
     }
 
-    getLists() {
-        let request1 = this.requestService.getData(`${environment.admin.posts.getTaxonomyList}`);
-        let request2 = this.requestService.getData(`${environment.admin.posts.getTopicList}`);
-        let request3 = this.requestService.getData(`${environment.admin.posts.getVolumesList}`);
-        forkJoin([request1, request2, request3]).subscribe(([item1, item2, item3]: any) => {
-            this.taxonomyList = [];
-            for (let i = 0; i < item1.data.length; i++) {
-                this.taxonomyList.push({
-                    id: item1.data[i].guid,
-                    itemName: `Level 1 : ${item1.data[i].level1}, Level 2 : ${item1.data[i].level2}, Level 3 : ${item1.data[i].level3}`
-                });
-            }
-            this.topicList = [];
-            for (let i = 0; i < item2.data.length; i++) {
-                this.topicList.push({
-                    id: item2.data[i].guid,
-                    itemName: item2.data[i].key
-                });
-            }
-            this.volumesList = [];
-            for (let i = 0; i < item3.data.length; i++) {
-                this.volumesList.push({
-                    id: item3.data[i].guid,
-                    itemName: item3.data[i].key
-                });
-            }
-        })
-    }
+    // getLists() {
+    //     let request1 = this.requestService.getData(`${environment.admin.posts.getTaxonomyList}`);
+    //     let request2 = this.requestService.getData(`${environment.admin.posts.getTopicList}`);
+    //     let request3 = this.requestService.getData(`${environment.admin.posts.getVolumesList}`);
+    //     forkJoin([request1, request2, request3]).subscribe(([item1, item2, item3]: any) => {
+    //         this.taxonomyList = [];
+    //         for (let i = 0; i < item1.data.length; i++) {
+    //             this.taxonomyList.push({
+    //                 id: item1.data[i].guid,
+    //                 itemName: `Level 1 : ${item1.data[i].level1}, Level 2 : ${item1.data[i].level2}, Level 3 : ${item1.data[i].level3}`
+    //             });
+    //         }
+    //         this.topicList = [];
+    //         for (let i = 0; i < item2.data.length; i++) {
+    //             this.topicList.push({
+    //                 id: item2.data[i].guid,
+    //                 itemName: item2.data[i].key
+    //             });
+    //         }
+    //         this.volumesList = [];
+    //         for (let i = 0; i < item3.data.length; i++) {
+    //             this.volumesList.push({
+    //                 id: item3.data[i].guid,
+    //                 itemName: item3.data[i].key
+    //             });
+    //         }
+    //     })
+    // }
 
+    getVolumeList (event: any, type) {
+        if (event.endIndex === this.volumesList.length - 1 && this.isLoadedList[type]) {
+            this.loading = true;
+            this.isLoadedList[type] = false;
+            this.requestService.getData(`${environment.admin.posts.getVolumesList}?page=${this.pages[type]}`).subscribe((res: any) => {
+                if (!res['message']) {
+                    let newData: any = [];
+                    this.isLoadedList[type] = res.last_page !== this.pages[type];
+                    for (let i in res['data']) {
+                        if (!this.selectedVolumes.includes(res['data'][i]['guid'])) {
+                            newData.push(
+                                {"id": res['data'][i]['guid'], "itemName": res['data'][i]['key']}
+                            );
+                        }
+                    }
+                    this.volumesList = [...this.volumesList.concat(newData)];
+                    this.loading = false;
+                    this.pages[type] += 1
+                }
+            });
+        }
+    }
+    getTaxonomiesList (event: any, type) {
+        if (event.endIndex === this.taxonomyList.length - 1 && this.isLoadedList[type]) {
+            this.loading = true;
+            this.isLoadedList[type] = false;
+            this.requestService.getData(`${environment.admin.posts.getTaxonomyList}?page=${this.pages[type]}`).subscribe((res: any) => {
+                if (!res['message']) {
+                    let newData: any = [];
+                    this.isLoadedList[type] = res.last_page !== this.pages[type];
+                    for (let i in res['data']) {
+                        if (!this.selectedTaxonomies.includes(res['data'][i]['guid'])) {
+                            newData.push(
+                                {"id": res['data'][i]['guid'], "itemName": `Level 1 : ${res.data[i].level1}, Level 2 : ${res.data[i].level2}, Level 3 : ${res.data[i].level3}`}
+                            );
+                        }
+                    }
+                    this.taxonomyList = [...this.taxonomyList.concat(newData)];
+                    this.loading = false;
+                    this.pages[type] += 1
+                }
+            });
+        }
+    }
+    getTopicList (event: any, type) {
+        if (event.endIndex === this.topicList.length - 1 && this.isLoadedList[type]) {
+            this.loading = true;
+            this.isLoadedList[type] = false;
+            this.requestService.getData(`${environment.admin.posts.getTopicList}?page=${this.pages[type]}`).subscribe((res: any) => {
+                if (!res['message']) {
+                    let newData: any = [];
+                    this.isLoadedList[type] = res.last_page !== this.pages[type];
+                    for (let i in res['data']) {
+                        if (!this.selectedTopics.includes(res['data'][i]['guid'])) {
+                            newData.push(
+                                {"id": res['data'][i]['guid'], "itemName": res['data'][i]['key']}
+                            );
+                        }
+                    }
+                    this.topicList = [...this.topicList.concat(newData)];
+                    this.loading = false;
+                    this.pages[type] += 1
+                }
+            });
+        }
+    }
 }
