@@ -4,7 +4,7 @@ import {ReactiveFormsModule} from "@angular/forms";
 import {HomeComponent} from "./home.component";
 import {HomeRoutingModule} from "./home-routing.module";
 import {ComponentsModule} from "../components/components.module";
-import {SwiperModule} from "swiper/angular";
+import {CarouselModule} from "ngx-owl-carousel-o";
 
 @NgModule({
   declarations: [HomeComponent],
@@ -13,7 +13,7 @@ import {SwiperModule} from "swiper/angular";
     HomeRoutingModule,
     ReactiveFormsModule,
     ComponentsModule,
-    SwiperModule
+    CarouselModule
   ]
 })
 export class HomeModule {

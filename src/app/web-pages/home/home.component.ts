@@ -1,13 +1,7 @@
 import {Component, ElementRef, OnInit} from '@angular/core';
 import {RequestService} from "../../shared/service/request.service";
-import {FormBuilder} from "@angular/forms";
-// import Swiper core and required modules
-import SwiperCore, {Navigation, Pagination, Scrollbar, A11y, Autoplay, Virtual} from 'swiper';
 import {environment} from "../../../environments/environment.prod";
-import Swiper from "swiper";
-
-// install Swiper modules
-SwiperCore.use([Navigation, Pagination, Scrollbar, A11y, Autoplay, Virtual]);
+import {OwlOptions} from "ngx-owl-carousel-o";
 
 @Component({
   selector: 'app-home',
@@ -27,33 +21,30 @@ export class HomeComponent implements OnInit {
   allData: any;
   public urlSlider: string = environment.webPages.slider.get;
   public dataSlider: any[] = [];
-
+  customOptions: OwlOptions = {
+    loop: true,
+    autoplay: true,
+    navText: ["<div><div class=\"custom-swiper-button-prev\"><span class=\"bi-chevron-left\"></span></div></div>",
+      "<div><div class=\"custom-swiper-button-next\"><span class=\"bi-chevron-right\"></span></div></div>"],
+    mouseDrag: true,
+    touchDrag: false,
+    pullDrag: false,
+    dots: true,
+    navSpeed: 500,
+    responsive: {
+      0: {
+        items: 1
+      }
+    },
+    nav: true
+  }
 
   constructor(public requestService: RequestService,
-              private fb: FormBuilder,
               public el: ElementRef
   ) {
   }
 
   ngOnInit(): void {
-    const swiper = new Swiper('.swiper', {
-      speed: 500,
-      loop: true,
-      slideToClickedSlide: true,
-      autoplay: {
-        delay: 3000,
-        disableOnInteraction: false,
-      },
-      pagination: {
-        el: ".swiper-pagination",
-        clickable: true,
-      },
-      navigation: {
-        nextEl: ".custom-swiper-button-next",
-        prevEl: ".custom-swiper-button-prev",
-      },
-    });
-    swiper.slideToLoop(0, 500, false);
     this.getDataKids(`${this.url}?facet=on&q=*:*&start=0&rows=8&fq=type:KidsClick`);
     this.getDataJune2020(`${this.url}?facet=on&q=*:*&start=0&rows=8&fq=type:June2020`);
     this.getDataAcademic(`${this.url}?facet=on&q=*:*&start=0&rows=8&fq=type:AcademicSearch`);

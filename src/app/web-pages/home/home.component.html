@@ -8,27 +8,17 @@
     <div class="container-md" data-aos="fade-in">
       <div class="row">
         <div class="col-12">
-          <div class="swiper sliderFeaturedPosts">
-            <div class="swiper-wrapper">
-              <div class="swiper-slide" *ngFor="let item of dataSlider">
-                <div class="img-bg d-flex align-items-end"
-                   [style.backgroundImage]="'url('+ this.requestService.imgSite  + item.image.url +')'">
-                  <div class="img-bg-inner">
-                    <h2>{{item.title}}</h2>
-                    <p>{{item.description}}</p>
-                  </div>
+          <owl-carousel-o [options]="customOptions">
+            <ng-template carouselSlide *ngFor="let item of dataSlider">
+              <img src="{{this.requestService.imgSite  + item.image.url}}" alt="">
+              <div class="img-bg">
+                <div class="img-bg-inner">
+                  <h2>{{item.title}}</h2>
+                  <p>{{item.description}}</p>
                 </div>
               </div>
-            </div>
-            <div class="custom-swiper-button-next">
-              <span class="bi-chevron-right"></span>
-            </div>
-            <div class="custom-swiper-button-prev">
-              <span class="bi-chevron-left"></span>
-            </div>
-
-            <div class="swiper-pagination"></div>
-          </div>
+            </ng-template>
+          </owl-carousel-o>
         </div>
       </div>
     </div>
@@ -36,26 +26,26 @@
 
   <!-- ======= Post Grid Section ======= -->
   <!--<section id="posts" class="posts">-->
-    <!--<div class="container" data-aos="fade-up">-->
-      <!--<div class="row g-5">-->
+  <!--<div class="container" data-aos="fade-up">-->
+  <!--<div class="row g-5">-->
 
-        <!--<div *ngIf="data.length == 0" class="text-center">-->
-          <!--<img src="assets/img/ezgif.com-gif-maker (2).jpg" alt="no result">-->
-          <!--<h2>Sorry But No Result</h2>-->
-          <!--<button type="button" class="btn btn-primary" (click)="searchResult('reset')">Reset</button>-->
-        <!--</div>-->
+  <!--<div *ngIf="data.length == 0" class="text-center">-->
+  <!--<img src="assets/img/ezgif.com-gif-maker (2).jpg" alt="no result">-->
+  <!--<h2>Sorry But No Result</h2>-->
+  <!--<button type="button" class="btn btn-primary" (click)="searchResult('reset')">Reset</button>-->
+  <!--</div>-->
 
-        <!--<div *ngFor="let item of data" class="col-lg-3 post-entry-1">-->
-          <!--<a [routerLink]="['/post', item?.id]"><img src="assets/img/post-landscape-5.jpg" alt="image" class="img-fluid image-height"></a>-->
-          <!--<div class="post-meta">-->
-            <!--<span class="date">{{item?.volume}} </span> <span class="mx-1">&bullet;</span> <span>{{item?.volume_number}}-->
-            <!--<sup>{{item?.s}}</sup> <span class="mx-1">&bullet;</span> </span>-->
-            <!--<span class="date">{{item?.l}} </span> | <span>{{item?.bn}}</span>-->
-          <!--</div>-->
-          <!--<h2><a [routerLink]="['/post', item?.id]">{{item?.title}}</a></h2>-->
-        <!--</div>-->
-      <!--</div> &lt;!&ndash; End .row &ndash;&gt;-->
-    <!--</div>-->
+  <!--<div *ngFor="let item of data" class="col-lg-3 post-entry-1">-->
+  <!--<a [routerLink]="['/post', item?.id]"><img src="assets/img/post-landscape-5.jpg" alt="image" class="img-fluid image-height"></a>-->
+  <!--<div class="post-meta">-->
+  <!--<span class="date">{{item?.volume}} </span> <span class="mx-1">&bullet;</span> <span>{{item?.volume_number}}-->
+  <!--<sup>{{item?.s}}</sup> <span class="mx-1">&bullet;</span> </span>-->
+  <!--<span class="date">{{item?.l}} </span> | <span>{{item?.bn}}</span>-->
+  <!--</div>-->
+  <!--<h2><a [routerLink]="['/post', item?.id]">{{item?.title}}</a></h2>-->
+  <!--</div>-->
+  <!--</div> &lt;!&ndash; End .row &ndash;&gt;-->
+  <!--</div>-->
   <!--</section> &lt;!&ndash; End Post Grid Section &ndash;&gt;-->
 
   <section id="kids" class="kids">
@@ -66,7 +56,8 @@
       </div>
       <div class="row g-5">
         <div *ngFor="let item of dataKids" class="col-lg-3 post-entry-1">
-          <a [routerLink]="['/kids', item?.id]"><img src="{{imagePrefix + item?.image}}" alt="image" class="img-fluid image-height"></a>
+          <a [routerLink]="['/kids', item?.id]"><img src="{{imagePrefix + item?.image}}" alt="image"
+                                                     class="img-fluid image-height"></a>
           <div class="post-meta">
             <span class="date">{{item?.volume}} </span> <span class="mx-1">&bullet;</span> <span>{{item?.volume_number}}
             <sup>{{item?.s}}</sup> <span class="mx-1">&bullet;</span> </span>
@@ -87,7 +78,7 @@
       <div class="row g-5">
         <div *ngFor="let item of dataJune2020" class="col-lg-3 post-entry-1">
           <a [routerLink]="['/june2020', item?.id]"><img src="{{imagePrefix + item?.image}}" alt="image"
-                                                              class="img-fluid image-height"></a>
+                                                         class="img-fluid image-height"></a>
           <div class="post-meta">
             <span class="date">{{item?.volume}} </span> <span class="mx-1">&bullet;</span> <span>{{item?.volume_number}}
             <sup>{{item?.s}}</sup> <span class="mx-1">&bullet;</span> </span>
@@ -107,7 +98,8 @@
       </div>
       <div class="row g-5">
         <div *ngFor="let item of dataAcademic" class="col-lg-3 post-entry-1">
-          <a [routerLink]="['/academic', item?.id]"><img src="{{imagePrefix + item?.image}}" alt="image" class="img-fluid image-height"></a>
+          <a [routerLink]="['/academic', item?.id]"><img src="{{imagePrefix + item?.image}}" alt="image"
+                                                         class="img-fluid image-height"></a>
           <div class="post-meta">
             <span class="date">{{item?.volume}} </span> <span class="mx-1">&bullet;</span> <span>{{item?.volume_number}}
             <sup>{{item?.s}}</sup> <span class="mx-1">&bullet;</span> </span>
@@ -127,7 +119,8 @@
       </div>
       <div class="row g-5">
         <div *ngFor="let item of dataPieces" class="col-lg-3 post-entry-1">
-          <a [routerLink]="['/pieces', item?.id]"><img src="{{imagePrefix + item?.image}}" alt="image" class="img-fluid image-height"></a>
+          <a [routerLink]="['/pieces', item?.id]"><img src="{{imagePrefix + item?.image}}" alt="image"
+                                                       class="img-fluid image-height"></a>
           <div class="post-meta">
             <span class="date">{{item?.volume}} </span> <span class="mx-1">&bullet;</span> <span>{{item?.volume_number}}
             <sup>{{item?.s}}</sup> <span class="mx-1">&bullet;</span> </span>
