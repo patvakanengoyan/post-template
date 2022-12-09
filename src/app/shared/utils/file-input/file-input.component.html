@@ -7,7 +7,8 @@
     </div>
   </div>
   <label for="image">{{data?.label ? data?.label : 'Image'}}</label>
-  <input type="file" class="form-control" (change)="onChangeInput($event)" formControlName="file" id="image">
+  <input type="file" class="form-control" (change)="onChangeInput($event)" formControlName="file" id="image"
+         accept="image/png, image/jpeg, image/jpg, image/bmp">
   <div>
     <span *ngIf="control?.hasError('required') && (control?.dirty || control?.touched)" class="error-message">The Image is required</span>
     <span *ngIf="control?.hasError('type')" class="error-message">Please choose valid image</span>

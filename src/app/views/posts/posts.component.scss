@@ -27,3 +27,6 @@ table tr td > span {
 .my-modal-width {
   max-width: 1150px;
 }
+::ng-deep .arrow-down, ::ng-deep.arrow-up {
+  display: none;
+}

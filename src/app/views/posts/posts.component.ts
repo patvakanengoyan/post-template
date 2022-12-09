@@ -315,13 +315,25 @@ export class PostsComponent implements OnInit {
             data.append('image', form.image);
         }
         if (this.form.value['volume']) {
-          data.append('volume', this.form.value['volume'][0].id);
+          if (this.form.value['volume'].length > 0) {
+            data.append('volume', this.form.value['volume'][0].id);
+          }
         }
-        data.append('volume_number', form.volume_number);
-        data.append('letter', form.letter);
-        data.append('page', form.page);
-        data.append('slice_of_page', form.slice_of_page);
-        data.append('color', form.color);
+        if (form.letter) {
+          data.append('letter', form.letter);
+        }
+        if (form.page) {
+          data.append('page', form.page);
+        }
+        if (form.slice_of_page) {
+          data.append('slice_of_page', form.slice_of_page);
+        }
+        if(form.volume_number) {
+          data.append('volume_number', form.volume_number);
+        }
+        if (form.color) {
+          data.append('color', form.color);
+        }
         data.append('type', form.type[0].id);
         data.append('translations[en][title]', form.title);
         data.append('translations[en][description]', form.description);
