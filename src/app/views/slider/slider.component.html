@@ -70,12 +70,12 @@
 
         <div class="modal-body">
           <div *ngIf="requestType == 'view' && viewData">
-            <img style="max-width: 300px; max-height: 350px;" src="{{this.requestService.imgSite + viewData[0].image?.url}}"
+            <img style="max-width: 300px; max-height: 350px;" src="{{this.requestService.imgSite + viewData.image?.url}}"
                  alt="img">
             <div>
-              <p><b>Title: </b>{{viewData[0].title}}</p>
-              <p><b>Description: </b>{{viewData[0].description}}</p>
-              <p><b>Status: </b>{{viewData[0].status == 1 ? 'Active' : 'Inactive'}}</p>
+              <p><b>Title: </b>{{viewData.title}}</p>
+              <p><b>Description: </b>{{viewData.description}}</p>
+              <p><b>Status: </b>{{viewData.status == 1 ? 'Active' : 'Inactive'}}</p>
             </div>
           </div>
           <div *ngIf="requestType == 'edit' || requestType == 'add'">
