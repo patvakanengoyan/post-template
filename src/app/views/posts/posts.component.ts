@@ -224,6 +224,9 @@ export class PostsComponent implements OnInit {
             taxonomies: 1,
             topics: 1,
         };
+        this.taxonomyList = [];
+        this.volumesList = [];
+        this.topicList = [];
         // this.tagFiled.value = [];
     }
 
