@@ -52,7 +52,8 @@ export class HeaderSearchComponent implements OnInit {
     this.singleSelectSetting = {
       addNewItemOnFilter: true,
       singleSelection: true,
-      text: "Select item"
+      text: "Select item",
+      classes: 'my_class_type'
     };
   }
 

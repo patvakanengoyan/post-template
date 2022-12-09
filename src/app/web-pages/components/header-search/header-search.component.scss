@@ -2,3 +2,7 @@
   margin-left: auto;
   margin-right: 12px;
 }
+::ng-deep .my_class_type.ng-invalid > .cuppa-dropdown {
+  border: 1px solid #e55353;
+  border-radius: 5px;
+}
