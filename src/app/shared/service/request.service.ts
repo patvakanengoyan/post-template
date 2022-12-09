@@ -3,6 +3,7 @@ import {HttpClient, HttpErrorResponse, HttpHeaders} from "@angular/common/http";
 import {Observable, Subject, throwError} from 'rxjs';
 import {catchError, finalize, map} from 'rxjs/operators';
 import {environment} from "../../../environments/environment.prod";
+import {BehaviorSubject} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,7 @@ export class RequestService {
   public userEmail: any =localStorage.getItem('site_email');
   public userImage: any =localStorage.getItem('site_image');
   public adminImage: any =localStorage.getItem('image');
-
+  public search: Subject<any> = new BehaviorSubject<any>(false);
   constructor(private http: HttpClient) {}
 
   /*get request function*/

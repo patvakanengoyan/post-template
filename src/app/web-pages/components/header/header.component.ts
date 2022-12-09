@@ -1,5 +1,5 @@
-import {Component, OnInit, Output, EventEmitter} from '@angular/core';
-import {FormBuilder, FormGroup} from "@angular/forms";
+import {Component, OnInit, Output, EventEmitter, Input} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {RequestService} from "../../../shared/service/request.service";
 import {SocketConnectionService} from "../../../shared/service/socket-connection.service";
 import {environment} from "../../../../environments/environment.prod";
@@ -11,21 +11,16 @@ import {Router} from "@angular/router";
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-  form: any = FormGroup;
+
   @Output() submit = new EventEmitter<string>();
+  @Input() isShowSearch: boolean = true;
   searchShow: boolean =false;
 
-  itemListCountry: any = [];
+  itemListType: any = [];
   settingsCountry: any = {};
-
-  itemListCity: any = [];
-  settingsCity: any = {};
 
   itemListCategory: any = [];
   settingsCategory: any = {};
-
-  itemListTag: any = [];
-
   constructor(public requestService: RequestService,
               private socketConnection: SocketConnectionService,
               public fb: FormBuilder,
@@ -36,38 +31,11 @@ export class HeaderComponent implements OnInit {
     this.requestService.userLastName = localStorage.getItem('site_last_name');
     this.requestService.userEmail = localStorage.getItem('site_email');
     this.requestService.userImage = localStorage.getItem('site_image');
-    this.form = this.fb.group({
-      title: '',
-      description: '',
-      country: '',
-      city: '',
-      tag: '',
-      category: ''
-    })
     this.socketConnection.socketConnected.subscribe((connected) => {
       if (connected) {
         // this.getUserList();
       }
     })
-    this.itemListCountry = [
-      {"id":1,"itemName":"USA"},
-      {"id":2,"itemName":"England"},
-      {"id":3,"itemName":"France"},
-    ];
-
-    this.settingsCountry = {
-      enableSearchFilter: true,
-      addNewItemOnFilter: true,
-      singleSelection: true,
-      text:"Select item"
-    };
-
-    this.itemListCity = [
-      {"id":1,"itemName":"New York",},
-      {"id":2,"itemName":"Las Vegas"},
-      {"id":3,"itemName":"London"},
-      {"id":4,"itemName":"Paris"},
-    ];
     this.itemListCategory = [
       {"id":1,"itemName":"Business"},
       {"id":2,"itemName":"Culture"},
@@ -82,13 +50,6 @@ export class HeaderComponent implements OnInit {
       selectAllText: 'Select All',
       text:"Select item"
     };
-    this.itemListTag = [
-      {"id":1,"itemName":"Business"},
-      {"id":2,"itemName":"Culture"},
-      {"id":3,"itemName":"Sport"},
-      {"id":4,"itemName":"Food"},
-      {"id":5,"itemName":"Startups"},
-    ];
   }
 
   logout() {
@@ -116,25 +77,26 @@ export class HeaderComponent implements OnInit {
     })
   }
 
-  searchForm(){
+  closeWindow(){
     this.searchShow = !this.searchShow
   }
 
   searchSubmit(form: any) {
-   this.submit.emit(form);
-    this.searchShow = !this.searchShow
+    // if (this.form.valid) {
+    //     this.submit.emit(form);
+    //     this.searchShow = !this.searchShow
+    // }
   }
   reset() {
-    this.form.reset({
-      title: '',
-      description: '',
-      country: '',
-      city: '',
-      tag: '',
-      category: ''
-    });
+    // this.form.reset({
+    //   title: '',
+    //   description: '',
+    //   country: '',
+    //   city: '',
+    //   tag: '',
+    //   category: ''
+    // });
     this.submit.emit('reset');
     this.searchShow = !this.searchShow
   }
-
 }

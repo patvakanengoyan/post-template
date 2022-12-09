@@ -130,3 +130,29 @@ input[type=text]:read-only {
 .ck.ck-balloon-panel.ck-balloon-panel_arrow_s.ck-balloon-panel_with-arrow.ck-toolbar-container {
     z-index: 1070;
 }
+.my-pagination a {
+    border: none;
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    line-height: 30px;
+    text-align: center;
+    border-radius: 50%;
+    font-family: var(--font-secondary);
+    margin: 5px;
+    transition: 0.3s all ease;
+    color: var(--color-links);
+}
+.my-pagination a:hover {
+    color: var(--color-links);
+}
+.my-pagination li.pagination-prev a, .my-pagination li.pagination-next a {
+    width: auto !important;
+    border-radius: 4px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.my-pagination li.active a {
+    background: var(--color-black);
+    color: var(--color-white);
+}
