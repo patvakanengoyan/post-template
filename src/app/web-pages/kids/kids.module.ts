@@ -8,6 +8,7 @@ import { KidsViewComponent } from './kids-view/kids-view.component';
 import {AccordionModule} from "ngx-bootstrap/accordion";
 import {PaginationModule} from "ngx-bootstrap/pagination";
 import {CollapseModule} from "ngx-bootstrap/collapse";
+import { TimeagoModule } from 'ngx-timeago';
 
 @NgModule({
   declarations: [KidsComponent, KidsViewComponent],
@@ -19,6 +20,7 @@ import {CollapseModule} from "ngx-bootstrap/collapse";
     PaginationModule.forRoot(),
     FormsModule,
     CollapseModule.forRoot(),
+    TimeagoModule.forRoot()
   ]
 })
 export class KidsModule {

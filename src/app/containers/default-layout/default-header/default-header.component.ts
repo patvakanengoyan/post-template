@@ -30,6 +30,7 @@ export class DefaultHeaderComponent extends HeaderComponent implements OnInit{
   logout () {
     this.requestService.createData(`${environment.admin.logout}`, '').subscribe(() => {
       localStorage.clear();
+      this.socketConnection.socket.disconnect();
       this.router.navigateByUrl('login');
     })
   }

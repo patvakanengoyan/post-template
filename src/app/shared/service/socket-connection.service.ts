@@ -20,8 +20,9 @@ export class SocketConnectionService {
 
     this.refreshTokenWork.subscribe(res => {
       if (res) {
-        console.log('mtav')
-        this.connect();
+        if (localStorage.getItem('site_access_token')){
+          this.connect();
+        }
       }
     })
 
@@ -50,6 +51,7 @@ export class SocketConnectionService {
     });
     this.socket.on('_signal', (signal_type, signal_data) => {
       if (signal_type === 106) {
+        console.log(signal_data);
 
         if (signal_data.message_reply_id) {
           let a = this.messagesList.filter((el: any) => el.message_id == signal_data.message_reply_id );
@@ -65,6 +67,7 @@ export class SocketConnectionService {
           }
         } else {
          let a = this.messagesList.filter((el: any) => el.message_id == signal_data.message_id );
+         console.log(a);
           if (a.length == 0) {
             this.messagesList.unshift(signal_data);
           }
@@ -77,14 +80,14 @@ export class SocketConnectionService {
 
   join(id) {
     let ex_version = 'v' + this.getInfo?.result?.endpoints?.major_version + '.' + this.getInfo?.result?.endpoints?.minor_version;
-    this.requestServise.getData(`${this.getInfo?.result?.endpoints?.host}/api/${ex_version}/room/ROOM1/join`, true).subscribe(res => {
+    this.requestServise.getData(`${this.getInfo?.result?.endpoints?.host}/api/${ex_version}/room/${id}/join`, true).subscribe(res => {
       console.log(res);
     })
   }
 
   getMessagesList(id){
     let ex_version = 'v' + this.getInfo?.result?.endpoints?.major_version + '.' + this.getInfo?.result?.endpoints?.minor_version;
-    this.requestServise.getData(`${this.getInfo?.result?.endpoints?.host}/api/${ex_version}/room/ROOM1/message/list?skip=0&take=999999&expand_files=false&expand_reply=true&expand_reply_files=false&expand_recipients=false`).subscribe(res => {
+    this.requestServise.getData(`${this.getInfo?.result?.endpoints?.host}/api/${ex_version}/room/${id}/message/list?skip=0&take=999999&expand_files=false&expand_reply=true&expand_reply_files=false&expand_recipients=false`).subscribe(res => {
        if (res['data']['result'] && res['data']['result'].length > 0) {
         this.messagesList = res['data']['result'];
        }
