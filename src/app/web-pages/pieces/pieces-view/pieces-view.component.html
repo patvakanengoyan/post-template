@@ -43,7 +43,7 @@
             <!--            <p>Consequuntur corrupti fugiat quod! Ducimus sequi nemo illo ad necessitatibus amet nobis corporis et quasi. Optio cum neque fuga. Ad excepturi magnam quisquam ex voluptatibus vitae aut nam quidem doloribus, architecto perspiciatis sit consequatur pariatur alias animi expedita quas? Et doloribus voluptatibus perferendis qui fugiat voluptatum autem facere aspernatur quidem quae assumenda iste, sit similique, necessitatibus laborum magni. Ea, dolores!</p>-->
             <!--            <p>Possimus temporibus rerum illo quia repudiandae provident sed quas atque. Ipsam adipisci accusamus iste optio illo aliquam molestias? Voluptatibus, veniam recusandae facilis nobis perspiciatis rem similique, nisi ad explicabo ipsa voluptatum, inventore molestiae natus adipisci? Fuga delectus quia assumenda totam aspernatur. Nobis hic ea rem, quaerat voluptate vero illum laboriosam omnis aspernatur labore, natus ex iusto ducimus exercitationem a officia.</p>-->
           </div><!-- End Single Post Content -->
-          <div id="share">
+          <div id="share" #share>
 
             <!-- facebook -->
             <a class="facebook" href="https://www.facebook.com/sharer.php?t=ShareThis%20Onboarding%3A%20Customize%20Share%20Buttons%20%26%20Other%20Tools%20-%20ShareThis&u=https%3A%2F%2Fwww.sharethis.com%2F" target="blank"><i class="fa fa-facebook"></i></a>
@@ -60,106 +60,87 @@
             <a class="email" href="mailto: abc@example.com"><i class="fa fa-envelope-o"></i></a>
           </div>
           <!-- ======= Comments ======= -->
-          <div class="comments">
-            <h5 class="comment-title py-4">2 Comments</h5>
-            <div class="comment d-flex mb-4">
-              <div class="flex-shrink-0">
-                <div class="avatar avatar-sm rounded-circle">
-                  <img class="avatar-img" src="assets/img/person-5.jpg" alt="" class="img-fluid">
+
+          <div class="block">
+            <div class="block-header">
+              <div class="title">
+                <h2>Comments</h2>
+                <div class="tag">{{socket.messagesList.length}}</div>
+              </div>
+            </div>
+            <div class="writing">
+              <p>You answer: @ <span style="color: blue;">{{replyUserName}}  </span> <i *ngIf="replyUserName" (click)="clearReply()" class="fa fa-times cursor-pointer" aria-hidden="true"></i>
+              </p>
+              <form [formGroup]="form" (ngSubmit)="submit(form.value)">
+                <!-- <div contenteditable="true" class="textarea" formControlName="message_content" autofocus spellcheck="false">
+
+
+                </div> -->
+                <textarea class="form-control" id="comment-message" formControlName="message_content" placeholder="Enter your message" cols="30" rows="10"></textarea>
+
+                <div class="footer2">
+                  <div class="group-button">
+                    <button class="btn2 primary" type="submit" [disabled]="!form.valid || disableSend">Send</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <div *ngFor="let comment of socket.messagesList">
+              <div class="comment">
+                <div class="user-banner">
+                  <div class="user">
+                    <div class="avatar">
+                      <img src="{{comment['message_author']['user_image']}}" alt="">
+                      <!-- <span class="stat green"></span> -->
+                    </div>
+                    <h5>{{comment['message_author']['user_name']}}</h5>
+                  </div>
+                  <button class="btn2 dropdown"><i class="ri-more-line"></i></button>
+                </div>
+                <div class="content">
+                  <p style="margin-bottom: 0">{{comment['message_content']}}</p>
+                </div>
+                <div class="footer2">
+                  <button class="btn2"><i class="ri-emotion-line"></i></button>
+                  <div class="divider"></div>
+                  <a href="javascript:void(0)" (click)="replyComment(comment)">Reply</a>
+                  <div class="divider"></div>
+                  <span class="is-mute">{{ comment['message_created_at'] | timeago: 'live' }}</span>
                 </div>
               </div>
-              <div class="flex-grow-1 ms-2 ms-sm-3">
-                <div class="comment-meta d-flex align-items-baseline">
-                  <h6 class="me-2">Jordan Singer</h6>
-                  <span class="text-muted">2d</span>
-                </div>
-                <div class="comment-body">
-                  Lorem ipsum, dolor sit amet consectetur adipisicing elit. Non minima ipsum at amet doloremque qui magni, placeat deserunt pariatur itaque laudantium impedit aliquam eligendi repellendus excepturi quibusdam nobis esse accusantium.
-                </div>
+              <hr>
+              <div *ngIf="comment['message_reply']">
 
-                <div class="comment-replies bg-light p-3 mt-3 rounded">
-                  <h6 class="comment-replies-title mb-4 text-muted text-uppercase">2 replies</h6>
 
-                  <div class="reply d-flex mb-4">
-                    <div class="flex-shrink-0">
-                      <div class="avatar avatar-sm rounded-circle">
-                        <img class="avatar-img" src="assets/img/person-4.jpg" alt="" class="img-fluid">
+                <div class="reply comment" *ngFor="let reply of comment['message_reply']" >
+                  <div class="user-banner">
+                    <div class="user">
+                      <div class="avatar">
+                        <img src="{{reply['message_author']?.user_image}}" alt="">
+                        <!-- <span class="stat green"></span> -->
                       </div>
+                      <h5>{{reply['message_author']?.user_name}}</h5>
                     </div>
-                    <div class="flex-grow-1 ms-2 ms-sm-3">
-                      <div class="reply-meta d-flex align-items-baseline">
-                        <h6 class="mb-0 me-2">Brandon Smith</h6>
-                        <span class="text-muted">2d</span>
-                      </div>
-                      <div class="reply-body">
-                        Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                      </div>
-                    </div>
+                    <button class="btn2 dropdown"><i class="ri-more-line"></i></button>
                   </div>
-                  <div class="reply d-flex">
-                    <div class="flex-shrink-0">
-                      <div class="avatar avatar-sm rounded-circle">
-                        <img class="avatar-img" src="assets/img/person-3.jpg" alt="" class="img-fluid">
-                      </div>
-                    </div>
-                    <div class="flex-grow-1 ms-2 ms-sm-3">
-                      <div class="reply-meta d-flex align-items-baseline">
-                        <h6 class="mb-0 me-2">James Parsons</h6>
-                        <span class="text-muted">1d</span>
-                      </div>
-                      <div class="reply-body">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio dolore sed eos sapiente, praesentium.
-                      </div>
-                    </div>
+                  <div class="content">
+                    <p style="margin-bottom: 0">{{reply['message_content']}}</p>
+                  </div>
+                  <div class="footer2">
+                    <button class="btn2"><i class="ri-emotion-line"></i></button>
+                    <div class="divider"></div>
+                    <!-- <a href="javascript:void(0)" (click)="replyComment(reply['message_id'])">Reply</a> -->
+                    <div class="divider"></div>
+                    <span class="is-mute">{{reply['message_created_at'] | timeago: 'live'}}</span>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="comment d-flex">
-              <div class="flex-shrink-0">
-                <div class="avatar avatar-sm rounded-circle">
-                  <img class="avatar-img" src="assets/img/person-2.jpg" alt="" class="img-fluid">
-                </div>
-              </div>
-              <div class="flex-shrink-1 ms-2 ms-sm-3">
-                <div class="comment-meta d-flex">
-                  <h6 class="me-2">Santiago Roberts</h6>
-                  <span class="text-muted">4d</span>
-                </div>
-                <div class="comment-body">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto laborum in corrupti dolorum, quas delectus nobis porro accusantium molestias sequi.
-                </div>
-              </div>
-            </div>
-          </div><!-- End Comments -->
+            <!-- <div class="load">
+              <span><i class="ri-refresh-line"></i>Loading</span>
+            </div> -->
+          </div>
 
-          <!-- ======= Comments Form ======= -->
-          <form [formGroup]="form" (ngSubmit)="sendComment()">
-            <div class="row justify-content-center mt-5">
-
-              <div class="col-lg-12">
-                <h5 class="comment-title">Leave a Comment</h5>
-                <div class="row">
-                  <div class="col-lg-6 mb-3">
-                    <label for="comment-name">Name</label>
-                    <input type="text" formControlName="name" class="form-control" id="comment-name" placeholder="Enter your name">
-                  </div>
-                  <div class="col-lg-6 mb-3">
-                    <label for="comment-email">Email</label>
-                    <input type="email" formControlName="email" class="form-control" id="comment-email" placeholder="Enter your email">
-                  </div>
-                  <div class="col-12 mb-3">
-                    <label for="comment-message">Message</label>
-
-                    <textarea class="form-control" formControlName="message" id="comment-message" placeholder="Enter your name" cols="30" rows="10"></textarea>
-                  </div>
-                  <div class="col-12">
-                    <input type="submit" class="btn btn-primary" value="Post comment">
-                  </div>
-                </div>
-              </div>
-            </div>
-          </form>
           <!-- End Comments Form -->
 
         </div>

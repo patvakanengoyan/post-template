@@ -11,6 +11,7 @@ import {BehaviorSubject} from "rxjs";
 export class RequestService {
   private httpHeaders: any;
   private isLoading = new Subject<object>();
+  public socketdisconnect = new BehaviorSubject<boolean>(false);
   public loading = this.isLoading.asObservable();
   private reqCount: number = 0;
   public imgSite: string = environment.imagePrefix;

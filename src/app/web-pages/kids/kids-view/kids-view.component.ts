@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {environment} from "../../../../environments/environment.prod";
 import {RequestService} from "../../../shared/service/request.service";
 import {ActivatedRoute} from "@angular/router";
@@ -11,7 +11,7 @@ import { SocketConnectionService } from 'src/app/shared/service/socket-connectio
   templateUrl: './kids-view.component.html',
   styleUrls: ['./kids-view.component.scss']
 })
-export class KidsViewComponent implements OnInit {
+export class KidsViewComponent implements OnInit, OnDestroy {
 
   public url: string = environment.webPages.kids.get;
   public data: any | object = {};
@@ -53,7 +53,9 @@ export class KidsViewComponent implements OnInit {
             this.form.controls['message_content'].disable();
           }
         } else {
-          this.socket.join(this.data.chat_id);
+          if (localStorage.getItem('site_access_token')) {
+            this.socket.join(this.data.chat_id);
+          }
         }
       });
       this.socket.getMessagesList(this.data.chat_id);
@@ -85,5 +87,10 @@ export class KidsViewComponent implements OnInit {
   clearReply() {
     this.replyID = undefined;
     this.replyUserName = undefined;
+  }
+
+  ngOnDestroy(): void {
+    this.clearReply();
+    this.socket.messagesList = [];
   }
 }

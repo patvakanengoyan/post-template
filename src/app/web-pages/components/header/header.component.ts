@@ -4,6 +4,7 @@ import {RequestService} from "../../../shared/service/request.service";
 import {SocketConnectionService} from "../../../shared/service/socket-connection.service";
 import {environment} from "../../../../environments/environment.prod";
 import {Router} from "@angular/router";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 
 @Component({
   selector: 'app-header',
@@ -22,8 +23,8 @@ export class HeaderComponent implements OnInit {
   itemListCategory: any = [];
   settingsCategory: any = {};
   constructor(public requestService: RequestService,
-              private socketConnection: SocketConnectionService,
               public fb: FormBuilder,
+              private http: HttpClient,
               public router: Router) { }
 
   ngOnInit(): void {
@@ -31,11 +32,6 @@ export class HeaderComponent implements OnInit {
     this.requestService.userLastName = localStorage.getItem('site_last_name');
     this.requestService.userEmail = localStorage.getItem('site_email');
     this.requestService.userImage = localStorage.getItem('site_image');
-    this.socketConnection.socketConnected.subscribe((connected) => {
-      if (connected) {
-        // this.getUserList();
-      }
-    })
     this.itemListCategory = [
       {"id":1,"itemName":"Business"},
       {"id":2,"itemName":"Culture"},
@@ -53,7 +49,11 @@ export class HeaderComponent implements OnInit {
   }
 
   logout() {
-    this.requestService.createData(`${environment.webPages.logout}`, '').subscribe(() => {
+    let headers = new HttpHeaders({
+      Authorization: (localStorage.getItem('token_type') ? localStorage.getItem('token_type')  + ' ': '') + localStorage.getItem('site_access_token'),
+      'Accept-Language': 'en'
+    });
+    this.http.post(`${environment.webPages.logout}`, {}, {headers: headers}).subscribe(() => {
       localStorage.removeItem('site_refresh_token');
       localStorage.removeItem('site_first_name');
       localStorage.removeItem('site_role');
@@ -70,11 +70,34 @@ export class HeaderComponent implements OnInit {
       this.requestService.userLastName = null;
       this.requestService.userEmail = null;
       this.requestService.userImage = null;
+      this.requestService.socketdisconnect.next(true);
 
       this.router.routeReuseStrategy.shouldReuseRoute = () => false;
       this.router.onSameUrlNavigation = 'reload';
       this.router.navigate(['/']);
     })
+    // this.requestService.createData(`${environment.webPages.logout}`, '').subscribe(() => {
+    //   localStorage.removeItem('site_refresh_token');
+    //   localStorage.removeItem('site_first_name');
+    //   localStorage.removeItem('site_role');
+    //   localStorage.removeItem('site_expires_in');
+    //   localStorage.removeItem('site_access_token');
+    //   localStorage.removeItem('site_id');
+    //   localStorage.removeItem('site_token_type');
+    //   localStorage.removeItem('site_birthday');
+    //   localStorage.removeItem('site_last_name');
+    //   localStorage.removeItem('site_role_name');
+    //   localStorage.removeItem('site_email');
+    //   localStorage.removeItem('site_image');
+    //   this.requestService.userName = null;
+    //   this.requestService.userLastName = null;
+    //   this.requestService.userEmail = null;
+    //   this.requestService.userImage = null;
+    //
+    //   this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    //   this.router.onSameUrlNavigation = 'reload';
+    //   this.router.navigate(['/']);
+    // })
   }
 
   closeWindow(){

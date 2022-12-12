@@ -26,6 +26,13 @@ export class SocketConnectionService {
       }
     })
 
+    this.requestServise.socketdisconnect.subscribe(res => {
+      if (res && this.socket) {
+        this.socket.disconnect();
+        this.socketConnected.next(false);
+      }
+    })
+
    }
 
   getInfofunc(info) {
@@ -36,7 +43,7 @@ export class SocketConnectionService {
     if (this.socket) {
       this.socket.disconnect();
     }
-    
+
     this.socket = io(this.getInfo?.result?.endpoints.socket_host, {
       transports: ['websocket'],
       path: this.getInfo?.result?.endpoints.socket_path,
@@ -47,41 +54,38 @@ export class SocketConnectionService {
     });
     this.socket.on('connect', () => {
       localStorage.setItem('_', this.socket.id)
-      this.socketConnected.next(true);    
+      this.socketConnected.next(true);
     });
     this.socket.on('_signal', (signal_type, signal_data) => {
       if (signal_type === 106) {
-        console.log(signal_data);
 
         if (signal_data.message_reply_id) {
-          let a = this.messagesList.filter((el: any) => el.message_id == signal_data.message_reply_id );
-          if (a.length != 0) {
-            if (a[0]['message_reply'] && a[0]['message_reply'].length > 0) {
-              let b  = a[0]['message_reply'].filter(el1 => el1.message_id == signal_data.message_id);
-              if (b.length == 0) {
-                a[0]['message_reply'].unshift(signal_data);
+          let message = this.messagesList.filter((el: any) => el.message_id == signal_data.message_reply_id );
+          if (message.length != 0) {
+            if (message[0]['message_reply'] && message[0]['message_reply'].length > 0) {
+              let messageReply  = message[0]['message_reply'].filter(el1 => el1.message_id == signal_data.message_id);
+              if (messageReply.length == 0) {
+                message[0]['message_reply'].unshift(signal_data);
               }
             } else {
-              a[0]['message_reply'] = [signal_data];
+              message[0]['message_reply'] = [signal_data];
             }
           }
         } else {
-         let a = this.messagesList.filter((el: any) => el.message_id == signal_data.message_id );
-         console.log(a);
-          if (a.length == 0) {
+         let message = this.messagesList.filter((el: any) => el.message_id == signal_data.message_id );
+          if (message.length == 0) {
             this.messagesList.unshift(signal_data);
           }
         }
-    
+
       }
     });
-  
+
   }
 
   join(id) {
     let ex_version = 'v' + this.getInfo?.result?.endpoints?.major_version + '.' + this.getInfo?.result?.endpoints?.minor_version;
     this.requestServise.getData(`${this.getInfo?.result?.endpoints?.host}/api/${ex_version}/room/${id}/join`, true).subscribe(res => {
-      console.log(res);
     })
   }
 

@@ -7,6 +7,7 @@ import {AcademicRoutingModule} from "./academic-routing.module";
 import { AcademicViewComponent } from './academic-view/academic-view.component';
 import {PaginationModule} from "ngx-bootstrap/pagination";
 import {CollapseModule} from "ngx-bootstrap/collapse";
+import {TimeagoModule} from "ngx-timeago";
 
 @NgModule({
   declarations: [AcademicComponent, AcademicViewComponent],
@@ -18,6 +19,7 @@ import {CollapseModule} from "ngx-bootstrap/collapse";
     PaginationModule.forRoot(),
     FormsModule,
     CollapseModule.forRoot(),
+    TimeagoModule.forRoot()
   ]
 })
 export class AcademicModule {

@@ -7,6 +7,7 @@ import {PiecesComponent} from "./pieces.component";
 import {PiecesViewComponent} from "./pieces-view/pieces-view.component";
 import {PaginationModule} from "ngx-bootstrap/pagination";
 import {CollapseModule} from "ngx-bootstrap/collapse";
+import {TimeagoModule} from "ngx-timeago";
 
 @NgModule({
   declarations: [PiecesComponent, PiecesViewComponent],
@@ -18,6 +19,7 @@ import {CollapseModule} from "ngx-bootstrap/collapse";
     PaginationModule.forRoot(),
     FormsModule,
     CollapseModule.forRoot(),
+    TimeagoModule.forRoot()
   ]
 })
 export class PiecesModule {

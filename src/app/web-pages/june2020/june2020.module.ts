@@ -7,6 +7,7 @@ import {June2020Component} from "./june2020.component";
 import {June2020RoutingModule} from "./june2020-routing.module";
 import {PaginationModule} from "ngx-bootstrap/pagination";
 import {CollapseModule} from "ngx-bootstrap/collapse";
+import {TimeagoModule} from "ngx-timeago";
 
 @NgModule({
   declarations: [June2020Component, June2020ViewComponent],
@@ -18,6 +19,7 @@ import {CollapseModule} from "ngx-bootstrap/collapse";
     PaginationModule.forRoot(),
     FormsModule,
     CollapseModule.forRoot(),
+    TimeagoModule.forRoot()
   ]
 })
 export class June2020Module {
