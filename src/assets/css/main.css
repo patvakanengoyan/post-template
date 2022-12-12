@@ -848,8 +848,7 @@ section {
 }
 
 #share i {
-  position: relative;
-  top: 36%;
+  margin-top: 26px;
   transform: translateY(-50%)
 }
 
