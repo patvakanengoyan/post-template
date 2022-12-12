@@ -156,3 +156,11 @@ input[type=text]:read-only {
     background: var(--color-black);
     color: var(--color-white);
 }
+.mh-500 {
+  max-height: 500px;
+}
+.prev_next {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 50px;
+}

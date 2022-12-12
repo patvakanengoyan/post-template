@@ -39,7 +39,7 @@ export class HomeComponent implements OnInit {
     nav: true
   }
 
-  constructor(public requestService: RequestService,
+  constructor(private requestService: RequestService,
               public el: ElementRef
   ) {
   }

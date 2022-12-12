@@ -10,7 +10,7 @@
         <div class="col-12">
           <owl-carousel-o [options]="customOptions">
             <ng-template carouselSlide *ngFor="let item of dataSlider">
-              <img src="{{this.requestService.imgSite  + item.image.url}}" alt="">
+              <img src="{{imagePrefix  + item.image.url}}" alt="">
               <div class="img-bg">
                 <div class="img-bg-inner">
                   <h2>{{item.title}}</h2>
@@ -56,8 +56,10 @@
       </div>
       <div class="row g-5">
         <div *ngFor="let item of dataKids" class="col-lg-3 post-entry-1">
-          <a [routerLink]="['/kids', item?.id]"><img src="{{imagePrefix + item?.image}}" alt="image"
-                                                     class="img-fluid image-height"></a>
+          <a [routerLink]="['/kids', item?.id]">
+            <img src="{{imagePrefix + item?.image}}" alt="image"
+                 class="img-fluid image-height" onError="this.src='assets/images/no-image.png'">
+          </a>
           <div class="post-meta">
             <span class="date">{{item?.volume}} </span> <span class="mx-1">&bullet;</span> <span>{{item?.volume_number}}
             <sup>{{item?.s}}</sup> <span class="mx-1">&bullet;</span> </span>
@@ -77,8 +79,10 @@
       </div>
       <div class="row g-5">
         <div *ngFor="let item of dataJune2020" class="col-lg-3 post-entry-1">
-          <a [routerLink]="['/june2020', item?.id]"><img src="{{imagePrefix + item?.image}}" alt="image"
-                                                         class="img-fluid image-height"></a>
+          <a [routerLink]="['/june2020', item?.id]">
+            <img src="{{imagePrefix + item?.image}}" alt="image"
+                 class="img-fluid image-height" onError="this.src='assets/images/no-image.png'">
+          </a>
           <div class="post-meta">
             <span class="date">{{item?.volume}} </span> <span class="mx-1">&bullet;</span> <span>{{item?.volume_number}}
             <sup>{{item?.s}}</sup> <span class="mx-1">&bullet;</span> </span>
@@ -98,8 +102,10 @@
       </div>
       <div class="row g-5">
         <div *ngFor="let item of dataAcademic" class="col-lg-3 post-entry-1">
-          <a [routerLink]="['/academic', item?.id]"><img src="{{imagePrefix + item?.image}}" alt="image"
-                                                         class="img-fluid image-height"></a>
+          <a [routerLink]="['/academic', item?.id]">
+            <img src="{{imagePrefix + item?.image}}" alt="image"
+                 class="img-fluid image-height" onError="this.src='assets/images/no-image.png'">
+          </a>
           <div class="post-meta">
             <span class="date">{{item?.volume}} </span> <span class="mx-1">&bullet;</span> <span>{{item?.volume_number}}
             <sup>{{item?.s}}</sup> <span class="mx-1">&bullet;</span> </span>
@@ -119,8 +125,10 @@
       </div>
       <div class="row g-5">
         <div *ngFor="let item of dataPieces" class="col-lg-3 post-entry-1">
-          <a [routerLink]="['/pieces', item?.id]"><img src="{{imagePrefix + item?.image}}" alt="image"
-                                                       class="img-fluid image-height"></a>
+          <a [routerLink]="['/pieces', item?.id]">
+            <img src="{{imagePrefix + item?.image}}" alt="image"
+            class="img-fluid image-height" onError="this.src='assets/images/no-image.png'">
+          </a>
           <div class="post-meta">
             <span class="date">{{item?.volume}} </span> <span class="mx-1">&bullet;</span> <span>{{item?.volume_number}}
             <sup>{{item?.s}}</sup> <span class="mx-1">&bullet;</span> </span>

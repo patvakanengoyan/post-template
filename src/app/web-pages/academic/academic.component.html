@@ -90,7 +90,10 @@
       <div class="col-lg-9">
         <div class="row">
           <div *ngFor="let item of data" class="col-lg-3 col-sm-6 post-entry-1">
-            <a [routerLink]="['/kids', item?.id]"><img src="{{imagePrefix + item?.image}}" alt="image" class="img-fluid image-height"></a>
+            <a [routerLink]="['/kids', item?.id]">
+              <img src="{{imagePrefix + item?.image}}" alt="image"
+                   class="img-fluid image-height" onError="this.src='assets/images/no-image.png'">
+            </a>
             <div class="post-meta">
               <span class="date">{{item?.volume}} </span> <span class="mx-1">&bullet;</span> <span>{{item?.volume_number}}
               <sup>{{item?.s}}</sup> <span class="mx-1">&bullet;</span> </span>

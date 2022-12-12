@@ -38,7 +38,8 @@
           <ul class="footer-links footer-blog-entry list-unstyled">
             <li *ngFor="let item of data">
               <a [routerLink]="[item?.url, item?.id]" class="d-flex align-items-center">
-                <img src="{{imagePrefix + item?.image}}" alt="image" class="img-fluid me-3">
+                <img src="{{imagePrefix + item?.image}}" alt="image" class="img-fluid me-3"
+                     onError="this.src='assets/images/no-image.png'">
                 <div>
                   <div class="post-meta d-block">
                     <span class="date">{{item?.volume}}</span>
@@ -92,7 +93,7 @@
       <div class="row justify-content-between">
         <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
           <div class="copyright">
-            © Copyright <strong><span>Blog</span></strong>. All Rights Reserved
+            © Copyright <strong><span>Talmudy</span></strong>. All Rights Reserved
           </div>
 
           <div class="credits">
@@ -103,11 +104,9 @@
 
         <div class="col-md-6">
           <div class="social-links mb-3 mb-lg-0 text-center text-md-end">
-            <a href="https://twitter.com/intent/tweet?text=ShareThis%20Onboarding%3A%20Customize%20Share%20Buttons%20%26%20Other%20Tools%20-%20ShareThis&url=https%3A%2F%2Fwww.sharethis.com%2F" class="twitter"><i class="bi bi-twitter"></i></a>
-            <a href="https://www.facebook.com/sharer.php?t=ShareThis%20Onboarding%3A%20Customize%20Share%20Buttons%20%26%20Other%20Tools%20-%20ShareThis&u=https%3A%2F%2Fwww.sharethis.com%2F" class="facebook"><i class="bi bi-facebook"></i></a>
-            <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
-            <a href="#" class="google-plus"><i class="bi bi-skype"></i></a>
-            <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fwww.sharethis.com%2F" class="linkedin"><i class="bi bi-linkedin"></i></a>
+            <a href="https://www.facebook.com/profile.php?id=100064032313075" class="mx-2" target="_blank" title="Facebook"><span class="bi-facebook"></span></a>
+            <a href="https://www.youtube.com/channel/UCiunNPbeKqQJg5PMEcLWS3g/featured" class="mx-2" target="_blank" title="Youtube"><span class="bi-youtube"></span></a>
+            <a href="https://www.linkedin.com/in/mike-merkur-56205911/" class="mx-2" target="_blank" title="Linkedin"><i class="bi bi-linkedin"></i></a>
           </div>
 
         </div>

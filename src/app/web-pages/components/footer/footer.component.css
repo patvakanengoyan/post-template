@@ -28,10 +28,6 @@ footer a.footer-link-more:before {
   background: var(--color-white);
 }
 
-footer a.footer-link-more:hover {
-  color: rgba(var(--color-white-rgb), 1);
-}
-
 footer .footer-heading {
   color: var(--color-white);
   margin-bottom: 20px;
@@ -67,11 +63,6 @@ footer .footer-links li a {
   color: rgba(var(--color-white-rgb), 0.7);
 }
 
-footer .footer-links li a:hover,
-footer .footer-links li a:focus {
-  color: rgba(var(--color-white-rgb), 1);
-}
-
 footer .footer-legal {
   background: var(--color-black);
   padding: 40px 0;
@@ -80,16 +71,8 @@ footer .footer-legal {
 footer .footer-legal .social-links a {
   text-align: center;
   display: inline-block;
-  width: 40px;
-  height: 40px;
-  background-color: rgba(var(--color-white-rgb), 0.09);
   border-radius: 50%;
   color: var(--color-white);
-  line-height: 40px;
-}
-
-footer .footer-legal .social-links a:hover {
-  background-color: rgba(var(--color-white-rgb), 0.2);
 }
 
 footer .copyright strong {
