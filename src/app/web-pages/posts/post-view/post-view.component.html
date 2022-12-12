@@ -26,42 +26,31 @@
               <p><b>Taxonomy level 1: </b><span>{{data?.taxanomy_lv1}}</span></p>
               <p><b>Taxonomy level 2: </b><span>{{data?.taxanomy_lv2}}</span></p>
               <p><b>Taxonomy level 3: </b><span>{{data?.taxanomy_lv3}}</span></p>
-              <div><b>Description: </b>
-                <div [innerHTML]="data?.content"></div>
-              </div>
+              <div><b>Description: </b><div [innerHTML]="data?.content"></div></div>
+
               <ul class="aside-tags list-unstyled prev_next">
-                <li><a (click)="navigateNextPreviousPost()" [routerLink]="['/pieces', nextPreviousUrls.previous]">Previous post</a></li>
-                <li><a (click)="navigateNextPreviousPost()" [routerLink]="['/pieces', nextPreviousUrls.next]">Next post</a></li>
+                <li><a (click)="navigateNextPreviousPost()" [routerLink]="['/posts/' + redirectUrl, nextPreviousUrls.previous]">Previous post</a></li>
+                <li><a (click)="navigateNextPreviousPost()" [routerLink]="['/posts/' + redirectUrl, nextPreviousUrls.next]">Next post</a></li>
               </ul>
             </div>
-
           </div><!-- End Single Post Content -->
           <div id="share" #share>
 
             <!-- facebook -->
-            <a class="facebook"
-               href="https://www.facebook.com/sharer.php?t=ShareThis%20Onboarding%3A%20Customize%20Share%20Buttons%20%26%20Other%20Tools%20-%20ShareThis&u=https%3A%2F%2Fwww.sharethis.com%2F"
-               target="blank"><i class="fa fa-facebook"></i></a>
+            <a class="facebook" href="https://www.facebook.com/sharer.php?t=ShareThis%20Onboarding%3A%20Customize%20Share%20Buttons%20%26%20Other%20Tools%20-%20ShareThis&u=https%3A%2F%2Fwww.sharethis.com%2F" target="blank"><i class="fa fa-facebook"></i></a>
 
             <!-- twitter -->
-            <a class="twitter"
-               href="https://twitter.com/intent/tweet?text=ShareThis%20Onboarding%3A%20Customize%20Share%20Buttons%20%26%20Other%20Tools%20-%20ShareThis&url=https%3A%2F%2Fwww.sharethis.com%2F"
-               target="blank"><i class="fa fa-twitter"></i></a>
+            <a class="twitter" href="https://twitter.com/intent/tweet?text=ShareThis%20Onboarding%3A%20Customize%20Share%20Buttons%20%26%20Other%20Tools%20-%20ShareThis&url=https%3A%2F%2Fwww.sharethis.com%2F" target="blank"><i class="fa fa-twitter"></i></a>
 
             <!-- linkedin -->
-            <a class="linkedin"
-               href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fwww.sharethis.com%2F"
-               target="blank"><i class="fa fa-linkedin"></i></a>
+            <a class="linkedin" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fwww.sharethis.com%2F" target="blank"><i class="fa fa-linkedin"></i></a>
 
             <!-- pinterest -->
-            <a class="pinterest"
-               href="https://www.pinterest.com/pin/create/button/?description=ShareThis%20Onboarding%3A%20Customize%20Share%20Buttons%20%26%20Other%20Tools%20-%20ShareThis&media=&url=https%3A%2F%2Fwww.sharethis.com%2F"
-               target="blank"><i class="fa fa-pinterest-p"></i></a>
+            <a class="pinterest" href="https://www.pinterest.com/pin/create/button/?description=ShareThis%20Onboarding%3A%20Customize%20Share%20Buttons%20%26%20Other%20Tools%20-%20ShareThis&media=&url=https%3A%2F%2Fwww.sharethis.com%2F" target="blank"><i class="fa fa-pinterest-p"></i></a>
 
             <a class="email" href="mailto: abc@example.com"><i class="fa fa-envelope-o"></i></a>
           </div>
           <!-- ======= Comments ======= -->
-
           <div class="block">
             <div class="block-header">
               <div class="title">
@@ -70,18 +59,14 @@
               </div>
             </div>
             <div class="writing">
-              <p>You answer: @ <span style="color: blue;">{{replyUserName}}  </span> <i *ngIf="replyUserName"
-                                                                                        (click)="clearReply()"
-                                                                                        class="fa fa-times cursor-pointer"
-                                                                                        aria-hidden="true"></i>
+              <p>You answer: @ <span style="color: blue;">{{replyUserName}}  </span> <i *ngIf="replyUserName" (click)="clearReply()" class="fa fa-times cursor-pointer" aria-hidden="true"></i>
               </p>
               <form [formGroup]="form" (ngSubmit)="submit(form.value)">
                 <!-- <div contenteditable="true" class="textarea" formControlName="message_content" autofocus spellcheck="false">
 
 
                 </div> -->
-                <textarea class="form-control" id="comment-message" formControlName="message_content"
-                          placeholder="Enter your message" cols="30" rows="10"></textarea>
+                <textarea class="form-control" id="comment-message" formControlName="message_content" placeholder="Enter your message" cols="30" rows="10"></textarea>
 
                 <div class="footer2">
                   <div class="group-button">
@@ -117,7 +102,7 @@
               <div *ngIf="comment['message_reply']">
 
 
-                <div class="reply comment" *ngFor="let reply of comment['message_reply']">
+                <div class="reply comment" *ngFor="let reply of comment['message_reply']" >
                   <div class="user-banner">
                     <div class="user">
                       <div class="avatar">
@@ -145,7 +130,6 @@
               <span><i class="ri-refresh-line"></i>Loading</span>
             </div> -->
           </div>
-
           <!-- End Comments Form -->
 
         </div>
@@ -183,65 +167,52 @@
 
             <ul class="nav nav-pills custom-tab-nav mb-4" id="pills-tab" role="tablist">
               <li class="nav-item" role="presentation">
-                <button class="nav-link active" id="pills-popular-tab" data-bs-toggle="pill"
-                        data-bs-target="#pills-popular" type="button" role="tab" aria-controls="pills-popular"
-                        aria-selected="true">Popular
-                </button>
+                <button class="nav-link active" id="pills-popular-tab" data-bs-toggle="pill" data-bs-target="#pills-popular" type="button" role="tab" aria-controls="pills-popular" aria-selected="true">Popular</button>
               </li>
               <!--<li class="nav-item" role="presentation">-->
               <!--<button class="nav-link" id="pills-trending-tab" data-bs-toggle="pill" data-bs-target="#pills-trending" type="button" role="tab" aria-controls="pills-trending" aria-selected="false">Trending</button>-->
               <!--</li>-->
               <li class="nav-item" role="presentation">
-                <button class="nav-link" id="pills-latest-tab" data-bs-toggle="pill" data-bs-target="#pills-latest"
-                        type="button" role="tab" aria-controls="pills-latest" aria-selected="false">Latest
-                </button>
+                <button class="nav-link" id="pills-latest-tab" data-bs-toggle="pill" data-bs-target="#pills-latest" type="button" role="tab" aria-controls="pills-latest" aria-selected="false">Latest</button>
               </li>
             </ul>
 
             <div class="tab-content" id="pills-tabContent">
 
               <!-- Popular -->
-              <div class="tab-pane fade show active" id="pills-popular" role="tabpanel"
-                   aria-labelledby="pills-popular-tab">
+              <div class="tab-pane fade show active" id="pills-popular" role="tabpanel" aria-labelledby="pills-popular-tab">
                 <div class="post-entry-1 border-bottom">
-                  <div class="post-meta"><span class="date">Sport</span> <span class="mx-1">&bullet;</span> <span>Jul 5th '22</span>
-                  </div>
+                  <div class="post-meta"><span class="date">Sport</span> <span class="mx-1">&bullet;</span> <span>Jul 5th '22</span></div>
                   <h2 class="mb-2"><a href="#">How to Avoid Distraction and Stay Focused During Video Calls?</a></h2>
                   <span class="author mb-3 d-block">Jenny Wilson</span>
                 </div>
 
                 <div class="post-entry-1 border-bottom">
-                  <div class="post-meta"><span class="date">Lifestyle</span> <span class="mx-1">&bullet;</span> <span>Jul 5th '22</span>
-                  </div>
-                  <h2 class="mb-2"><a href="#">17 Pictures of Medium Length Hair in Layers That Will Inspire Your New
-                    Haircut</a></h2>
+                  <div class="post-meta"><span class="date">Lifestyle</span> <span class="mx-1">&bullet;</span> <span>Jul 5th '22</span></div>
+                  <h2 class="mb-2"><a href="#">17 Pictures of Medium Length Hair in Layers That Will Inspire Your New Haircut</a></h2>
                   <span class="author mb-3 d-block">Jenny Wilson</span>
                 </div>
 
                 <div class="post-entry-1 border-bottom">
-                  <div class="post-meta"><span class="date">Culture</span> <span class="mx-1">&bullet;</span> <span>Jul 5th '22</span>
-                  </div>
+                  <div class="post-meta"><span class="date">Culture</span> <span class="mx-1">&bullet;</span> <span>Jul 5th '22</span></div>
                   <h2 class="mb-2"><a href="#">9 Half-up/half-down Hairstyles for Long and Medium Hair</a></h2>
                   <span class="author mb-3 d-block">Jenny Wilson</span>
                 </div>
 
                 <div class="post-entry-1 border-bottom">
-                  <div class="post-meta"><span class="date">Lifestyle</span> <span class="mx-1">&bullet;</span> <span>Jul 5th '22</span>
-                  </div>
+                  <div class="post-meta"><span class="date">Lifestyle</span> <span class="mx-1">&bullet;</span> <span>Jul 5th '22</span></div>
                   <h2 class="mb-2"><a href="#">Life Insurance And Pregnancy: A Working Mom’s Guide</a></h2>
                   <span class="author mb-3 d-block">Jenny Wilson</span>
                 </div>
 
                 <div class="post-entry-1 border-bottom">
-                  <div class="post-meta"><span class="date">Business</span> <span class="mx-1">&bullet;</span> <span>Jul 5th '22</span>
-                  </div>
+                  <div class="post-meta"><span class="date">Business</span> <span class="mx-1">&bullet;</span> <span>Jul 5th '22</span></div>
                   <h2 class="mb-2"><a href="#">The Best Homemade Masks for Face (keep the Pimples Away)</a></h2>
                   <span class="author mb-3 d-block">Jenny Wilson</span>
                 </div>
 
                 <div class="post-entry-1 border-bottom">
-                  <div class="post-meta"><span class="date">Lifestyle</span> <span class="mx-1">&bullet;</span> <span>Jul 5th '22</span>
-                  </div>
+                  <div class="post-meta"><span class="date">Lifestyle</span> <span class="mx-1">&bullet;</span> <span>Jul 5th '22</span></div>
                   <h2 class="mb-2"><a href="#">10 Life-Changing Hacks Every Working Mom Should Know</a></h2>
                   <span class="author mb-3 d-block">Jenny Wilson</span>
                 </div>
@@ -288,44 +259,37 @@
               <!-- Latest -->
               <div class="tab-pane fade" id="pills-latest" role="tabpanel" aria-labelledby="pills-latest-tab">
                 <div class="post-entry-1 border-bottom">
-                  <div class="post-meta"><span class="date">Lifestyle</span> <span class="mx-1">&bullet;</span> <span>Jul 5th '22</span>
-                  </div>
+                  <div class="post-meta"><span class="date">Lifestyle</span> <span class="mx-1">&bullet;</span> <span>Jul 5th '22</span></div>
                   <h2 class="mb-2"><a href="#">Life Insurance And Pregnancy: A Working Mom’s Guide</a></h2>
                   <span class="author mb-3 d-block">Jenny Wilson</span>
                 </div>
 
                 <div class="post-entry-1 border-bottom">
-                  <div class="post-meta"><span class="date">Business</span> <span class="mx-1">&bullet;</span> <span>Jul 5th '22</span>
-                  </div>
+                  <div class="post-meta"><span class="date">Business</span> <span class="mx-1">&bullet;</span> <span>Jul 5th '22</span></div>
                   <h2 class="mb-2"><a href="#">The Best Homemade Masks for Face (keep the Pimples Away)</a></h2>
                   <span class="author mb-3 d-block">Jenny Wilson</span>
                 </div>
 
                 <div class="post-entry-1 border-bottom">
-                  <div class="post-meta"><span class="date">Lifestyle</span> <span class="mx-1">&bullet;</span> <span>Jul 5th '22</span>
-                  </div>
+                  <div class="post-meta"><span class="date">Lifestyle</span> <span class="mx-1">&bullet;</span> <span>Jul 5th '22</span></div>
                   <h2 class="mb-2"><a href="#">10 Life-Changing Hacks Every Working Mom Should Know</a></h2>
                   <span class="author mb-3 d-block">Jenny Wilson</span>
                 </div>
 
                 <div class="post-entry-1 border-bottom">
-                  <div class="post-meta"><span class="date">Sport</span> <span class="mx-1">&bullet;</span> <span>Jul 5th '22</span>
-                  </div>
+                  <div class="post-meta"><span class="date">Sport</span> <span class="mx-1">&bullet;</span> <span>Jul 5th '22</span></div>
                   <h2 class="mb-2"><a href="#">How to Avoid Distraction and Stay Focused During Video Calls?</a></h2>
                   <span class="author mb-3 d-block">Jenny Wilson</span>
                 </div>
 
                 <div class="post-entry-1 border-bottom">
-                  <div class="post-meta"><span class="date">Lifestyle</span> <span class="mx-1">&bullet;</span> <span>Jul 5th '22</span>
-                  </div>
-                  <h2 class="mb-2"><a href="#">17 Pictures of Medium Length Hair in Layers That Will Inspire Your New
-                    Haircut</a></h2>
+                  <div class="post-meta"><span class="date">Lifestyle</span> <span class="mx-1">&bullet;</span> <span>Jul 5th '22</span></div>
+                  <h2 class="mb-2"><a href="#">17 Pictures of Medium Length Hair in Layers That Will Inspire Your New Haircut</a></h2>
                   <span class="author mb-3 d-block">Jenny Wilson</span>
                 </div>
 
                 <div class="post-entry-1 border-bottom">
-                  <div class="post-meta"><span class="date">Culture</span> <span class="mx-1">&bullet;</span> <span>Jul 5th '22</span>
-                  </div>
+                  <div class="post-meta"><span class="date">Culture</span> <span class="mx-1">&bullet;</span> <span>Jul 5th '22</span></div>
                   <h2 class="mb-2"><a href="#">9 Half-up/half-down Hairstyles for Long and Medium Hair</a></h2>
                   <span class="author mb-3 d-block">Jenny Wilson</span>
                 </div>
@@ -335,6 +299,17 @@
             </div>
           </div>
 
+          <!--          <div class="aside-block">-->
+          <!--            <h3 class="aside-title">Video</h3>-->
+          <!--            <div class="video-post">-->
+          <!--              <a href="https://www.youtube.com/watch?v=AiFfDjmd0jU" class="glightbox link-video">-->
+          <!--                <span class="bi-play-fill"></span>-->
+          <!--                <img src="assets/img/post-landscape-5.jpg" alt="" class="img-fluid">-->
+          <!--              </a>-->
+          <!--            </div>-->
+          <!--          </div>&lt;!&ndash; End Video &ndash;&gt;-->
+
+
         </div>
       </div>
     </div>
@@ -342,3 +317,4 @@
 </main>
 <app-footer></app-footer>
 <a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+<app-login-modal #login></app-login-modal>

@@ -19,6 +19,6 @@ import { HeaderSearchComponent } from './header-search/header-search.component';
     RouterModule,
       CollapseModule.forRoot(),
   ],
-  exports: [FooterComponent, HeaderComponent]
+  exports: [FooterComponent, HeaderComponent, HeaderSearchComponent]
 })
 export class ComponentsModule { }

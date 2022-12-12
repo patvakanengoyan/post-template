@@ -3,6 +3,7 @@ import {ModalDirective} from "ngx-bootstrap/modal";
 import {FormBuilder, Validators} from "@angular/forms";
 import {RequestService} from "../../service/request.service";
 import {environment} from "../../../../environments/environment.prod";
+import {SocketConnectionService} from "../../service/socket-connection.service";
 
 @Component({
   selector: 'app-login-modal',
@@ -19,6 +20,7 @@ export class LoginModalComponent implements OnInit {
   @ViewChild('autoShownModal', { static: false }) autoShownModal?: ModalDirective;
 
   constructor(public requestService: RequestService,
+              private socket: SocketConnectionService,
               public fb: FormBuilder) { }
 
   ngOnInit(): void {
@@ -39,7 +41,10 @@ export class LoginModalComponent implements OnInit {
   }
   onSubmit () {
     this.requestService.createData(`${environment.webPages.login}`, this.form.value).subscribe((res) => {
-      console.log(res);
+      for (let key in res) {
+        localStorage.setItem('site_' + key, res[key]);
+      }
+      this.socket.connect();
       this.hideModal();
     })
   }

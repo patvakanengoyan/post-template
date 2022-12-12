@@ -18,7 +18,6 @@ export class HomeComponent implements OnInit {
   public dataJune2020: any[] = [];
   form: any;
   filterResult: any = {};
-  allData: any;
   public urlSlider: string = environment.webPages.slider.get;
   public dataSlider: any[] = [];
   customOptions: OwlOptions = {

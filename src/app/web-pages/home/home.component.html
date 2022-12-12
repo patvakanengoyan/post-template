@@ -52,11 +52,11 @@
     <div class="container" data-aos="fade-up">
       <div class="section-header d-flex justify-content-between align-items-center mb-5">
         <h2>Kids</h2>
-        <div><a routerLink="kids" class="more">See All Kids</a></div>
+        <div><a routerLink="/posts/kids" class="more">See All Kids</a></div>
       </div>
       <div class="row g-5">
         <div *ngFor="let item of dataKids" class="col-lg-3 post-entry-1">
-          <a [routerLink]="['/kids', item?.id]">
+          <a [routerLink]="['/posts/kids', item?.id]">
             <img src="{{imagePrefix + item?.image}}" alt="image"
                  class="img-fluid image-height" onError="this.src='assets/images/no-image.png'">
           </a>
@@ -65,7 +65,7 @@
             <sup>{{item?.s}}</sup> <span class="mx-1">&bullet;</span> </span>
             <span class="date">{{item?.letter}} </span> | <span>{{item?.page}}</span>
           </div>
-          <h2><a [routerLink]="['/kids', item?.id]">{{item?.title}}</a></h2>
+          <h2><a [routerLink]="['/posts/kids', item?.id]">{{item?.title}}</a></h2>
         </div>
       </div>
     </div>
@@ -75,11 +75,11 @@
     <div class="container" data-aos="fade-up">
       <div class="section-header d-flex justify-content-between align-items-center mb-5">
         <h2>June2020</h2>
-        <div><a routerLink="june2020" class="more">See All June2020</a></div>
+        <div><a routerLink="/posts/june2020" class="more">See All June2020</a></div>
       </div>
       <div class="row g-5">
         <div *ngFor="let item of dataJune2020" class="col-lg-3 post-entry-1">
-          <a [routerLink]="['/june2020', item?.id]">
+          <a [routerLink]="['/posts/june2020', item?.id]">
             <img src="{{imagePrefix + item?.image}}" alt="image"
                  class="img-fluid image-height" onError="this.src='assets/images/no-image.png'">
           </a>
@@ -88,7 +88,7 @@
             <sup>{{item?.s}}</sup> <span class="mx-1">&bullet;</span> </span>
             <span class="date">{{item?.letter}} </span> | <span>{{item?.page}}</span>
           </div>
-          <h2><a [routerLink]="['/june2020', item?.id]">{{item?.title}}</a></h2>
+          <h2><a [routerLink]="['/posts/june2020', item?.id]">{{item?.title}}</a></h2>
         </div>
       </div>
     </div>
@@ -98,11 +98,11 @@
     <div class="container" data-aos="fade-up">
       <div class="section-header d-flex justify-content-between align-items-center mb-5">
         <h2>Academic</h2>
-        <div><a routerLink="academic" class="more">See All Academic</a></div>
+        <div><a routerLink="/posts/academic" class="more">See All Academic</a></div>
       </div>
       <div class="row g-5">
         <div *ngFor="let item of dataAcademic" class="col-lg-3 post-entry-1">
-          <a [routerLink]="['/academic', item?.id]">
+          <a [routerLink]="['/posts/academic', item?.id]">
             <img src="{{imagePrefix + item?.image}}" alt="image"
                  class="img-fluid image-height" onError="this.src='assets/images/no-image.png'">
           </a>
@@ -111,7 +111,7 @@
             <sup>{{item?.s}}</sup> <span class="mx-1">&bullet;</span> </span>
             <span class="date">{{item?.letter}} </span> | <span>{{item?.page}}</span>
           </div>
-          <h2><a [routerLink]="['/academic', item?.id]">{{item?.title ? item?.title : 'No title'}}</a></h2>
+          <h2><a [routerLink]="['/posts/academic', item?.id]">{{item?.title ? item?.title : 'No title'}}</a></h2>
         </div>
       </div>
     </div>
@@ -121,11 +121,11 @@
     <div class="container" data-aos="fade-up">
       <div class="section-header d-flex justify-content-between align-items-center mb-5">
         <h2>Pieces</h2>
-        <div><a routerLink="pieces" class="more">See All Pieces</a></div>
+        <div><a routerLink="/posts/pieces" class="more">See All Pieces</a></div>
       </div>
       <div class="row g-5">
         <div *ngFor="let item of dataPieces" class="col-lg-3 post-entry-1">
-          <a [routerLink]="['/pieces', item?.id]">
+          <a [routerLink]="['/posts/pieces', item?.id]">
             <img src="{{imagePrefix + item?.image}}" alt="image"
             class="img-fluid image-height" onError="this.src='assets/images/no-image.png'">
           </a>
@@ -134,7 +134,7 @@
             <sup>{{item?.s}}</sup> <span class="mx-1">&bullet;</span> </span>
             <span class="date">{{item?.letter}} </span> | <span>{{item?.page}}</span>
           </div>
-          <h2><a [routerLink]="['/pieces', item?.id]">{{item?.title ? item?.title : 'No title'}}</a></h2>
+          <h2><a [routerLink]="['/posts/pieces', item?.id]">{{item?.title ? item?.title : 'No title'}}</a></h2>
         </div>
       </div>
     </div>
