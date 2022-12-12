@@ -1,10 +1,11 @@
 import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {environment} from "../../../../environments/environment.prod";
 import {RequestService} from "../../../shared/service/request.service";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {DomSanitizer} from "@angular/platform-browser";
 import { SocketConnectionService } from 'src/app/shared/service/socket-connection.service';
+import {forkJoin} from "rxjs";
 
 @Component({
   selector: 'app-kids-view',
@@ -25,14 +26,20 @@ export class KidsViewComponent implements OnInit, OnDestroy {
       email: new FormControl(''),
       message_content: new FormControl('', Validators.required)
   });
+  public nextPreviousUrls = {
+    next: '',
+    previous: ''
+  }
   public imagePrefix: string = environment.imagePrefix;
   constructor(private requestService: RequestService,
               public activatedRoute: ActivatedRoute,
               private sanitizer: DomSanitizer,
+              public router: Router,
               public socket: SocketConnectionService,
               public fb: FormBuilder) {}
 
   ngOnInit(): void {
+    this.getNextPreviousUrls();
     this.getData(`${this.url}?facet=on&q=*%3A*&start=0&rows=10&fq=type:KidsClick&fq=id:${this.activatedRoute.snapshot.params['id']}`);
     this.form.controls['name'].disable();
     this.form.controls['email'].disable();
@@ -92,5 +99,20 @@ export class KidsViewComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.clearReply();
     this.socket.messagesList = [];
+  }
+
+  getNextPreviousUrls() {
+    let request1 = this.requestService.getData(`${environment.posts.get}?q=*:*&start=0&rows=1&sort=id+asc&fq=id:[* TO ${this.activatedRoute.snapshot.params['id']}]&fl=id`);
+    let request2 = this.requestService.getData(`${environment.posts.get}?q=*:*&start=0&rows=1&sort=id+asc&fq=id:[${this.activatedRoute.snapshot.params['id']} TO *]&fl=id`);
+    forkJoin([request1, request2]).subscribe(([item1, item2]: any) => {
+      this.nextPreviousUrls.previous = item1?.response?.docs[0].id;
+      this.nextPreviousUrls.next = (+item2?.response?.docs[0].id + 1).toString();
+    })
+  }
+
+  navigateNextPreviousPost() {
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.router.onSameUrlNavigation = 'reload';
+    // this.router.navigate(['/']);
   }
 }

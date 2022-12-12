@@ -29,8 +29,8 @@
               <div><b>Description: </b><div [innerHTML]="data?.content"></div></div>
 
               <ul class="aside-tags list-unstyled prev_next">
-                <li><a href="#">Previous post</a></li>
-                <li><a href="#">Next post</a></li>
+                <li><a (click)="navigateNextPreviousPost()" [routerLink]="['/academic', nextPreviousUrls.previous]">Previous post</a></li>
+                <li><a (click)="navigateNextPreviousPost()" [routerLink]="['/academic', nextPreviousUrls.next]">Next post</a></li>
               </ul>
             </div>
           </div><!-- End Single Post Content -->
