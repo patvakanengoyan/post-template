@@ -176,7 +176,6 @@ export class PostsComponent implements OnInit {
     clearTimeout(this.timeOut);
     this.timeOut = setTimeout(() => {
       this.call();
-      console.log(this.form)
     }, 1000)
   }
 

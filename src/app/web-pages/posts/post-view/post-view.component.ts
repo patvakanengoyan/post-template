@@ -117,11 +117,11 @@ export class PostViewComponent implements OnInit {
   }
 
   getNextPreviousUrls() {
-    let request1 = this.requestService.getData(`${environment.posts.get}?q=*:*&start=0&rows=1&sort=id+asc&fq=id:[* TO ${this.activatedRoute.snapshot.params['id']}]&fl=id`);
-    let request2 = this.requestService.getData(`${environment.posts.get}?q=*:*&start=0&rows=1&sort=id+asc&fq=id:[${this.activatedRoute.snapshot.params['id']} TO *]&fl=id`);
+    let request1 = this.requestService.getData(`${environment.posts.get}?q=*:*&start=1&rows=1&sort=id_int+desc&fq=id_int:[* TO ${this.activatedRoute.snapshot.params['id']}]&fl=id_int&fq=type:${this.type}`);
+    let request2 = this.requestService.getData(`${environment.posts.get}?q=*:*&start=1&rows=1&sort=id_int+asc&fq=id_int:[${this.activatedRoute.snapshot.params['id']} TO *]&fl=id_int&fq=type:${this.type}`);
     forkJoin([request1, request2]).subscribe(([item1, item2]: any) => {
-      this.nextPreviousUrls.previous = item1?.response?.docs[0].id;
-      this.nextPreviousUrls.next = (+item2?.response?.docs[0].id + 1).toString();
+      this.nextPreviousUrls.previous = item1?.response?.docs[0] ? item1?.response?.docs[0].id_int : false;
+      this.nextPreviousUrls.next = item2?.response?.docs[0] ? item2?.response?.docs[0].id_int : false;
     })
   }
 

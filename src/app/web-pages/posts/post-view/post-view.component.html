@@ -29,8 +29,8 @@
               <div><b>Description: </b><div [innerHTML]="data?.content"></div></div>
 
               <ul class="aside-tags list-unstyled prev_next">
-                <li><a (click)="navigateNextPreviousPost()" [routerLink]="['/posts/' + redirectUrl, nextPreviousUrls.previous]">Previous post</a></li>
-                <li><a (click)="navigateNextPreviousPost()" [routerLink]="['/posts/' + redirectUrl, nextPreviousUrls.next]">Next post</a></li>
+                <li *ngIf="nextPreviousUrls.previous"><a (click)="navigateNextPreviousPost()" [routerLink]="['/posts/' + redirectUrl, nextPreviousUrls.previous]">Previous post</a></li>
+                <li *ngIf="nextPreviousUrls.next"><a (click)="navigateNextPreviousPost()" [routerLink]="['/posts/' + redirectUrl, nextPreviousUrls.next]">Next post</a></li>
               </ul>
             </div>
           </div><!-- End Single Post Content -->
