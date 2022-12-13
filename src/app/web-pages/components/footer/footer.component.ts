@@ -1,6 +1,7 @@
-import {Component, ElementRef, HostListener, OnInit, Renderer2} from '@angular/core';
+import {Component, ElementRef, HostListener, Input, OnInit, Renderer2} from '@angular/core';
 import {RequestService} from "../../../shared/service/request.service";
 import {environment} from "../../../../environments/environment.prod";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-footer',
@@ -8,12 +9,14 @@ import {environment} from "../../../../environments/environment.prod";
   styleUrls: ['./footer.component.css']
 })
 export class FooterComponent implements OnInit {
+  @Input() redirection: boolean | undefined;
   public url: string = environment.posts.get;
   public data: any[] = [];
   public imagePrefix: string = environment.imagePrefix;
 
   constructor(private requestService: RequestService,
               private element: ElementRef,
+              public router: Router,
               private renderer: Renderer2,) {
   }
 
@@ -64,4 +67,11 @@ export class FooterComponent implements OnInit {
   goTop() {
     window.scroll(0,0)
   }
+  redirectUrl () {
+    if (this.redirection) {
+      this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+      this.router.onSameUrlNavigation = 'reload';
+    }
+  }
+
 }
