@@ -115,10 +115,10 @@ export class RefreshTokenService {
   logoutUser() {
     if (!this.requestService.userName) {
       this.router.navigate(['/login']);
-      localStorage.removeItem('access_token');
+      localStorage.clear();
     } else {
       this.router.navigate(['/']);
-      localStorage.removeItem('site_access_token');
+      localStorage.clear();
     }
     return throwError(() => new Error(`Invalid`));
   }
