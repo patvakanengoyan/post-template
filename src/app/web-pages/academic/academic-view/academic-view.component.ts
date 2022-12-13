@@ -41,14 +41,14 @@ export class AcademicViewComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getNextPreviousUrls();
-    this.getData(`${this.url}?facet=on&q=*%3A*&start=0&rows=1&fq=type:AcademicSearch&fq=id:${this.activatedRoute.snapshot.params['id']}`);
-    this.form.controls['name'].disable();
-    this.form.controls['email'].disable();
-    this.form.patchValue({
-      email: localStorage.getItem('site_email'),
-      name: localStorage.getItem('site_first_name')
-    })
+    // this.getNextPreviousUrls();
+    // this.getData(`${this.url}?facet=on&q=*%3A*&start=0&rows=1&fq=type:AcademicSearch&fq=id:${this.activatedRoute.snapshot.params['id']}`);
+    // this.form.controls['name'].disable();
+    // this.form.controls['email'].disable();
+    // this.form.patchValue({
+    //   email: localStorage.getItem('site_email'),
+    //   name: localStorage.getItem('site_first_name')
+    // })
   }
 
   getData(url: string) {

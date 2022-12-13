@@ -60,7 +60,7 @@ export class RefreshTokenService {
       this.isRefreshingToken = true;
       this.tokenSubject.next(null!);
 
-      if (this.requestService.userLastName) {
+      if (this.requestService.userName) {
         return this.requestService.refreshTokenSite().pipe(
           switchMap((newToken: any) => {
             if (newToken && newToken !== 'error') {
@@ -113,7 +113,7 @@ export class RefreshTokenService {
 
   /*logout function*/
   logoutUser() {
-    if (!this.requestService.userLastName) {
+    if (!this.requestService.userName) {
       this.router.navigate(['/login']);
       localStorage.removeItem('access_token');
     } else {

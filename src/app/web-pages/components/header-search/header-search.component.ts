@@ -129,16 +129,16 @@ export class HeaderSearchComponent implements OnInit {
       }
       if (this.form.value.type[0].id === 'KidsClick') {
         this.requestService.search.next(data);
-        this.router.navigate(['/kids']);
+        this.router.navigate(['/posts/kids']);
       } else if (this.form.value.type[0].id === 'AcademicSearch') {
         this.requestService.search.next(data);
-        this.router.navigate(['/academic']);
+        this.router.navigate(['/posts/academic']);
       } else if (this.form.value.type[0].id === 'Pieces') {
         this.requestService.search.next(data);
-        this.router.navigate(['/pieces']);
+        this.router.navigate(['/posts/pieces']);
       } else {
         this.requestService.search.next(data);
-        this.router.navigate(['/june2020']);
+        this.router.navigate(['/posts/june2020']);
       }
     }
   }

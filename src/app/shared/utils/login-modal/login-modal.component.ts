@@ -4,6 +4,7 @@ import {FormBuilder, Validators} from "@angular/forms";
 import {RequestService} from "../../service/request.service";
 import {environment} from "../../../../environments/environment.prod";
 import {SocketConnectionService} from "../../service/socket-connection.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-login-modal',
@@ -17,11 +18,13 @@ export class LoginModalComponent implements OnInit {
     password: ['', Validators.required],
   });
   isModalShown = false;
-  @ViewChild('autoShownModal', { static: false }) autoShownModal?: ModalDirective;
+  @ViewChild('autoShownModal', {static: false}) autoShownModal?: ModalDirective;
 
   constructor(public requestService: RequestService,
               private socket: SocketConnectionService,
-              public fb: FormBuilder) { }
+              public fb: FormBuilder,
+              public router: Router) {
+  }
 
   ngOnInit(): void {
   }
@@ -36,15 +39,23 @@ export class LoginModalComponent implements OnInit {
     this.form.reset();
   }
 
-  showModal(): void{
+  showModal(): void {
     this.isModalShown = true;
   }
-  onSubmit () {
+
+  onSubmit() {
     this.requestService.createData(`${environment.webPages.login}`, this.form.value).subscribe((res) => {
       for (let key in res) {
         localStorage.setItem('site_' + key, res[key]);
       }
-      this.socket.connect();
+      this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+      this.router.onSameUrlNavigation = 'reload';
+      let currentUrl = this.router.url;
+      this.router.navigate([currentUrl]);
+      // this.router.navigateByUrl('/', {skipLocationChange: true}).then(() =>
+      //   this.router.navigate([currentUrl])
+      // );
+      // this.socket.connect();
       this.hideModal();
     })
   }

@@ -39,14 +39,14 @@ export class KidsViewComponent implements OnInit, OnDestroy {
               public fb: FormBuilder) {}
 
   ngOnInit(): void {
-    this.getNextPreviousUrls();
-    this.getData(`${this.url}?facet=on&q=*%3A*&start=0&rows=10&fq=type:KidsClick&fq=id:${this.activatedRoute.snapshot.params['id']}`);
-    this.form.controls['name'].disable();
-    this.form.controls['email'].disable();
-    this.form.patchValue({
-      email: localStorage.getItem('site_email'),
-      name: localStorage.getItem('site_first_name')
-    })
+    // this.getNextPreviousUrls();
+    // this.getData(`${this.url}?facet=on&q=*%3A*&start=0&rows=10&fq=type:KidsClick&fq=id:${this.activatedRoute.snapshot.params['id']}`);
+    // this.form.controls['name'].disable();
+    // this.form.controls['email'].disable();
+    // this.form.patchValue({
+    //   email: localStorage.getItem('site_email'),
+    //   name: localStorage.getItem('site_first_name')
+    // })
   }
   getData (url: string) {
     this.requestService.getData(url).subscribe((item: any) => {

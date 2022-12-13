@@ -16,11 +16,8 @@ export class RequestService {
   private reqCount: number = 0;
   public imgSite: string = environment.imagePrefix;
 
-  public userName: any = localStorage.getItem('site_first_name');
-  public userLastName: any =localStorage.getItem('site_last_name');
-  public userEmail: any =localStorage.getItem('site_email');
-  public userImage: any =localStorage.getItem('site_image');
-  public adminImage: any =localStorage.getItem('image');
+  public userName: any;
+  public adminImage: any;
   public search: Subject<any> = new BehaviorSubject<any>(false);
   constructor(private http: HttpClient) {}
 

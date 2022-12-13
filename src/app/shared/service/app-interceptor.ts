@@ -1,9 +1,17 @@
-import { Injectable } from '@angular/core';
-import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpResponse, HttpErrorResponse } from '@angular/common/http';
-import {throwError } from 'rxjs';
-import { map, catchError } from 'rxjs/operators';
-import { ToastrService } from 'ngx-toastr';
+import {Injectable} from '@angular/core';
+import {
+  HttpEvent,
+  HttpInterceptor,
+  HttpHandler,
+  HttpRequest,
+  HttpResponse,
+  HttpErrorResponse
+} from '@angular/common/http';
+import {throwError} from 'rxjs';
+import {map, catchError} from 'rxjs/operators';
+import {ToastrService} from 'ngx-toastr';
 import {Router} from "@angular/router";
+import {RequestService} from "./request.service";
 
 @Injectable({
   providedIn: 'root'
@@ -11,8 +19,10 @@ import {Router} from "@angular/router";
 export class AppInterceptor implements HttpInterceptor {
 
   constructor(private toastr: ToastrService,
-              private router: Router) {
+              private router: Router,
+              private requestService: RequestService) {
   }
+
   /*catch errors ans show message*/
   intercept(req: HttpRequest<any>, next: HttpHandler) {
     return next.handle(req).pipe(map((event: HttpEvent<any>) => {
@@ -22,8 +32,10 @@ export class AppInterceptor implements HttpInterceptor {
           if (event instanceof HttpResponse) {
             if (req.method === 'POST' || req.method === 'DELETE' || req.method === 'PUT') {
               if (!req.url.includes('refresh')) {
-                let messages = event.body.messages ? event.body.messages : event.body.message;
-                this.toastr.success(messages);
+                if (!this.requestService.userName) {
+                  let messages = event.body.messages ? event.body.messages : event.body.message;
+                  this.toastr.success(messages);
+                }
               }
             }
           }
@@ -36,7 +48,7 @@ export class AppInterceptor implements HttpInterceptor {
           if (typeof error.error['message'] == 'string') {
             this.toastr.error(error.error['message']);
           } else {
-            for(let err in error.error['message']) {
+            for (let err in error.error['message']) {
               this.toastr.error(error.error['message'][err]);
             }
           }
@@ -48,7 +60,7 @@ export class AppInterceptor implements HttpInterceptor {
           this.toastr.error(error.error['message']);
         } else if (error.status == 422) {
           let showError = '';
-          for(let err in error.error['message']) {
+          for (let err in error.error['message']) {
             showError += `${error.error['message'][err]}`;
           }
           this.toastr.error(showError);

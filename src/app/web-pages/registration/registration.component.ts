@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {RequestService} from "../../shared/service/request.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {environment} from "../../../environments/environment.prod";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-registration',
@@ -13,6 +14,7 @@ export class RegistrationComponent implements OnInit {
   form: any = FormGroup;
 
   constructor(private requestService: RequestService,
+              public router: Router,
               private fb: FormBuilder) { }
 
   ngOnInit(): void {
@@ -32,7 +34,7 @@ export class RegistrationComponent implements OnInit {
       birthday: new Date('2022-10-14').toLocaleDateString().replace(/\./g, '/')
     };
     this.requestService.createData(`${environment.webPages.registration}`, value).subscribe((res) => {
-      console.log(res);
+      this.router.navigate(['/sign-in']);
     })
   }
   matchingPasswords(passwordKey: string, passwordConfirmationKey: string) {

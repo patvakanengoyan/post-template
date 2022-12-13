@@ -29,9 +29,6 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
     this.requestService.userName = localStorage.getItem('site_first_name');
-    this.requestService.userLastName = localStorage.getItem('site_last_name');
-    this.requestService.userEmail = localStorage.getItem('site_email');
-    this.requestService.userImage = localStorage.getItem('site_image');
     this.itemListCategory = [
       {"id":1,"itemName":"Business"},
       {"id":2,"itemName":"Culture"},
@@ -50,7 +47,7 @@ export class HeaderComponent implements OnInit {
 
   logout() {
     let headers = new HttpHeaders({
-      Authorization: (localStorage.getItem('token_type') ? localStorage.getItem('token_type')  + ' ': '') + localStorage.getItem('site_access_token'),
+      Authorization: localStorage.getItem('site_token_type')  + ' ' + localStorage.getItem('site_access_token'),
       'Accept-Language': 'en'
     });
     this.http.post(`${environment.webPages.logout}`, {}, {headers: headers}).subscribe(() => {
@@ -67,14 +64,14 @@ export class HeaderComponent implements OnInit {
       localStorage.removeItem('site_email');
       localStorage.removeItem('site_image');
       this.requestService.userName = null;
-      this.requestService.userLastName = null;
-      this.requestService.userEmail = null;
-      this.requestService.userImage = null;
       this.requestService.socketdisconnect.next(true);
 
       this.router.routeReuseStrategy.shouldReuseRoute = () => false;
       this.router.onSameUrlNavigation = 'reload';
-      this.router.navigate(['/']);
+      let currentUrl = this.router.url;
+      this.router.navigateByUrl('/', {skipLocationChange: true}).then(() =>
+        this.router.navigate([currentUrl])
+      );
     })
     // this.requestService.createData(`${environment.webPages.logout}`, '').subscribe(() => {
     //   localStorage.removeItem('site_refresh_token');

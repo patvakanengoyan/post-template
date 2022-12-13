@@ -30,23 +30,23 @@ export class SinglePostComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getData(this.url);
-    this.form.controls['name'].disable();
-    this.form.controls['email'].disable();
-    this.form.patchValue({
-      email: localStorage.getItem('site_email'),
-      name: localStorage.getItem('site_first_name')
-    })
-   
-    let postId = this.activatedRoute.snapshot.paramMap.get('id');
-    this.socket.socketConnected.subscribe(res => {
-      if (!res){
-        this.socket.connect();
-      } else {
-        this.socket.join(postId);
-      }
-    });
-    this.socket.getMessagesList(postId);
+    // this.getData(this.url);
+    // this.form.controls['name'].disable();
+    // this.form.controls['email'].disable();
+    // this.form.patchValue({
+    //   email: localStorage.getItem('site_email'),
+    //   name: localStorage.getItem('site_first_name')
+    // })
+    //
+    // let postId = this.activatedRoute.snapshot.paramMap.get('id');
+    // this.socket.socketConnected.subscribe(res => {
+    //   if (!res){
+    //     this.socket.connect();
+    //   } else {
+    //     this.socket.join(postId);
+    //   }
+    // });
+    // this.socket.getMessagesList(postId);
   }
 
   getData (url: string) {
