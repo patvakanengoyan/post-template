@@ -13,17 +13,19 @@
           <thead>
           <tr>
             <th scope="col">Name</th>
-            <th scope="col">Language</th>
+            <th scope="col">Color</th>
+            <th scope="col">Image</th>
             <th scope="col">Actions</th>
           </tr>
           </thead>
           <tbody>
           <tr *ngFor="let item of data">
-            <td>
-              <span cTooltip="{{item.name}}" class="cursor-pointer"
-                    (click)="showModal(item, 'view')">{{item.name}}</span>
+            <td (click)="showModal(item, 'view')" class="cursor-pointer">
+              <img src="{{item?.image}}" alt="img" style="width: 35px;max-height: 50px;"
+                   onError="this.src='assets/images/no-image.png'">
             </td>
-            <td>{{item?.lang_name}}</td>
+            <td>{{item.name}}</td>
+            <td>{{item?.color}}</td>
             <td class="actions">
               <a (click)="showModal(item, 'view')" title="View">
                 <i class="fa fa-eye cursor-pointer"></i>
@@ -72,6 +74,20 @@
                   <input type="text" class="form-control" formControlName="name" id="name">
                   <div *ngIf="!form.controls.name?.valid && (form.controls.name?.dirty || form.controls.name?.touched)">
                     <span class="error-message">The Name is required</span>
+                  </div>
+                </div>
+                <div class="mb-3">
+                  <label for="name" [ngClass]="{'invalid-label-color': hasError(form.get('name'))}">Color *</label>
+                  <input type="text" class="form-control" formControlName="color" id="color">
+                  <div *ngIf="!form.controls.color?.valid && (form.controls.color?.dirty || form.controls.color?.touched)">
+                    <span class="error-message">The color is required</span>
+                  </div>
+                </div>
+                <div class="mb-3">
+                  <label for="name" [ngClass]="{'invalid-label-color': hasError(form.get('name'))}">Image *</label>
+                  <input type="text" class="form-control" formControlName="image" id="image">
+                  <div *ngIf="!form.controls.image?.valid && (form.controls.image?.dirty || form.controls.image?.touched)">
+                    <span class="error-message">The image is required</span>
                   </div>
                 </div>
               </div>

@@ -13,30 +13,40 @@
         <form method="post" [formGroup]="form" (ngSubmit)="send()" autocomplete="off" class="php-email-form">
           <div class="row">
             <div class="form-group col-md-6">
+              <label for="first_name" [ngClass]="(form.controls.first_name?.invalid &&
+        (form.controls.first_name?.dirty || form.controls.first_name?.touched)) ? 'invalid-label-color' : ''">First Name *</label>
               <input type="text" class="form-control" formControlName="first_name" id="name" placeholder="Your First Name" required>
               <div *ngIf="form.get('first_name')?.hasError('required') && (form.get('first_name')?.dirty || form.get('first_name')?.touched)">
                 <span class="error-message">The first name is required</span>
               </div>
             </div>
             <div class="form-group col-md-6">
+              <label for="last_name" [ngClass]="(form.controls.last_name?.invalid &&
+        (form.controls.last_name?.dirty || form.controls.last_name?.touched)) ? 'invalid-label-color' : ''">lat Name *</label>
               <input type="text" class="form-control" formControlName="last_name" id="last_name" placeholder="Your Last Name" required>
               <div *ngIf="form.get('last_name')?.hasError('required') && (form.get('last_name')?.dirty || form.get('last_name')?.touched)">
                 <span class="error-message">The last name is required</span>
               </div>
             </div>
             <div class="form-group col-md-4">
+              <label for="birthday" [ngClass]="(form.controls.birthday?.invalid &&
+        (form.controls.birthday?.dirty || form.controls.birthday?.touched)) ? 'invalid-label-color' : ''">Birthday *</label>
               <input type="date" class="form-control" formControlName="birthday" [max]="today" id="birthday" placeholder="Your Birthday" required>
               <div *ngIf="form.get('birthday')?.hasError('required') && (form.get('birthday')?.dirty || form.get('birthday')?.touched)">
                 <span class="error-message">The birthday is required</span>
               </div>
             </div>
             <div class="form-group col-md-4">
+              <label for="nickname" [ngClass]="(form.controls.nickname?.invalid &&
+        (form.controls.nickname?.dirty || form.controls.nickname?.touched)) ? 'invalid-label-color' : ''">Nickname *</label>
               <input type="text" class="form-control" formControlName="nickname" id="nickname" placeholder="Your Nickname" required>
               <div *ngIf="form.get('nickname')?.hasError('required') && (form.get('nickname')?.dirty || form.get('nickname')?.touched)">
                 <span class="error-message">The nickname is required</span>
               </div>
             </div>
             <div class="form-group col-md-4">
+              <label for="email" [ngClass]="(form.controls.email?.invalid &&
+        (form.controls.email?.dirty || form.controls.email?.touched)) ? 'invalid-label-color' : ''">Email *</label>
               <input type="email" class="form-control" formControlName="email" id="email" placeholder="Your Email" required>
               <div>
                 <span *ngIf="form.get('email')?.hasError('required') && (form.get('email')?.dirty || form.get('email')?.touched)" class="error-message">The email is required</span>
@@ -44,6 +54,8 @@
               </div>
             </div>
             <div class="form-group col-md-6">
+              <label for="password" [ngClass]="(form.controls.password?.invalid &&
+        (form.controls.password?.dirty || form.controls.password?.touched)) ? 'invalid-label-color' : ''">Password *</label>
               <input type="password" class="form-control" formControlName="password" id="password" placeholder="Password" required>
               <div>
                 <span *ngIf="form.get('password')?.hasError('required') && (form.get('password')?.dirty || form.get('password')?.touched)" class="error-message">The password is required</span>
@@ -51,6 +63,8 @@
               </div>
             </div>
             <div class="form-group col-md-6">
+              <label for="confirm_password" [ngClass]="(form.controls.confirm_password?.invalid &&
+        (form.controls.confirm_password?.dirty || form.controls.confirm_password?.touched)) ? 'invalid-label-color' : ''">Confirm Password *</label>
               <input type="password" class="form-control" formControlName="confirm_password" id="confirm_password" placeholder="Confirm Password" required>
               <div>
                 <span *ngIf="form.get('confirm_password')?.hasError('required') && (form.get('confirm_password')?.dirty || form.get('confirm_password')?.touched)" class="error-message">The confirm password is required</span>

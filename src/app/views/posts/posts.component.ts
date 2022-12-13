@@ -115,7 +115,7 @@ export class PostsComponent implements OnInit {
         this.multiSelect = {
             enableSearchFilter: true,
             singleSelection: false,
-            badgeShowLimit: 1,
+            badgeShowLimit: 2,
             selectAllText: 'Select All',
             text: "Select item",
             lazyLoading: true,

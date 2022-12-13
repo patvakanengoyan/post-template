@@ -14,7 +14,7 @@ export class CanActivateChildService implements CanActivateChild {
             if (localStorage.getItem('access_token')) {
                 return true;
             }
-        this.router.navigateByUrl('login');
+        this.router.navigateByUrl('admin/login');
         return false;
     }
 }

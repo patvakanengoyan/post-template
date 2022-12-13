@@ -35,6 +35,8 @@ export class MainTopicsComponent implements OnInit {
     this.getData(`${this.url}`);
     this.form = this.fb.group({
       name: ['', Validators.required],
+      color: ['', Validators.required],
+      image: ['', Validators.required],
       lang_code: [''],
       guid: [''],
     })
@@ -63,7 +65,9 @@ export class MainTopicsComponent implements OnInit {
       this.form.patchValue({
         name: item.name,
         lang_code: item.lang_code,
-        guid: item.guid
+        guid: item.guid,
+        color: item.color,
+        image: item.image,
       })
     } else if (type === 'add') {
 
@@ -83,16 +87,18 @@ export class MainTopicsComponent implements OnInit {
     Send data method
   */
   onSubmit(form: any) {
+    let value = {
+      lang_code: 'en',
+      name: form.name,
+      color: form.color,
+      image: form.image,
+    };
     if (this.requestType == 'edit') {
       this.requestService.updateData(`${this.url}/${this.itemId}`, form, 'update').subscribe((res) => {
         this.hideModal();
         this.getData(`${this.url}?page=${this.paginationConfig?.current_page}`);
       })
     } else if (this.requestType == 'add') {
-      let value = {
-        lang_code: 'en',
-        name: form.name
-      };
       this.requestService.createData(`${this.url}/create`, value).subscribe((res) => {
         this.hideModal();
         this.getData(`${this.url}?page=${this.paginationConfig?.current_page}`);

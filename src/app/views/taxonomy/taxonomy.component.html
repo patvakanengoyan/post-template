@@ -15,7 +15,6 @@
             <th scope="col">Level 1</th>
             <th scope="col">Level 2</th>
             <th scope="col">Level 3</th>
-            <th scope="col">Language</th>
             <th scope="col">Actions</th>
           </tr>
           </thead>
@@ -27,11 +26,10 @@
             </td>
             <td>{{item?.level2}}</td>
             <td>{{item?.level3}}</td>
-            <td>{{item?.lang_name}}</td>
             <td class="actions">
-              <a (click)="showModal(item.id, 'add_translate', item)" title="Add a language">
-                <i class="fa fa-plus cursor-pointer" aria-hidden="true"></i>
-              </a>
+<!--              <a (click)="showModal(item.id, 'add_translate', item)" title="Add a language">-->
+<!--                <i class="fa fa-plus cursor-pointer" aria-hidden="true"></i>-->
+<!--              </a>-->
               <a (click)="showModal(item.id, 'view', item)" title="View">
                 <i class="fa fa-eye cursor-pointer"></i>
               </a>
@@ -71,8 +69,6 @@
             <p><b>Level 1: </b>{{viewData?.level1}}</p>
             <p><b>Level 2: </b>{{viewData?.level2}}</p>
             <p><b>Level 3: </b>{{viewData?.level3}}</p>
-            <p><b>Language name : </b>{{viewData?.lang_name}}</p>
-            <p><b>Language code : </b>{{viewData?.lang_code}}</p>
           </div>
           <div *ngIf="requestType == 'edit' || requestType == 'add' || requestType == 'add_translate'">
             <div class="container-md" data-aos="fade-in">
@@ -101,14 +97,14 @@
                     <span class="error-message">The level 3 is required</span>
                   </div>
                 </div>
-                <div class="mb-3">
-                  <label for="lang_code" [ngClass]="(form.controls.lang_code?.invalid &&
-        (form.controls.lang_code?.dirty || form.controls.lang_code?.touched)) ? 'invalid-label-color' : ''">Language code *</label>
-                  <input type="text" class="form-control" formControlName="lang_code" id="lang_code" [readonly]="requestType == 'edit'">
-                  <div *ngIf="!form.controls.lang_code?.valid && (form.controls.lang_code?.dirty || form.controls.lang_code?.touched)">
-                    <span class="error-message">The language code is required</span>
-                  </div>
-                </div>
+<!--                <div class="mb-3">-->
+<!--                  <label for="lang_code" [ngClass]="(form.controls.lang_code?.invalid &&-->
+<!--        (form.controls.lang_code?.dirty || form.controls.lang_code?.touched)) ? 'invalid-label-color' : ''">Language code *</label>-->
+<!--                  <input type="text" class="form-control" formControlName="lang_code" id="lang_code" [readonly]="requestType == 'edit'">-->
+<!--                  <div *ngIf="!form.controls.lang_code?.valid && (form.controls.lang_code?.dirty || form.controls.lang_code?.touched)">-->
+<!--                    <span class="error-message">The language code is required</span>-->
+<!--                  </div>-->
+<!--                </div>-->
               </div>
             </div>
           </div>

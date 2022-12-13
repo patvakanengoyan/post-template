@@ -109,6 +109,8 @@ export class HeaderSearchComponent implements OnInit {
   }
 
   reset() {
+    this.form.reset();
+    this.form.markAllAsTouched();
     // this.form.reset({
     //   title: '',
     //   description: '',

@@ -24,7 +24,7 @@ export class PostsComponent implements OnInit {
     taxanomy_lv3_exact: [],
     topics_exact: []
   };
-  public rows: number = 4;
+  public rows: number = 12;
   public start: number = 0;
   public total: number = 0;
   public currentPage: number = 1;
@@ -172,11 +172,18 @@ export class PostsComponent implements OnInit {
   collaspseBlock (type: string) {
     this.collapsed[type] = !this.collapsed[type];
   }
-  content () {
-    clearTimeout(this.timeOut);
-    this.timeOut = setTimeout(() => {
+  content (type?: string) {
+    if (!type && this.form.value.content) {
       this.call();
-    }, 1000)
+    } else if (type) {
+      this.form.reset({content: ''});
+      this.call();
+    }
+
+    // clearTimeout(this.timeOut);
+    // this.timeOut = setTimeout(() => {
+    //   this.call();
+    // }, 1000)
   }
 
 }

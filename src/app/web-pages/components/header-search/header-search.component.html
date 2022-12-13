@@ -20,6 +20,9 @@
                                           (onSelect)="onItemSelect($event)"
                     >
                     </angular2-multiselect>
+                  <div *ngIf="form.controls.type?.errors?.required && (form.controls.type?.dirty || form.controls.type?.touched)">
+                    <span class="error-message">The type is required</span>
+                  </div>
                 </div>
             </div>
         </div>
@@ -98,7 +101,7 @@
             </div>
         </div>
         <button type="button" class="btn btn-dark float-end" (click)="searchSubmit(form.value)">Search</button>
-        <button type="reset" class="btn btn-dark float-end me-2" (click)="reset()">Reset</button>
+        <button type="button" class="btn btn-dark float-end me-2" (click)="reset()">Reset</button>
     </div>
 
 </form>

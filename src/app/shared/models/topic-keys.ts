@@ -14,5 +14,7 @@ export interface TopicKeys {
   name: string;
   lang_code: string;
   lang_name: string;
+  color: string;
+  image: string;
   topics: Topic[];
 }

@@ -38,7 +38,6 @@ export class TaxonomyComponent implements OnInit {
       level1: ['', Validators.required],
       level2: ['', Validators.required],
       level3: ['', Validators.required],
-      lang_code: ['', Validators.required],
     })
   }
 
@@ -60,7 +59,6 @@ export class TaxonomyComponent implements OnInit {
       level1: item.level1,
       level2: item.level2,
       level3: item.level3,
-      lang_code: item.lang_code,
     })
   }
 
@@ -99,7 +97,7 @@ export class TaxonomyComponent implements OnInit {
       "level1": form.level1,
       "level2": form.level2,
       "level3": form.level3,
-      "lang_code": form.lang_code,
+      "lang_code": 'en',
       "guid": this.guid
     }
     if (this.requestType == 'add') {

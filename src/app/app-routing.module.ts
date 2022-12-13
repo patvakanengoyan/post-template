@@ -66,7 +66,7 @@ const routes: Routes = [
       import('./web-pages/posts/posts.module').then((m) => m.PostsModule)
   },
   {
-    path: 'login',
+    path: 'admin/login',
     component: LoginComponent,
     canActivate: [CanActivateService],
     data: {
@@ -112,7 +112,7 @@ const routes: Routes = [
           import('./views/pages/pages.module').then((m) => m.PagesModule)
       },
       {
-        path: 'admin/users',
+        path: 'admin/administrators',
         loadChildren: () =>
           import('./views/users/users.module').then((m) => m.UsersModule)
       },
