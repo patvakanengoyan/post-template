@@ -8,7 +8,7 @@
       <div class="col-lg-3">
         <div *ngIf="data.length > 0">
           <form class="form-group mb-3" [formGroup]="form" (ngSubmit)="content()">
-            <textarea class="form-control" placeholder="Title, Description" formControlName="content" id="content" rows="2"></textarea>
+            <textarea class="form-control" placeholder="Search" formControlName="content" id="content" rows="2"></textarea>
             <div class="mt-3 text-end">
               <button *ngIf="form.value.content" type="button" class="btn btn-dark btn-sm me-2" (click)="content('reset')">Reset</button>
               <button class="btn btn-dark btn-sm">Search</button>

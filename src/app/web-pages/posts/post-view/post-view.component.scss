@@ -139,13 +139,24 @@
 .comment:not(.comment:first-child) {
   padding-bottom: 12px;
   margin-bottom: 12px;
-  border-bottom: 1px solid #e8e8e8;
+  //border-bottom: 1px solid #e8e8e8;
 }
 .comment + .comment {
   padding-top: 12px;
 }
 .comment.reply .user-banner, .comment.reply .content, .comment.reply .footer2 {
   margin-left: 32px;
+}
+.reply.comment {
+  margin-left: 50px;
+  margin-top: 15px;
+  border-top: 1px solid #e8e8e8;
+  padding-top: 15px;
+}
+.comment-block {
+  border-bottom: 1px solid #e8e8e8;
+  padding: 4px 0px;
+  margin: 15px 0;
 }
 .group-radio {
   position: relative;

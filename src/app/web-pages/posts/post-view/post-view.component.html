@@ -72,7 +72,7 @@
                 </div>
               </form>
             </div>
-            <div *ngFor="let comment of socket.messagesList">
+            <div class="comment-block" *ngFor="let comment of socket.messagesList">
               <div class="comment">
                 <div class="user-banner">
                   <div class="user">
@@ -94,7 +94,7 @@
                   <span class="is-mute">{{ comment['message_created_at'] | timeago: 'live' }}</span>
                 </div>
               </div>
-              <hr>
+
               <div *ngIf="comment['message_reply']">
 
 
@@ -114,9 +114,9 @@
                   </div>
                   <div class="footer2">
                     <button class="btn2"><i class="ri-emotion-line"></i></button>
-                    <div class="divider"></div>
+<!--                    <div class="divider"></div>-->
                     <!-- <a href="javascript:void(0)" (click)="replyComment(reply['message_id'])">Reply</a> -->
-                    <div class="divider"></div>
+<!--                    <div class="divider"></div>-->
                     <span class="is-mute">{{reply['message_created_at'] | timeago: 'live'}}</span>
                   </div>
                 </div>
