@@ -52,24 +52,24 @@ export class AcademicViewComponent implements OnInit {
   }
 
   getData(url: string) {
-    this.requestService.getData(url).subscribe((item: any) => {
-      this.data = item?.response?.docs[0];
-      this.data.content = this.sanitizer.bypassSecurityTrustHtml(this.data.content);
-      this.socket.socketConnected.subscribe(res => {
-        if (!res) {
-          if (localStorage.getItem('site_access_token')) {
-            this.socket.connect();
-          } else {
-            this.form.controls['message_content'].disable();
-          }
-        } else {
-          if (localStorage.getItem('site_access_token')) {
-            this.socket.join(this.data.chat_id);
-          }
-        }
-      });
-      this.socket.getMessagesList(this.data.chat_id);
-    })
+    // this.requestService.getData(url).subscribe((item: any) => {
+    //   this.data = item?.response?.docs[0];
+    //   this.data.content = this.sanitizer.bypassSecurityTrustHtml(this.data.content);
+    //   this.socket.socketConnected.subscribe(res => {
+    //     if (!res) {
+    //       if (localStorage.getItem('site_access_token')) {
+    //         this.socket.connect();
+    //       } else {
+    //         this.form.controls['message_content'].disable();
+    //       }
+    //     } else {
+    //       if (localStorage.getItem('site_access_token')) {
+    //         this.socket.join(this.data.chat_id);
+    //       }
+    //     }
+    //   });
+    //   this.socket.getMessagesList(this.data.chat_id);
+    // })
   }
 
 

@@ -25,7 +25,7 @@ export class SinglePostComponent implements OnInit {
   });
   constructor(private requestService: RequestService,
               public activatedRoute: ActivatedRoute,
-              public socket: SocketConnectionService
+              // public socket: SocketConnectionService
               ) {
   }
 
@@ -56,18 +56,18 @@ export class SinglePostComponent implements OnInit {
   }
 
   submit(val) {
-    this.disableSend = true;
-    let value = {...val};
-    value.message_type = 1;
-    if (this.replyID) {
-      value.message_reply_id = this.replyID;
-    }
-    let ex_version = 'v' + this.socket?.getInfo?.result?.endpoints?.major_version + '.' + this.socket?.getInfo?.result?.endpoints?.minor_version;
-    this.requestService.createData(`${this.socket?.getInfo?.result?.endpoints?.host}/api/${ex_version}/room/ROOM1/message/create`, value, true).subscribe(res=> {
-      this.form.controls['message_content'].setValue('');
-      this.replyID = undefined;
-      this.disableSend = false;
-    })
+    // this.disableSend = true;
+    // let value = {...val};
+    // value.message_type = 1;
+    // if (this.replyID) {
+    //   value.message_reply_id = this.replyID;
+    // }
+    // let ex_version = 'v' + this.socket?.getInfo?.result?.endpoints?.major_version + '.' + this.socket?.getInfo?.result?.endpoints?.minor_version;
+    // this.requestService.createData(`${this.socket?.getInfo?.result?.endpoints?.host}/api/${ex_version}/room/ROOM1/message/create`, value, true).subscribe(res=> {
+    //   this.form.controls['message_content'].setValue('');
+    //   this.replyID = undefined;
+    //   this.disableSend = false;
+    // })
   }
   replyComment(comment) {
     this.replyID = comment['message_id'];

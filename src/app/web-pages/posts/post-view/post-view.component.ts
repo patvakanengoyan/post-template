@@ -6,6 +6,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {DomSanitizer} from "@angular/platform-browser";
 import {SocketConnectionService} from "../../../shared/service/socket-connection.service";
 import {forkJoin} from "rxjs";
+import {BehaviorSubject} from "rxjs";
 
 @Component({
   selector: 'app-post-view',
@@ -114,6 +115,7 @@ export class PostViewComponent implements OnInit {
   ngOnDestroy(): void {
     this.clearReply();
     this.socket.messagesList = [];
+    this.socket.socketConnected = new BehaviorSubject<boolean>(false);
   }
 
   getNextPreviousUrls() {
