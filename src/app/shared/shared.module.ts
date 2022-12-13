@@ -8,11 +8,12 @@ import { LoginModalComponent } from './utils/login-modal/login-modal.component';
 import {ReactiveFormsModule} from "@angular/forms";
 import {ModalModule} from "ngx-bootstrap/modal";
 import {RouterModule} from "@angular/router";
+import { DateAsAgoPipe } from './utils/pipes/date-as-ago.pipe';
 
 
 
 @NgModule({
-  declarations: [DeleteModalComponent, FileInputComponent, PaginationComponent, LoginModalComponent],
+  declarations: [DeleteModalComponent, FileInputComponent, PaginationComponent, LoginModalComponent, DateAsAgoPipe],
   imports: [
     CommonModule,
     PaginationModule.forRoot(),
@@ -20,6 +21,6 @@ import {RouterModule} from "@angular/router";
     ModalModule.forRoot(),
     RouterModule
   ],
-  exports: [DeleteModalComponent, FileInputComponent, PaginationComponent, LoginModalComponent]
+  exports: [DeleteModalComponent, FileInputComponent, PaginationComponent, LoginModalComponent, DateAsAgoPipe]
 })
 export class SharedModule { }

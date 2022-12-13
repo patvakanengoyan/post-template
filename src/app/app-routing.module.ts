@@ -24,11 +24,6 @@ const routes: Routes = [
       import('./web-pages/home/home.module').then((m) => m.HomeModule)
   },
   {
-    path: 'rabbi-version',
-    loadChildren: () =>
-      import('./web-pages/rabbi-version/rabbi-version.module').then((m) => m.RabbiVersionModule)
-  },
-  {
     path: 'registration',
     loadChildren: () =>
       import('./web-pages/registration/registration.module').then((m) => m.RegistrationModule)
@@ -39,26 +34,6 @@ const routes: Routes = [
     loadChildren: () =>
       import('./web-pages/sign-in/sign-in.module').then((m) => m.SignInModule)
   },
-  // {
-  //   path: 'kids',
-  //   loadChildren: () =>
-  //     import('./web-pages/kids/kids.module').then((m) => m.KidsModule)
-  // },
-  // {
-  //   path: 'academic',
-  //   loadChildren: () =>
-  //     import('./web-pages/academic/academic.module').then((m) => m.AcademicModule)
-  // },
-  // {
-  //   path: 'pieces',
-  //   loadChildren: () =>
-  //     import('./web-pages/pieces/pieces.module').then((m) => m.PiecesModule)
-  // },
-  // {
-  //   path: 'june2020',
-  //   loadChildren: () =>
-  //     import('./web-pages/june2020/june2020.module').then((m) => m.June2020Module)
-  // },
   {
     path: 'posts/:type',
     canActivate: [ViewPostGuard],
@@ -72,11 +47,6 @@ const routes: Routes = [
     data: {
       title: 'Login Page'
     }
-  },
-  {
-    path: 'post/:id',
-    loadChildren: () =>
-      import('./web-pages/single-post/single-post.module').then((m) => m.SinglePostModule)
   },
   {
     path: 'about',

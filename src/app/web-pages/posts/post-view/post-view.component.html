@@ -81,17 +81,17 @@
                     </div>
                     <h5>{{comment['message_author']['user_name']}}</h5>
                   </div>
-                  <button class="btn2 dropdown"><i class="ri-more-line"></i></button>
+                  <!-- <button class="btn2 dropdown"><i class="ri-more-line"></i></button> -->
                 </div>
                 <div class="content">
                   <p style="margin-bottom: 0">{{comment['message_content']}}</p>
                 </div>
                 <div class="footer2">
-                  <button class="btn2"><i class="ri-emotion-line"></i></button>
-                  <div class="divider"></div>
+                  <!-- <button class="btn2"><i class="ri-emotion-line"></i></button> -->
+                  <!-- <div class="divider"></div> -->
                   <a href="javascript:void(0)" (click)="replyComment(comment)">Reply</a>
                   <div class="divider"></div>
-                  <span class="is-mute">{{ comment['message_created_at'] | timeago: 'live' }}</span>
+                  <span class="is-mute">{{ comment['message_created_at'] | dateAsAgo }}</span>
                 </div>
               </div>
 
@@ -113,11 +113,11 @@
                     <p style="margin-bottom: 0">{{reply['message_content']}}</p>
                   </div>
                   <div class="footer2">
-                    <button class="btn2"><i class="ri-emotion-line"></i></button>
+                    <!-- <button class="btn2"><i class="ri-emotion-line"></i></button> -->
 <!--                    <div class="divider"></div>-->
                     <!-- <a href="javascript:void(0)" (click)="replyComment(reply['message_id'])">Reply</a> -->
 <!--                    <div class="divider"></div>-->
-                    <span class="is-mute">{{reply['message_created_at'] | timeago: 'live'}}</span>
+                    <span class="is-mute">{{reply['message_created_at'] | dateAsAgo}}</span>
                   </div>
                 </div>
               </div>
