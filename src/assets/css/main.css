@@ -369,6 +369,10 @@ section {
     background: rgba(var(--color-black-rgb), .6);
     transition: .3s
   }
+  .pr-t5 {
+    position: relative;
+    bottom: 5px;
+  }
 }
 
 .aside-block .custom-tab-nav .nav-item button, .post-entry-1 h2 a, .trending > h3 {
@@ -542,6 +546,12 @@ section {
   .img-bg .img-bg-inner p {
     display: none
   }
+  .img-bg .img-bg-inner {
+    bottom: 150px;
+  }
+  .img-bg .img-bg-inner h2 {
+    font-size: 20px;
+  }
 }
 
 .custom-swiper-button-next, .custom-swiper-button-prev {
@@ -616,7 +626,9 @@ section {
   .img-bg .img-bg-inner {
     padding-left: 30px;
     padding-right: 30px;
-    margin-bottom: 50px
+    margin-bottom: 50px;
+    max-width: 500px;
+    bottom: 224px;
   }
 
   .custom-swiper-button-next, .custom-swiper-button-prev {

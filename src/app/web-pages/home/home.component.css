@@ -11,3 +11,39 @@
 ::ng-deep .owl-next, ::ng-deep .owl-next:hover{
   background: transparent !important;
 }
+@media screen and (min-width: 1366px) {
+  ::ng-deep .owl-carousel .owl-item img {
+    max-height: 560px;
+    height: 560px;
+    object-fit: contain;
+  }
+}
+
+@media (max-width: 1365px) and (min-width: 1260px){
+  ::ng-deep .owl-carousel .owl-item img {
+    max-height: 480px;
+    height: 480px;
+    object-fit: contain;
+  }
+}
+@media (max-width: 1259px) and (min-width: 1000px){
+  ::ng-deep .owl-carousel .owl-item img {
+    max-height: 405px;
+    height: 405px;
+    object-fit: contain;
+  }
+}
+@media (max-width: 999px) and (min-width: 768px){
+  ::ng-deep .owl-carousel .owl-item img {
+    max-height: 305px;
+    height: 305px;
+    object-fit: contain;
+  }
+}
+@media (max-width: 767px) and (min-width: 300px){
+  ::ng-deep .owl-carousel .owl-item img {
+    max-height: 256px;
+    height: 256px;
+    object-fit: contain;
+  }
+}

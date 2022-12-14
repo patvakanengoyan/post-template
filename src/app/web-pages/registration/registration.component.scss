@@ -140,3 +140,7 @@
     transform: rotate(360deg);
   }
 }
+button:disabled,
+button[disabled]{
+  cursor: no-drop !important;
+}

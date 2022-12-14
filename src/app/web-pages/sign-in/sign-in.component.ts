@@ -12,7 +12,7 @@ import { SocketConnectionService } from 'src/app/shared/service/socket-connectio
 })
 export class SignInComponent implements OnInit {
   form: any = FormGroup;
-
+  clickButton: boolean = true
 
   constructor(public requestService: RequestService,
               public fb: FormBuilder,
@@ -27,6 +27,7 @@ export class SignInComponent implements OnInit {
   }
 
   onSubmit(form) {
+    this.clickButton = false;
     this.requestService.createData(`${environment.webPages.login}`, form).subscribe((res) => {
       for (let key in res) {
         localStorage.setItem('site_' + key, res[key]);
@@ -35,6 +36,9 @@ export class SignInComponent implements OnInit {
       this.router.onSameUrlNavigation = 'reload';
       this.socket.connect();
       this.router.navigate(['/']);
+      this.clickButton = true;
+    }, err => {
+      this.clickButton = true;
     })
   }
 

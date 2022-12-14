@@ -18,7 +18,7 @@
             </div>
             <div class="text-end">
                  <button type="button" class="btn btn-secondary me-3" (click)="hideModal()">Close</button>
-                 <button type="submit" class="btn btn-primary" [disabled]="form.invalid">Login</button>
+                 <button type="submit" class="btn btn-primary" [disabled]="form.invalid || clickButton == false">Login</button>
             </div>
           </form>
         </div>

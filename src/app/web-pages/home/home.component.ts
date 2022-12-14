@@ -22,20 +22,22 @@ export class HomeComponent implements OnInit {
   public dataSlider: any[] = [];
   customOptions: OwlOptions = {
     loop: true,
-    autoplay: true,
+    // autoplay: true,
     navText: ["<div><div class=\"custom-swiper-button-prev\"><span class=\"bi-chevron-left\"></span></div></div>",
       "<div><div class=\"custom-swiper-button-next\"><span class=\"bi-chevron-right\"></span></div></div>"],
     mouseDrag: true,
     touchDrag: false,
     pullDrag: false,
     dots: true,
-    navSpeed: 500,
+    // navSpeed: 500,
     responsive: {
       0: {
         items: 1
       }
     },
-    nav: true
+    nav: true,
+    autoHeight:true,
+
   }
 
   constructor(private requestService: RequestService,

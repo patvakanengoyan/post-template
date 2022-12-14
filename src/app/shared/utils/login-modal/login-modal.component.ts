@@ -19,6 +19,7 @@ export class LoginModalComponent implements OnInit {
   });
   isModalShown = false;
   @ViewChild('autoShownModal', {static: false}) autoShownModal?: ModalDirective;
+  clickButton: boolean = true
 
   constructor(public requestService: RequestService,
               private socket: SocketConnectionService,
@@ -44,6 +45,7 @@ export class LoginModalComponent implements OnInit {
   }
 
   onSubmit() {
+    this.clickButton = false;
     this.requestService.createData(`${environment.webPages.login}`, this.form.value).subscribe((res) => {
       for (let key in res) {
         localStorage.setItem('site_' + key, res[key]);
@@ -57,6 +59,9 @@ export class LoginModalComponent implements OnInit {
       // );
       // this.socket.connect();
       this.hideModal();
+      this.clickButton = true;
+    }, err => {
+      this.clickButton = true;
     })
   }
 }

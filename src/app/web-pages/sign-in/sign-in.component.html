@@ -29,7 +29,7 @@
             </div>
           </div>
         </div>
-        <div class="text-center"><button [disabled]="form.invalid" type="submit">Sign In</button></div>
+        <div class="text-center"><button [disabled]="form.invalid || clickButton == false" type="submit">Sign In</button></div>
       </form>
     </div>
   </section>

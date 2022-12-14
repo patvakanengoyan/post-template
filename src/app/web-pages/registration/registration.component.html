@@ -15,14 +15,14 @@
             <div class="form-group col-md-6">
               <label for="first_name" [ngClass]="(form.controls.first_name?.invalid &&
         (form.controls.first_name?.dirty || form.controls.first_name?.touched)) ? 'invalid-label-color' : ''">First Name *</label>
-              <input type="text" class="form-control" formControlName="first_name" id="name" placeholder="Your First Name" required>
+              <input type="text" class="form-control" formControlName="first_name" id="first_name" placeholder="Your First Name" required>
               <div *ngIf="form.get('first_name')?.hasError('required') && (form.get('first_name')?.dirty || form.get('first_name')?.touched)">
                 <span class="error-message">The first name is required</span>
               </div>
             </div>
             <div class="form-group col-md-6">
               <label for="last_name" [ngClass]="(form.controls.last_name?.invalid &&
-        (form.controls.last_name?.dirty || form.controls.last_name?.touched)) ? 'invalid-label-color' : ''">lat Name *</label>
+        (form.controls.last_name?.dirty || form.controls.last_name?.touched)) ? 'invalid-label-color' : ''">Last Name *</label>
               <input type="text" class="form-control" formControlName="last_name" id="last_name" placeholder="Your Last Name" required>
               <div *ngIf="form.get('last_name')?.hasError('required') && (form.get('last_name')?.dirty || form.get('last_name')?.touched)">
                 <span class="error-message">The last name is required</span>
@@ -78,7 +78,7 @@
             <div class="error-message"></div>
             <div class="sent-message">Your message has been sent. Thank you!</div>
           </div>
-          <div class="text-center"><button [disabled]="form.invalid" type="submit">Registration</button></div>
+          <div class="text-center"><button [disabled]="!form.valid || clickButton == false" type="submit">Registration</button></div>
         </form>
     </div>
   </section>
