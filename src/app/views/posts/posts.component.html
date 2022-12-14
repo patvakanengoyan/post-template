@@ -101,7 +101,7 @@
                   </div>
                 </div>
                 <div class="col-4 mb-3">
-                  <label for="type" [ngClass]="{'invalid-label-color': form.get('type')?.invalid && (form.get('type')?.dirty || form.get('type')?.touched)}">Type *</label>
+                  <label [ngClass]="{'invalid-label-color': form.get('type')?.invalid && (form.get('type')?.dirty || form.get('type')?.touched)}">Type *</label>
                   <angular2-multiselect [data]="type"
                                         [settings]="monoSelect"
                                         formControlName="type"
@@ -112,7 +112,7 @@
                   </div>
                 </div>
                 <div class="col-4 mb-3">
-                  <label for="topics">Topics</label>
+                  <label>Topics</label>
                   <angular2-multiselect [data]="topicList"
                                         [settings]="multiSelect"
                                         formControlName="topics"
@@ -121,7 +121,7 @@
                   </angular2-multiselect>
                 </div>
                 <div class="mb-3">
-                  <label for="description" [ngClass]="(form.controls.description?.invalid &&
+                  <label [ngClass]="(form.controls.description?.invalid &&
         (form.controls.description?.dirty || form.controls.description?.touched)) ? 'invalid-label-color' : ''">Description * </label>
                   <ckeditor id="description" [editor]="Editor" [config]='config'
                             [formControlName]="'description'"></ckeditor>
@@ -131,7 +131,7 @@
                 </div>
 
                 <div class="col-12 mb-3">
-                  <label for="taxonomies">Taxonomies</label>
+                  <label>Taxonomies</label>
                   <angular2-multiselect [data]="taxonomyList"
                                         [settings]="multiSelect"
                                         formControlName="taxonomies"
@@ -140,7 +140,7 @@
                   </angular2-multiselect>
                 </div>
                 <div class="col-6 mb-3">
-                  <label for="volume">Volume</label>
+                  <label>Volume</label>
                   <angular2-multiselect [data]="volumesList"
                                         [settings]="monoSelect"
                                         formControlName="volume"

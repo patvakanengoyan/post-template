@@ -74,9 +74,6 @@ export class TaxonomyComponent implements OnInit {
       this.viewData = item;
     } else if (type === 'edit') {
       this.getById(item)
-    } else if (type === 'add_translate') {
-      this.getById(item)
-      this.guid = item.guid;
     }
   }
 

@@ -1,7 +1,6 @@
 import {Component, OnInit, Output, EventEmitter, Input} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder} from "@angular/forms";
 import {RequestService} from "../../../shared/service/request.service";
-import {SocketConnectionService} from "../../../shared/service/socket-connection.service";
 import {environment} from "../../../../environments/environment.prod";
 import {Router} from "@angular/router";
 import {HttpClient, HttpHeaders} from "@angular/common/http";

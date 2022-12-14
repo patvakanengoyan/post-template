@@ -115,10 +115,33 @@ export class RefreshTokenService {
   logoutUser() {
     if (!this.requestService.userName) {
       this.router.navigate(['/admin/login']);
-      localStorage.clear();
+      localStorage.removeItem('refresh_token');
+      localStorage.removeItem('first_name');
+      localStorage.removeItem('role');
+      localStorage.removeItem('expires_in');
+      localStorage.removeItem('access_token');
+      localStorage.removeItem('user_id');
+      localStorage.removeItem('token_type');
+      localStorage.removeItem('birthday');
+      localStorage.removeItem('last_name');
+      localStorage.removeItem('role_name');
+      localStorage.removeItem('email');
+      localStorage.removeItem('image');
+      localStorage.removeItem('status');
     } else {
       this.router.navigate(['/']);
-      localStorage.clear();
+      localStorage.removeItem('site_refresh_token');
+      localStorage.removeItem('site_first_name');
+      localStorage.removeItem('site_role');
+      localStorage.removeItem('site_expires_in');
+      localStorage.removeItem('site_access_token');
+      localStorage.removeItem('site_id');
+      localStorage.removeItem('site_token_type');
+      localStorage.removeItem('site_birthday');
+      localStorage.removeItem('site_last_name');
+      localStorage.removeItem('site_role_name');
+      localStorage.removeItem('site_email');
+      localStorage.removeItem('site_image');
     }
     return throwError(() => new Error(`Invalid`));
   }

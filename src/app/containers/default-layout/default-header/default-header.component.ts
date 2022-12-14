@@ -29,7 +29,19 @@ export class DefaultHeaderComponent extends HeaderComponent implements OnInit{
 
   logout () {
     this.requestService.createData(`${environment.admin.logout}`, '').subscribe(() => {
-      localStorage.clear();
+      localStorage.removeItem('refresh_token');
+      localStorage.removeItem('first_name');
+      localStorage.removeItem('role');
+      localStorage.removeItem('expires_in');
+      localStorage.removeItem('access_token');
+      localStorage.removeItem('user_id');
+      localStorage.removeItem('token_type');
+      localStorage.removeItem('birthday');
+      localStorage.removeItem('last_name');
+      localStorage.removeItem('role_name');
+      localStorage.removeItem('email');
+      localStorage.removeItem('image');
+      localStorage.removeItem('status');
       this.router.navigateByUrl('admin/login');
     })
   }
