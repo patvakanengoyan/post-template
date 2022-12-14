@@ -39,7 +39,7 @@ export class RegistrationComponent implements OnInit {
       this.clickButton = false;
       let value = {
         ...this.form.value,
-        birthday: new Date('2022-10-14').toLocaleDateString().replace(/\./g, '/')
+        birthday: new Date(this.form.value.birthday).toLocaleDateString().replace(/\./g, '/')
       };
       this.requestService.createData(`${environment.webPages.registration}`, value).subscribe((res) => {
         this.router.navigate(['/sign-in']);

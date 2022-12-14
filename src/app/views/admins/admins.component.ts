@@ -1,20 +1,19 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {environment} from "../../../environments/environment.prod";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {Users} from "../../shared/models/users";
 import {ModalDirective} from "ngx-bootstrap/modal";
 import {DeleteModalComponent} from "../../shared/utils/delete-modal/delete-modal.component";
 import {RequestService} from "../../shared/service/request.service";
-import {Users} from "../../shared/models/users";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 
 @Component({
-  selector: 'app-users',
-  templateUrl: './users.component.html',
-  styleUrls: ['./users.component.scss']
+  selector: 'app-admins',
+  templateUrl: './admins.component.html',
+  styleUrls: ['./admins.component.scss']
 })
-export class UsersComponent implements OnInit {
+export class AdminsComponent implements OnInit {
 
-  public url: string = `${environment.admin.users.get}`;
-  public today: string = `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}`;
+  public url: string = `${environment.admin.admins.get}`;
   public data: Users[] = [];
   public paginationConfig: any;
   public viewData!: Users;
@@ -34,9 +33,8 @@ export class UsersComponent implements OnInit {
       first_name: ['', Validators.required],
       last_name: ['', Validators.required],
       email: ['', Validators.required],
-      nickname: ['', Validators.required],
-      birthday: ['', Validators.compose([Validators.required])],
-      // image: [''],
+      role: ['', Validators.required],
+      image: [''],
       status: [''],
       password: [''],
       password_confirmation: [''],
@@ -53,13 +51,12 @@ export class UsersComponent implements OnInit {
   getById(id) {
     this.requestService.getData(this.url + '/' + id ).subscribe((res: any) => {
       this.viewData = res;
-      // this.editImagePath = res[0]?.image?.url;
+      this.editImagePath = res[0]?.image?.url;
       this.form.patchValue({
         first_name: res[0].first_name,
         last_name: res[0].last_name,
         email: res[0].email,
-        birthday: new Date(res[0].birthday).toISOString().split('T')[0] ,
-        nickname: res[0].nickname,
+        role: res[0].role,
         status: res[0].status,
       })
     })
@@ -73,9 +70,9 @@ export class UsersComponent implements OnInit {
       this.getById(id)
     } else if (type === 'edit') {
       this.getById(id);
-        this.setValidation();
+      this.setValidation();
     } else if (type === 'add') {
-        this.setValidation();
+      this.setValidation();
     }
   }
 
@@ -92,27 +89,23 @@ export class UsersComponent implements OnInit {
   onSubmit(form: any){
     form.status = form.status ? 1 : 0;
     let url = this.url;
-    let formValue = {
-      ...form,
-      birthday: new Date(this.form.value.birthday).toLocaleDateString().replace(/\./g, '/')
-    }
     let data = new FormData();
-      for (let key in formValue) {
-        if (this.form.value[key]) {
-            if (key == 'image' && formValue[key]) {
-                data.append(key, formValue[key]);
-            } else {
-                data.append(key, formValue[key]);
-            }
+    for (let key in form) {
+      if (this.form.value[key]) {
+        if (key == 'image' && this.form.value[key]) {
+          data.append(key, this.form.value[key]);
+        } else {
+          data.append(key, this.form.value[key]);
         }
       }
+    }
     if (this.requestType == 'edit') {
       url = `${this.url}/${this.itemId}`;
       data.append('_method', 'PUT');
     }
     this.requestService.createData(url, data).subscribe((res) => {
-        this.hideModal();
-        this.getData(`${this.url}?page=${this.paginationConfig?.current_page}`);
+      this.hideModal();
+      this.getData(`${this.url}?page=${this.paginationConfig?.current_page}`);
     })
   }
 
@@ -137,17 +130,15 @@ export class UsersComponent implements OnInit {
     if (this.requestType == 'edit') {
       this.form.get('password_confirmation').clearValidators();
       this.form.get('password').clearValidators();
-      // this.form.get('image').clearValidators();
+      this.form.get('image').clearValidators();
     } else {
-        this.form.get('password_confirmation').setValidators([Validators.required]);
-        this.form.get('password').setValidators([Validators.required]);
-        // this.form.get('image').setValidators([Validators.required]);
+      this.form.get('password_confirmation').setValidators([Validators.required]);
+      this.form.get('password').setValidators([Validators.required]);
+      this.form.get('image').setValidators([Validators.required]);
     }
-      this.form.get('password_confirmation').updateValueAndValidity();
-      this.form.get('password').updateValueAndValidity();
-      // this.form.get('image').updateValueAndValidity();
+    this.form.get('password_confirmation').updateValueAndValidity();
+    this.form.get('password').updateValueAndValidity();
+    this.form.get('image').updateValueAndValidity();
   }
-
-
 
 }

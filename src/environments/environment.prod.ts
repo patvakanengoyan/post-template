@@ -57,6 +57,9 @@ export const environment = {
       get:  apiUrl + prefix +  'admin/topics/keys'
     },
     users: {
+      get: apiUrl + prefix + 'admin/user',
+    },
+    admins: {
       get: apiUrl + prefix + 'admin/admin',
     }
   },

@@ -84,6 +84,11 @@ const routes: Routes = [
       {
         path: 'admin/administrators',
         loadChildren: () =>
+          import('./views/admins/admins.module').then((m) => m.AdminsModule)
+      },
+      {
+        path: 'admin/users',
+        loadChildren: () =>
           import('./views/users/users.module').then((m) => m.UsersModule)
       },
       {
