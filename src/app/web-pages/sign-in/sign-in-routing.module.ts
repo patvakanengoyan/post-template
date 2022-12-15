@@ -10,8 +10,7 @@ const routes: Routes = [
     component: SignInComponent,
     data: {
       title: 'Sign In',
-    },
-    canActivateChild: [CanActivateChildFromSiteService]
+    }
   },
 ];
 

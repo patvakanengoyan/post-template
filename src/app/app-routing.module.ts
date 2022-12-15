@@ -11,6 +11,7 @@ import {CanActivateService} from "./shared/guards/canActivate.service";
 import {CanActivateChildService} from "./shared/guards/canActivateChild.service";
 import {CanActivateFromSiteService} from "./shared/guards/can-activate-from-site.service";
 import {ViewPostGuard} from "./shared/guards/view-post.guard";
+import {CanActivateChildFromSiteService} from "./shared/guards/can-activate-child-from-site.service";
 
 const routes: Routes = [
   {
@@ -25,6 +26,7 @@ const routes: Routes = [
   },
   {
     path: 'registration',
+    canActivate: [CanActivateFromSiteService],
     loadChildren: () =>
       import('./web-pages/registration/registration.module').then((m) => m.RegistrationModule)
   },
@@ -36,6 +38,7 @@ const routes: Routes = [
   },
   {
     path: 'profile',
+    canActivate: [CanActivateChildFromSiteService],
     loadChildren: () =>
       import('./web-pages/profile/profile.module').then((m) => m.ProfileModule)
   },

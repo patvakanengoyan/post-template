@@ -1,16 +1,15 @@
 import {Inject, Injectable, PLATFORM_ID} from '@angular/core';
-import {ActivatedRoute, CanActivateChild, Router} from '@angular/router';
-import {isPlatformBrowser} from "@angular/common";
+import {ActivatedRoute, CanActivate, CanActivateChild, Router} from '@angular/router';
 
-@Injectable()
-export class CanActivateChildFromSiteService implements CanActivateChild {
+@Injectable({providedIn: 'root'})
+export class CanActivateChildFromSiteService implements CanActivate {
 
   constructor(private router: Router,
               public activeRoute: ActivatedRoute,
               @Inject(PLATFORM_ID) private platformId: any,) {
   }
 
-  canActivateChild(): boolean {
+  canActivate(): boolean {
     if (localStorage.getItem('site_access_token')) {
       return true;
     }

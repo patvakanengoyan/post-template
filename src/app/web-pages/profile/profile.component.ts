@@ -16,7 +16,7 @@ export class ProfileComponent implements OnInit {
   public today: string = `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}`;
   private url: string = `${environment.webPages.profile}`;
   public userData: any;
-  form: any = FormGroup;
+  public form: any = FormGroup;
   count: number = 0;
   clickButton: boolean = true
 
@@ -32,17 +32,17 @@ export class ProfileComponent implements OnInit {
       first_name: ['', Validators.required],
       last_name: ['', Validators.required],
       email: ['', Validators.compose([Validators.required, Validators.pattern(/^[A-Za-z0-9._%\+\-]+@[a-z0-9.\-]+\.[a-z]{2,10}$/)])],
-      birthday: ['', Validators.compose([Validators.required])],
-      nickname: ['', Validators.compose([Validators.required])],
-      password: ['', Validators.compose([Validators.minLength(6)])],
-      confirm_password: ['', Validators.compose([Validators.minLength(6)])],
+      birthday: ['', Validators.required],
+      nickname: ['', Validators.required],
+      password: ['', Validators.minLength(6)],
+      confirm_password: ['', Validators.minLength(6)],
     }, {validator: this.matchingPasswords('password', 'confirm_password')});
     this.getUser(this.url);
   }
 
   getUser (url: string) {
     let headers = new HttpHeaders({
-      Authorization: (localStorage.getItem('token_type') ? localStorage.getItem('token_type')  + ' ': '') + localStorage.getItem('site_access_token'),
+      Authorization: (localStorage.getItem('site_token_type') ? localStorage.getItem('site_token_type')  + ' ': '') + localStorage.getItem('site_access_token'),
       'Accept-Language': localStorage.getItem('Accept-Language') as string ? localStorage.getItem('Accept-Language') as string : 'en'
     })
     this.http.get(url, {headers: headers}).subscribe((res: any) => {
@@ -54,28 +54,29 @@ export class ProfileComponent implements OnInit {
         birthday: new Date(res.birthday).toISOString().split('T')[0],
         nickname: res.nickname,
       });
-      console.log(res);
     })
   }
 
   send() {
-    if (this.count < 5) {
-      this.clickButton = false;
-      let value = {
-        ...this.form.value,
-        birthday: new Date(this.form.value.birthday).toLocaleDateString().replace(/\./g, '/')
-      };
-      this.requestService.createData(`${environment.webPages.registration}`, value).subscribe((res) => {
-        this.router.navigate(['/sign-in']);
-        this.clickButton = true;
-      }, err => {
-        this.count += 1;
-        this.clickButton = true;
-      })
-    } else {
-      this.clickButton = false;
-      this.toastr.error('You have reached your register attempt limit. Please try again later');
+    let data = new FormData();
+    data.append('first_name', this.form.value.first_name);
+    data.append('last_name', this.form.value.last_name);
+    data.append('email', this.form.value.email);
+    data.append('birthday', new Date(this.form.value.birthday).toLocaleDateString().replace(/\./g, '/'));
+    data.append('nickname', this.form.value.nickname ? this.form.value.nickname : '');
+    data.append('_method', 'PUT');
+    if (this.form.value.password && this.form.value.confirm_password) {
+      data.append('password',this.form.value.password);
+      data.append('confirm_password',this.form.value.confirm_password);
     }
+    let headers = new HttpHeaders({
+      Authorization: (localStorage.getItem('site_token_type') ? localStorage.getItem('site_token_type')  + ' ': 'Bearer ') + localStorage.getItem('site_access_token'),
+      'Accept-Language': localStorage.getItem('Accept-Language') as string ? localStorage.getItem('Accept-Language') as string : 'en'
+    })
+    this.http.post(this.url, data, {headers: headers}).subscribe((res) => {
+      this.getUser(this.url);
+      this.toastr.success(res['message']);
+    })
   }
 
   matchingPasswords(passwordKey: string, passwordConfirmationKey: string) {

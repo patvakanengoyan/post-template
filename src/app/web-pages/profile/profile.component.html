@@ -13,9 +13,10 @@
       <form method="post" [formGroup]="form" (ngSubmit)="send()" autocomplete="off" class="php-email-form">
         <div class="row">
           <div class="col-lg-4 text-center mb-5">
-            <img src="assets/img/person-1.jpg" alt="" class="img-fluid rounded-circle w-50 mb-4">
+<!--            <img src="assets/img/person-1.jpg" alt="" class="img-fluid rounded-circle w-50 mb-4">-->
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSMHozIxtgJx0gbDdzgKy7hcRkDoP7houIjY65EDeY&s" alt="" class="img-fluid rounded-circle w-50 mb-4">
             <h4>{{userData?.first_name}} {{userData?.last_name}}</h4>
-            <span class="d-block mb-3 text-uppercase">{{userData?.email}}</span>
+            <span class="d-block mb-3">{{userData?.email}}</span>
 <!--            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facilis, perspiciatis repellat maxime, adipisci non ipsam at itaque rerum vitae, necessitatibus nulla animi expedita cumque provident inventore? Voluptatum in tempora earum deleniti, culpa odit veniam, ea reiciendis sunt ullam temporibus aut!</p>-->
           </div>
           <div class="col-lg-8">
@@ -64,7 +65,7 @@
                         <div class="form-group col-md-6">
                           <label for="password" [ngClass]="(form.controls.password?.invalid &&
                       (form.controls.password?.dirty || form.controls.password?.touched)) ? 'invalid-label-color' : ''">Password *</label>
-                          <input type="password" class="form-control" formControlName="password" id="password" placeholder="Password" required>
+                          <input type="password" class="form-control" formControlName="password" id="password" placeholder="Password">
                           <div>
                             <span *ngIf="form.get('password')?.hasError('required') && (form.get('password')?.dirty || form.get('password')?.touched)" class="error-message">The password is required</span>
                             <span *ngIf="form.get('password')?.hasError('minlength') && (form.get('password')?.dirty || form.get('password')?.touched)" class="error-message">The confirm password must be min 6 symbol</span>
@@ -73,7 +74,7 @@
                         <div class="form-group col-md-6">
                           <label for="confirm_password" [ngClass]="(form.controls.confirm_password?.invalid &&
                       (form.controls.confirm_password?.dirty || form.controls.confirm_password?.touched)) ? 'invalid-label-color' : ''">Confirm Password *</label>
-                          <input type="password" class="form-control" formControlName="confirm_password" id="confirm_password" placeholder="Confirm Password" required>
+                          <input type="password" class="form-control" formControlName="confirm_password" id="confirm_password" placeholder="Confirm Password">
                           <div>
                             <span *ngIf="form.get('confirm_password')?.hasError('required') && (form.get('confirm_password')?.dirty || form.get('confirm_password')?.touched)" class="error-message">The confirm password is required</span>
                             <span *ngIf="form.get('confirm_password')?.hasError('mismatchedPasswords') && (form.get('confirm_password')?.dirty || form.get('confirm_password')?.touched)" class="error-message">Passwords don't match</span>

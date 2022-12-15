@@ -7,23 +7,23 @@ export const environment = {
   url: apiUrlChat + '',
   imagePrefix: apiUrl + '',
   posts: {
-    get: apiUrl1 + '/solr/talmudy_eng/select'
+    get: apiUrl + prefix + 'solr'
   },
   webPages: {
     slider: {
       get: apiUrl + prefix + 'slide',
     },
     kids: {
-      get: apiUrl1 + '/solr/talmudy_eng/select'
+      get: apiUrl + prefix + 'solr'
     },
     june2020: {
-      get: apiUrl1 + '/solr/talmudy_eng/select'
+      get: apiUrl + prefix + 'solr'
     },
     academic: {
-      get: apiUrl1 + '/solr/talmudy_eng/select'
+      get: apiUrl + prefix + 'solr'
     },
     pieces: {
-         get: apiUrl1 + '/solr/talmudy_eng/select'
+         get: apiUrl + prefix + 'solr'
     },
     registration: apiUrl + prefix + 'registration',
     login:  apiUrl + prefix + 'login',
