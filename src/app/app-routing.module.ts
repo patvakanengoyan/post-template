@@ -35,6 +35,11 @@ const routes: Routes = [
       import('./web-pages/sign-in/sign-in.module').then((m) => m.SignInModule)
   },
   {
+    path: 'profile',
+    loadChildren: () =>
+      import('./web-pages/profile/profile.module').then((m) => m.ProfileModule)
+  },
+  {
     path: 'posts/:type',
     canActivate: [ViewPostGuard],
     loadChildren: () =>

@@ -28,7 +28,8 @@ export const environment = {
     registration: apiUrl + prefix + 'registration',
     login:  apiUrl + prefix + 'login',
     logout:  apiUrl + prefix + 'logout',
-    refresh:  apiUrl + prefix + 'refresh'
+    refresh:  apiUrl + prefix + 'refresh',
+    profile: apiUrl + prefix + 'profile'
   },
   baseUrl: apiUrl + prefix,
   admin: {
