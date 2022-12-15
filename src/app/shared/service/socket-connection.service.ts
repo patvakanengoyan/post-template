@@ -4,6 +4,7 @@ import {environment} from "../../../environments/environment.prod";
 import {BehaviorSubject, Subject} from "rxjs";
 import { RequestService } from './request.service';
 import { A } from '@angular/cdk/keycodes';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,9 @@ export class SocketConnectionService {
   messagesList: Array<object> = [];
   messagesCount;
   refreshTokenWork: Subject<boolean> = new BehaviorSubject(false);
-  constructor(private requestServise: RequestService) {
+  route;
+  constructor(private requestServise: RequestService,
+              private router: Router) {
 
     this.refreshTokenWork.subscribe(res => {
       if (res) {
@@ -43,12 +46,19 @@ export class SocketConnectionService {
     if (this.socket) {
       this.socket.disconnect();
     }
+    this.route = undefined;
+    let routes = this.router.url.split('/');
+    routes.forEach(res=> {
+      if (res == 'admin') {
+        this.route = 'admin';
+      }
+    });
 
     this.socket = io(this.getInfo?.result?.endpoints.socket_host, {
       transports: ['websocket'],
       path: this.getInfo?.result?.endpoints.socket_path,
       query: {
-        'ex-authorization': localStorage.getItem('site_access_token'),
+        'ex-authorization': this.route == 'admin' ? localStorage.getItem('access_token') : localStorage.getItem('site_access_token'),
         'ex-language': 'en',
       }
     });
@@ -78,6 +88,17 @@ export class SocketConnectionService {
           }
         }
 
+      } else if (signal_type === 108) {
+          let message = this.messagesList.filter((el: any) => el.message_id == signal_data.message_id);
+          if (message.length > 0) {
+            this.messagesList = this.messagesList.filter((el: any) => el.message_id != signal_data.message_id);
+          } else {
+            for (let mess of this.messagesList) {
+              if (mess['message_reply'] && mess['message_reply'].length > 0) {
+                  mess['message_reply'] = mess['message_reply'].filter((el: any) => el.message_id != signal_data.message_id);
+              }
+            }
+          }
       }
     });
 
@@ -94,6 +115,8 @@ export class SocketConnectionService {
     this.requestServise.getData(`${this.getInfo?.result?.endpoints?.host}/api/${ex_version}/room/${id}/message/list?skip=0&take=999999&expand_files=false&expand_reply=true&expand_reply_files=false&expand_recipients=false`).subscribe(res => {
        if (res['data']['result'] && res['data']['result'].length > 0) {
         this.messagesList = res['data']['result'];
+       }else {
+        this.messagesList = [];
        }
     });
   }

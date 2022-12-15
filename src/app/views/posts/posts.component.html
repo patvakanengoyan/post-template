@@ -39,6 +39,9 @@
               </c-form-check>
             </td>
             <td class="actions">
+              <a (click)="showModal(item, 'comments')" title="Comments">
+                <i class="fa fa-comments-o" aria-hidden="true"></i>
+              </a>
               <a (click)="showModal(item.id, 'view')" title="View">
                 <i class="fa fa-eye cursor-pointer"></i>
               </a>
@@ -61,16 +64,97 @@
 </c-row>
 <div *ngIf="isModalShown" [config]="{ show: true }" (onHidden)="hideModal()" bsModal #autoShownModal="bs-modal"
      class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-auto-name">
-  <div class="modal-dialog" [ngClass]="{'my-modal-width': requestType == 'add' || requestType == 'edit' ? true: false}">
+  <div class="modal-dialog" [ngClass]="{'my-modal-width': requestType == 'add' || requestType == 'edit' || requestType == 'comments'}">
     <div class="modal-content">
       <div class="modal-header">
         <h4 *ngIf="requestType == 'view'" class="modal-title pull-left">View Post</h4>
+        <h4 *ngIf="requestType == 'comments'" class="modal-title pull-left">Comments</h4>
         <h4 *ngIf="requestType == 'edit'" class="modal-title pull-left">Edit Post</h4>
         <h4 *ngIf="requestType == 'add'" class="modal-title pull-left">Add Post</h4>
         <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="hideModal()">
           <span aria-hidden="true" class="visually-hidden">&times;</span>
         </button>
       </div>
+
+      <div class="modal-body" *ngIf="requestType == 'comments'">
+            
+          <div class="block">
+            <div class="block-header">
+              <div class="title">
+                <h2>Comments</h2>
+                <div class="tag">{{socket.messagesList.length}}</div>
+              </div>
+            </div>
+            <div class="writing">
+              <p *ngIf="replyUserName">You answer: @ <span style="color: blue;">{{replyUserName}}  </span> <i (click)="clearReply()" class="fa fa-times cursor-pointer" aria-hidden="true"></i>
+              </p>
+              <form [formGroup]="formComments" (ngSubmit)="submit(formComments.value)">
+                <textarea class="form-control" id="comment-message" formControlName="message_content" placeholder="Enter your message" cols="30" rows="5"></textarea>
+
+                <div class="footer2">
+                  <div class="group-button">
+                    <button class="btn2 primary" type="submit" [disabled]="!formComments.valid || disableSend">Send</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <div class="comment-block" *ngFor="let comment of socket.messagesList">
+              <div class="comment">
+                <div class="user-banner">
+                  <div class="user">
+                    <div class="avatar">
+                      <img src="{{comment['message_author']['user_image']}}" alt="">
+                    </div>
+                    <h5>{{comment['message_author']['user_name']}}</h5>
+                  </div>
+                  <!-- <button class="btn2 dropdown"><i class="ri-more-line"></i></button> -->
+                </div>
+                <div class="content">
+                  <p style="margin-bottom: 0">{{comment['message_content']}}</p>
+                </div>
+                <div class="footer2">
+                  <!-- <button class="btn2"><i class="ri-emotion-line"></i></button> -->
+                  <!-- <div class="divider"></div> -->
+                  <i class="fa fa-trash cursor-pointer" (click)="deleteMessage(comment)" aria-hidden="true"></i>
+                  <a href="javascript:void(0)" (click)="replyComment(comment)">Reply</a>
+                  <div class="divider"></div>
+                  <span class="is-mute">{{ comment['message_created_at'] | dateAsAgo }}</span>
+                </div>
+              </div>
+
+              <div *ngIf="comment['message_reply']">
+
+
+                <div class="reply comment" *ngFor="let reply of comment['message_reply']" >
+                  <div class="user-banner">
+                    <div class="user">
+                      <div class="avatar">
+                        <img src="{{reply['message_author']?.user_image}}" alt="">
+                        <!-- <span class="stat green"></span> -->
+                      </div>
+                      <h5>{{reply['message_author']?.user_name}}</h5>
+                    </div>
+                    <button class="btn2 dropdown"><i class="ri-more-line"></i></button>
+                  </div>
+                  <div class="content">
+                    <p style="margin-bottom: 0">{{reply['message_content']}}</p>
+                  </div>
+                  <div class="footer2">
+                    <!-- <button class="btn2"><i class="ri-emotion-line"></i></button> -->
+<!--                    <div class="divider"></div>-->
+                    <!-- <a href="javascript:void(0)" (click)="replyComment(reply['message_id'])">Reply</a> -->
+<!--                    <div class="divider"></div>-->
+                    <i class="fa fa-trash cursor-pointer" (click)="deleteMessage(reply)" aria-hidden="true"></i>
+
+                    <span class="is-mute">{{reply['message_created_at'] | dateAsAgo}}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+
       <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)" class="data_form">
 
         <div class="modal-body">

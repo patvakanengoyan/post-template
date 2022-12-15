@@ -47,6 +47,7 @@ export class LoginModalComponent implements OnInit {
   onSubmit() {
     this.clickButton = false;
     this.requestService.createData(`${environment.webPages.login}`, this.form.value).subscribe((res) => {
+      localStorage.clear();
       for (let key in res) {
         localStorage.setItem('site_' + key, res[key]);
       }
@@ -57,7 +58,7 @@ export class LoginModalComponent implements OnInit {
       // this.router.navigateByUrl('/', {skipLocationChange: true}).then(() =>
       //   this.router.navigate([currentUrl])
       // );
-      // this.socket.connect();
+      this.socket.connect();
       this.hideModal();
       this.clickButton = true;
     }, err => {

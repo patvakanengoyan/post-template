@@ -31,8 +31,7 @@ export class RequestService {
     if (forSocket) {
       this.httpHeaders = this.httpHeaders
         .set('ex-id', localStorage.getItem('_'))
-        .set('ex-authorization', localStorage.getItem('site_access_token'))
-        .set('Authorization', (localStorage.getItem('site_token_type') ? localStorage.getItem('site_token_type')  + ' ': '') + localStorage.getItem('site_access_token'))
+        .set('ex-authorization', localStorage.getItem('site_access_token') ? localStorage.getItem('site_access_token') : localStorage.getItem('access_token'))
         .set('ex-language', 'en');
     }
     return this.http.get(apiUrl, {headers: this.httpHeaders, observe: 'body'}).pipe(
@@ -51,7 +50,7 @@ export class RequestService {
     if (forSocket) {
       this.httpHeaders = this.httpHeaders
         .set('ex-id', localStorage.getItem('_'))
-        .set('ex-authorization', localStorage.getItem('site_access_token'))
+        .set('ex-authorization', localStorage.getItem('access_token') ? localStorage.getItem('access_token') : localStorage.getItem('site_access_token'))
         .set('ex-language', 'en');
     }
     return this.http.post<any>(url, value, {headers: this.httpHeaders})
@@ -63,11 +62,18 @@ export class RequestService {
       );
   }
   /*delete request function*/
-  delete(url: string, id: any): Observable<{}> {
+  delete(url: string, id: any, forSocket?: boolean): Observable<{}> {
+    
     this.isLoading.next({type: 'delete', isLoading: true, reqCount: ++this.reqCount});
     this.httpHeaders = new HttpHeaders({
       Authorization: localStorage.getItem('token_type') + ' ' + localStorage.getItem('access_token')
     });
+    if (forSocket) {
+      this.httpHeaders = this.httpHeaders
+        .set('ex-id', localStorage.getItem('_'))
+        .set('ex-authorization', localStorage.getItem('access_token'))
+        .set('ex-language', 'en');
+    }
     this.httpHeaders = this.httpHeaders.set(
       'Accept-Language',
       localStorage.getItem('Accept-Language') ? localStorage.getItem('Accept-Language') : 'en'

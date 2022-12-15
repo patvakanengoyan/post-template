@@ -26,6 +26,7 @@ export class LoginComponent {
   login(form: object) {
     this.requestService.createData(`${environment.admin.login}`, form).subscribe((data) => {
       if (data) {
+        localStorage.clear();
         for (let key in data) {
           localStorage.setItem(key, data[key]);
         }

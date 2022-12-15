@@ -1,19 +1,20 @@
-import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import * as customBuild from '../../../assets/ckeditor5-builder/build/ckeditor.js';
-import {ModalDirective} from "ngx-bootstrap/modal";
-import {DeleteModalComponent} from "../../shared/utils/delete-modal/delete-modal.component";
-import {RequestService} from "../../shared/service/request.service";
-import {environment} from "../../../environments/environment.prod";
-import {editorConfig} from "../../shared/ckEditorConfig/ck-editor-config";
-import {COMMA, ENTER, V} from "@angular/cdk/keycodes";
-import {FormControl} from '@angular/forms';
-import {Observable, startWith} from "rxjs";
-import {MatChipInputEvent} from "@angular/material/chips";
-import {MatAutocomplete, MatAutocompleteSelectedEvent} from "@angular/material/autocomplete";
-import {map} from "rxjs/operators";
-import {forkJoin} from "rxjs";
-import {DomSanitizer} from "@angular/platform-browser";
+import { ModalDirective } from "ngx-bootstrap/modal";
+import { DeleteModalComponent } from "../../shared/utils/delete-modal/delete-modal.component";
+import { RequestService } from "../../shared/service/request.service";
+import { environment } from "../../../environments/environment.prod";
+import { editorConfig } from "../../shared/ckEditorConfig/ck-editor-config";
+import { COMMA, ENTER, V } from "@angular/cdk/keycodes";
+import { FormControl } from '@angular/forms';
+import { Observable, startWith } from "rxjs";
+import { MatChipInputEvent } from "@angular/material/chips";
+import { MatAutocomplete, MatAutocompleteSelectedEvent } from "@angular/material/autocomplete";
+import { map } from "rxjs/operators";
+import { forkJoin } from "rxjs";
+import { DomSanitizer } from "@angular/platform-browser";
+import { SocketConnectionService } from '../../shared/service/socket-connection.service';
 
 @Component({
     selector: 'app-posts',
@@ -27,7 +28,7 @@ export class PostsComponent implements OnInit {
     form: any = FormGroup;
     public Editor = customBuild;
     @Input() config = editorConfig;
-    @ViewChild('autoShownModal', {static: false}) autoShownModal?: ModalDirective;
+    @ViewChild('autoShownModal', { static: false }) autoShownModal?: ModalDirective;
     @ViewChild(DeleteModalComponent) private modal!: DeleteModalComponent;
     isModalShown: boolean = false;
     requestType: string = '';
@@ -44,17 +45,17 @@ export class PostsComponent implements OnInit {
     filteredtags: Observable<string[]>;
     // tags: string[] = ['Lemon'];
     alltags: string[] = ['Business', 'Culture', 'Sport', 'Food'];
-    @ViewChild('tagInput', {static: false}) tagInput!: ElementRef<HTMLInputElement>;
-    @ViewChild('auto', {static: false}) matAutocomplete!: MatAutocomplete;
+    @ViewChild('tagInput', { static: false }) tagInput!: ElementRef<HTMLInputElement>;
+    @ViewChild('auto', { static: false }) matAutocomplete!: MatAutocomplete;
     editImagePath: any;
     taxonomyList: any = [];
     volumesList: any = [];
     topicList: any = [];
     type: any[] = [
-        {id: 'KidsClick', itemName: 'KidsClick'},
-        {id: 'AcademicSearch', itemName: 'AcademicSearch'},
-        {id: 'Pieces', itemName: 'Pieces'},
-        {id: 'June2020', itemName: 'June2020'},
+        { id: 'KidsClick', itemName: 'KidsClick' },
+        { id: 'AcademicSearch', itemName: 'AcademicSearch' },
+        { id: 'Pieces', itemName: 'Pieces' },
+        { id: 'June2020', itemName: 'June2020' },
     ];
     desc: any;
 
@@ -72,10 +73,21 @@ export class PostsComponent implements OnInit {
     selectedVolumes: any[] = [];
     selectedTaxonomies: any[] = [];
     selectedTopics: any[] = [];
+    public comments: Array<object> = [];
+    replyID;
+    replyUserName;
+    disableSend = false;
+    chatID;
+    public formComments: FormGroup = new FormGroup({
+        name: new FormControl(''),
+        email: new FormControl(''),
+        message_content: new FormControl('', Validators.required)
+    });
 
     constructor(public requestService: RequestService,
-                public fb: FormBuilder,
-                public sanitizer: DomSanitizer) {
+        public fb: FormBuilder,
+        public socket: SocketConnectionService,
+        public sanitizer: DomSanitizer) {
         this.filteredtags = this.tagCtrl.valueChanges.pipe(
             startWith(null),
             map((tag: string | null) => (tag ? this._filter(tag) : this.alltags.slice())),
@@ -102,6 +114,7 @@ export class PostsComponent implements OnInit {
      */
     ngOnInit(): void {
         this.getData(this.url);
+        this.socket.connect();
         // this.getLists();
         this.monoSelect = {
             enableSearchFilter: true,
@@ -137,10 +150,10 @@ export class PostsComponent implements OnInit {
      */
     getById(id) {
         this.requestService.getData(this.url + '/' + id).subscribe((res: any) => {
-          this.viewData = res[0];
-          this.desc = this.sanitizer.bypassSecurityTrustHtml(this.viewData.description);
+            this.viewData = res[0];
+            this.desc = this.sanitizer.bypassSecurityTrustHtml(this.viewData.description);
 
-          if (this.requestType == 'edit') {
+            if (this.requestType == 'edit') {
                 let topics = [] as any;
                 this.selectedTopics = [];
                 for (let i = 0; i < this.viewData.topics.length; i++) {
@@ -185,7 +198,7 @@ export class PostsComponent implements OnInit {
                     page: this.viewData.page,
                     slice_of_page: this.viewData.slice_of_page,
                     color: this.viewData.color,
-                    type: [{id: this.viewData.type, itemName: this.viewData.type}],
+                    type: [{ id: this.viewData.type, itemName: this.viewData.type }],
                     status: this.viewData.status
                 });
             }
@@ -198,11 +211,16 @@ export class PostsComponent implements OnInit {
     showModal(id, type): void {
         this.isModalShown = true;
         this.requestType = type;
+
         if (type === 'view') {
             this.getById(id);
         } else if (type === 'edit') {
             this.getById(id);
         } else if (type === 'add') {
+        } else if (type === 'comments') {
+            this.chatID = id.chat_id;
+            this.socket.join(id.chat_id);
+            this.socket.getMessagesList(id.chat_id);
         }
     }
 
@@ -302,37 +320,37 @@ export class PostsComponent implements OnInit {
         let url = this.requestType == 'edit' ? this.url + '/' + this.viewData.id : this.url;
         let data = new FormData();
         if (this.form.value['topics']) {
-          for (let i = 0; i < this.form.value['topics'].length; i++) {
-            data.append(`topics[${[i]}]`, this.form.value['topics'][i].id);
-          }
+            for (let i = 0; i < this.form.value['topics'].length; i++) {
+                data.append(`topics[${[i]}]`, this.form.value['topics'][i].id);
+            }
         }
         if (this.form.value['taxonomies']) {
-          for (let i = 0; i < this.form.value['taxonomies'].length; i++) {
-            data.append(`taxonomies[${[i]}]`, this.form.value['taxonomies'][i].id);
-          }
+            for (let i = 0; i < this.form.value['taxonomies'].length; i++) {
+                data.append(`taxonomies[${[i]}]`, this.form.value['taxonomies'][i].id);
+            }
         }
         if (this.form.value['image']) {
             data.append('image', form.image);
         }
         if (this.form.value['volume']) {
-          if (this.form.value['volume'].length > 0) {
-            data.append('volume', this.form.value['volume'][0].id);
-          }
+            if (this.form.value['volume'].length > 0) {
+                data.append('volume', this.form.value['volume'][0].id);
+            }
         }
         if (form.letter) {
-          data.append('letter', form.letter);
+            data.append('letter', form.letter);
         }
         if (form.page) {
-          data.append('page', form.page);
+            data.append('page', form.page);
         }
         if (form.slice_of_page) {
-          data.append('slice_of_page', form.slice_of_page);
+            data.append('slice_of_page', form.slice_of_page);
         }
-        if(form.volume_number) {
-          data.append('volume_number', form.volume_number);
+        if (form.volume_number) {
+            data.append('volume_number', form.volume_number);
         }
         if (form.color) {
-          data.append('color', form.color);
+            data.append('color', form.color);
         }
         data.append('type', form.type[0].id);
         data.append('translations[en][title]', form.title);
@@ -387,7 +405,7 @@ export class PostsComponent implements OnInit {
     //     })
     // }
 
-    getVolumeList (event: any, type) {
+    getVolumeList(event: any, type) {
         if (event.endIndex === this.volumesList.length - 1 && this.isLoadedList[type]) {
             this.loading = true;
             this.isLoadedList[type] = false;
@@ -398,7 +416,7 @@ export class PostsComponent implements OnInit {
                     for (let i in res['data']) {
                         if (!this.selectedVolumes.includes(res['data'][i]['guid'])) {
                             newData.push(
-                                {"id": res['data'][i]['guid'], "itemName": res['data'][i]['key']}
+                                { "id": res['data'][i]['guid'], "itemName": res['data'][i]['key'] }
                             );
                         }
                     }
@@ -409,7 +427,7 @@ export class PostsComponent implements OnInit {
             });
         }
     }
-    getTaxonomiesList (event: any, type) {
+    getTaxonomiesList(event: any, type) {
         if (event.endIndex === this.taxonomyList.length - 1 && this.isLoadedList[type]) {
             this.loading = true;
             this.isLoadedList[type] = false;
@@ -420,7 +438,7 @@ export class PostsComponent implements OnInit {
                     for (let i in res['data']) {
                         if (!this.selectedTaxonomies.includes(res['data'][i]['guid'])) {
                             newData.push(
-                                {"id": res['data'][i]['guid'], "itemName": `Level 1 : ${res.data[i].level1}, Level 2 : ${res.data[i].level2}, Level 3 : ${res.data[i].level3}`}
+                                { "id": res['data'][i]['guid'], "itemName": `Level 1 : ${res.data[i].level1}, Level 2 : ${res.data[i].level2}, Level 3 : ${res.data[i].level3}` }
                             );
                         }
                     }
@@ -431,7 +449,7 @@ export class PostsComponent implements OnInit {
             });
         }
     }
-    getTopicList (event: any, type) {
+    getTopicList(event: any, type) {
         if (event.endIndex === this.topicList.length - 1 && this.isLoadedList[type]) {
             this.loading = true;
             this.isLoadedList[type] = false;
@@ -442,7 +460,7 @@ export class PostsComponent implements OnInit {
                     for (let i in res['data']) {
                         if (!this.selectedTopics.includes(res['data'][i]['guid'])) {
                             newData.push(
-                                {"id": res['data'][i]['guid'], "itemName": res['data'][i]['key']}
+                                { "id": res['data'][i]['guid'], "itemName": res['data'][i]['key'] }
                             );
                         }
                     }
@@ -453,4 +471,39 @@ export class PostsComponent implements OnInit {
             });
         }
     }
+
+    submit(val) {
+        if (this.formComments.valid && localStorage.getItem('access_token')) {
+            this.disableSend = true;
+            let value = { ...val };
+            value.message_type = 1;
+            if (this.replyID) {
+                value.message_reply_id = this.replyID;
+            }
+            let ex_version = 'v' + this.socket?.getInfo?.result?.endpoints?.major_version + '.' + this.socket?.getInfo?.result?.endpoints?.minor_version;
+            this.requestService.createData(`${this.socket?.getInfo?.result?.endpoints?.host}/api/${ex_version}/room/${this.chatID}/message/create`, value, true).subscribe(res => {
+                this.formComments.controls['message_content'].setValue('');
+                this.replyID = undefined;
+                this.replyUserName = undefined;
+                this.disableSend = false;
+            })
+        }
+    }
+    replyComment(comment) {
+        this.replyID = comment['message_id'];
+        this.replyUserName = comment['message_author']['user_name'];
+    }
+
+    clearReply() {
+        this.replyID = undefined;
+        this.replyUserName = undefined;
+    }
+
+    deleteMessage(com) {
+        let ex_version = 'v' + this.socket?.getInfo?.result?.endpoints?.major_version + '.' + this.socket?.getInfo?.result?.endpoints?.minor_version;
+        this.requestService.delete(`${this.socket?.getInfo?.result?.endpoints?.host}/api/${ex_version}/room/${com.message_room_id}/message`, com.message_id, true).subscribe(res => {
+
+        });
+    }
+
 }
