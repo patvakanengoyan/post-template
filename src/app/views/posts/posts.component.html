@@ -40,7 +40,7 @@
             </td>
             <td class="actions">
               <a (click)="showModal(item, 'comments')" title="Comments">
-                <i class="fa fa-comments-o" aria-hidden="true"></i>
+                <i class="fa fa-comments-o cursor-pointer" aria-hidden="true"></i>
               </a>
               <a (click)="showModal(item.id, 'view')" title="View">
                 <i class="fa fa-eye cursor-pointer"></i>
@@ -115,7 +115,7 @@
                 <div class="footer2">
                   <!-- <button class="btn2"><i class="ri-emotion-line"></i></button> -->
                   <!-- <div class="divider"></div> -->
-                  <i class="fa fa-trash cursor-pointer" (click)="deleteMessage(comment)" aria-hidden="true"></i>
+                  <i class="fa fa-trash cursor-pointer" (click)="popupConfirmDeleteMessage.deleteModal(comment, 'comments')" aria-hidden="true"></i>
                   <a href="javascript:void(0)" (click)="replyComment(comment)">Reply</a>
                   <div class="divider"></div>
                   <span class="is-mute">{{ comment['message_created_at'] | dateAsAgo }}</span>
@@ -144,7 +144,7 @@
 <!--                    <div class="divider"></div>-->
                     <!-- <a href="javascript:void(0)" (click)="replyComment(reply['message_id'])">Reply</a> -->
 <!--                    <div class="divider"></div>-->
-                    <i class="fa fa-trash cursor-pointer" (click)="deleteMessage(reply)" aria-hidden="true"></i>
+                    <i class="fa fa-trash cursor-pointer" (click)="popupConfirmDeleteMessage.deleteModal(reply, 'comments')" aria-hidden="true"></i>
 
                     <span class="is-mute">{{reply['message_created_at'] | dateAsAgo}}</span>
                   </div>
@@ -340,3 +340,4 @@
   </div>
 </div>
 <app-delete-modal #popup (confirmDelete)="deleteItem($event)"></app-delete-modal>
+<app-delete-modal #popupConfirmDeleteMessage (confirmDelete)="deleteMessage($event)"></app-delete-modal>

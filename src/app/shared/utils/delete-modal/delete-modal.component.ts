@@ -12,6 +12,7 @@ export class DeleteModalComponent implements OnInit {
   @Output() confirmDelete = new EventEmitter<number>();
   modalRef!: BsModalRef;
   itemId!: number;
+  messageDeleteConfirm;
 
   constructor(private modalService: BsModalService) {
   }
@@ -19,13 +20,17 @@ export class DeleteModalComponent implements OnInit {
   ngOnInit() {
   }
 
-  deleteModal(id: number) {
+  deleteModal(id: any, type?: string) {
     this.itemId = id;
     this.modalRef = this.modalService.show(this.el, {class: 'modal-sm'});
+    this.messageDeleteConfirm = type ? type : undefined;
   }
 
   confirm(): void {
     this.confirmDelete.emit(this.itemId);
+    if (this.messageDeleteConfirm) {
+      this.decline();
+    }
   }
 
   decline(): void {
