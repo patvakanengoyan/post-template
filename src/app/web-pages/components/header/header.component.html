@@ -22,9 +22,9 @@
         <a routerLink="/sign-in" class="me-2">Sign In</a>
       </span>
       <span *ngIf="this.requestService.userName">
-        <a (click)="logout()" class="mx-2 cursor-pointer">Logout</a>
+       <a routerLink="/profile" class="mx-2">Profile</a>
         <span>/</span>
-        <a routerLink="/profile" class="mx-2">Profile</a>
+       <a (click)="logout()" class="mx-2 cursor-pointer">Logout</a>
       </span>
       <i class="bi bi-list mobile-nav-toggle"></i>
     </div>

@@ -12,16 +12,6 @@ export const navItems: INavData[] = [
     iconComponent: { name: 'cil-drop' }
   },
   {
-    name: 'Administrators',
-    url: 'admin/administrators',
-    iconComponent: { name: 'cil-user' }
-  },
-  {
-    name: 'Users',
-    url: 'admin/users',
-    iconComponent: { name: 'cil-user' }
-  },
-  {
     name: 'Topics',
     url: 'admin/topics',
     iconComponent: { name: 'cil-align-center' }
@@ -40,5 +30,15 @@ export const navItems: INavData[] = [
     name: 'Volumes',
     url: 'admin/volumes',
     iconComponent: { name: 'cil-save' }
+  },
+  {
+    name: 'Users',
+    url: 'admin/users',
+    iconComponent: { name: 'cil-user' }
+  },
+  {
+    name: 'Administrators',
+    url: 'admin/administrators',
+    iconComponent: { name: 'cil-user' }
   },
 ];

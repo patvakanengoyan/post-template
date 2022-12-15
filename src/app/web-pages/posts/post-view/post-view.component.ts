@@ -34,6 +34,7 @@ export class PostViewComponent implements OnInit {
   public type: string = '';
   public redirectUrl: string = ''
   public imagePrefix: string = environment.imagePrefix;
+  public latestList: any;
   constructor(private requestService: RequestService,
               public activatedRoute: ActivatedRoute,
               private sanitizer: DomSanitizer,
@@ -51,6 +52,7 @@ export class PostViewComponent implements OnInit {
     this.redirectUrl = this.activatedRoute.snapshot.params['type'];
     this.getNextPreviousUrls();
     this.getData(`${this.url}?facet=on&q=*%3A*&start=0&rows=10&fq=type:${this.type}&fq=id:${this.activatedRoute.snapshot.params['id']}`);
+    this.getLatestList();
     this.form.controls['name'].disable();
     this.form.controls['email'].disable();
     this.form.patchValue({
@@ -131,6 +133,12 @@ export class PostViewComponent implements OnInit {
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     this.router.onSameUrlNavigation = 'reload';
     // this.router.navigate(['/']);
+  }
+
+  getLatestList () {
+    // this.requestService.getData(`${this.url}?fl=id,title,type,volumes&group.field=type&group.limit=2&group=true&q=*:*&sort=id_int desc`).subscribe((res) => {
+    //   console.log(res);
+    // })
   }
 
 }

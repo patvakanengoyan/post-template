@@ -88,36 +88,48 @@ export class PostsComponent implements OnInit {
   }
 
   buildForm (form) {
-    this.group['main_topic_exact'] = form.main_topic_exact.filter((item) => {
-      if (typeof item == 'string') {
-        return true;
+    this.group = {};
+    for (let i in form) {
+      if (form[i] instanceof Array) {
+        let arr = [] as any;
+        for (let j = 0; j < form[i].length; j+=2) {
+          arr.push(`${form[i][j]} (${form[i][j + 1]})`);
+        }
+        this.group[i] = arr;
       }
-      return false;
-    }).map((item) => item);
-    this.group['taxanomy_lv1_exact'] = form.taxanomy_lv1_exact.filter((item) => {
-      if (typeof item == 'string') {
-        return true;
-      }
-      return false;
-    }).map((item) => item);
-    this.group['taxanomy_lv2_exact'] = form.taxanomy_lv2_exact.filter((item) => {
-      if (typeof item == 'string') {
-        return true;
-      }
-      return false;
-    }).map((item) => item);
-    this.group['taxanomy_lv3_exact'] = form.taxanomy_lv3_exact.filter((item) => {
-      if (typeof item == 'string') {
-        return true;
-      }
-      return false;
-    }).map((item) => item);
-    this.group['topics_exact'] = form.topics_exact.filter((item) => {
-      if (typeof item == 'string') {
-        return true;
-      }
-      return false;
-    }).map((item) => item);
+    }
+    // console.log(a);
+    // this.group['main_topic_exact'] = form.main_topic_exact.filter((item) => {
+    //   if (typeof item == 'string') {
+    //     return true;
+    //   }
+    //   return false;
+    // }).map((item) => item);
+    // this.group['taxanomy_lv1_exact'] = form.taxanomy_lv1_exact.filter((item) => {
+    //   if (typeof item == 'string') {
+    //     return true;
+    //   }
+    //   return false;
+    // }).map((item) => item);
+    // this.group['taxanomy_lv2_exact'] = form.taxanomy_lv2_exact.filter((item) => {
+    //   if (typeof item == 'string') {
+    //     return true;
+    //   }
+    //   return false;
+    // }).map((item) => item);
+    // this.group['taxanomy_lv3_exact'] = form.taxanomy_lv3_exact.filter((item) => {
+    //   if (typeof item == 'string') {
+    //     return true;
+    //   }
+    //   return false;
+    // }).map((item) => item);
+    // this.group['topics_exact'] = form.topics_exact.filter((item) => {
+    //   if (typeof item == 'string') {
+    //     return true;
+    //   }
+    //   return false;
+    // }).map((item) => item);
+    console.log(this.group)
   }
   search (key: string, value: string) {
     this.start = 0;
