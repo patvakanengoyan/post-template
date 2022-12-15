@@ -396,7 +396,8 @@ section {
 }
 
 .aside-block, .post-entry-1, .post-entry-1 img, .post-entry-2 {
-  margin-bottom: 30px
+  margin-bottom: 30px;
+  object-fit: contain;
 }
 
 .post-entry-1 h2 {
@@ -851,8 +852,6 @@ section {
   display: inline-block;
   margin: 8px;
   border-radius: 50%;
-  opacity: .75;
-  transition: opacity .15s linear
 }
 
 #share a:hover {

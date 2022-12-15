@@ -328,4 +328,16 @@ h2 {
   display: flex;
   gap: 16px;
 }
-
+.messenger {
+  background-color: #448AFF;
+  width: 50px;
+  height: 50px;
+  position: relative;
+  top: 14px;
+}
+.messenger img {
+  width: 39px;
+  position: absolute;
+  bottom: 6px;
+  right: 5px;
+}
