@@ -40,6 +40,11 @@ const routes: Routes = [
       import('./web-pages/profile/profile.module').then((m) => m.ProfileModule)
   },
   {
+    path: 'welcome/verify-email',
+    loadChildren: () =>
+      import('./web-pages/welcome/welcome.module').then((m) => m.WelcomeModule)
+  },
+  {
     path: 'posts/:type',
     canActivate: [ViewPostGuard],
     loadChildren: () =>
