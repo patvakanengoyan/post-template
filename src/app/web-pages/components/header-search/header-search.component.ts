@@ -68,7 +68,7 @@ export class HeaderSearchComponent implements OnInit {
       if (form[i] instanceof Array) {
         let arr = [] as any;
         for (let j = 0; j < form[i].length; j+=2) {
-          arr.push(`${form[i][j]} (${form[i][j + 1]})`);
+          arr.push({name: `${form[i][j]} (${form[i][j + 1]})`, value: `${form[i][j]}`});
         }
         this.group[i] = arr;
       }
