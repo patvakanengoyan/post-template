@@ -64,7 +64,7 @@
 </c-row>
 <div *ngIf="isModalShown" [config]="{ show: true }" (onHidden)="hideModal()" bsModal #autoShownModal="bs-modal"
      class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-auto-name">
-  <div class="modal-dialog" [ngClass]="{'my-modal-width': requestType == 'add' || requestType == 'edit' || requestType == 'comments'}">
+  <div class="modal-dialog" [ngClass]="requestType == 'add' || requestType == 'edit' || requestType == 'comments' ? 'my-modal-width' : 'modal-lg'">
     <div class="modal-content">
       <div class="modal-header">
         <h4 *ngIf="requestType == 'view'" class="modal-title pull-left">View Post</h4>
@@ -77,7 +77,7 @@
       </div>
 
       <div class="modal-body" *ngIf="requestType == 'comments'">
-            
+
           <div class="block">
             <div class="block-header">
               <div class="title">
@@ -152,7 +152,7 @@
               </div>
             </div>
           </div>
-          
+
         </div>
 
       <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)" class="data_form">

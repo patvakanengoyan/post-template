@@ -33,7 +33,7 @@ export class FooterComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getData(`${this.url}?facet=on&q=*:*&start=0&rows=4`)
+    this.getData(`${this.url}?q=*:*&start=0&rows=4`)
   }
 
   getData(url: string) {
