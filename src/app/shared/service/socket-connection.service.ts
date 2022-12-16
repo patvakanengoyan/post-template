@@ -129,21 +129,25 @@ export class SocketConnectionService {
       }
 
       setTimeout(() => {
-        this.observer = new IntersectionObserver(entries => {
-          if (entries[0].isIntersecting === true) {
-            skyp1 = skyp1 + 20;
-            if (res['data']['result'].length == 20) {
-              this.getMessagesList(id, skyp1);
+        if (res['data']['result'].length > 0) {
+          this.observer = new IntersectionObserver(entries => {
+            if (entries[0].isIntersecting === true) {
+              skyp1 = skyp1 + 20;
+              if (res['data']['result'].length == 20) {
+                this.getMessagesList(id, skyp1);
+              }
+              this.observer.disconnect();
             }
-            this.observer.disconnect();
+          }, {
+            threshold: 0.75
+          });
+          let com = document.getElementsByClassName('comment-block');
+  
+          if (com) {
+            this.observer.observe(com[com.length - 1]);
           }
-        }, {
-          threshold: 0.75
-        });
-        let com = document.getElementsByClassName('comment-block');
-        if (com) {
-          this.observer.observe(com[com.length - 1]);
         }
+    
       }, 0);
 
     });
