@@ -219,6 +219,7 @@ export class PostsComponent implements OnInit {
             this.getById(id);
         } else if (type === 'add') {
         } else if (type === 'comments') {
+            this.socket.messagesList = [];
             this.chatID = id.chat_id;
             this.socket.join(id.chat_id);
             this.socket.getMessagesList(id.chat_id);
