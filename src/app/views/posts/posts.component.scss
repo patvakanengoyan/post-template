@@ -360,4 +360,6 @@ h2 {
   display: flex;
   gap: 16px;
 }
-
+::ng-deep .ck-rounded-corners .ck.ck-balloon-panel, ::ng-deep.ck.ck-balloon-panel.ck-rounded-corners {
+  z-index: 9999;
+}

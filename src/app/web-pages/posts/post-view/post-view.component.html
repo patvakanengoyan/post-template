@@ -38,18 +38,18 @@
           <div id="share" #share>
 
             <!-- facebook -->
-            <a class="facebook" href="https://www.facebook.com/sharer.php?u=http://talmudy.com/" target="blank"><i class="fa fa-facebook"></i></a>
+            <a class="facebook" href="https://www.facebook.com/sharer.php?u={{this.currentURL}}" target="blank"><i class="fa fa-facebook"></i></a>
 
             <!-- messenger -->
-            <a class="messenger" href="https://www.facebook.com/dialog/send?link=http://talmudy.com/&app_id=721276385762838&redirect_uri=http://talmudy.com/" target="blank">
+            <a class="messenger" href="https://www.facebook.com/dialog/send?link={{this.currentURL}}&app_id=1284560248772802&redirect_uri={{this.currentURL}}" target="blank">
               <img src="/assets/images/messenger.png" alt="messenger">
             </a>
 
             <!-- twitter -->
-            <a class="twitter" href="https://twitter.com/intent/tweet?url=http://talmudy.com/" target="blank"><i class="fa fa-twitter"></i></a>
+            <a class="twitter" href="https://twitter.com/intent/tweet?url={{this.currentURL}}" target="blank"><i class="fa fa-twitter"></i></a>
 
             <!-- linkedin -->
-            <a class="linkedin" href="https://www.linkedin.com/sharing/share-offsite/?url=http://talmudy.com/" target="blank"><i class="fa fa-linkedin"></i></a>
+            <a class="linkedin" href="https://www.linkedin.com/sharing/share-offsite/?url=http:{{this.currentURL}}" target="blank"><i class="fa fa-linkedin"></i></a>
 
           </div>
           <!-- ======= Comments ======= -->

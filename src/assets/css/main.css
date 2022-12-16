@@ -397,7 +397,6 @@ section {
 
 .aside-block, .post-entry-1, .post-entry-1 img, .post-entry-2 {
   margin-bottom: 30px;
-  object-fit: contain;
 }
 
 .post-entry-1 h2 {

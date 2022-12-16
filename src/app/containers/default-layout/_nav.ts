@@ -12,14 +12,14 @@ export const navItems: INavData[] = [
     iconComponent: { name: 'cil-drop' }
   },
   {
-    name: 'Topics',
-    url: 'admin/topics',
-    iconComponent: { name: 'cil-align-center' }
-  },
-  {
     name: 'Main topics',
     url: 'admin/main-topics',
     iconComponent: { name: 'cil-justify-center' }
+  },
+  {
+    name: 'Topics',
+    url: 'admin/topics',
+    iconComponent: { name: 'cil-align-center' }
   },
   {
     name: 'Taxonomy',

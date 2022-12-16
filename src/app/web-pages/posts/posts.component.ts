@@ -129,7 +129,6 @@ export class PostsComponent implements OnInit {
     //   }
     //   return false;
     // }).map((item) => item);
-    console.log(this.group)
   }
   search (key: string, value: string) {
     this.start = 0;

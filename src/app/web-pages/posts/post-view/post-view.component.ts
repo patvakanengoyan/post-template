@@ -35,6 +35,8 @@ export class PostViewComponent implements OnInit {
   public redirectUrl: string = ''
   public imagePrefix: string = environment.imagePrefix;
   public latestList: any;
+  currentURL:any;
+
   constructor(private requestService: RequestService,
               public activatedRoute: ActivatedRoute,
               private sanitizer: DomSanitizer,
@@ -43,6 +45,7 @@ export class PostViewComponent implements OnInit {
               public fb: FormBuilder) {}
 
   ngOnInit(): void {
+    this.currentURL = window.location.href;
     switch (this.activatedRoute.snapshot.params['type']) {
       case 'kids' : this.type = 'KidsClick'; break;
       case 'academic' : this.type = 'AcademicSearch'; break;
