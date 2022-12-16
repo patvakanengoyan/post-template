@@ -100,9 +100,13 @@
                    class="img-fluid image-height" onError="this.src='assets/images/no-image.png'">
             </a>
             <div class="post-meta">
-              <span class="date">{{item?.volume}} </span> <span class="mx-1">&bullet;</span> <span>{{item?.volume_number}}
-              <sup>{{item?.s}}</sup> <span class="mx-1">&bullet;</span> </span>
-              <span class="date">{{item?.letter}} </span> | <span>{{item?.page}}</span>
+              <span class="date" *ngIf="item?.volume">{{item?.volume}} <span class="mx-1">&bullet;</span></span>
+
+              <span *ngIf="item?.volume_number">{{item?.volume_number}}
+                <sup>{{item?.s}}</sup>
+                <span class="mx-1">&bullet;</span>
+              </span>
+              <span class="date" *ngIf="item?.letter">{{item?.letter}} | </span>  <span>{{item?.page}}</span>
             </div>
             <h2><a [routerLink]="['/posts/' + redirectUrl, item.id]">{{item?.title}}</a></h2>
           </div>
