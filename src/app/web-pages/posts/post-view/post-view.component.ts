@@ -139,9 +139,9 @@ export class PostViewComponent implements OnInit {
   }
 
   getLatestList () {
-    // this.requestService.getData(`${this.url}?fl=id,title,type,volumes&group.field=type&group.limit=2&group=true&q=*:*&sort=id_int desc`).subscribe((res) => {
-    //   console.log(res);
-    // })
+    this.requestService.getData(`${this.url}?fl=id,title,type,volume,page,letter&q=*:*&sort=id_int desc&fq=type:${this.type}`).subscribe((res: any) => {
+      this.latestList = res?.response?.docs;
+    })
   }
 
 }

@@ -16,11 +16,10 @@ export class HomeComponent implements OnInit {
   public dataAcademic: any[] = [];
   public dataKids: any[] = [];
   public dataJune2020: any[] = [];
-  form: any;
-  filterResult: any = {};
+  public form: any;
   public urlSlider: string = environment.webPages.slider.get;
   public dataSlider: any[] = [];
-  customOptions: OwlOptions = {
+  public customOptions: OwlOptions = {
     loop: true,
     autoplay: true,
     navText: ["<div><div class=\"custom-swiper-button-prev\"><span class=\"bi-chevron-left\"></span></div></div>",
@@ -37,7 +36,6 @@ export class HomeComponent implements OnInit {
     },
     nav: true,
     autoHeight:true,
-
   }
 
   constructor(private requestService: RequestService,
@@ -63,50 +61,24 @@ export class HomeComponent implements OnInit {
   getDataKids(url: string) {
     this.requestService.getData(url).subscribe((item: any) => {
       this.dataKids = item?.response?.docs;
-      // this.allData = item;
     })
   }
 
   getDataPieces(url: string) {
     this.requestService.getData(url).subscribe((item: any) => {
       this.dataPieces = item?.response?.docs;
-      // this.allData = item;
     })
   }
 
   getDataJune2020(url: string) {
     this.requestService.getData(url).subscribe((item: any) => {
       this.dataJune2020 = item?.response?.docs;
-      // this.allData = item;
     })
   }
 
   getDataAcademic(url: string) {
     this.requestService.getData(url).subscribe((item: any) => {
       this.dataAcademic = item?.response?.docs;
-      // this.allData = item;
     })
-  }
-
-  searchResult(val: any) {
-    if (val === 'reset') {
-      this.getDataKids(this.url);
-      return;
-    }
-    console.log(val)
-    this.form = val;
-    this.filterResult = {};
-    this.form['value'] = val;
-    for (let i in this.form.value) {
-      if (this.form.value[i]) {
-        this.isInclude(i)
-      }
-    }
-    // this.data = Object.values(this.filterResult);
-    this.el.nativeElement?.querySelector('#posts').scrollIntoView();
-  }
-
-  isInclude(key: string) {
-
   }
 }

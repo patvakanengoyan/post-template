@@ -12,19 +12,19 @@ import {Users} from "../../shared/models/users";
   styleUrls: ['./users.component.scss']
 })
 export class UsersComponent implements OnInit {
-
+  @ViewChild('autoShownModal', { static: false }) autoShownModal?: ModalDirective;
+  @ViewChild(DeleteModalComponent) private modal!: DeleteModalComponent;
   public url: string = `${environment.admin.users.get}`;
   public today: string = `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}`;
   public data: Users[] = [];
   public paginationConfig: any;
   public viewData!: Users;
   public form: any;
-  itemId!: number;
-  @ViewChild('autoShownModal', { static: false }) autoShownModal?: ModalDirective;
-  @ViewChild(DeleteModalComponent) private modal!: DeleteModalComponent;
-  isModalShown = false;
-  requestType: string = '';
-  editImagePath: string | undefined = '';
+  private itemId!: number | undefined;
+  public isModalShown: boolean = false;
+  public requestType: string = '';
+  // public editImagePath: string | undefined = '';
+
   constructor(public requestService: RequestService,
               public fb: FormBuilder) { }
 
@@ -34,12 +34,11 @@ export class UsersComponent implements OnInit {
       first_name: ['', Validators.required],
       last_name: ['', Validators.required],
       email: ['', Validators.required],
-      nickname: ['', Validators.required],
+      nickname: [''],
       birthday: ['', Validators.compose([Validators.required])],
-      // image: [''],
       status: [''],
-      password: [''],
-      password_confirmation: [''],
+      password: ['', Validators.minLength(8)],
+      password_confirmation: ['', Validators.minLength(8)],
     },{validator: this.matchingPasswords('password', 'password_confirmation')})
   }
 
@@ -74,8 +73,6 @@ export class UsersComponent implements OnInit {
     } else if (type === 'edit') {
       this.getById(id);
         this.setValidation();
-    } else if (type === 'add') {
-        this.setValidation();
     }
   }
 
@@ -85,7 +82,7 @@ export class UsersComponent implements OnInit {
 
   onHidden(): void {
     this.isModalShown = false;
-    this.editImagePath = undefined;
+    // this.editImagePath = undefined;
     this.form.reset();
   }
 
@@ -137,15 +134,12 @@ export class UsersComponent implements OnInit {
     if (this.requestType == 'edit') {
       this.form.get('password_confirmation').clearValidators();
       this.form.get('password').clearValidators();
-      // this.form.get('image').clearValidators();
     } else {
         this.form.get('password_confirmation').setValidators([Validators.required]);
         this.form.get('password').setValidators([Validators.required]);
-        // this.form.get('image').setValidators([Validators.required]);
     }
       this.form.get('password_confirmation').updateValueAndValidity();
       this.form.get('password').updateValueAndValidity();
-      // this.form.get('image').updateValueAndValidity();
   }
 
 

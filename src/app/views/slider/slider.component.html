@@ -70,7 +70,7 @@
 
         <div class="modal-body">
           <div *ngIf="requestType == 'view' && viewData">
-            <img style="max-width: 300px; max-height: 350px;" src="{{this.requestService.imgSite + viewData.image?.url}}"
+            <img style="max-width: 300px; max-height: 350px;" onError="this.src='assets/images/no-image.png'" src="{{this.requestService.imgSite + viewData.image?.url}}"
                  alt="img">
             <div>
               <p><b>Title: </b>{{viewData.title}}</p>

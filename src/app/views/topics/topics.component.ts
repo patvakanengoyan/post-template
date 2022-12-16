@@ -16,21 +16,21 @@ export class TopicsComponent implements OnInit {
     @ViewChild(DeleteModalComponent) private modal!: DeleteModalComponent;
     public url: string = `${environment.admin.topics.get}`;
     public data: Topics[] = [];
-    paginationConfig: any;
-    viewData: any;
-    form: any = FormGroup;
-    itemId!: number;
-    isModalShown = false;
-    requestType: any;
-    itemList: any = [];
-    selectedItems = [];
-    settings: any = {};
-    loading = false;
-    indices: any;
+    public paginationConfig: any;
+    public viewData: any;
+    public form: any = FormGroup;
+    public itemId!: number | undefined;
+    public isModalShown: boolean = false;
+    public requestType: string = '';
+    public itemList: any = [];
+    public selectedItems = [];
+    public settings: any = {};
+    public loading: boolean = false;
+    public indices: any;
     readonly bufferSize: number = 10;
-    page: number = 1;
-    isLoaded: boolean = true;
-    mId: any;
+    public page: number = 1;
+    public isLoaded: boolean = true;
+    public mId: any;
 
     constructor(public requestService: RequestService,
                 public fb: FormBuilder,) {
@@ -124,8 +124,6 @@ export class TopicsComponent implements OnInit {
             this.viewData = item;
         } else if (type === 'edit') {
             this.getTopicKeysList(item, type)
-        } else if (type === 'add') {
-
         }
     }
 

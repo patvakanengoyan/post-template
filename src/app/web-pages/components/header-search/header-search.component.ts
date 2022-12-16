@@ -13,7 +13,7 @@ export class HeaderSearchComponent implements OnInit {
   public url: string = environment.posts.get;
   @Output() close = new EventEmitter<string>();
   public form: any = FormGroup;
-  public group = {};
+  public group: any = {};
   public collapsed = {
     main_topic_exact: true,
     taxanomy_lv1_exact: true,
@@ -28,8 +28,8 @@ export class HeaderSearchComponent implements OnInit {
     taxanomy_lv3_exact: [],
     topics_exact: []
   };
-  itemListType: any = [];
-  singleSelectSetting: any = {};
+  public itemListType: any = [];
+  public singleSelectSetting: any = {};
 
   constructor(public requestService: RequestService,
               public fb: FormBuilder,
@@ -73,36 +73,6 @@ export class HeaderSearchComponent implements OnInit {
         this.group[i] = arr;
       }
     }
-    // this.group['main_topic_exact'] = form.main_topic_exact.filter((item) => {
-    //   if (typeof item == 'string') {
-    //     return true;
-    //   }
-    //   return false;
-    // }).map((item) => item);
-    // this.group['taxanomy_lv1_exact'] = form.taxanomy_lv1_exact.filter((item) => {
-    //   if (typeof item == 'string') {
-    //     return true;
-    //   }
-    //   return false;
-    // }).map((item) => item);
-    // this.group['taxanomy_lv2_exact'] = form.taxanomy_lv2_exact.filter((item) => {
-    //   if (typeof item == 'string') {
-    //     return true;
-    //   }
-    //   return false;
-    // }).map((item) => item);
-    // this.group['taxanomy_lv3_exact'] = form.taxanomy_lv3_exact.filter((item) => {
-    //   if (typeof item == 'string') {
-    //     return true;
-    //   }
-    //   return false;
-    // }).map((item) => item);
-    // this.group['topics_exact'] = form.topics_exact.filter((item) => {
-    //   if (typeof item == 'string') {
-    //     return true;
-    //   }
-    //   return false;
-    // }).map((item) => item);
   }
 
   collaspseBlock(type: string) {
@@ -120,16 +90,6 @@ export class HeaderSearchComponent implements OnInit {
   reset() {
     this.form.reset();
     this.form.markAllAsTouched();
-    // this.form.reset({
-    //   title: '',
-    //   description: '',
-    //   country: '',
-    //   city: '',
-    //   tag: '',
-    //   category: ''
-    // });
-    // this.submit.emit('reset');
-    // this.searchShow = !this.searchShow
   }
 
   searchSubmit(form: any) {

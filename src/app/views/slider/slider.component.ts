@@ -4,6 +4,7 @@ import {RequestService} from "../../shared/service/request.service";
 import {ModalDirective} from "ngx-bootstrap/modal";
 import {DeleteModalComponent} from "../../shared/utils/delete-modal/delete-modal.component";
 import {environment} from "../../../environments/environment.prod";
+import {Slider} from "../../shared/models/slider";
 
 @Component({
   selector: 'app-slider',
@@ -11,16 +12,16 @@ import {environment} from "../../../environments/environment.prod";
   styleUrls: ['./slider.component.scss']
 })
 export class SliderComponent implements OnInit {
-  url: any = `${environment.admin.slider}`;
-  data: any;
-  viewData: any;
-  form: any = FormGroup;
   @ViewChild('autoShownModal', {static: false}) autoShownModal?: ModalDirective;
   @ViewChild(DeleteModalComponent) private modal!: DeleteModalComponent;
-  isModalShown = false;
-  requestType: any;
-  editImagePath: any;
-  paginationConfig: any;
+  public url: string = `${environment.admin.slider}`;
+  public data: Slider[] = [];
+  public viewData: any;
+  public form: any = FormGroup;
+  public isModalShown: boolean = false;
+  public requestType: string = '';
+  public editImagePath: string | undefined = '';
+  public paginationConfig: any;
 
   constructor(public requestService: RequestService,
               public fb: FormBuilder) {

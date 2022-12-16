@@ -17,8 +17,6 @@ export class ProfileComponent implements OnInit {
   private url: string = `${environment.webPages.profile}`;
   public userData: any;
   public form: any = FormGroup;
-  count: number = 0;
-  clickButton: boolean = true
 
   constructor(private requestService: RequestService,
               public router: Router,

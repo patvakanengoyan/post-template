@@ -39,7 +39,6 @@ export class FooterComponent implements OnInit {
   getData(url: string) {
     this.requestService.getData(url).subscribe((item: any) => {
       this.setUrls(item?.response?.docs);
-      // this.allData = item;
     })
   }
 

@@ -12,18 +12,18 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
   styleUrls: ['./admins.component.scss']
 })
 export class AdminsComponent implements OnInit {
-
+  @ViewChild('autoShownModal', { static: false }) autoShownModal?: ModalDirective;
+  @ViewChild(DeleteModalComponent) private modal!: DeleteModalComponent;
   public url: string = `${environment.admin.admins.get}`;
   public data: Users[] = [];
   public paginationConfig: any;
   public viewData!: Users;
   public form: any;
-  itemId!: number;
-  @ViewChild('autoShownModal', { static: false }) autoShownModal?: ModalDirective;
-  @ViewChild(DeleteModalComponent) private modal!: DeleteModalComponent;
-  isModalShown = false;
-  requestType: string = '';
-  editImagePath: string | undefined = '';
+  public itemId!: number | undefined;
+  public isModalShown = false;
+  public requestType: string = '';
+  public editImagePath: string | undefined = '';
+
   constructor(public requestService: RequestService,
               public fb: FormBuilder) { }
 
@@ -36,8 +36,8 @@ export class AdminsComponent implements OnInit {
       role: ['', Validators.required],
       image: [''],
       status: [''],
-      password: [''],
-      password_confirmation: [''],
+      password: ['', Validators.minLength(8)],
+      password_confirmation: ['', Validators.minLength(8)],
     },{validator: this.matchingPasswords('password', 'password_confirmation')})
   }
 
@@ -132,8 +132,8 @@ export class AdminsComponent implements OnInit {
       this.form.get('password').clearValidators();
       this.form.get('image').clearValidators();
     } else {
-      this.form.get('password_confirmation').setValidators([Validators.required]);
-      this.form.get('password').setValidators([Validators.required]);
+      this.form.get('password_confirmation').setValidators([Validators.required, Validators.minLength(8)]);
+      this.form.get('password').setValidators([Validators.required, Validators.minLength(8)]);
       this.form.get('image').setValidators([Validators.required]);
     }
     this.form.get('password_confirmation').updateValueAndValidity();

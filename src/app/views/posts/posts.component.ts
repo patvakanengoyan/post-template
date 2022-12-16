@@ -15,6 +15,7 @@ import { map } from "rxjs/operators";
 import { forkJoin } from "rxjs";
 import { DomSanitizer } from "@angular/platform-browser";
 import { SocketConnectionService } from '../../shared/service/socket-connection.service';
+import {Posts} from "../../shared/models/posts";
 
 @Component({
     selector: 'app-posts',
@@ -22,31 +23,31 @@ import { SocketConnectionService } from '../../shared/service/socket-connection.
     styleUrls: ['./posts.component.scss']
 })
 export class PostsComponent implements OnInit {
-    url: string = `${environment.admin.posts.get}`;
-    data: any = [];
-    viewData: any = {};
-    form: any = FormGroup;
-    public Editor = customBuild;
-    @Input() config = editorConfig;
-    @ViewChild('autoShownModal', { static: false }) autoShownModal?: ModalDirective;
-    @ViewChild(DeleteModalComponent) private modal!: DeleteModalComponent;
-    isModalShown: boolean = false;
-    requestType: string = '';
-    monoSelect: any = {};
-    multiSelect: any = {};
+  @Input() config = editorConfig;
+  @ViewChild('autoShownModal', { static: false }) autoShownModal?: ModalDirective;
+  @ViewChild(DeleteModalComponent) private modal!: DeleteModalComponent;
+  @ViewChild('tagInput', { static: false }) tagInput!: ElementRef<HTMLInputElement>;
+  @ViewChild('auto', { static: false }) matAutocomplete!: MatAutocomplete;
+  public url: string = `${environment.admin.posts.get}`;
+  public data: Posts[] = [];
+  public viewData: any = {};
+  public form: any = FormGroup;
+  public Editor = customBuild;
+  public isModalShown: boolean = false;
+  public requestType: string = '';
+  public monoSelect: any = {};
+  public multiSelect: any = {};
 
     visible: boolean = true;
     selectable: boolean = true;
-    removable: boolean = true;
-    addOnBlur: boolean = true;
-    separatorKeysCodes: number[] = [ENTER, COMMA];
+    // removable: boolean = true;
+    // addOnBlur: boolean = true;
+    // separatorKeysCodes: number[] = [ENTER, COMMA];
     paginationConfig: any;
     tagCtrl = new FormControl();
     filteredtags: Observable<string[]>;
     // tags: string[] = ['Lemon'];
     alltags: string[] = ['Business', 'Culture', 'Sport', 'Food'];
-    @ViewChild('tagInput', { static: false }) tagInput!: ElementRef<HTMLInputElement>;
-    @ViewChild('auto', { static: false }) matAutocomplete!: MatAutocomplete;
     editImagePath: any;
     taxonomyList: any = [];
     volumesList: any = [];

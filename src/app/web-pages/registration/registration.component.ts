@@ -12,9 +12,9 @@ import {ToastrService} from "ngx-toastr";
 })
 export class RegistrationComponent implements OnInit {
   public today: string = `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}`
-  form: any = FormGroup;
-  count: number = 0;
-  clickButton: boolean = true
+  public form: any = FormGroup;
+  private count: number = 0;
+  public clickButton: boolean = true
 
   constructor(private requestService: RequestService,
               public router: Router,

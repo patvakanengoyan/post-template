@@ -20,7 +20,7 @@ export class MainTopicsComponent implements OnInit {
   public paginationConfig: any;
   public viewData: any;
   public form: any = FormGroup;
-  public itemId!: number;
+  public itemId!: number | undefined;
   public isModalShown: boolean = false;
   public requestType: string = '';
 
@@ -58,10 +58,9 @@ export class MainTopicsComponent implements OnInit {
   showModal(item, type): void {
     this.isModalShown = true;
     this.viewData = item;
-    this.requestType = type
+    this.requestType = type;
     this.itemId = item ? item.id : null;
-    if (type === 'view') {
-    } else if (type === 'edit') {
+    if (type === 'edit') {
       this.form.patchValue({
         name: item.name,
         lang_code: item.lang_code,
@@ -69,8 +68,6 @@ export class MainTopicsComponent implements OnInit {
         color: item.color,
         image: item.image,
       })
-    } else if (type === 'add') {
-
     }
   }
 

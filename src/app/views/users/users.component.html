@@ -55,9 +55,9 @@
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 *ngIf="requestType == 'view'" class="modal-title pull-left">View Users</h4>
-        <h4 *ngIf="requestType == 'edit'" class="modal-title pull-left">Edit Users</h4>
-        <h4 *ngIf="requestType == 'add'" class="modal-title pull-left">Add Users</h4>
+        <h4 *ngIf="requestType == 'view'" class="modal-title pull-left">View User</h4>
+        <h4 *ngIf="requestType == 'edit'" class="modal-title pull-left">Edit User</h4>
+        <h4 *ngIf="requestType == 'add'" class="modal-title pull-left">Add User</h4>
         <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="hideModal()">
           <span aria-hidden="true" class="visually-hidden">&times;</span>
         </button>
@@ -70,6 +70,8 @@
               <p><b>First name: </b>{{viewData[0].first_name}}</p>
               <p><b>Last name: </b>{{viewData[0].last_name}}</p>
               <p><b>Email: </b>{{viewData[0].email}}</p>
+              <p><b>Nickname: </b>{{viewData[0].nickname}}</p>
+              <p><b>Birthday: </b>{{viewData[0].birthday}}</p>
               <p><b>Status: </b>{{viewData[0].status == 1 ? 'Active' : 'Inactive'}}</p>
             </div>
           </div>
@@ -116,19 +118,6 @@
                     <span class="error-message">The nickname is required</span>
                   </div>
                 </div>
-<!--                <div class="col-6 mb-3">-->
-<!--                  <label for="role" [ngClass]="(form.controls.role?.invalid &&-->
-<!--                  (form.controls.role?.dirty || form.controls.role?.touched)) ? 'invalid-label-color' : ''">Role *</label>-->
-<!--                  <select class="form-select" formControlName="role" id="role">-->
-
-<!--                    <option value="admin">Super Admin</option>-->
-<!--                    <option value="administrator">Admin</option>-->
-<!--                    <option value="moderator">Moderator</option>-->
-<!--                  </select>-->
-<!--                  <div *ngIf="!form.controls.role?.valid && (form.controls.role?.dirty || form.controls.role?.touched)">-->
-<!--                    <span class="error-message">The Role is required</span>-->
-<!--                  </div>-->
-<!--                </div>-->
                 <div class="col-6 mb-3">
                   <label for="password" [ngClass]="(form.controls.password?.invalid &&
                   (form.controls.password?.dirty || form.controls.password?.touched)) ? 'invalid-label-color' : ''">Password *</label>

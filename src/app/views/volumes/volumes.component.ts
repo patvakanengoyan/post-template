@@ -19,7 +19,7 @@ export class VolumesComponent implements OnInit {
     public paginationConfig: any;
     public viewData: any;
     public form: any = FormGroup;
-    public itemId!: number;
+    public itemId!: number | undefined;
     public isModalShown: boolean = false;
     public requestType: string = '';
 

@@ -11,16 +11,8 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-
-  @Output() submit = new EventEmitter<string>();
   @Input() isShowSearch: boolean = true;
-  searchShow: boolean =false;
-
-  itemListType: any = [];
-  settingsCountry: any = {};
-
-  itemListCategory: any = [];
-  settingsCategory: any = {};
+  public searchShow: boolean = false;
   constructor(public requestService: RequestService,
               public fb: FormBuilder,
               private http: HttpClient,
@@ -28,20 +20,6 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
     this.requestService.userName = localStorage.getItem('site_first_name');
-    this.itemListCategory = [
-      {"id":1,"itemName":"Business"},
-      {"id":2,"itemName":"Culture"},
-      {"id":3,"itemName":"Sport"},
-      {"id":4,"itemName":"Food"},
-      {"id":5,"itemName":"Startups"},
-      {"id":6,"itemName":"Travel"},
-    ];
-
-    this.settingsCategory = {
-      enableSearchFilter: true,
-      selectAllText: 'Select All',
-      text:"Select item"
-    };
   }
 
   logout() {
@@ -97,25 +75,6 @@ export class HeaderComponent implements OnInit {
   }
 
   closeWindow(){
-    this.searchShow = !this.searchShow
-  }
-
-  searchSubmit(form: any) {
-    // if (this.form.valid) {
-    //     this.submit.emit(form);
-    //     this.searchShow = !this.searchShow
-    // }
-  }
-  reset() {
-    // this.form.reset({
-    //   title: '',
-    //   description: '',
-    //   country: '',
-    //   city: '',
-    //   tag: '',
-    //   category: ''
-    // });
-    this.submit.emit('reset');
     this.searchShow = !this.searchShow
   }
 }
