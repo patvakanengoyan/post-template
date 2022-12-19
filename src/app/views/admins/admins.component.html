@@ -24,9 +24,9 @@
                    alt="img" style="width: 35px; max-height: 50px;"
                    onError="this.src='assets/images/no-image.png'">
             </td>
-            <td>{{item?.first_name}}</td>
-            <td>{{item?.last_name}}</td>
-            <td>{{item?.email}}</td>
+            <td><span cTooltip="{{item?.first_name}}">{{item?.first_name}}</span></td>
+            <td><span cTooltip="{{item?.last_name}}">{{item?.last_name}}</span></td>
+            <td><span cTooltip="{{item?.email}}">{{item?.email}}</span></td>
             <td>
               <c-form-check [switch]="item?.status">
                 <input cFormCheckInput [disabled]="true" [checked]="item.status" type="checkbox" />

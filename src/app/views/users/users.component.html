@@ -21,9 +21,9 @@
             <td (click)="showModal(item.id, 'view')">
               <span cTooltip="{{item?.first_name}}" class="cursor-pointer">{{item?.first_name}}</span>
             </td>
-            <td>{{item?.last_name}}</td>
-            <td>{{item?.email}}</td>
-            <td>{{item?.nickname}}</td>
+            <td><span cTooltip="{{item?.last_name}}">{{item?.last_name}}</span></td>
+            <td><span cTooltip="{{item?.email}}">{{item?.email}}</span></td>
+            <td><span cTooltip="{{item?.nickname}}">{{item?.nickname}}</span></td>
             <td>
               <c-form-check [switch]="item?.status">
                 <input cFormCheckInput [disabled]="true" [checked]="item.status" type="checkbox" />

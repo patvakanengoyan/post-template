@@ -26,8 +26,8 @@
                    alt="img" style="width: 35px; max-height: 50px;"
                    onError="this.src='assets/images/no-image.png'">
             </td>
-            <td><span cTooltip="{{item.title}}">{{item.title}}</span></td>
-            <td><span cTooltip="{{item.description}}">{{item.description}}</span></td>
+            <td><span cTooltip="{{item?.title}}">{{item.title}}</span></td>
+            <td><span cTooltip="{{item?.description}}">{{item.description}}</span></td>
             <td>
               <c-form-check [switch]="true">
                 <input cFormCheckInput [checked]="item.status" disabled type="checkbox"/>

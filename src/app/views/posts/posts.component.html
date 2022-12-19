@@ -27,12 +27,10 @@
               <span cTooltip="{{item.title}}" class="cursor-pointer"
                     (click)="showModal(item.id, 'view')">{{item.title}}</span>
             </td>
-            <td>{{item?.type}}</td>
-            <td>{{item?.letter}}</td>
-            <td>{{item?.page}}</td>
-            <td>
-              {{item?.color}}
-            </td>
+            <td><span cTooltip="{{item?.type}}">{{item?.type}}</span></td>
+            <td><span cTooltip="{{item?.letter}}">{{item?.letter}}</span></td>
+            <td><span cTooltip="{{item?.page}}">{{item?.page}}</span></td>
+            <td><span cTooltip="{{item?.color}}">{{item?.color}}</span></td>
             <td>
               <c-form-check [switch]="true">
                 <input cFormCheckInput [checked]="item.status" disabled type="checkbox"/>

@@ -24,8 +24,8 @@
               <img src="{{item?.image}}" alt="" style="width: 35px;max-height: 50px;"
                    onError="this.src='assets/images/no-image.png'">
             </td>
-            <td>{{item?.color}}</td>
-            <td>{{item?.key}}</td>
+            <td><span cTooltip="{{item?.color}}">{{item?.color}}</span></td>
+            <td><span cTooltip="{{item?.key}}">{{item?.key}}</span></td>
             <td class="actions">
               <a (click)="showModal(item, 'view')" title="View">
                 <i class="fa fa-eye cursor-pointer"></i>

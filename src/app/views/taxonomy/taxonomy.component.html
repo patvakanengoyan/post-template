@@ -24,8 +24,8 @@
               <span cTooltip="{{item.level1}}" class="cursor-pointer"
                     (click)="showModal(item.id, 'view', item)">{{item.level1}}</span>
             </td>
-            <td>{{item?.level2}}</td>
-            <td>{{item?.level3}}</td>
+            <td><span cTooltip="{{item?.level2}}">{{item?.level2}}</span></td>
+            <td><span cTooltip="{{item?.level3}}">{{item?.level3}}</span></td>
             <td class="actions">
               <a (click)="showModal(item.id, 'view', item)" title="View">
                 <i class="fa fa-eye cursor-pointer"></i>
