@@ -339,21 +339,11 @@ export class PostsComponent implements OnInit {
                 data.append('volume', this.form.value['volume'][0].id);
             }
         }
-        if (form.letter) {
-            data.append('letter', form.letter);
-        }
-        if (form.page) {
-            data.append('page', form.page);
-        }
-        if (form.slice_of_page) {
-            data.append('slice_of_page', form.slice_of_page);
-        }
-        if (form.volume_number) {
-            data.append('volume_number', form.volume_number);
-        }
-        if (form.color) {
-            data.append('color', form.color);
-        }
+        data.append('letter', form.letter ? form.letter : '');
+        data.append('page', form.page ? form.page : '');
+        data.append('slice_of_page', form.slice_of_page ? form.slice_of_page : '');
+        data.append('volume_number', form.volume_number ? form.volume_number : '');
+        data.append('color', form.color ? form.color : '');
         data.append('type', form.type[0].id);
         data.append('translations[en][title]', form.title);
         data.append('translations[en][description]', form.description);
@@ -377,35 +367,6 @@ export class PostsComponent implements OnInit {
             this.hideModal();
         })
     }
-
-    // getLists() {
-    //     let request1 = this.requestService.getData(`${environment.admin.posts.getTaxonomyList}`);
-    //     let request2 = this.requestService.getData(`${environment.admin.posts.getTopicList}`);
-    //     let request3 = this.requestService.getData(`${environment.admin.posts.getVolumesList}`);
-    //     forkJoin([request1, request2, request3]).subscribe(([item1, item2, item3]: any) => {
-    //         this.taxonomyList = [];
-    //         for (let i = 0; i < item1.data.length; i++) {
-    //             this.taxonomyList.push({
-    //                 id: item1.data[i].guid,
-    //                 itemName: `Level 1 : ${item1.data[i].level1}, Level 2 : ${item1.data[i].level2}, Level 3 : ${item1.data[i].level3}`
-    //             });
-    //         }
-    //         this.topicList = [];
-    //         for (let i = 0; i < item2.data.length; i++) {
-    //             this.topicList.push({
-    //                 id: item2.data[i].guid,
-    //                 itemName: item2.data[i].key
-    //             });
-    //         }
-    //         this.volumesList = [];
-    //         for (let i = 0; i < item3.data.length; i++) {
-    //             this.volumesList.push({
-    //                 id: item3.data[i].guid,
-    //                 itemName: item3.data[i].key
-    //             });
-    //         }
-    //     })
-    // }
 
     getVolumeList(event: any, type) {
         if (event.endIndex === this.volumesList.length - 1 && this.isLoadedList[type]) {

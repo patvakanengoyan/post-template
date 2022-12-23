@@ -97,37 +97,6 @@ export class PostsComponent implements OnInit {
         this.group[i] = arr;
       }
     }
-    // console.log(a);
-    // this.group['main_topic_exact'] = form.main_topic_exact.filter((item) => {
-    //   if (typeof item == 'string') {
-    //     return true;
-    //   }
-    //   return false;
-    // }).map((item) => item);
-    // this.group['taxanomy_lv1_exact'] = form.taxanomy_lv1_exact.filter((item) => {
-    //   if (typeof item == 'string') {
-    //     return true;
-    //   }
-    //   return false;
-    // }).map((item) => item);
-    // this.group['taxanomy_lv2_exact'] = form.taxanomy_lv2_exact.filter((item) => {
-    //   if (typeof item == 'string') {
-    //     return true;
-    //   }
-    //   return false;
-    // }).map((item) => item);
-    // this.group['taxanomy_lv3_exact'] = form.taxanomy_lv3_exact.filter((item) => {
-    //   if (typeof item == 'string') {
-    //     return true;
-    //   }
-    //   return false;
-    // }).map((item) => item);
-    // this.group['topics_exact'] = form.topics_exact.filter((item) => {
-    //   if (typeof item == 'string') {
-    //     return true;
-    //   }
-    //   return false;
-    // }).map((item) => item);
   }
   search (key: string, value: string) {
     this.start = 0;
