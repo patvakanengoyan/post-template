@@ -6,13 +6,8 @@ import { DeleteModalComponent } from "../../shared/utils/delete-modal/delete-mod
 import { RequestService } from "../../shared/service/request.service";
 import { environment } from "../../../environments/environment.prod";
 import { editorConfig } from "../../shared/ckEditorConfig/ck-editor-config";
-import { COMMA, ENTER, V } from "@angular/cdk/keycodes";
 import { FormControl } from '@angular/forms';
-import { Observable, startWith } from "rxjs";
-import { MatChipInputEvent } from "@angular/material/chips";
-import { MatAutocomplete, MatAutocompleteSelectedEvent } from "@angular/material/autocomplete";
-import { map } from "rxjs/operators";
-import { forkJoin } from "rxjs";
+import { MatAutocomplete } from "@angular/material/autocomplete";
 import { DomSanitizer } from "@angular/platform-browser";
 import { SocketConnectionService } from '../../shared/service/socket-connection.service';
 import {Posts} from "../../shared/models/posts";
@@ -40,14 +35,8 @@ export class PostsComponent implements OnInit {
 
     visible: boolean = true;
     selectable: boolean = true;
-    // removable: boolean = true;
-    // addOnBlur: boolean = true;
-    // separatorKeysCodes: number[] = [ENTER, COMMA];
     paginationConfig: any;
     tagCtrl = new FormControl();
-    filteredtags: Observable<string[]>;
-    // tags: string[] = ['Lemon'];
-    alltags: string[] = ['Business', 'Culture', 'Sport', 'Food'];
     editImagePath: any;
     taxonomyList: any = [];
     volumesList: any = [];
@@ -89,10 +78,6 @@ export class PostsComponent implements OnInit {
         public fb: FormBuilder,
         public socket: SocketConnectionService,
         public sanitizer: DomSanitizer) {
-        this.filteredtags = this.tagCtrl.valueChanges.pipe(
-            startWith(null),
-            map((tag: string | null) => (tag ? this._filter(tag) : this.alltags.slice())),
-        );
         this.form = this.fb.group({
             title: ['', Validators.required],
             description: ['', Validators.required],
@@ -251,71 +236,6 @@ export class PostsComponent implements OnInit {
     }
 
     /*
-      Get form filed 'tag'
-     */
-    get tagFiled() {
-        return this.form.get('tag');
-    }
-
-    /*
-      Adds an element to the "tag" field
-     */
-    add(event: MatChipInputEvent): void {
-        // Add tag only when MatAutocomplete is not open
-        // To make sure this does not conflict with OptionSelected Event
-        if (!this.matAutocomplete.isOpen) {
-            const input = event.input;
-            const value = event.value;
-
-            // Add our tag
-            if ((value || '').trim()) {
-                this.tagFiled.value.push(value.trim());
-                this.tagFiled.updateValueAndValidity();
-
-            }
-
-            // Reset the input value
-            if (input) {
-                input.value = '';
-            }
-
-            this.tagCtrl.setValue(null);
-        }
-    }
-
-    /*
-      Removes the element in the "tag" field
-     */
-    remove(tag: string): void {
-        const index = this.tagFiled.value.indexOf(tag);
-
-        if (index >= 0) {
-            this.tagFiled.value.splice(index, 1);
-            this.tagFiled.updateValueAndValidity();
-
-        }
-    }
-
-    /*
-      Selected the element in the "tag" field
-     */
-    selected(event: MatAutocompleteSelectedEvent): void {
-        this.tagFiled.value.push(event.option.viewValue);
-        this.tagFiled.updateValueAndValidity();
-        this.tagInput.nativeElement.value = '';
-        this.tagCtrl.setValue(null);
-    }
-
-    /*
-      Filter selected elements in the "tag" field
-     */
-    private _filter(value: string): string[] {
-        const filterValue = value.toLowerCase();
-
-        return this.alltags.filter(tag => tag.toLowerCase().indexOf(filterValue) === 0);
-    }
-
-    /*
       Send data method
      */
     onSubmit(form: any) {
@@ -368,6 +288,9 @@ export class PostsComponent implements OnInit {
         })
     }
 
+    /*
+      Get volume list
+     */
     getVolumeList(event: any, type) {
         if (event.endIndex === this.volumesList.length - 1 && this.isLoadedList[type]) {
             this.loading = true;
@@ -390,6 +313,10 @@ export class PostsComponent implements OnInit {
             });
         }
     }
+
+    /*
+      Get taxonomy list
+     */
     getTaxonomiesList(event: any, type) {
         if (event.endIndex === this.taxonomyList.length - 1 && this.isLoadedList[type]) {
             this.loading = true;
@@ -412,6 +339,10 @@ export class PostsComponent implements OnInit {
             });
         }
     }
+
+    /*
+      Get topic list
+     */
     getTopicList(event: any, type) {
         if (event.endIndex === this.topicList.length - 1 && this.isLoadedList[type]) {
             this.loading = true;
@@ -435,6 +366,9 @@ export class PostsComponent implements OnInit {
         }
     }
 
+    /*
+      Send message
+     */
     submit(val) {
         if (this.formComments.valid && localStorage.getItem('access_token')) {
             this.disableSend = true;
@@ -452,16 +386,26 @@ export class PostsComponent implements OnInit {
             })
         }
     }
+
+    /*
+      Reply message
+     */
     replyComment(comment) {
         this.replyID = comment['message_id'];
         this.replyUserName = comment['message_author']['user_name'];
     }
 
+    /*
+      Clear reply
+     */
     clearReply() {
         this.replyID = undefined;
         this.replyUserName = undefined;
     }
 
+    /*
+      Delete message
+     */
     deleteMessage(com) {
         let ex_version = 'v' + this.socket?.getInfo?.result?.endpoints?.major_version + '.' + this.socket?.getInfo?.result?.endpoints?.minor_version;
         this.requestService.delete(`${this.socket?.getInfo?.result?.endpoints?.host}/api/${ex_version}/room/${com.message_room_id}/message`, com.message_id, true).subscribe(res => {
