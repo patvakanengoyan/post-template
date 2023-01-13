@@ -43,24 +43,26 @@ export class FooterComponent implements OnInit {
   }
 
   setUrls(value) {
-    this.data = value.map((item) => {
-      if (item.type === 'KidsClick') {
-        item.url = '/posts/kids';
-        return item;
-      }
-      if (item.type === 'AcademicSearch') {
-        item.url = '/posts/academic';
-        return item;
-      }
-      if (item.type === 'Pieces') {
-        item.url = '/posts/pieces';
-        return item;
-      }
-      if (item.type === 'June2020') {
-        item.url = '/posts/june2020';
-        return item;
-      }
-    })
+    if (value) {
+      this.data = value.map((item) => {
+        if (item.type === 'KidsClick') {
+          item.url = '/posts/kids';
+          return item;
+        }
+        if (item.type === 'AcademicSearch') {
+          item.url = '/posts/academic';
+          return item;
+        }
+        if (item.type === 'Pieces') {
+          item.url = '/posts/pieces';
+          return item;
+        }
+        if (item.type === 'June2020') {
+          item.url = '/posts/june2020';
+          return item;
+        }
+      })
+    }
   }
 
   goTop() {
